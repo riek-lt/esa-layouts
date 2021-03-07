@@ -1,10 +1,10 @@
 body {
-  color: #fff073;
+  color: #d7d7d7;
 }
 
 #Background {
-  background: url("./default/Background.png");
-  /* background: #19171c; */
+  background-color: #19171c;
+  display:none;
 }
 
 *[class*='Border'] {
@@ -12,22 +12,28 @@ body {
 }
 
 .TimerStopped, .TimerPaused {
-  color: #b7b7b7;
+  color: #4B5267;
 }
 .TimerRunning {
-  color: #fff073;
+  color: #d7d7d7;
+  font-family: "Goodlight";
 }
 .TimerFinished {
-  color: white;
+  color: #AAFAC8;
+}
+
+.TimerForfeit {
+  color: red;
 }
 
 #GameLayout .RunInfoExtra {
-  color: #b7b7b7;
+  color: #d7d7d7;
+  align-items: left;
 }
 
 .Player {
   color: white;
-  background-color: #41245b;
+  /* background-color: #41245b; */
 }
 
 .Player .Pronouns,
@@ -35,9 +41,12 @@ body {
 .CommAndReader .Pronouns {
   font-weight: 400;
   font-size: 0.8em;
-  color: #cccccc;
+  color: #d7d7d7;
   text-transform: uppercase;
-  background-color: #2d1d3c;
+  background-color: #914e21;
+    border-radius: 15px;
+justify-content: center;
+  align-items: center;
 }
 
 .Player .Icon {
@@ -45,7 +54,7 @@ body {
 }
 
 .Player .Flag {
- border-color: white;
+ border-color: #d7d7d7;
 }
 
 .GameCapture {
@@ -57,7 +66,7 @@ body {
 }
 
 .CommAndReader {
-  background-color: #2d1d3c;
+  background-color: rgba(65, 36, 91, 0.5);
   color: white;
 }
 
@@ -109,16 +118,53 @@ body {
 
 #Intermission .DonationReader .Mic,
 #Intermission .MusicTrack .MCat {
-  background-color: #41245b;
+  /* background-color: #41245b; */
 }
 
 #Intermission .Header {
-  background-color: #41245b;
-  color: white;
+  /* background-color: #41245b; */
+  color: #914e21;
+  font-family: "Goodlight";
 }
-
+#Intermission .Header:first-of-type {
+  /* background-color: #41245b; */
+  color: #cf773b;
+}
 #Intermission .BottomBox,
 #Intermission .Content,
 #Intermission .CommercialTimer {
-  background-color: rgba(0, 0, 0, 0.3);
+  /* background-color: rgba(0, 0, 0, 0.3); */
+  text-align: left;
+  /* font-size: 20pt; */
 }
+
+.v1BG {
+  background-color: rgba(69,69,69,0.7);
+}
+
+.pronouns {
+  font-size: 60%;
+  /* background-color: rgba(145, 78, 33, 0.4); */
+  background-color: rgba(207, 119, 59, 0.4);
+  border-radius: 15px;
+
+}
+
+/* .BlockRed {
+  background-color: red;
+}
+.BlockBlue {
+  background-color: blue;
+}
+.BlockGreen {
+  background-color: green;
+}
+.BlockYellow {
+  background-color: yellow;
+}
+.BlockPurple {
+  background-color: purple;
+}
+.BlockBlack {
+  background-color: black;
+} */

@@ -26,6 +26,7 @@
     >
       Clear
     </v-btn>
+	Reload omnibar if you changed the host during a run.
   </v-app>
 </template>
 

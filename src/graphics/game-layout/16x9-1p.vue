@@ -1,113 +1,110 @@
 <template>
-  <div>
+<div :style="{ 'backgroundImage': `url(bsgbacks/widescreen_1_bg.png)`,
+'background-repeat': 'no-repeat'}
+">
     <!-- Game Captures -->
     <game-capture
       id="GameCapture1"
-      class="BorderLeft BorderBottom"
+      class="BlockRed"
       :style="{
-        left: '533px',
+        left: '483px',
         top: '0px',
-        width: '1387px',
-        height: '780px',
+        width: '1437px',
+        height: '809px',
       }"
     />
 
     <!-- Camera Captures -->
     <div
       id="CameraCapture1"
-      class="Capture"
+      class="Capture BlockBlue"
       :style="{
-        left: '0px',
-        top: '0px',
-        width: '533px',
-        height: '400px',
+        left: '8px',
+        top: '9px',
+        width: '440px',
+        height: '366px',
       }"
     />
 
-    <!-- Run Game Info/Timer -->
+    <!-- General Run Info -->
     <div
-      class="Fixed Flex"
-      :style="{
-        left: '533px',
-        top: '780px',
-        width: '1387px',
-        height: '160px',
-      }"
-    >
-      <run-info
-        class="BorderLeft"
-        :style="{
-          'font-size': '45px',
-          'width': '1000px',
-          height: '100%',
-        }"
-      />
-      <timer
-        class="BorderLeft"
-        :style="{
-          'width': '387px',
-          height: '100%',
-        }"
-      />
-    </div>
-
-    <!-- Player/Commetator -->
-    <div
-      class="Fixed"
+      class="Fixed FlexColumn BlockGreen"
       :style="{
         left: '0px',
-        top: '400px',
-        width: '533px',
+        top: '363px',
+        width: '447px',
+        height: '86px',
       }"
     >
       <player />
-      <comm-and-reader />
-    </div>
+      <!-- <comm-and-reader /> -->
+      </div>
+
+            <!-- Run Game Info/Timer -->
+      <div
+        class="Fixed Flex BlockYellow"
+        :style="{
+          flex: '1',
+          width: '100%',
+          left: '1213px',
+          top: '827px',
+          width: '680px',
+          height: '170px',
+        }"
+      >
+        <run-info />
+      </div>
+
+      <!--TIMER-->
+      <div
+        class="Fixed FlexColumn BlockBlack"
+        :style="{
+          flex: '1',
+          width: '100%',
+          left: '495px',
+          top: '864px',
+          width: '692px',
+          height: '162px',
+        }"
+      >
+        <timer />
+      </div>
 
     <!-- Media Box -->
     <media-box
-      vertical
-      :font-size="42"
+    class="Fixed FlexColumn BlockPurple"
       :style="{
-        left: '0px',
-        top: '490px',
-        width: '533px',
-        height: '450px',
+        left: '18px',
+        top: '458px',
+        width: '428px',
+        height: '541px',
       }"
     />
 
     <!-- Donation Bar -->
-    <donation-bar
-      :style="{
-        left: '0px',
-        top: '940px',
-        width: '1920px',
-        height: '60px',
-      }"
-    />
   </div>
-</template>
 
-<script lang="ts">
-import { Vue, Component } from 'vue-property-decorator';
-import GameCapture from './components/GameCapture.vue';
-import Player from './components/Player.vue';
-import CommAndReader from './components/CommAndReader.vue';
-import RunInfo from './components/RunInfo.vue';
-import Timer from './components/Timer.vue';
-import MediaBox from '../_misc/components/MediaBox.vue';
-import DonationBar from './components/DonationBar.vue';
+  </template>
 
-@Component({
-  components: {
-    GameCapture,
-    Player,
-    CommAndReader,
-    RunInfo,
-    Timer,
-    MediaBox,
-    DonationBar,
-  },
-})
-export default class extends Vue {}
-</script>
+  <script lang="ts">
+  import { Vue, Component } from 'vue-property-decorator';
+  import GameCapture from './components/GameCapture.vue';
+  import Player from './components/Player.vue';
+  import CommAndReader from './components/CommAndReader.vue';
+  import RunInfo from './components/RunInfo.vue';
+  import Timer from './components/Timer.vue';
+  import MediaBox from '../_misc/components/MediaBox.vue';
+  import DonationBar from './components/DonationBar.vue';
+  @Component({
+    components: {
+      GameCapture,
+      Player,
+      CommAndReader,
+      RunInfo,
+      Timer,
+      MediaBox,
+      DonationBar,
+    },
+  })
+  export default class extends Vue {}
+  </script>

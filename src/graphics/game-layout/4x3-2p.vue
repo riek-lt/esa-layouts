@@ -1,15 +1,17 @@
 <template>
-  <div>
+<div :style="{ 'backgroundImage': `url(bsgbacks/standard_2_bg.png)`,
+'background-repeat': 'no-repeat'}
+">
     <!-- Game Captures -->
     <game-capture
       id="GameCapture1"
-      class="BorderRight"
+      class=""
       :slot-no="0"
       :style="{
         left: '0px',
         top: '0px',
-        width: '960px',
-        height: '720px',
+        width: '955px',
+        height: '716px',
       }"
     />
     <game-capture
@@ -17,60 +19,36 @@
       :slot-no="1"
       finish-time-pos="bottomright"
       :style="{
-        left: '960px',
+        left: '965px',
         top: '0px',
-        width: '960px',
-        height: '720px',
+        width: '955px',
+        height: '716px',
       }"
     />
 
     <!-- Camera Captures -->
-    <!-- Online has 2 camera spots -->
     <div
-      v-if="!online"
       id="CameraCapture1"
-      class="Capture BorderTop BorderRight BorderLeft"
+      class="Capture"
       :style="{
-        left: '711px',
-        top: '720px',
-        width: '498px',
-        height: '280px',
+        left: '726px',
+        top: '837px',
+        width: '470px',
+        height: '164px',
       }"
     />
-    <template v-else>
-      <div
-        id="CameraCapture1"
-        class="Capture BorderTop BorderRight BorderLeft"
-        :style="{
-          left: '711px',
-          top: '720px',
-          width: '249px',
-          height: '280px',
-        }"
-      />
-      <div
-        id="CameraCapture2"
-        class="Capture BorderTop BorderRight"
-        :style="{
-          left: '960px',
-          top: '720px',
-          width: '249px',
-          height: '280px',
-        }"
-      />
-    </template>
 
     <!-- Player 1/Commentator -->
     <div
       class="Fixed"
       :style="{
-        left: '0px',
-        top: '720px',
-        width: '711px',
+        left: '189px',
+        top: '748px',
+        width: '520px',
+        height: '85px'
       }"
     >
       <player :slot-no="0" />
-      <comm-and-reader />
     </div>
 
     <!-- Player 2/General Run Info -->
@@ -78,50 +56,55 @@
       class="Fixed FlexColumn"
       :style="{
         left: '1209px',
-        top: '720px',
-        width: '711px',
-        height: '235px',
+        top: '733px',
+        width: '520px',
+        height: '85px'
       }"
     >
       <player :slot-no="1" />
-
+</div>
       <!-- Run Game Info/Timer -->
       <div
-        class="FlexColumn"
+        class="Fixed Flex BlockYellow"
         :style="{
           flex: '1',
           width: '100%',
+          left: '1213px',
+          top: '827px',
+          width: '534px',
+          height: '170px',
         }"
       >
-        <run-info :style="{ 'font-size': '35px' }" />
-        <timer
-          top-margin="-0.09em"
-          font-size="80px"
-        />
+        <run-info />
       </div>
-    </div>
+
+      <!--TIMER-->
+      <div
+        class="Fixed FlexColumn BlockBlack"
+        :style="{
+          flex: '1',
+          width: '100%',
+          left: '745px',
+          top: '737px',
+          width: '412px',
+          height: '69px',
+        }"
+      >
+        <timer />
+      </div>
 
     <!-- Media Box -->
     <media-box
-      :font-size="36"
       :style="{
-        left: '0px',
-        top: '810px',
-        width: '711px',
-        height: '190px',
+        left: '43px',
+        top: '829px',
+        width: '665px',
+        height: '169px',
+
       }"
     />
 
     <!-- Donation Bar -->
-    <donation-bar
-      :padding="7"
-      :style="{
-        left: '1209px',
-        top: '955px',
-        width: '711px',
-        height: '45px',
-      }"
-    />
   </div>
 </template>
 

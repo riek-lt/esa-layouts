@@ -1,100 +1,110 @@
 <template>
-  <div>
+<div :style="{ 'backgroundImage': `url(bsgbacks/gba_1_bg.png)`,
+'background-repeat': 'no-repeat'}
+">
     <!-- Game Captures -->
     <game-capture
       id="GameCapture1"
-      class="BorderLeft"
+      class="BlockRed"
       :style="{
-        left: '512px',
-        top: '0px',
-        width: '1408px',
-        height: '940px',
+        left: '598px',
+        top: '58px',
+        width: '1332px',
+        height: '882px',
       }"
     />
 
     <!-- Camera Captures -->
     <div
       id="CameraCapture1"
-      class="Capture"
+      class="Capture BlockBlue"
       :style="{
-        left: '0px',
-        top: '0px',
-        width: '513px',
-        height: '333px',
+        left: '8px',
+        top: '273px',
+        width: '555px',
+        height: '354px',
       }"
     />
 
     <!-- General Run Info -->
     <div
-      class="Fixed FlexColumn BorderBottom"
+      class="Fixed FlexColumn BlockGreen"
       :style="{
         left: '0px',
-        top: '333px',
-        width: '512px',
-        height: '321px',
+        top: '620px',
+        width: '560px',
+        height: '83px',
       }"
     >
       <player />
-      <comm-and-reader />
+      <!-- <comm-and-reader /> -->
+      </div>
 
-      <!-- Run Game Info/Timer -->
+            <!-- Run Game Info/Timer -->
       <div
-        class="FlexColumn"
+        class="Fixed Flex BlockYellow"
         :style="{
           flex: '1',
           width: '100%',
+          left: '0x',
+          top: '0px',
+          width: '560px',
+          height: '280px',
         }"
       >
         <run-info />
+      </div>
+
+      <!--TIMER-->
+      <div
+        class="Fixed FlexColumn BlockBlack"
+        :style="{
+          flex: '1',
+          width: '100%',
+          left: '16px',
+          top: '732px',
+          width: '535px',
+          height: '103px',
+        }"
+      >
         <timer />
       </div>
-    </div>
 
     <!-- Media Box -->
     <media-box
-      vertical
-      :font-size="33"
+    class="Fixed FlexColumn BlockPurple"
       :style="{
-        left: '0px',
-        top: '654px',
-        width: '512px',
-        height: '346px',
+        left: '19px',
+        top: '840px',
+        width: '545px',
+        height: '158px',
       }"
     />
 
     <!-- Donation Bar -->
-    <donation-bar
-      class="BorderLeft"
-      :style="{
-        left: '512px',
-        top: '940px',
-        width: '1408px',
-        height: '60px',
-      }"
-    />
   </div>
-</template>
 
-<script lang="ts">
-import { Vue, Component } from 'vue-property-decorator';
-import GameCapture from './components/GameCapture.vue';
-import Player from './components/Player.vue';
-import CommAndReader from './components/CommAndReader.vue';
-import RunInfo from './components/RunInfo.vue';
-import Timer from './components/Timer.vue';
-import MediaBox from '../_misc/components/MediaBox.vue';
-import DonationBar from './components/DonationBar.vue';
+  </template>
 
-@Component({
-  components: {
-    GameCapture,
-    Player,
-    CommAndReader,
-    RunInfo,
-    Timer,
-    MediaBox,
-    DonationBar,
-  },
-})
-export default class extends Vue {}
-</script>
+  <script lang="ts">
+  import { Vue, Component } from 'vue-property-decorator';
+  import GameCapture from './components/GameCapture.vue';
+  import Player from './components/Player.vue';
+  import CommAndReader from './components/CommAndReader.vue';
+  import RunInfo from './components/RunInfo.vue';
+  import Timer from './components/Timer.vue';
+  import MediaBox from '../_misc/components/MediaBox.vue';
+  import DonationBar from './components/DonationBar.vue';
+  @Component({
+    components: {
+      GameCapture,
+      Player,
+      CommAndReader,
+      RunInfo,
+      Timer,
+      MediaBox,
+      DonationBar,
+    },
+  })
+  export default class extends Vue {}
+  </script>

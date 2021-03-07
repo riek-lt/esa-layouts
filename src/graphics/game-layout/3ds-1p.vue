@@ -1,24 +1,26 @@
 <template>
-  <div>
+<div :style="{ 'backgroundImage': `url(bsgbacks/3ds_bg.png)`,
+'background-repeat': 'no-repeat'}
+">
     <!-- Game Captures -->
     <game-capture
       id="GameCapture1"
-      class="BorderLeft BorderBottom"
+      class=""
       :style="{
-        left: '774px',
+        left: '573px',
         top: '0px',
-        width: '1146px',
-        height: '689px',
+        width: '1347px',
+        height: '809px',
       }"
     />
     <game-capture
       id="GameCapture2"
-      class="BorderLeft"
+      class=""
       :style="{
-        left: '1506px',
-        top: '689px',
-        width: '414px',
-        height: '311px',
+        left: '8px',
+        top: '594px',
+        width: '538px',
+        height: '404px',
       }"
     />
 
@@ -27,60 +29,69 @@
       id="CameraCapture1"
       class="Capture"
       :style="{
-        left: '0px',
-        top: '0px',
-        width: '774px',
-        height: '437px',
+        left: '8px',
+        top: '8px',
+        width: '530px',
+        height: '364px',
       }"
     />
 
-    <!-- Run Game Info/Timer -->
+    <!-- General Run Info -->
     <div
-      class="Fixed FlexColumn BorderLeft"
-      :style="{
-        left: '774px',
-        top: '689px',
-        width: '732px',
-        height: '251px',
-      }"
-    >
-      <run-info />
-      <timer />
-    </div>
-
-    <!-- Player/Commetator -->
-    <div
-      class="Fixed"
+      class="Fixed FlexColumn BlockGreen"
       :style="{
         left: '0px',
-        top: '437px',
-        width: '774px',
+        top: '364px',
+        width: '537px',
+        height: '85px',
       }"
     >
       <player />
-      <comm-and-reader />
-    </div>
+      <!-- <comm-and-reader /> -->
+      </div>
+
+            <!-- Run Game Info/Timer -->
+      <div
+        class=" Fixed FlexColumn BlockYellow"
+        :style="{
+          flex: '1',
+          'max-width': '100%',
+          left: '1213px',
+          top: '829px',
+          width: '680px',
+          height: '170px',
+        }"
+      >
+        <run-info />
+      </div>
+
+      <!--TIMER-->
+      <div
+        class="Fixed FlexColumn BlockBlack"
+        :style="{
+          flex: '1',
+          width: '100%',
+          left: '17px',
+          top: '476px',
+          width: '519px',
+          height: '109px',
+        }"
+      >
+        <timer />
+      </div>
 
     <!-- Media Box -->
     <media-box
-      :font-size="50"
+    class="Fixed FlexColumn BlockPurple"
       :style="{
-        left: '0px',
-        top: '527px',
-        width: '774px',
-        height: '413px',
+        left: '582px',
+        top: '827px',
+        width: '602px',
+        height: '173px',
       }"
     />
 
     <!-- Donation Bar -->
-    <donation-bar
-      :style="{
-        left: '0px',
-        top: '940px',
-        width: '1506px',
-        height: '60px',
-      }"
-    />
   </div>
 </template>
 

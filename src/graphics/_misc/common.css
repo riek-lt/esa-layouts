@@ -1,13 +1,16 @@
-@import url('./fonts/barlow-condensed.css');
+/* @import url('./fonts/barlow-condensed.css'); */
+@import 'fonts/goodlightotf.css';
+/* @import 'fonts/montserrat.css'; */
 
-body {
+/* body {
   font-family: 'Barlow Condensed', sans-serif;
-  /* text-shadow: 2px 2px 2px black; */
+  font-weight: 600;
   color: var(--font-colour);
   overflow: hidden;
   margin: 0;
   padding: 0;
-}
+} */
+/* text-shadow: 2px 2px 2px black; */
 
 #Background {
   width: 1920px;
@@ -28,6 +31,11 @@ body {
 }
 
 .Flex {
+  display: flex;
+  align-items: left;
+  justify-content: left;
+}
+.FlexPlayer {
   display: flex;
   align-items: center;
   justify-content: center;

@@ -1,10 +1,12 @@
 /* Integrate this into the main "common.css" when rewrite done. */
+@import '../_misc/fonts/goodlightotf.css';
 
 body {
-  font-family: 'Barlow Condensed', sans-serif;
+  /* font-family: 'Goodlight', sans-serif; */
   overflow: hidden;
   margin: 0;
   padding: 0;
+     word-wrap: break-word;
 }
 
 #Background, #Layout {
@@ -34,7 +36,8 @@ body {
 *[class*="Flex"] {
   display: flex;
   align-items: center;
-  justify-content: center;
+  /* justify-content: center; */
+    padding-left: 5px;
 }
 .FlexColumn {
   flex-direction: column;

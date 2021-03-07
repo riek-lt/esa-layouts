@@ -35,5 +35,8 @@ export default {
   #Clock {
     font-size: 35px;
     width: 90px;
+    padding-left: 30px;
+    padding-top: 12px;
+    font-family: 'Goodlight'
   }
 </style>

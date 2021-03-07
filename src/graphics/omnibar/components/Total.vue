@@ -3,21 +3,12 @@
     <div
       class="Flex"
       :style="{
-        width: '150px',
+        width: '280px',
         height: '100%',
         position: 'relative',
         padding: '0 10px 0 10px'
       }"
     >
-      <img
-        src="../alzheimerfonden_logo.png"
-        :style="{
-          position: 'absolute',
-          width: '150px',
-          opacity: alertList.length ? 0.3 : 1,
-          transition: 'opacity 0.5s',
-        }"
-      >
       <div :style="{ position: 'absolute' }">
         <transition
           name="fade"
@@ -42,7 +33,7 @@
                 'border-radius': '10px',
               }"
             >
-              +{{ alertList[0] ? alertList[0].amount : '$0' }}
+              {{ alertList[0] ? alertList[0].amount : '$0' }}
             </span>
           </div>
         </transition>
@@ -91,7 +82,7 @@ export default {
     total(newVal, oldVal) {
       if (this.init) {
         this.alertList.push({
-          total: newVal, amount: formatUSD(newVal - oldVal), timestamp: Date.now(),
+          total: newVal, amount: '€'+ (newVal - oldVal).toFixed(2), timestamp: Date.now(),
         });
         if (!this.playingAlerts) {
           this.playNextAlert(true);
@@ -102,22 +93,24 @@ export default {
       }
     },
     tweenedTotal(val) {
-      const string = `$${val.toLocaleString('en-US', { maximumFractionDigits: 0 })}`;
+      var string = `$${val.toLocaleString('en-US', { maximumFractionDigits: 0 })}`;
+	        string = string.replace(/\$/gi, "€");
       this.totalSplitString = string.split('');
     },
   },
   async mounted() {
     totalRep.on('change', (newVal) => {
+	console.log(newVal);
       this.total = newVal;
     });
 
     // Keep the SFX playing constantly but on mute to avoid garbage collection (hopefully).
-    this.$refs.SFX.muted = true;
-    await this.$refs.SFX.play();
-    this.$refs.SFX.addEventListener('ended', async () => {
-      this.$refs.SFX.muted = true;
-      await this.$refs.SFX.play();
-    });
+    //this.$refs.SFX.muted = true;
+    //await this.$refs.SFX.play();
+    //this.$refs.SFX.addEventListener('ended', async () => {
+    //  this.$refs.SFX.muted = true;
+    //await this.$refs.SFX.play();
+    //});
   },
   methods: {
     async playNextAlert(start = false) {
@@ -125,7 +118,7 @@ export default {
       if (!start) {
         await new Promise((res) => setTimeout(res, 500));
       }
-      this.playSound();
+      //this.playSound();
       await new Promise((res) => setTimeout(res, 500));
       TweenLite.to(this.$data, 5, { tweenedTotal: this.alertList[0].total });
       window.setTimeout(() => {
@@ -156,14 +149,15 @@ export default {
     padding: 0 13px 0 0;
     font-size: 40px;
     font-weight: 500;
-    min-width: 50px;
-    text-align: center;
+    min-width: 100px;
+    text-align: right;
+    float: right;
+    padding-right:300px;
   }
 
   /* Each character in the total is in a span; setting width so the numbers appear monospaced. */
   #Total > span {
     display: inline-block;
-    width: 0.45em;
     text-align: center;
   }
   #Total > .Comma {

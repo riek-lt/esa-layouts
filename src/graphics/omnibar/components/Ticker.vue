@@ -23,12 +23,19 @@ import OtherStreamInfo from './Ticker/OtherStreamInfo.vue';
 import Prize from './Ticker/Prize.vue';
 import Bid from './Ticker/Bid.vue';
 import Alert from './Ticker/Alert.vue';
+import {
+	getCurrentEventShort
+} from '../../_misc/helpers';
+
 
 const otherStreamData = nodecg.Replicant('otherStreamData');
 const runDataActiveRun = nodecg.Replicant('runDataActiveRun', 'nodecg-speedcontrol');
 const runDataArray = nodecg.Replicant('runDataArray', 'nodecg-speedcontrol');
 const bids = nodecg.Replicant('bids');
 const prizes = nodecg.Replicant('prizes');
+const donationReader = nodecg.Replicant('donationReader');
+const commentators = nodecg.Replicant('commentators');
+
 
 const newDonations = [];
 const newSubs = [];
@@ -56,6 +63,8 @@ export default {
       runDataArray,
       bids,
       prizes,
+      donationReader,
+      commentators,
     ).then(() => {
       // nodecg.listenFor('newSub', data => newSubs.push(data));
       nodecg.listenFor('newTweet', (data) => newTweets.push(data));
@@ -73,13 +82,15 @@ export default {
         this.upcomingRun(),
         this.prize(),
         this.bid(),
-        this.teamPromo(),
+        // this.teamPromo(),
         this.donationURL(),
         // this.esaUpcomingEvt(),
         // this.esaBtRL(),
-        this.merch(),
-        this.ticket(),
+        // this.merch(),
+        // this.ticket(),
         // this.twitchCharity(),
+        this.currentHost(),
+        this.currentCom(),
       ];
 
       this.showNextMsg();
@@ -110,11 +121,32 @@ export default {
       this.timestamp = Date.now();
     },
     esaPromo() {
-      return this.genericMsg('This is European Speedrunner Assembly Winter 2021');
+      return this.genericMsg('You\'re watching the Benelux Speedrunner Gathering Online 4');
     },
     charityPromo() {
-      return this.genericMsg('#ESAWinter21 benefits the Swedish Alzheimer\'s Foundation');
+			return this.genericMsg('#BSGO4 is benefitting MIND');
     },
+    currentHost() {
+if (donationReader.value == null) {
+return this.genericMsg('Your host is pretty cool!');
+} else {
+  return this.genericMsg('Your host is ' + donationReader.value);
+  }
+},
+currentCom() {
+if (commentators.value.length == 0) {
+  return this.genericMsg('Stay hydrated!');
+} else {
+  var nameList = "Commentary: ";
+  for (var i = 0; i < commentators.value.length; i++) {
+    if (i !== 0) {
+      nameList += ', ';
+    }
+    nameList += commentators.value[i];
+  }
+  return this.genericMsg(nameList);
+  }
+},
     otherStreamPromo() {
       return this.genericMsg(`Watch more great runs over @ twitch.tv/${this.otherChannel}`);
     },
@@ -139,7 +171,8 @@ export default {
       return this.genericMsg('Check out our Twitch team @ twitch.tv/team/esa');
     },
     donationURL() {
-      return this.genericMsg(`Donate @ ${nodecg.bundleConfig.tracker.address}`);
+    return this.genericMsg(`Donate @ bsgmarathon.com/donate/`);
+      // return this.genericMsg(`Donate @ ${nodecg.bundleConfig.tracker.address}`);
     },
     merch() {
       return this.genericMsg('Check out our merch @ esamarathon.com/esa-store');
@@ -222,15 +255,28 @@ export default {
 </script>
 
 <style scoped>
-  #Ticker {
-    height: 100%;
-    flex: 1;
-  }
+#Ticker {
+	height: 100%;
+	flex: 1;
+	padding-top: 2px;
+	margin-left: 12px;
+	font-family: 'Goodlight';
+}
 
-  .fade-enter-active, .fade-leave-active {
-    transition: opacity .5s;
-  }
-  .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
-    opacity: 0;
-  }
+.fade-enter-active,
+.fade-leave-active {
+	transition: opacity .5s;
+}
+
+.fade-enter,
+.fade-leave-to
+
+/* .fade-leave-active below version 2.1.8 */
+	{
+	opacity: 0;
+}
+
+#GenericMessage {
+	padding-top: 12px;
+}
 </style>

@@ -31,25 +31,23 @@
   },
   "dependencies": {
     "async": "^3.2.0",
-    "clone": "^2.1.2",
     "esa-layouts-shared": "github:esamarathon/esa-layouts-shared",
     "lodash": "^4.17.21",
-    "module-alias": "^2.2.2",
     "moment": "^2.29.1",
     "needle": "^2.6.0",
     "node-fetch": "^2.6.1",
     "speedcontrol-util": "^0.5.1",
     "streamdeck-util": "^0.3.3",
-    "uuid": "^8.3.2",
-    "ws": "^7.4.3"
+    "ws": "^7.4.3",
+    "module-alias": "^2.2.2"
   },
   "devDependencies": {
     "@esamarathon/mq-events": "github:esamarathon/mq-events",
     "@mdi/font": "^5.9.55",
     "@types/async": "^3.2.5",
     "@types/clone": "^2.1.0",
-    "@types/lodash": "^4.14.168",
     "@types/module-alias": "^2.0.0",
+    "@types/lodash": "^4.14.168",
     "@types/needle": "^2.5.1",
     "@types/node": "^14.14.31",
     "@types/node-fetch": "^2.5.8",
@@ -58,6 +56,7 @@
     "@typescript-eslint/eslint-plugin": "^4.15.2",
     "@typescript-eslint/parser": "^4.15.2",
     "@vue/component-compiler-utils": "^3.2.0",
+    "clone": "^2.1.2",
     "copy-webpack-plugin": "^7.0.0",
     "cross-env": "^7.0.3",
     "css-loader": "^5.0.2",
@@ -86,6 +85,7 @@
     "tsconfig-paths-webpack-plugin": "^3.3.0",
     "tslib": "^2.1.0",
     "typescript": "^4.1.5",
+    "uuid": "^8.3.2",
     "vue": "^2.6.12",
     "vue-class-component": "^7.2.6",
     "vue-hot-reload-api": "^2.3.4",
@@ -111,20 +111,26 @@
       "nodecg-speedcontrol": "^2.2.0"
     },
     "dashboardPanels": [
+	      {
+        "name": "obs-control",
+        "title": "OBS Control",
+        "width": 3,
+        "file": "obs-control.html",
+        "headerColor": "#c49215"
+      },
       {
         "name": "game-layout-override",
         "title": "Game Layout Override",
         "width": 2,
         "file": "game-layout-override.html",
-        "workspace": "ESA",
-        "headerColor": "#c49215"
+        "headerColor": "#DB3A34"
       },
       {
         "name": "media-box-control",
         "title": "Media Box Control",
         "width": 3,
         "file": "media-box-control.html",
-        "workspace": "Z - ESA Advanced",
+        "workspace": "S - BSG Advanced",
         "headerColor": "#c49215"
       },
       {
@@ -132,15 +138,14 @@
         "title": "Commentators",
         "width": 2,
         "file": "commentators.html",
-        "workspace": "ESA",
-        "headerColor": "#c49215"
+        "headerColor": "#DB3A34"
       },
       {
         "name": "tts-control",
         "title": "Text-To-Speech Control",
         "width": 3,
         "file": "tts-control.html",
-        "workspace": "Z - ESA Advanced",
+        "workspace": "S - BSG Advanced",
         "headerColor": "#c49215"
       },
       {
@@ -148,7 +153,7 @@
         "title": "Video Player Control",
         "width": 3,
         "file": "video-player-control.html",
-        "workspace": "Z - ESA Advanced",
+        "workspace": "S - BSG Advanced",
         "headerColor": "#c49215"
       },
       {
@@ -156,31 +161,29 @@
         "title": "Upcoming Run Control",
         "width": 3,
         "file": "upcoming-run-control.html",
-        "workspace": "Z - ESA Advanced",
+        "workspace": "S - BSG Advanced",
         "headerColor": "#c49215"
       },
       {
-        "name": "obs-control",
-        "title": "OBS Control",
+        "name": "restream-viewer-tool",
+        "title": "Restream viewer tool",
         "width": 3,
-        "file": "obs-control.html",
-        "workspace": "ESA",
-        "headerColor": "#c49215"
+        "file": "restream-viewer-tool.html",
+        "headerColor": "#DB3A34"
       },
       {
         "name": "donation-reader-control",
         "title": "Donation Reader Control",
         "width": 2,
         "file": "donation-reader-control.html",
-        "workspace": "ESA",
-        "headerColor": "#c49215"
+        "headerColor": "#DB3A34"
       },
       {
         "name": "countdown-control",
         "title": "Countdown Control",
         "width": 2,
         "file": "countdown-control.html",
-        "workspace": "Z - ESA Advanced",
+        "workspace": "S - BSG Advanced",
         "headerColor": "#c49215"
       }
     ],

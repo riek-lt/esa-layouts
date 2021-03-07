@@ -52,6 +52,7 @@
     >
       Manual Clear
     </v-btn>
+		Reload omnibar if you changed the commentators during a run.
   </v-app>
 </template>
 

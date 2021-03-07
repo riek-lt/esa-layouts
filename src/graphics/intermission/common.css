@@ -1,9 +1,14 @@
 /* Integrate this into the main "common.css" when rewrite done. */
 
+@import '../_misc/fonts/goodlightotf.css';
 body {
-  font-family: 'Barlow Condensed', sans-serif;
+  background-image: url(../bsgbacks/break_bg_edited.png);
+  background-repeat: no-repeat;
+  font-family: 'Goodlight-light', sans-serif;
   overflow: hidden;
   margin: 0;
+  font-weight: 600;
+  text-align: left;
   padding: 0;
 }
 
@@ -14,8 +19,13 @@ body {
 }
 
 *[class*="Flex"] {
+  /* display: flex; */
+  align-items: left;
+  /* justify-content: center; */
+}
+*[class*="FlexI"] {
   display: flex;
-  align-items: center;
+  align-items: left;
   justify-content: center;
 }
 .FlexColumn {
@@ -25,4 +35,5 @@ body {
 .Fixed {
   position: fixed;
   overflow: hidden;
+  font-size: 20pt;
 }

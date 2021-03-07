@@ -1,11 +1,13 @@
 <template>
-  <div id="Intermission">
+<div id="Intermission" :style="{
+'background-repeat': 'no-repeat'}
+">
     <div
       id="Background"
       :style="{ 'clip-path': clipPath }"
     />
     <div id="Layout">
-      <!-- Logo -->
+      <!-- Logo  linksboven-->
       <div
         class="Logo Fixed"
         :style="{
@@ -15,34 +17,25 @@
           height: '276px',
         }"
       >
-        <img
-          :style="{
-            width: '100%',
-            height: '100%',
-            'object-fit': 'contain',
-          }"
-        >
       </div>
 
       <!-- Commercial Timer -->
       <commercial-timer
         :style="{
-          left: '30px',
-          top: '370px',
+          left: '1116px',
+          top: '993px',
           width: '655px',
           height: '35px',
         }"
       />
 
-      <!-- Media Box -->
+      <!-- Media Box linksonder -->
       <media-box
-        vertical
-        :font-size="50"
         :style="{
-          left: '26px',
-          top: '450px',
-          width: '662px',
-          height: '520px',
+          left: '983px',
+          top: '83px',
+          width: '402px',
+          height: '399px',
         }"
       />
 
@@ -51,37 +44,37 @@
         class="Fixed"
         :run-data="nextRuns[0]"
         :style="{
-          left: '718px',
-          top: '31px',
-          width: '1172px',
-          height: '199px',
+          left: '138px',
+          top: '100px',
+          width: '672px',
+          height: '294px',
         }"
       />
 
-      <!-- Rotation -->
+      <!-- Rotation meer upcoming runs -->
       <rotation
         :style="{
-          left: '718px',
-          top: '240px',
-          width: '1172px',
-          height: '660px',
+          left: '138px',
+          top: '393px',
+          width: '667px',
+          height: '652px',
         }"
       />
 
       <!-- Donation Reader and Music Track -->
       <div
-        class="BottomBox Fixed Flex"
+        class="Fixed FlexI"
         :style="{
-          left: '718px',
-          top: '910px',
-          width: '1172px',
+          left: '1110px',
+          top: '802px',
+          width: '672px',
           height: '60px',
           'justify-content': 'flex-start',
           'font-size': '30px',
         }"
       >
         <donation-reader />
-        <music-track />
+        <!--<music-track />-->
       </div>
     </div>
   </div>
