@@ -89,6 +89,7 @@ Here's a list of events this bundle has been used at so far, most recent first.
 * UKSG Autumn 2019
 * ESA Summer 2019 (including some streams on [SpeedGaming](https://www.twitch.tv/speedgaming) during the event).
 * UKSG Summer 2019
+* All of BSG's since BSG @Home 2020 (Aug 2020)
 
 ### Previous Bundles
 
@@ -99,7 +100,7 @@ Here's a list of previous bundles that used to fulfil the purpose of this one, w
   * ESA @ TwitchCon Europe 2019
 * [esas18-layouts](https://github.com/esamarathon/esas18-layouts)
   * ESA Summer 2018
-  * UKSG Fall 2018 
+  * UKSG Fall 2018
   * ESA Movember
   * UKSG Winter 2019
   * UKSG Spring 2019
