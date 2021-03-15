@@ -1,5 +1,5 @@
 <template>
-<div :style="{ 'backgroundImage': `url(bsgbacks/widescreen_2_bg-c.png)`,
+<div :style="{ 'backgroundImage': `url(bsgbacks/widescreen_2_bg.png)`,
 'background-repeat': 'no-repeat'}
 ">
     <!-- Game Captures -->
