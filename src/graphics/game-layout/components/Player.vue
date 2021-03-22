@@ -22,12 +22,12 @@
       }"
     >
       <transition name="fade">
-        <img
+        <!--<img
           v-if="nameCycle === 1 && player.social.twitch"
           key="twitch"
           class="Icon"
           src="../../_misc/TwitchIcon.png"
-        >
+        >-->
         <!--<template v-else-if="!coop && typeof slotNo === 'number'">
           <img
             v-if="slotNo === 0"
