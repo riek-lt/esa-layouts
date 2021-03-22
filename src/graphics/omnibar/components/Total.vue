@@ -100,17 +100,16 @@ export default {
   },
   async mounted() {
     totalRep.on('change', (newVal) => {
-	console.log(newVal);
       this.total = newVal;
     });
 
     // Keep the SFX playing constantly but on mute to avoid garbage collection (hopefully).
-    //this.$refs.SFX.muted = true;
-    //await this.$refs.SFX.play();
-    //this.$refs.SFX.addEventListener('ended', async () => {
-    //  this.$refs.SFX.muted = true;
-    //await this.$refs.SFX.play();
-    //});
+    this.$refs.SFX.muted = true;
+    await this.$refs.SFX.play();
+    this.$refs.SFX.addEventListener('ended', async () => {
+      this.$refs.SFX.muted = true;
+    await this.$refs.SFX.play();
+    });
   },
   methods: {
     async playNextAlert(start = false) {
@@ -118,7 +117,7 @@ export default {
       if (!start) {
         await new Promise((res) => setTimeout(res, 500));
       }
-      //this.playSound();
+      this.playSound();
       await new Promise((res) => setTimeout(res, 500));
       TweenLite.to(this.$data, 5, { tweenedTotal: this.alertList[0].total });
       window.setTimeout(() => {
