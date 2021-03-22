@@ -120,10 +120,10 @@
     <media-box
       :font-size="40"
       :style="{
-        left: '0px',
-        top: '630px',
-        width: '660px',
-        height: '310px',
+        left: '43px',
+        top: '729px',
+        width: '665px',
+        height: '269px',
       }"
     />
 
