@@ -8,10 +8,10 @@
   >
     <div
       :style="{
-        'font-size': '30px',
+        'font-size': '20px',
         'text-align': 'right',
         'margin-left': '15px',
-        'line-height': '100%',
+        'line-height': '150%',
       }"
     >
       Upcoming<br>Bid War
@@ -38,13 +38,13 @@
         <div
           :style="{
             width: `${tweened.progress1}%`,
-            'background-color': '#e8d53a',
+            'background-color': '#FFD55A',
           }"
         />
         <div
           :style="{
             width: `${tweened.progress2}%`,
-            'background-color': '#af60f7',
+            'background-color': '#6DD47E',
           }" />
       </div>
       <!-- Both Options -->
@@ -62,12 +62,12 @@
         }"
       >
         <div>
-          <span class="BarText" :style="{ 'font-size': '25px' }">
+          <span class="BarText" :style="{ 'font-size': '20px' }">
             {{ bid.options[0].name }} - {{ formatUSD(tweened.total1) }}
           </span>
         </div>
         <div :style="{ 'text-align': 'right' }">
-          <span class="BarText" :style="{ 'font-size': '25px' }">
+          <span class="BarText" :style="{ 'font-size': '20px' }">
              {{ formatUSD(tweened.total2) }} - {{ bid.options[1].name }}
           </span>
         </div>
@@ -85,14 +85,14 @@
       >
         <div
           :style="{
-            'font-size': '23px',
+            'font-size': '20px',
             'text-align': 'center',
             'background-color': 'rgba(0, 0, 0, 0.4)',
             'padding': '0 10px',
             'display': 'flex',
             'flex-direction': 'column',
             'justify-content': 'center',
-            'line-height': '100%',
+            'line-height': '150%',
             'height': '100%',
           }"
         >

@@ -1,25 +1,44 @@
 <template>
   <div id="Omnibar" class="Flex">
-    <img v-if="!isHek" id="Logo">
-    <img
-      v-else
-      src="./hek.png"
-      :style="{ width: '389px', height: '65px', padding: '0 10px', 'object-fit': 'contain' }"
-    >
-    <divider/>
-    <total/>
-    <divider/>
+  <div :style="{
+      'background-Image': 'url(./img/omniing/logo-bsg.png)',
+      'width': '256px',
+      'z-index': '3',
+      'position': 'static',
+'overflow': 'visible',
+       }">
+       <clock></clock>
+   		<!--<img src="./bsgstick.png" :style="{ padding: '0 10px' }">-->
+   	</div>
     <!--<sub-goal-met></sub-goal-met>
     <divider></divider>-->
-    <ticker/>
-    <divider/>
-    <clock/>
-  </div>
+    <div :style="{
+            'background-Image': 'url(./img/omniing/background.png)',
+            'width': '1200px',
+                  'z-index': '1',
+             }">
+    		<ticker></ticker>
+    	</div>
+    	<div :style="{
+      'position': 'static',
+    'overflow': 'visible',
+          'background-Image': 'url(./img/omniing/logo-charity-mind.png)',
+          'width': '500px',
+                'z-index': '1',
+           }">
+    		<total :style="{
+        'padding-left': '100px',
+        'padding-top': '8px',
+        'text-align': 'right',
+        'font-family': 'Goodlight',
+        }"></total>
+    	</div>
+    </div>
 </template>
 
 <script>
 import Total from './components/Total.vue';
-// import SubGoalMet from './components/SubGoalMet.vue';
+import SubGoalMet from './components/SubGoalMet.vue';
 import Ticker from './components/Ticker.vue';
 import Clock from './components/Clock.vue';
 import Divider from './components/Divider.vue';
@@ -35,25 +54,17 @@ export default {
     Clock,
     Divider,
   },
-  data() {
-    return {
-      isHek: false,
-    };
-  },
-  created() {
-    runDataActiveRun.on('change', (val) => {
-      const isHek = runDataActiveRun.value && runDataActiveRun.value.customData.info === 'HEK';
-      this.isHek = isHek;
-    });
-  },
 };
 </script>
 
 <style>
-  #Omnibar {
-    position: fixed;
-    width: 1920px;
-    height: 80px;
-    justify-content: flex-start;
-  }
+#Omnibar {
+	position: fixed;
+	width: 1920px;
+	height: 80px;
+	justify-content: flex-start;
+}
+#GenericMessage {
+padding-top: 8px;
+}
 </style>

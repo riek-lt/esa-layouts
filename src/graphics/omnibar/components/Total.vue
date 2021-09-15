@@ -3,23 +3,12 @@
     <div
       class="Flex"
       :style="{
-        width: '90px',
-        height: '80px',
+        width: '280px',
+        height: '100%',
         position: 'relative',
-        padding: '0 10px 0 10px',
-        overflow: 'hidden'
+        padding: '0 10px 0 10px'
       }"
     >
-      <img
-        src="../stc_logo.png"
-        :style="{
-          position: 'absolute',
-          height: '70px',
-          'object-fit': 'contain',
-          opacity: alertList.length ? 0.3 : 1,
-          transition: 'opacity 0.5s',
-        }"
-      >
       <div :style="{ position: 'absolute' }">
         <transition
           name="fade"
@@ -32,11 +21,11 @@
           >
             <img
               src="../RetroCoin.png"
-              :style="{ height: '30px', 'image-rendering': 'pixelated', 'margin-right': '2px' }"
+              :style="{ height: '50px', 'image-rendering': 'pixelated', 'margin-right': '5px' }"
             >
             <span
               :style="{
-                'font-size': '20px',
+                'font-size': '28px',
                 color: '#7FFF00',
                 'font-weight': 600,
                 'background-color': 'rgba(0,0,0,0.6)',
@@ -44,7 +33,7 @@
                 'border-radius': '10px',
               }"
             >
-              +{{ alertList[0] ? alertList[0].amount : '$0' }}
+              {{ alertList[0] ? alertList[0].amount : '$0' }}
             </span>
           </div>
         </transition>
@@ -93,7 +82,7 @@ export default {
     total(newVal, oldVal) {
       if (this.init) {
         this.alertList.push({
-          total: newVal, amount: formatUSD(newVal - oldVal), timestamp: Date.now(),
+          total: newVal, amount: '€'+ (newVal - oldVal).toFixed(2), timestamp: Date.now(),
         });
         if (!this.playingAlerts) {
           this.playNextAlert(true);
@@ -104,7 +93,8 @@ export default {
       }
     },
     tweenedTotal(val) {
-      const string = `$${Math.floor(val).toLocaleString('en-US', { maximumFractionDigits: 0 })}`;
+    var string = `$${val.toLocaleString('en-US', { maximumFractionDigits: 0 })}`;
+    string = string.replace(/\$/gi, "€");
       this.totalSplitString = string.split('');
     },
   },
@@ -155,17 +145,18 @@ export default {
 
 <style scoped>
   #Total {
-    padding: 0 20px 0 0;
+    padding: 0 13px 0 0;
     font-size: 40px;
     font-weight: 500;
-    min-width: 50px;
-    text-align: center;
+    min-width: 100px;
+    text-align: right;
+    float: right;
+ padding-right:300px;
   }
 
   /* Each character in the total is in a span; setting width so the numbers appear monospaced. */
   #Total > span {
     display: inline-block;
-    width: 0.45em;
     text-align: center;
   }
   #Total > .Comma {

@@ -31,12 +31,12 @@
       <div
         class="Flex"
         :style="{
-          'background-color': '#41245b', // HARDCODED, BAD!
+          'background-color': '#914e21', // HARDCODED, BAD!
           color: 'white', // HARDCODED, BAD!
           'text-transform': 'uppercase',
           height: '100%',
           padding: '0 25px',
-          'font-size': '45px',
+          'font-size': '24px',
           'font-weight': 500,
         }"
       >

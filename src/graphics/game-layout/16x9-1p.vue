@@ -1,91 +1,109 @@
 <template>
-  <div>
+<div :style="{ 'backgroundImage': `url(bsgbacks/widescreen_1_bg.png)`,
+'background-repeat': 'no-repeat'}
+">
     <!-- Game Captures -->
     <game-capture
       id="GameCapture1"
-      class="BorderLeft BorderBottom"
+      class="BlockRed"
       :style="{
-        left: '533px',
+        left: '483px',
         top: '0px',
-        width: '1387px',
-        height: '780px',
+        width: '1437px',
+        height: '809px',
       }"
     />
 
     <!-- Camera Captures -->
     <div
       id="CameraCapture1"
-      class="Capture"
+      class="Capture BlockBlue"
       :style="{
-        left: '0px',
-        top: '0px',
-        width: '533px',
-        height: '400px',
+        left: '8px',
+        top: '9px',
+        width: '440px',
+        height: '366px',
       }"
     />
 
     <!-- Run Game Info/Timer -->
     <div
-      class="Fixed Flex"
+      class="Fixed FlexColumn BlockGreen"
       :style="{
-        left: '533px',
-        top: '780px',
-        width: '1387px',
-        height: '160px',
+        left: '0px',
+        top: '363px',
+        width: '447px',
+        height: '86px',
       }"
     >
-      <run-info
-        class="BorderLeft"
-        :style="{
-          'font-size': '45px',
-          'width': '1000px',
-          height: '100%',
-        }"
-      />
-      <timer
-        class="BorderLeft"
-        :style="{
-          'width': '387px',
-          height: '100%',
-        }"
-      />
+    <div
+      class="Fixed FlexColumn BlockYellow"
+      :style="{
+        flex: '1',
+        width: '100%',
+        left: '1213px',
+        top: '827px',
+        width: '680px',
+        height: '170px',
+      }"
+    >
+      <run-info />
+    </div>
+    <div
+      class="Fixed FlexColumn BlockBlack"
+      :style="{
+        flex: '1',
+        width: '100%',
+        left: '495px',
+        top: '864px',
+        width: '692px',
+        height: '162px',
+      }"
+    >
+      <timer />
+    </div>
     </div>
 
     <!-- Player/Commetator -->
     <div
-      class="Fixed"
-      :style="{
-        left: '0px',
-        top: '400px',
-        width: '533px',
+    class="Fixed FlexColumn BlockGreen"
+    :style="{
+      left: '0px',
+      top: '363px',
+      width: '447px',
+      height: '86px',
       }"
     >
       <player />
-      <commentators-reader />
-      <commentators-reader show-reader />
+      <!--<commentators-reader />
+      <commentators-reader show-reader />-->
+    </div>
+    <div
+    class="Fixed FlexColumn BlockGreen"
+    :style="{
+      left: '18px',
+      top: '458px',
+      width: '428px',
+      height: '86px',
+      }"
+    >
+      <!--<commentators-reader />
+      <commentators-reader show-reader />-->
     </div>
 
     <!-- Media Box -->
-    <media-box
-      vertical
-      :font-size="42"
+<media-box
+      :font-size="20"
+    class="Fixed FlexColumn BlockPurple"
       :style="{
-        left: '0px',
-        top: '534px',
-        width: '533px',
-        height: '406px',
+        left: '18px',
+        top: '458px',
+        width: '428px',
+        height: '541px',
       }"
     />
 
     <!-- Donation Bar -->
-    <donation-bar
-      :style="{
-        left: '0px',
-        top: '940px',
-        width: '1920px',
-        height: '60px',
-      }"
-    />
   </div>
 </template>
 

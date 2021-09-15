@@ -117,15 +117,14 @@
         "title": "Game Layout Override",
         "width": 2,
         "file": "game-layout-override.html",
-        "workspace": "ESA",
-        "headerColor": "#c49215"
+        "headerColor": "#DB3A34"
       },
       {
         "name": "media-box-control",
         "title": "Media Box Control",
         "width": 3,
         "file": "media-box-control.html",
-        "workspace": "Z - ESA Advanced",
+        "workspace": "Z - BSG Advanced",
         "headerColor": "#c49215"
       },
       {
@@ -133,14 +132,14 @@
         "title": "Commentators",
         "width": 2,
         "file": "commentators.html",
-        "headerColor": "#c49215"
+        "headerColor": "#DB3A34"
       },
       {
         "name": "tts-control",
         "title": "Text-To-Speech Control",
         "width": 3,
         "file": "tts-control.html",
-        "workspace": "Z - ESA Advanced",
+        "workspace": "Z - BSG Advanced",
         "headerColor": "#c49215"
       },
       {
@@ -148,7 +147,7 @@
         "title": "Video Player Control",
         "width": 3,
         "file": "video-player-control.html",
-        "workspace": "Z - ESA Advanced",
+        "workspace": "Z - BSG Advanced",
         "headerColor": "#c49215"
       },
       {
@@ -156,7 +155,7 @@
         "title": "Upcoming Run Control",
         "width": 3,
         "file": "upcoming-run-control.html",
-        "workspace": "Z - ESA Advanced",
+        "workspace": "SC- BSG extra",
         "headerColor": "#c49215"
       },
       {
@@ -171,14 +170,14 @@
         "title": "Donation Reader Control",
         "width": 2,
         "file": "donation-reader-control.html",
-        "headerColor": "#c49215"
+        "headerColor": "#DB3A34"
       },
       {
         "name": "countdown-control",
         "title": "Countdown Control",
         "width": 3,
         "file": "countdown-control.html",
-        "workspace": "Z - ESA Advanced",
+        "workspace": "Z - BSG Advanced",
         "headerColor": "#c49215"
       },
       {
@@ -186,31 +185,30 @@
         "title": "Donation Total Milestones",
         "width": 4,
         "file": "donation-total-milestones.html",
-        "workspace": "Z - ESA Advanced",
-        "headerColor": "#c49215"
+        "workspace": "S - Omnibar",
+        "headerColor": "#87BAAB"
       },
       {
         "name": "bids",
         "title": "Bids",
         "width": 3,
         "file": "bids.html",
-        "workspace": "Z - ESA Advanced",
-        "headerColor": "#c49215"
+		"workspace": "S - Omnibar",
+        "headerColor": "#87BAAB"
       },
       {
         "name": "restream-viewer-tool",
         "title": "Restream Viewer Tool",
         "width": 2,
         "file": "restream-viewer-tool.html",
-        "workspace": "ESA",
-        "headerColor": "#c49215"
+        "headerColor": "#DB3A34"
       },
       {
         "name": "rabbitmq-test",
         "title": "RabbitMQ Test",
         "width": 2,
         "file": "rabbitmq-test.html",
-        "workspace": "ESA Debug",
+        "workspace": "SC- BSG extra",
         "headerColor": "#c49215"
       }
     ],

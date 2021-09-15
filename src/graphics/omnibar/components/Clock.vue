@@ -28,10 +28,11 @@ export default {
   },
   methods: {
     setTime() {
-      const zone = nodecg.bundleConfig.event.theme.startsWith('uksg')
-        ? 'Europe/London'
-        : 'Europe/Stockholm';
-      this.time = dayjs().tz(zone).format('HH:mm');
+//      const zone = nodecg.bundleConfig.event.theme.startsWith('bsg')
+  //      ? 'Europe/Amsterdam'
+    //    : 'Europe/Stockholm';
+      //this.time = dayjs().tz(zone).format('HH:mm');
+      this.time = dayjs().tz('Europe/Amsterdam').format('HH:mm');
     },
     pad(num) {
       return num.toString().padStart(2, '0');
@@ -44,5 +45,8 @@ export default {
   #Clock {
     font-size: 35px;
     width: 90px;
+    padding-left: 30px;
+padding-top: 12px;
+font-family: 'Goodlight'
   }
 </style>

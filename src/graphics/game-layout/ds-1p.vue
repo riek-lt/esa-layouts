@@ -1,24 +1,26 @@
 <template>
-  <div>
+<div :style="{ 'backgroundImage': `url(bsgbacks/ds_bg.png)`,
+'background-repeat': 'no-repeat'}
+">
     <!-- Game Captures -->
     <game-capture
       id="GameCapture1"
-      class="BorderLeft BorderBottom"
+      class=" "
       :style="{
-        left: '858px',
-        top: '0px',
-        width: '1062px',
-        height: '797px',
+      left: '589px',
+      top: '0px',
+      width: '1331px',
+      height: '998px',
       }"
     />
     <game-capture
       id="GameCapture2"
-      class="BorderTop BorderLeft"
+      class=" "
       :style="{
-        left: '373px',
-        top: '636px',
-        width: '485px',
-        height: '364px',
+      left: '102px',
+      top: '710px',
+      width: '386px',
+      height: '288px',
       }"
     />
 
@@ -27,10 +29,10 @@
       id="CameraCapture1"
       class="Capture"
       :style="{
-        left: '0px',
-        top: '0px',
-        width: '858px',
-        height: '483px',
+      left: '8px',
+      top: '230px',
+      width: '546px',
+      height: '292px',
       }"
     />
 
@@ -38,64 +40,48 @@
     <div
       class="Fixed Flex"
       :style="{
-        left: '858px',
-        top: '797px',
-        width: '1062px',
-        height: '143px',
+      left: '0px',
+      top: '0px',
+      width: '555px',
+      height: '231px',
       }"
     >
-      <run-info
-        class="BorderLeft"
-        :style="{
-          'width': '692px',
-          height: '100%',
-        }"
-      />
-      <timer
-        class="BorderLeft"
-        :style="{
-          'width': '370px',
-          height: '100%',
-        }"
-      />
+      <run-info />
+      </div>
+
+          <!--TIMER-->
+          <div
+            class="Fixed FlexColumn BlockBlack"
+            :style="{
+              flex: '1',
+              width: '100%',
+              left: '17px',
+              top: '613px',
+              width: '536px',
+              height: '85px',
+            }"
+          >
+            <timer />
     </div>
 
     <!-- Player/Commetator -->
     <div
       class="Fixed"
       :style="{
-        left: '0px',
-        top: '483px',
-        width: '858px',
+      left: '0px',
+      top: '530px',
+      width: '553px',
+      height: '85px',
       }"
     >
       <player />
-      <commentators-reader />
-      <commentators-reader show-reader />
+      <!--<commentators-reader />
+      <commentators-reader show-reader />-->
     </div>
 
     <!-- Media Box -->
-    <media-box
-      vertical
-      :font-size="30"
-      :style="{
-        left: '0px',
-        top: '636px',
-        width: '373px',
-        height: '364px',
-      }"
-    />
 
     <!-- Donation Bar -->
-    <donation-bar
-      class="BorderLeft"
-      :style="{
-        left: '858px',
-        top: '940px',
-        width: '1062px',
-        height: '60px',
-      }"
-    />
   </div>
 </template>
 

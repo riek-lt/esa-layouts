@@ -2,14 +2,15 @@
   <div
     v-if="player"
     ref="Player"
-    class="Flex Player"
+    class="FlexPlayer Player FlexCenter"
     :style="{
       'justify-content': 'space-between',
       'font-weight': 500,
-      'font-size': '25px',
-      width: '100%',
-      height: '50px',
-      padding: '7px',
+      width: '90%',
+      height: '48px',
+      padding: '0px',
+      'margin-top': 'auto',
+      'margin-bottom': 'auto',
       'box-sizing': 'border-box',
     }"
   >
@@ -25,9 +26,12 @@
           v-if="nameCycle === 1 && player.social.twitch"
           key="twitch"
           class="Icon"
+          :style="{
+          'display':'none',
+          }"
           src="../../_misc/TwitchIcon.png"
         >
-        <template v-else-if="!coop && typeof slotNo === 'number'">
+        <!--<template v-else-if="!coop && typeof slotNo === 'number'">
           <img
             v-if="slotNo === 0"
             key="name"
@@ -59,24 +63,34 @@
           class="Icon"
           src="../../_misc/PlayerIconSolo.png"
         >
-      </transition>
+      </transition>-->
     </div>
 
     <!-- Player Name/Twitch -->
     <div
-      class="Flex"
+      class="FlexPlayer FlexCenter "
       :style="{
+      'font-size': '25px',
         position: 'relative',
         width: 'calc(100% - 130px)',
         height: '100%',
-        overflow: 'hidden',
+        'align-items': 'flex-start',
+              'display': 'flex',
+              'top': '2px',
+              'justify-content': 'center',
+              'flex': '1',
+              'white-space': 'no-wrap',
+              'padding-right': '80px',
+
+              'font-weight': '600',
+              'font-family': 'Goodlight',
       }"
     >
       <transition name="fade">
         <div
           v-if="nameCycle === 1 && player.social.twitch"
           key="twitch"
-          class="Flex TextWrapper"
+          class="FlexPlayer TextWrapper"
         >
           <div class="PlayerText">
             <span
@@ -102,7 +116,7 @@
         <div
           v-else
           key="name"
-          class="Flex TextWrapper"
+          class="FlexPlayer TextWrapper"
         >
           <div class="PlayerText">
             <span
@@ -286,10 +300,10 @@ export default class extends Vue {
   }
 
   .TextWrapper {
-    width: 100%;
+    width: auto;
     height: 100%;
     position: absolute;
-    white-space: nowrap;
+
   }
 
   .fade-enter-active, .fade-leave-active {

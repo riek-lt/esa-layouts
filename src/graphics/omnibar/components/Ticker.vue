@@ -32,6 +32,8 @@ const runDataArray = nodecg.Replicant('runDataArray', 'nodecg-speedcontrol');
 const bids = nodecg.Replicant('bids');
 const prizes = nodecg.Replicant('prizes');
 const pin = nodecg.Replicant('omnibarPin');
+const donationReader = nodecg.Replicant('donationReader');
+const commentators = nodecg.Replicant('commentators');
 
 const newDonations = [];
 const newSubs = [];
@@ -59,6 +61,8 @@ export default {
       runDataArray,
       bids,
       prizes,
+      donationReader,
+      commentators,
     ).then(() => {
       // nodecg.listenFor('newSub', data => newSubs.push(data));
       nodecg.listenFor('newTweet', (data) => newTweets.push(data));
@@ -77,14 +81,16 @@ export default {
         this.prize(),
         this.bid(),
         this.milestone(),
-        this.teamPromo(),
+		this.currentHost(),
+		this.currentCom(),
+        // this.teamPromo(),
         this.donationURL(),
         // this.esaUpcomingEvt(),
         // this.esaBtRL(),
-        this.merch(),
+        // this.merch(),
         // this.ticket(),
         // this.twitchCharity(),
-        this.hekTakeover(),
+        // this.hekTakeover(),
       ];
 
       this.showNextMsg();
@@ -121,11 +127,32 @@ export default {
       this.timestamp = Date.now();
     },
     esaPromo() {
-      return this.genericMsg('This is European Speedrunner Assembly Summer 2021');
+      return this.genericMsg('You\'re watching BSG Annual 2021 @home' );
     },
     charityPromo() {
-      return this.genericMsg('#ESASummer21 benefits Save the Children');
-    },
+    return this.genericMsg('#BSG2021 is benefitting MIND');
+},
+    currentHost() {
+      if (donationReader.value == null) {
+        return this.genericMsg('Your host is pretty cool!');
+        } else {
+          return this.genericMsg('Your host is ' + donationReader.value);
+          }
+          },
+          currentCom() {
+          if (commentators.value.length == 0) {
+            return this.genericMsg('Stay hydrated!');
+} else {
+var nameList = "Commentary: ";
+for (var i = 0; i < commentators.value.length; i++) {
+if (i !== 0) {
+  nameList += ', ';
+}
+nameList += commentators.value[i];
+}
+return this.genericMsg(nameList);
+}
+},
     otherStreamPromo() {
       return this.genericMsg(`Watch more great runs over @ twitch.tv/${this.otherChannel}`);
     },
@@ -153,7 +180,7 @@ export default {
       return this.genericMsg('Check out our Twitch team @ twitch.tv/team/esa');
     },
     donationURL() {
-      return this.genericMsg(`Donate @ ${nodecg.bundleConfig.tracker.address}`);
+      	    return this.genericMsg(`Donate @ bsgmarathon.com/donate/`);
     },
     merch() {
       return this.genericMsg('Check out our merch @ speedrunstore.com');
@@ -243,6 +270,9 @@ export default {
     height: 100%;
     min-width: 0;
     flex: 1;
+    padding-top: 2px;
+margin-left: 12px;
+font-family: 'Goodlight';
   }
 
   .fade-enter-active, .fade-leave-active {

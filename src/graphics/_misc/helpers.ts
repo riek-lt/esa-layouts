@@ -39,9 +39,9 @@ export function msToTimeStr(ms: number): string {
  */
 export function formatUSD(amount: number): string {
   if (amount >= 100) {
-    return `$${Math.floor(amount).toLocaleString('en-US', { maximumFractionDigits: 0 })}`;
+    return `€${Math.floor(amount).toLocaleString('en-US', { maximumFractionDigits: 0 })}`;
   }
-  return `$${amount.toFixed(2)}`;
+  return `€${amount.toFixed(2)}`;
 }
 
 // ALSO IN extension/util/helpers.ts, CHANGE THERE TOO!

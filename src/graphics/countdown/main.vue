@@ -9,7 +9,6 @@
         height: '1000px',
       }"
     >
-      <img class="Logo">
       <countdown :style="{ 'margin-top': '50px' }" />
     </div>
   </div>

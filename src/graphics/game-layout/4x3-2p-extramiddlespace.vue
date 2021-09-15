@@ -117,8 +117,8 @@
     </div>
 
     <!-- Media Box -->
-    <media-box
-      :font-size="45"
+<media-box
+      :font-size="20"
       :style="{
         left: '0px',
         top: '630px',

@@ -3,11 +3,15 @@
     <div
       :class="`Flex Timer${timerState}`"
       :style="{
-        'font-weight': 500,
-        'font-size': fontSize,
+        'text-align': 'center',
         'margin-top': topMargin,
         transition: '1s',
         height: '100%',
+        'font-family': 'Goodlight',
+        'font-weight': 700,
+        'font-size': '44pt',
+        'margin-top': '-0.07em',
+        transition: '1s'
       }"
     >
       <span
@@ -15,7 +19,7 @@
         :key="i"
         :style="{
           display: 'inline-block',
-          width: ([2, 5].includes(i)) ? '0.22em' : '0.45em',
+          width: ([2, 5].includes(i)) ? '0.22em' : '0.75em',
           'text-align': 'center',
           // Make the colon appear more towards the centre.
           'margin-top': ([2, 5].includes(i)) ? '-0.1em' : 'unset',

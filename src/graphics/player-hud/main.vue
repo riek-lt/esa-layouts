@@ -40,9 +40,11 @@ export default class extends Vue {
   tagScanTimeout!: number;
 
   get largestDonation(): string {
-    return `$${this.donationsToRead
-      .reduce((prev, current) => ((prev > current.amount) ? prev : current.amount), 0)
-      .toFixed(2)}`;
+  var abc =`$${this.donationsToRead
+    .reduce((prev, current) => ((prev > current.amount) ? prev : current.amount), 0)
+    .toFixed(2)}`
+       abc = abc.replace(/\$/gi, "€");
+    return abc;
   }
 
   get backgroundClass(): string {
@@ -100,7 +102,7 @@ export default class extends Vue {
     background-color: rgb(165, 0, 165);
   }
   .DonationsToRead {
-    background-color: rgb(0, 177, 15);
+    background-color: rgb(255, 7, 11);
   }
   .MessageToRead {
     background-color: rgb(255, 208, 0);

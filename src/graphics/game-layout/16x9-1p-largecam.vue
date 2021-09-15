@@ -1,89 +1,97 @@
 <template>
-  <div>
+<div :style="{ 'backgroundImage': `url(bsgbacks/16x9_1_Tall.png)`,
+'background-repeat': 'no-repeat'}
+">
     <!-- Game Captures -->
     <game-capture
       id="GameCapture1"
-      class="BorderLeft BorderBottom"
+      class="BlockRed"
       :style="{
-        left: '533px',
+        left: '483px',
         top: '0px',
-        width: '1387px',
-        height: '780px',
+        width: '1437px',
+        height: '809px',
       }"
     />
 
     <!-- Camera Captures -->
     <div
       id="CameraCapture1"
-      class="Capture"
+      class="Capture BlockBlue"
       :style="{
-        left: '0px',
-        top: '0px',
-        width: '533px',
-        height: '650px',
+        left: '8px',
+        top: '9px',
+        width: '440px',
+        height: '693px',
       }"
     />
 
     <!-- Run Game Info/Timer -->
     <div
-      class="Fixed Flex"
+      class="Fixed FlexColumn BlockGreen"
       :style="{
-        left: '533px',
-        top: '780px',
-        width: '1387px',
-        height: '160px',
+        left: '0px',
+        top: '693px',
+        width: '447px',
+        height: '86px',
       }"
     >
-      <run-info
-        class="BorderLeft"
-        :style="{
-          'font-size': '45px',
-          'width': '1000px',
-          height: '100%',
-        }"
-      />
-      <timer
-        class="BorderLeft"
-        :style="{
-          'width': '387px',
-          height: '100%',
-        }"
-      />
+    <div
+      class="Fixed Flex BlockYellow"
+      :style="{
+        flex: '1',
+        width: '100%',
+        left: '1213px',
+        top: '827px',
+        width: '680px',
+        height: '170px',
+      }"
+    >
+      <run-info />
+    </div>
+    <div
+      class="Fixed FlexColumn BlockBlack"
+      :style="{
+        flex: '1',
+        width: '100%',
+        left: '495px',
+        top: '864px',
+        width: '692px',
+        height: '162px',
+      }"
+    >
+      <timer />
+    </div>
     </div>
 
     <!-- Player/Commetator -->
     <div
-      class="Fixed"
-      :style="{
-        left: '0px',
-        top: '650px',
-        width: '533px',
+    class="Fixed FlexColumn BlockGreen"
+    :style="{
+      left: '0px',
+      top: '693px',
+      width: '447px',
+      height: '86px',
       }"
     >
       <player />
-      <comm-and-reader />
+      <!--<commentators-reader />
+      <commentators-reader show-reader />-->
     </div>
 
     <!-- Media Box -->
-    <media-box
-      :font-size="30"
+<media-box
+      :font-size="20"
+    class="Fixed FlexColumn BlockPurple"
       :style="{
-        left: '0px',
-        top: '740px',
-        width: '533px',
-        height: '200px',
+        left: '18px',
+        top: '785px',
+        width: '427px',
+        height: '212px',
       }"
     />
 
     <!-- Donation Bar -->
-    <donation-bar
-      :style="{
-        left: '0px',
-        top: '940px',
-        width: '1920px',
-        height: '60px',
-      }"
-    />
   </div>
 </template>
 
@@ -92,7 +100,7 @@ import { Vue, Component } from 'vue-property-decorator';
 import MediaBox from '@esamarathon/esa-layouts-shared/mediabox/graphics';
 import GameCapture from './components/GameCapture.vue';
 import Player from './components/Player.vue';
-import CommAndReader from './components/CommAndReader.vue';
+import CommentatorsReader from './components/CommentatorsReader.vue';
 import RunInfo from './components/RunInfo.vue';
 import Timer from './components/Timer.vue';
 import DonationBar from './components/DonationBar.vue';
@@ -101,7 +109,7 @@ import DonationBar from './components/DonationBar.vue';
   components: {
     GameCapture,
     Player,
-    CommAndReader,
+    CommentatorsReader,
     RunInfo,
     Timer,
     MediaBox,

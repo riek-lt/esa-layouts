@@ -1,77 +1,88 @@
 <template>
-  <div>
+<div :style="{ 'backgroundImage': `url(bsgbacks/standard_1_bg.png)`,
+'background-repeat': 'no-repeat'}
+">
+
     <!-- Game Captures -->
     <game-capture
       id="GameCapture1"
-      class="BorderLeft"
+      class="BlockRed"
       :style="{
-        left: '668px',
+        left: '589px',
         top: '0px',
-        width: '1252px',
-        height: '940px',
+        width: '1331px',
+        height: '998px',
       }"
     />
 
     <!-- Camera Captures -->
     <div
       id="CameraCapture1"
-      class="Capture"
+      class="Capture BlockBlue"
       :style="{
-        left: '0px',
-        top: '0px',
-        width: '668px',
-        height: '380px',
+        left: '7px',
+        top: '273px',
+        width: '547px',
+        height: '360px',
       }"
     />
 
     <!-- General Run Info -->
     <div
-      class="Fixed FlexColumn BorderBottom"
+      class="Fixed FlexColumn BlockGreen"
       :style="{
         left: '0px',
-        top: '380px',
-        width: '668px',
-        height: '350px',
+        top: '622px',
+        width: '536px',
+        height: '82px',
       }"
     >
       <player />
-      <commentators-reader />
-      <commentators-reader show-reader />
-
+      <!--<commentators-reader />
+      <commentators-reader show-reader />-->
+</div>
       <!-- Run Game Info/Timer -->
       <div
-        class="FlexColumn"
+        class="Flex BlockYellow"
         :style="{
           flex: '1',
-          width: '100%',
+          left: '0px',
+          top: '0px',
+          width: '552px',
+          height: '278px',
         }"
       >
         <run-info />
+        </div>
+
+<!--TIMER-->
+<div
+  class="Fixed FlexColumn BlockBlack"
+  :style="{
+    flex: '1',
+    width: '100%',
+    left: '16px',
+    top: '732px',
+    width: '535px',
+    height: '103px',
+  }"
+>
         <timer />
       </div>
-    </div>
 
     <!-- Media Box -->
     <media-box
-      :font-size="45"
+      :font-size="20"
       :style="{
-        left: '0px',
-        top: '730px',
-        width: '668px',
-        height: '270px',
+        left: '24px',
+        top: '840px',
+        width: '528px',
+        height: '157px',
       }"
     />
 
+    </div>
     <!-- Donation Bar -->
-    <donation-bar
-      class="BorderLeft"
-      :style="{
-        left: '668px',
-        top: '940px',
-        width: '1252px',
-        height: '60px',
-      }"
-    />
   </div>
 </template>
 

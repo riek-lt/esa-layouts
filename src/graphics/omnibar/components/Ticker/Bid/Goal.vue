@@ -8,10 +8,10 @@
   >
     <div
       :style="{
-        'font-size': '30px',
+        'font-size': '20px',
         'text-align': 'right',
         'margin-left': '15px',
-        'line-height': '100%',
+        'line-height': '150%',
       }"
     >
       Upcoming<br>Goal
@@ -30,7 +30,7 @@
           position: 'absolute',
           width: `${tweened.progress}%`,
           height: '100%',
-          'background-color': '#e8d53a',
+          'background-color': '#6DD47E',
         }"
       />
       <div
@@ -46,7 +46,7 @@
         }"
       >
         <div :style="{ width: '30%' }">
-          <span class="BarText" :style="{ 'font-size': '25px' }">
+          <span class="BarText" :style="{ 'font-size': '20px' }">
             <span
               v-if="bid.goal <= bid.total"
               :style="{ 'color': '#42ff38', 'font-weight': 700 }"
@@ -59,7 +59,7 @@
             </span>
           </span>
         </div>
-        <div class="BarTextFull" :style="{ 'font-size': '23px', 'text-align': 'center' }">
+        <div class="BarTextFull" :style="{ 'font-size': '20px', 'text-align': 'center' }">
           <div>
             {{ bid.game }}
             <br>{{ bid.name }}
@@ -131,7 +131,7 @@ export default class extends Vue {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    line-height: 100%;
+    line-height: 150%;
     height: 100%
   }
 </style>

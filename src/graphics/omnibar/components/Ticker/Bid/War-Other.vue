@@ -8,10 +8,10 @@
   >
     <div
       :style="{
-        'font-size': '30px',
+        'font-size': '20px',
         'text-align': 'right',
         'margin-left': '15px',
-        'line-height': '100%',
+        'line-height': '150%',
       }"
     >
       Upcoming<br>Bid War
@@ -31,11 +31,12 @@
           display: 'flex',
           'justify-content': 'center',
           'flex-direction': 'column',
-          'font-size': '23px',
+          'font-size': '20px',
           'text-align': 'center',
+          'background-color': 'rgba(0, 0, 0, 0.3)',
           padding: '0 10px',
           'white-space': 'nowrap',
-          'line-height': '100%',
+          'line-height': '150%',
         }"
       >
         {{ bid.game }}
@@ -53,18 +54,19 @@
           position: 'relative',
           'flex-grow': 1,
           'white-space': 'nowrap',
-          'font-size': '30px',
+          'font-size': '20px',
           overflow: 'hidden',
           display: 'flex',
           'align-items': 'center',
-          'font-size': '23px',
+          'background-color': 'rgba(0, 0, 0, 0.3)',
+          'font-size': '20px',
         }"
       >
         <div
           v-for="(option, i) in options" :key="option.id"
           class="Option"
           :style="{
-            'background-color': option.winning ? '#877520' : '#502f59',
+            'background-color': option.winning ? '#6DD47E' : '#B37BA4',
             'margin-left': i > 0 ? '5px' : '0',
           }"
           :ref="`Option${i + 1}`"

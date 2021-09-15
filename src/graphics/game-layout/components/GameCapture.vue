@@ -14,6 +14,7 @@
         class="TeamFinishTime"
         :style="{
           padding: '5px 10px',
+          'font-family': 'Goodlight',
         }"
       >
         <template v-if="teamFinishTime.state === 'forfeit'">

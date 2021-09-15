@@ -59,7 +59,7 @@
         @click="changeScene(obsConfig.names.scenes.gameLayout)"
         :disabled="disableButton(obsConfig.names.scenes.gameLayout)"
       >
-        Start Run
+        Transition to Run
         <template v-if="currentRunDelay.audio">
           ({{ (currentRunDelay.audio / 1000).toFixed(1) }}s delay)
         </template>

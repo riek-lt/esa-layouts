@@ -32,7 +32,7 @@
           position: 'absolute',
           width: `${progressTweened}%`,
           height: '100%',
-          'background-color': '#e8d53a',
+          'background-color': '#6DD47E',
         }"
       />
       <div
@@ -49,7 +49,7 @@
       >
         <div :style="{ width: '20%' }">
           <span class="BarText" :style="{ 'font-size': '25px' }">
-            <span v-if="isMet" :style="{ 'color': '#42ff38', 'font-weight': 700 }">MET!</span>
+            <span v-if="isMet" :style="{ 'color': '#e8d53a', 'font-weight': 700 }">MET!</span>
             <span v-else>
               <span :style="{ 'font-weight': 600 }">Remaining:</span>
               {{ amountLeft }}
