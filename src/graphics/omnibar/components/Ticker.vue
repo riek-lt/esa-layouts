@@ -137,11 +137,12 @@ export default {
         return this.genericMsg('Your host is pretty cool!');
         } else {
           return this.genericMsg('Your host is ' + donationReader.value);
-          }
-          },
+	    }
+	},
           currentCom() {
-          if (commentators.value.length == 0) {
-            return this.genericMsg('Stay hydrated!');
+          if (commentators.value.length === 0) {{
+			  return this.genericMsg('Stay hydrated!');
+		  }
 } else {
 var nameList = "Commentary: ";
 for (var i = 0; i < commentators.value.length; i++) {

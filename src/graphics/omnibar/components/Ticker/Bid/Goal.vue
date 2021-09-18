@@ -30,7 +30,8 @@
           position: 'absolute',
           width: `${tweened.progress}%`,
           height: '100%',
-          'background-color': '#6DD47E',
+          'background-color': '#6DD47E', // BSG
+          // 'background-color': '#4d83aa', // UKSG
         }"
       />
       <div
