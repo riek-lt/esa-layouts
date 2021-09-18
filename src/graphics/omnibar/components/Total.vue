@@ -82,7 +82,7 @@ export default {
     total(newVal, oldVal) {
       if (this.init) {
         this.alertList.push({
-          total: newVal, amount: '€'+ (newVal - oldVal).toFixed(2), timestamp: Date.now(),
+          total: newVal, amount: `€${(newVal - oldVal).toFixed(2)}`, timestamp: Date.now(),
         });
         if (!this.playingAlerts) {
           this.playNextAlert(true);
@@ -93,8 +93,8 @@ export default {
       }
     },
     tweenedTotal(val) {
-    var string = `$${val.toLocaleString('en-US', { maximumFractionDigits: 0 })}`;
-    string = string.replace(/\$/gi, "€");
+      let string = `$${val.toLocaleString('en-US', { maximumFractionDigits: 0 })}`;
+      string = string.replace(/\$/gi, '€');
       this.totalSplitString = string.split('');
     },
   },

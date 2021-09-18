@@ -81,8 +81,8 @@ export default {
         this.prize(),
         this.bid(),
         this.milestone(),
-		this.currentHost(),
-		this.currentCom(),
+        this.currentHost(),
+        this.currentCom(),
         // this.teamPromo(),
         this.donationURL(),
         // this.esaUpcomingEvt(),
@@ -127,33 +127,32 @@ export default {
       this.timestamp = Date.now();
     },
     esaPromo() {
-      return this.genericMsg('You\'re watching BSG Annual 2021 @home' );
+      return this.genericMsg('You\'re watching BSG Annual 2021 @home');
     },
     charityPromo() {
-    return this.genericMsg('#BSG2021 is benefitting MIND');
-},
+      return this.genericMsg('#BSG2021 is benefitting MIND');
+    },
     currentHost() {
       if (donationReader.value == null) {
         return this.genericMsg('Your host is pretty cool!');
-        } else {
-          return this.genericMsg('Your host is ' + donationReader.value);
-	    }
-	},
-          currentCom() {
-          if (commentators.value.length === 0) {{
-			  return this.genericMsg('Stay hydrated!');
-		  }
-} else {
-var nameList = "Commentary: ";
-for (var i = 0; i < commentators.value.length; i++) {
-if (i !== 0) {
-  nameList += ', ';
-}
-nameList += commentators.value[i];
-}
-return this.genericMsg(nameList);
-}
-},
+      }
+      return this.genericMsg(`Your host is ${donationReader.value}`);
+    },
+    currentCom() {
+      if (commentators.value.length === 0) {
+        return this.genericMsg('Stay hydrated!');
+      }
+
+      let nameList = 'Commentary: ';
+      for (let i = 0; i < commentators.value.length; i++) {
+        if (i !== 0) {
+          nameList += ', ';
+        }
+        nameList += commentators.value[i];
+      }
+
+      return this.genericMsg(nameList);
+    },
     otherStreamPromo() {
       return this.genericMsg(`Watch more great runs over @ twitch.tv/${this.otherChannel}`);
     },
@@ -181,7 +180,7 @@ return this.genericMsg(nameList);
       return this.genericMsg('Check out our Twitch team @ twitch.tv/team/esa');
     },
     donationURL() {
-      	    return this.genericMsg(`Donate @ bsgmarathon.com/donate/`);
+      return this.genericMsg('Donate @ bsgmarathon.com/donate/');
     },
     merch() {
       return this.genericMsg('Check out our merch @ speedrunstore.com');
@@ -272,8 +271,8 @@ return this.genericMsg(nameList);
     min-width: 0;
     flex: 1;
     padding-top: 2px;
-margin-left: 12px;
-font-family: 'Goodlight';
+    margin-left: 12px;
+    font-family: 'Goodlight';
   }
 
   .fade-enter-active, .fade-leave-active {

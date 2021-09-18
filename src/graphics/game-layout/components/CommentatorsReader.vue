@@ -16,8 +16,7 @@
       :style="{
         'min-width': '140px',
         height: '100%',
-        // background: '#2d1d3c', // HARDCODED, BAD! // ESA
-        background: '#2b516b', // HARDCODED, BAD! // UKSG
+        background: '#2d1d3c', // HARDCODED, BAD!
         'justify-content': 'center',
         // 'padding-left': '10px',
         'font-size': '24px',

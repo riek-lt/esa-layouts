@@ -13,7 +13,8 @@ module.exports = {
   parser: 'vue-eslint-parser',
   parserOptions: {
     parser: '@typescript-eslint/parser',
-    project: 'tsconfig.browser.json',
+    // project: './tsconfig.browser.json',
+    project: path.join(__dirname, 'tsconfig.browser.json'),
     extraFileExtensions: ['.vue'],
     ecmaVersion: 2020,
     // sourceType: 'module',
@@ -35,12 +36,14 @@ module.exports = {
     'plugin:import/typescript',
   ],
   settings: {
+    'indent': ['error', 2],
     'import/resolver': {
       typescript: {
         // This is needed to properly resolve paths.
-        project: 'tsconfig.browser.json',
+        // project: './tsconfig.browser.json',
+        project: path.join(__dirname, 'tsconfig.browser.json'),
       },
-      /* 
+      /*
         fibers in webpack has the issue "no binary", making this display
         an annoying error in VSCode, so leaving off for now.
       */

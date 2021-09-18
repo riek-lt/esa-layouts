@@ -40,10 +40,10 @@ export default class extends Vue {
   tagScanTimeout!: number;
 
   get largestDonation(): string {
-  var abc =`$${this.donationsToRead
-    .reduce((prev, current) => ((prev > current.amount) ? prev : current.amount), 0)
-    .toFixed(2)}`
-       abc = abc.replace(/\$/gi, "€");
+    let abc = `$${this.donationsToRead
+      .reduce((prev, current) => ((prev > current.amount) ? prev : current.amount), 0)
+      .toFixed(2)}`;
+    abc = abc.replace(/\$/gi, '€');
     return abc;
   }
 
