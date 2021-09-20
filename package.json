@@ -155,7 +155,7 @@
         "title": "Upcoming Run Control",
         "width": 3,
         "file": "upcoming-run-control.html",
-        "workspace": "SC - BSG extra",
+        "workspace": "Z - BSG Advanced",
         "headerColor": "#c49215"
       },
       {
@@ -185,7 +185,7 @@
         "title": "Donation Total Milestones",
         "width": 4,
         "file": "donation-total-milestones.html",
-        "workspace": "S - Omnibar",
+        "workspace": "Omnibar",
         "headerColor": "#87BAAB"
       },
       {
@@ -193,7 +193,7 @@
         "title": "Bids",
         "width": 3,
         "file": "bids.html",
-        "workspace": "S - Omnibar",
+        "workspace": "Omnibar",
         "headerColor": "#87BAAB"
       },
       {
@@ -208,7 +208,7 @@
         "title": "RabbitMQ Test",
         "width": 2,
         "file": "rabbitmq-test.html",
-        "workspace": "SC - BSG extra",
+        "workspace": "Z - BSG Advanced",
         "headerColor": "#c49215"
       }
     ],
