@@ -58,7 +58,7 @@ export default {
 #Omnibar {
   position: fixed;
   width: 1920px;
-  height: 80px;
+  height: 82px;
   justify-content: flex-start;
 }
 #GenericMessage {
