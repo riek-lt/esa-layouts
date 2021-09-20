@@ -119,7 +119,8 @@ export default class extends Vue {
     font-size: 0.75em;
     top: -0.1em;
     line-height: 1.5em;
-    background: #2d1d3c;
+    /* background: #2d1d3c; /* ESA */
+    background: #2b516b; /* UKSG */
     color: #cccccc;
     text-transform: uppercase;
     padding: 0 3px;

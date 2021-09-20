@@ -28,10 +28,10 @@ export default {
   },
   methods: {
     setTime() {
-//      const zone = nodecg.bundleConfig.event.theme.startsWith('bsg')
-  //      ? 'Europe/Amsterdam'
+      //      const zone = nodecg.bundleConfig.event.theme.startsWith('bsg')
+      //      ? 'Europe/Amsterdam'
     //    : 'Europe/Stockholm';
-      //this.time = dayjs().tz(zone).format('HH:mm');
+      // this.time = dayjs().tz(zone).format('HH:mm');
       this.time = dayjs().tz('Europe/Amsterdam').format('HH:mm');
     },
     pad(num) {

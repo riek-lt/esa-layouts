@@ -67,7 +67,6 @@
         <timer />
       </div>
 
-
     <!-- Media Box -->
     <media-box
       :font-size="20"
@@ -78,7 +77,6 @@
       height: '157px',
       }"
     />
-    </div>
     <!-- Donation Bar -->
   </div>
 </template>

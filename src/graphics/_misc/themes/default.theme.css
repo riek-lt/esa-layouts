@@ -65,11 +65,15 @@ justify-content: center;
 }
 
 .GameCapture .TeamFinishTime {
-  background-color: rgba(65, 36, 91, 0.5);
+  /*background-color: rgba(64,36,91,0.5); ESA*/
+  background: linear-gradient(rgba(50, 50, 50, 0.5), rgba(30, 30, 30, 0.6)); /* BSG option 1 */
+  /*background-color: rgba(50, 50, 50, 0.5);*/ /* BSG option 2, no gradient */
 }
 
 .CommAndReader {
-  background-color: #rgba(64,36,91,0.5);
+  /*background-color: rgba(64,36,91,0.5); ESA*/
+  background: linear-gradient(rgba(50, 50, 50, 0.5), rgba(30, 30, 30, 0.6)); /* BSG option 1 */
+  /*background-color: rgba(50, 50, 50, 0.5);*/ /* BSG option 2, no gradient */
   color: white;
 }
 

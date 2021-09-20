@@ -81,7 +81,6 @@
       }"
     />
 
-    </div>
     <!-- Donation Bar -->
   </div>
 </template>

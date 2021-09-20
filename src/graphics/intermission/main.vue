@@ -17,8 +17,7 @@
           width: '609px',
           height: '276px',
         }"
-      >
-      </div>
+      />
       <div
         v-else
         class="Fixed"
@@ -28,8 +27,7 @@
           width: '609px',
           height: '276px',
         }"
-      >
-      </div>
+      />
 
       <!-- Commercial Timer -->
       <commercial-timer
