@@ -5,12 +5,15 @@
       @click="resetChecks">
       Uncheck all
     </v-btn>
-    <h2>Checklist</h2>
-    <ul class="border">
+    <h2 class="mt-2">Checklist</h2>
+    <ul>
       <li :class="{
         multiselect: true,
+        'with-transition': unchecking,
         'multiselect-on': check.checked,
-      }" v-for="(check, i) in checks" :key="i">
+      }" v-for="(check, i) in checks"
+          @click.prevent="$event.stopPropagation(); check.checked = !check.checked"
+          :key="i">
         <input :id="`checkbox-${i}`" type="checkbox" v-model="check.checked">
         <label :for="`checkbox-${i}`">{{ check.title }}</label>
       </li>
@@ -23,6 +26,7 @@ import { Vue, Component } from 'vue-property-decorator';
 
 @Component
 export default class extends Vue {
+  unchecking = false;
   checks = [
     {
       title: 'Switch to intermission OR video player',
@@ -75,34 +79,41 @@ export default class extends Vue {
   ];
 
   resetChecks(): void {
+    this.unchecking = true;
+
     for (const check of this.checks) {
       check.checked = false;
     }
+
+    setTimeout(() => {
+      this.unchecking = false;
+    }, 550);
   }
 }
 </script>
-<style>
-  .border {
+<style scoped>
+  ul {
     border: 2px solid black;
     border-radius: 5px;
-    padding: 5px;
+    padding: 5px !important;
+    list-style-type: none;
+    column-count: 3;
   }
 
   .multiselect {
     border: solid 1px #768948;
     overflow: auto;
-    padding: 10px;
+    padding: 5px;
     border-radius: 5px;
+    margin-bottom: 4px;
+  }
+
+  .with-transition {
+    transition: background-color ease-in-out 500ms;
   }
 
   .multiselect-on {
     color: #ffffff;
     background-color: #06BA63;
-  }
-
-  ul {
-    display: flex;
-    list-style-type: none;
-    flex-wrap: wrap;
   }
 </style>
