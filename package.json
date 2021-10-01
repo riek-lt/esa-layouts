@@ -210,6 +210,13 @@
         "file": "rabbitmq-test.html",
         "workspace": "Z - BSG Advanced",
         "headerColor": "#c49215"
+      },
+      {
+        "name": "checklist",
+        "title": "Checklist",
+        "width": 4,
+        "file": "checklist.html",
+        "headerColor": "#33cbcb"
       }
     ],
     "graphics": [
