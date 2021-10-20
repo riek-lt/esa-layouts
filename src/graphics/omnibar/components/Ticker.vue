@@ -127,10 +127,10 @@ export default {
       this.timestamp = Date.now();
     },
     esaPromo() {
-      return this.genericMsg('You\'re watching BSG Annual 2021 @home');
+      return this.genericMsg('You\'re watching BSG Online 6');
     },
     charityPromo() {
-      return this.genericMsg('#BSG2021 is benefitting MIND');
+      return this.genericMsg('#BSGo6 is benefitting MIND');
     },
     currentHost() {
       if (donationReader.value == null) {
