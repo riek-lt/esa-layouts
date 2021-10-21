@@ -61,11 +61,7 @@ export default class extends Vue {
       checked: false,
     },
     {
-<<<<<<< HEAD
       title: 'Check if online notifications are off',
-=======
-      title: 'Verify run-info is correct',
->>>>>>> 4be43947ffef5c55e35dbde3482e2a672c5abdf3
       checked: false,
     },
     {
