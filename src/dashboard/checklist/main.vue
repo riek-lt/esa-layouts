@@ -29,7 +29,7 @@ export default class extends Vue {
   unchecking = false;
   checks = [
     {
-      title: 'Switch to intermission OR video player',
+      title: 'Switch to intermission',
       checked: false,
     },
     {
@@ -45,11 +45,11 @@ export default class extends Vue {
       checked: false,
     },
     {
-      title: 'Write down end time of previous run (when no scheduler is active)',
+      title: 'Set Host and Commentators',
       checked: false,
     },
     {
-      title: 'Set Host and Commentators',
+      title: 'Make sure stream(s) are loaded',
       checked: false,
     },
     {
@@ -61,12 +61,12 @@ export default class extends Vue {
       checked: false,
     },
     {
-      title: 'Make sure stream(s) are loaded',
+      title: 'Check if online notifications are off',
       checked: false,
     },
     {
-      title: 'Check if online notifications are off',
-      checked: false,
+    title: 'Write down end time of previous run (when no scheduler is active)',
+    checked: false,
     },
     {
       title: 'Stay hydrated',
