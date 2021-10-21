@@ -53,15 +53,19 @@ export default class extends Vue {
       checked: false,
     },
     {
+      title: 'Make sure stream(s) are loaded',
+      checked: false,
+    },
+    {
       title: 'Verify Game Layout',
       checked: false,
     },
     {
-      title: 'Verify run-info is correct',
-      checked: false,
-    },
-    {
+<<<<<<< HEAD
       title: 'Check if online notifications are off',
+=======
+      title: 'Verify run-info is correct',
+>>>>>>> 4be43947ffef5c55e35dbde3482e2a672c5abdf3
       checked: false,
     },
     {
