@@ -29,7 +29,7 @@ export default class extends Vue {
   unchecking = false;
   checks = [
     {
-      title: 'Switch to intermission OR video player',
+      title: 'Switch to intermission',
       checked: false,
     },
     {
@@ -53,15 +53,15 @@ export default class extends Vue {
       checked: false,
     },
     {
+      title: 'Make sure stream(s) are loaded',
+      checked: false,
+    },
+    {
       title: 'Verify Game Layout',
       checked: false,
     },
     {
       title: 'Verify run-info is correct',
-      checked: false,
-    },
-    {
-      title: 'Make sure stream(s) are loaded',
       checked: false,
     },
     {
