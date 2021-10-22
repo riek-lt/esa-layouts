@@ -17,6 +17,7 @@ Next, clone the `build` branch of this repository into the NodeCG `bundles` fold
 > cd bundles
 > git clone https://github.com/esamarathon/esa-layouts.git --branch build
 > cd esa-layouts
+> git submodule update --init --recursive
 > npm install --production
 > ```
 
