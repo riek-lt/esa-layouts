@@ -65,8 +65,8 @@ export default class extends Vue {
       checked: false,
     },
     {
-    title: 'Write down end time of previous run (when no scheduler is active)',
-    checked: false,
+      title: 'Write down end time of previous run (when no scheduler is active)',
+      checked: false,
     },
     {
       title: 'Stay hydrated',
