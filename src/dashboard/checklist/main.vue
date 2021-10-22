@@ -78,7 +78,18 @@ export default class extends Vue {
     },
   ];
 
+  mounted(): void {
+    // NOTE: NEVER EVER ack this as it will break the nodecg internals :)
+    nodecg.listenFor('changeToNextRun', 'nodecg-speedcontrol', () => {
+      this.resetChecks();
+    });
+  }
+
   resetChecks(): void {
+    if (this.unchecking) {
+      return;
+    }
+
     this.unchecking = true;
 
     for (const check of this.checks) {
