@@ -27,10 +27,10 @@
     "start": "node ../..",
     "watch": "run-p watch:*",
     "watch:browser": "webpack -w",
-    "watch:extension": "tsc -b tsconfig.extension.json -w"
+    "watch:extension": "tsc -b tsconfig.extension.json -w",
+    "postinstall": "cd shared && node postinstall.js"
   },
   "dependencies": {
-    "@esamarathon/esa-layouts-shared": "git+https://git@github.com/esamarathon/esa-layouts-shared.git#bd024f024a5cdfbad43fd3ebd41c11d8cf21b35e",
     "async": "^3.2.0",
     "clone": "^2.1.2",
     "get-video-duration": "3.0.2",
@@ -41,8 +41,7 @@
     "sharp": "^0.28.3",
     "speedcontrol-util": "^0.6.0-RC4",
     "streamdeck-util": "^0.3.3",
-    "uuid": "^8.3.2",
-    "ws": "^7.5.0"
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@esamarathon/mq-events": "git+https://git@github.com/esamarathon/mq-events.git#fa96a895d22367928fcb80fe800049669dfe3135",
@@ -56,7 +55,6 @@
     "@types/sharp": "^0.28.4",
     "@types/uuid": "^8.3.0",
     "@types/webpack-env": "^1.16.0",
-    "@types/ws": "^7.4.5",
     "@typescript-eslint/eslint-plugin": "^4.28.0",
     "@typescript-eslint/parser": "^4.28.0",
     "@vue/component-compiler-utils": "^3.2.2",
@@ -283,7 +281,7 @@
     ],
     "mount": [
       {
-        "directory": "node_modules/@esamarathon/esa-layouts-shared/flags",
+        "directory": "shared/flags",
         "endpoint": "flags"
       }
     ],

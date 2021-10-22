@@ -77,7 +77,6 @@ const config = (name) => {
           { from: './bsgbacks', to: '../graphics/bsgbacks' },
           { from: './omnibar/omniing', to: '../graphics/img/omniing' },
           { from: './host-dashboard.*', to: './' },
-          { from: './*.png', to: './js/img', context: '../../node_modules/@esamarathon/esa-layouts-shared/mediabox/graphics/dist/img' },
         ],
       }),
     );
