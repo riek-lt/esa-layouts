@@ -55,7 +55,7 @@ export default class extends Vue {
       checked: false,
     },
     {
-      title: 'Make sure stream(s) are loaded',
+      title: 'Verify run info is correct',
       checked: false,
     },
     {
