@@ -130,7 +130,7 @@ export default {
       return this.genericMsg('You\'re watching BSG Online 6');
     },
     charityPromo() {
-      return this.genericMsg('#BSGo6 is benefitting MIND');
+      return this.genericMsg('#BSGO6 is benefitting MIND');
     },
     currentHost() {
       if (donationReader.value == null) {

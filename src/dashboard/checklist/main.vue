@@ -55,7 +55,7 @@ export default class extends Vue {
       checked: false,
     },
     {
-      title: 'Verify run info is correct',
+      title: 'Verify run-info is correct',
       checked: false,
     },
     {
