@@ -2,7 +2,7 @@
   <v-app>
     <v-btn
       class="mt-1"
-      @click="resetChecks">
+      @click="sendUncheckAll">
       Uncheck all
     </v-btn>
     <h2 class="mt-2">Checklist</h2>
@@ -12,7 +12,7 @@
         'with-transition': unchecking,
         'multiselect-on': check.checked,
       }" v-for="(check, i) in checks"
-          @click.prevent="$event.stopPropagation(); check.checked = !check.checked"
+          @click.prevent="$event.stopPropagation(); setChecked(i, !check.checked)"
           :key="i">
         <input :id="`checkbox-${i}`" type="checkbox" v-model="check.checked">
         <label :for="`checkbox-${i}`">{{ check.title }}</label>
@@ -83,6 +83,24 @@ export default class extends Vue {
     nodecg.listenFor('changeToNextRun', 'nodecg-speedcontrol', () => {
       this.resetChecks();
     });
+
+    nodecg.listenFor('changeCheckStatus', ({ i, checked }) => {
+      this.checks[i].checked = checked;
+    });
+    nodecg.listenFor('changeCheckUncheckAll', () => {
+      this.resetChecks();
+    });
+  }
+
+  setChecked(index: number, checked: boolean): void {
+    nodecg.sendMessage('changeCheckStatus', {
+      i: index,
+      checked,
+    });
+  }
+
+  sendUncheckAll(): void {
+    nodecg.sendMessage('changeCheckUncheckAll');
   }
 
   resetChecks(): void {
