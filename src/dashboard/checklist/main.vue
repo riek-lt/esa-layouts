@@ -23,9 +23,11 @@
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator';
+import {Configschema} from '../../types/schemas';
 
 @Component
 export default class extends Vue {
+  obsConfig = (nodecg.bundleConfig as Configschema).obs;
   unchecking = false;
   checks = [
     {
@@ -79,9 +81,11 @@ export default class extends Vue {
   ];
 
   mounted(): void {
-    // NOTE: NEVER EVER ack this as it will break the nodecg internals :)
-    nodecg.listenFor('changeToNextRun', 'nodecg-speedcontrol', () => {
-      this.resetChecks();
+    nodecg.listenFor('obsChangeScene', ({ scene }) => {
+      // reset the checkmarks if we change to the game layout
+      if (scene === this.obsConfig.names.scenes.gameLayout) {
+        this.resetChecks();
+      }
     });
 
     nodecg.listenFor('changeCheckStatus', ({ i, checked }) => {
@@ -105,6 +109,11 @@ export default class extends Vue {
 
   resetChecks(): void {
     if (this.unchecking) {
+      return;
+    }
+
+    // Skip if nothing is checked
+    if (!this.checks.find((c) => c.checked)) {
       return;
     }
 
