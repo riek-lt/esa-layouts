@@ -39,8 +39,8 @@ export default class extends Vue {
       checked: false,
     },
     {
-      title: 'Tweet about the run WITH a picture',
-      checked: false,
+      title: '(automated)Tweet about the run WITH a picture',
+      checked: true,
     },
     {
       title: 'Balance audio with donation reader',
