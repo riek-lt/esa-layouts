@@ -73,18 +73,18 @@ export default {
       // Puts copies of the objects the functions return
       // into an array for easy random-ness access.
       this.messageTypes = [
-        this.esaPromo(),
-        this.charityPromo(),
+        /*this.esaPromo(),
+        this.charityPromo(),*/
         // this.otherStreamPromo(),
         // this.otherStreamInfo(),
         this.upcomingRun(),
-        this.prize(),
+       /* this.prize(),
         this.bid(),
         this.milestone(),
         this.currentHost(),
-        this.currentCom(),
+        this.currentCom(),*/
         // this.teamPromo(),
-        this.donationURL(),
+        /*this.donationURL(),*/
         // this.esaUpcomingEvt(),
         // this.esaBtRL(),
         // this.merch(),

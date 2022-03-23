@@ -65,9 +65,10 @@ export default {
 
       nextRunsCache = nextRuns;
     }
-
+    const forceShow = true;
     const randNum = Math.floor(Math.random() * nextRunsCache.length);
-    if (nextRunsCache[randNum].scheduledS
+
+    if (!forceShow && nextRunsCache[randNum].scheduledS
       && nextRunsCache[randNum].scheduledS < (Date.now() / 1000)) {
       nextRunsCache.splice(randNum, 1);
       clearTimeout(fallback);

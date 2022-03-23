@@ -1,7 +1,7 @@
 <template>
   <div
     id="Clock"
-    class="Flex"
+    class=""
   >
     {{ time }}
   </div>
@@ -28,10 +28,6 @@ export default {
   },
   methods: {
     setTime() {
-      //      const zone = nodecg.bundleConfig.event.theme.startsWith('bsg')
-      //      ? 'Europe/Amsterdam'
-    //    : 'Europe/Stockholm';
-      // this.time = dayjs().tz(zone).format('HH:mm');
       this.time = dayjs().tz('Europe/Amsterdam').format('HH:mm');
     },
     pad(num) {
@@ -43,10 +39,11 @@ export default {
 
 <style scoped>
   #Clock {
+    flex-shrink: 3;
     font-size: 35px;
-    width: 90px;
+    /*width: 90px;*/
     padding-left: 30px;
-padding-top: 12px;
-font-family: 'Goodlight'
+    padding-top: 12px;
+    font-family: 'Goodlight'
   }
 </style>

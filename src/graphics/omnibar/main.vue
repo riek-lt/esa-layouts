@@ -1,31 +1,28 @@
 <template>
   <div id="omnibar" class="Flex">
-    <div :style="{
-        'background-Image': 'url(./img/omniing/logo-bsg.png)',
-        'width': '256px',
-        'z-index': '3',
-        'position': 'static',
-        'overflow': 'visible',
-         }">
-         <clock/>
-        <!--<img src="./bsgstick.png" :style="{ padding: '0 10px' }">-->
+    <div id="left">
+      <div id="dash">
+        <p>Current run</p>
       </div>
+      <div class="box">
+        <clock/>
+        <img src="./omniing/bsgstick.png" :style="{ padding: '0 10px' }">
+      </div>
+    </div>
       <div class="background">
         <ticker/>
       </div>
-        <div :style="{
-        'position': 'static',
-        'overflow': 'visible',
-        'background-Image': 'url(./img/omniing/logo-charity-mind.png)',
-        'width': '500px',
-        'z-index': '1',
-        }">
+        <div id="right">
       <total :style="{
-          'padding-left': '100px',
-          'padding-top': '8px',
+          // 'padding-left': '100px',
+          // 'padding-top': '8px',
+          'margin-right': '3px',
           'text-align': 'right',
           'font-family': 'Goodlight',
           }"/>
+          <div class="box">
+            <img src="./omniing/mind_logo.png" alt="">
+          </div>
       </div>
     </div>
 </template>
@@ -45,7 +42,12 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
+html, body {
+  padding: 0;
+  margin: 0;
+}
+
 * {
   --bsg-color: #cf773b;
   --slide-color: #914e21;
@@ -54,13 +56,53 @@ export default {
 }
 
 #omnibar {
+  display: flex;
   position: fixed;
+  flex-grow: 1;
+  justify-content: space-between;
   width: 1920px;
   height: 82px;
-  justify-content: flex-start;
 
   background: linear-gradient(180deg, var(--bg-start) 0%, var(--bg-end) 100%);
+
+  #left {
+    display: inline-flex;
+    align-self: flex-start;
+
+    .box {
+      display: inline-flex;
+      height: 82px;
+      width: 256px;
+      background: var(--bsg-color);
+      border-radius: 0px 0px 34px 0px / 0px 0px 100px 0px;
+
+      /*img {
+        width: 50px;
+        height: 50px;
+      }*/
+    }
+  }
+
+  #right {
+    display: inline-flex;
+    align-self: flex-end;
+
+    .box {
+      height: 82px;
+      width: 203px;
+      background: var(--bsg-color);
+      // border-radius: 0px 0px 0px 34px / 0px 0px 0px 100px;
+      border-radius: 0px 0px 0px 34px / 0px 0px 0px 85px;
+
+      img {
+        position: relative;
+        height: 82px;
+        left: 79px;
+      }
+    }
+  }
 }
+
 #GenericMessage {
   padding-top: 8px;
 }
