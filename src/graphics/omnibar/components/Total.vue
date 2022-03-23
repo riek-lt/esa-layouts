@@ -20,7 +20,7 @@
             class="Flex"
           >
             <img
-              src="../RetroCoin.png"
+              src="../omniing/RetroCoin.png"
               :style="{ height: '50px', 'image-rendering': 'pixelated', 'margin-right': '5px' }"
             >
             <span
@@ -82,7 +82,7 @@ export default {
     total(newVal, oldVal) {
       if (this.init) {
         this.alertList.push({
-          total: newVal, amount: `€${(newVal - oldVal).toFixed(2)}`, timestamp: Date.now(),
+          total: newVal, amount: formatUSD(newVal - oldVal), timestamp: Date.now(),
         });
         if (!this.playingAlerts) {
           this.playNextAlert(true);
@@ -93,7 +93,7 @@ export default {
       }
     },
     tweenedTotal(val) {
-      let string = `$${val.toLocaleString('en-US', { maximumFractionDigits: 0 })}`;
+      let string = `€${val.toLocaleString('en-US', { maximumFractionDigits: 0 })}`;
       string = string.replace(/\$/gi, '€');
       this.totalSplitString = string.split('');
     },

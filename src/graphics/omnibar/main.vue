@@ -1,5 +1,5 @@
 <template>
-  <div id="Omnibar" class="Flex">
+  <div id="omnibar" class="Flex">
     <div :style="{
         'background-Image': 'url(./img/omniing/logo-bsg.png)',
         'width': '256px',
@@ -10,13 +10,7 @@
          <clock/>
         <!--<img src="./bsgstick.png" :style="{ padding: '0 10px' }">-->
       </div>
-      <!--<sub-goal-met></sub-goal-met>
-      <divider></divider>-->
-      <div :style="{
-        'background-Image': 'url(./img/omniing/background.png)',
-        'width': '1200px',
-        'z-index': '1',
-         }">
+      <div class="background">
         <ticker/>
       </div>
         <div :style="{
@@ -41,13 +35,10 @@ import Total from './components/Total.vue';
 import Ticker from './components/Ticker.vue';
 import Clock from './components/Clock.vue';
 
-const runDataActiveRun = nodecg.Replicant('runDataActiveRun', 'nodecg-speedcontrol');
-
 export default {
   name: 'Omnibar',
   components: {
     Total,
-    // SubGoalMet,
     Ticker,
     Clock,
   },
@@ -55,11 +46,20 @@ export default {
 </script>
 
 <style>
-#Omnibar {
+* {
+  --bsg-color: #cf773b;
+  --slide-color: #914e21;
+  --bg-start: #303030;
+  --bg-end: #212121;
+}
+
+#omnibar {
   position: fixed;
   width: 1920px;
   height: 82px;
   justify-content: flex-start;
+
+  background: linear-gradient(180deg, var(--bg-start) 0%, var(--bg-end) 100%);
 }
 #GenericMessage {
   padding-top: 8px;
