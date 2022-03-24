@@ -1,5 +1,6 @@
 <template>
   <div
+    class="Goal"
     :style="{
       height: '100%',
       display: 'flex',
@@ -26,12 +27,12 @@
       }"
     >
       <div
+        class="Bar"
         :style="{
           position: 'absolute',
           width: `${tweened.progress}%`,
           height: '100%',
           'background-color': '#6DD47E', // BSG
-          // 'background-color': '#4d83aa', // UKSG
         }"
       />
       <div
@@ -50,7 +51,10 @@
           <span class="BarText" :style="{ 'font-size': '20px' }">
             <span
               v-if="bid.goal <= bid.total"
-              :style="{ 'color': '#42ff38', 'font-weight': 700 }"
+              :style="{
+                'color': '#42ff38', // Basic green, no need to use theme
+                'font-weight': 700,
+              }"
             >
               MET!
             </span>
@@ -66,7 +70,12 @@
             <br>{{ bid.name }}
           </div>
         </div>
-        <div :style="{ width: '30%', 'text-align': 'right' }">
+        <div
+          :style="{
+            width: '30%',
+            'text-align': 'right',
+          }"
+        >
           <span class="BarText" :style="{ 'font-size': '25px' }">
             <span :style="{ 'font-weight': 600 }">Goal:</span>
             {{ formatUSD(bid.goal || 0) }}
@@ -81,17 +90,17 @@
 import { Bids } from '@esa-layouts/types/schemas';
 import { Vue, Component, Prop, Watch } from 'vue-property-decorator';
 import gsap from 'gsap';
-import { formatUSD } from '@esa-layouts/graphics/_misc/helpers';
-import { isPinned, waitForPinFinish } from '../Bid.vue';
+import { formatUSD, wait } from '@esa-layouts/graphics/_misc/helpers';
 
 @Component
 export default class extends Vue {
+  @Prop({ type: Number, required: true }) readonly seconds!: number;
   @Prop({ type: Object, required: true }) readonly bid!: Bids[0];
   formatUSD = formatUSD;
   tweened = { progress: 0, total: 0 };
 
   get amountLeft(): string {
-    return formatUSD(Math.max((this.bid?.goal ?? 0) - this.tweened.total, 0));
+    return formatUSD(Math.max((this.bid.goal ?? 0) - this.tweened.total, 0));
   }
 
   tweenValues(): void {
@@ -109,12 +118,10 @@ export default class extends Vue {
 
   async created(): Promise<void> {
     this.tweenValues();
-    if (isPinned(this.bid)) {
-      await waitForPinFinish(this.bid);
-    } else {
-      await new Promise((res) => { window.setTimeout(res, 25 * 1000); });
+    if (this.seconds >= 0) {
+      await wait(this.seconds * 1000); // Wait the specified length.
+      this.$emit('end');
     }
-    this.$emit('end');
   }
 }
 </script>

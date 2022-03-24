@@ -47,9 +47,16 @@ align-items: left;
 justify-content: center;
   align-items: center;
 }
-
 .CommAndReader .Pronouns {
   background-color: #4b3163;
+}
+
+/** New commentators and reader component! **/
+#GameLayout .CommentatorsReader .Header {
+  background-color: #2d1d3c;
+}
+#GameLayout .CommentatorsReader .Pronouns {
+  background-color: #2d1d3c;
 }
 
 .Player .Icon {
@@ -128,7 +135,7 @@ justify-content: center;
   /* background-color: #41245b; */
 }
 
-#Intermission .Header {
+#Intermission .Header, #ReaderIntroduction .Header {
   /* background-color: #41245b; */
   color: #914e21;
 font-family: "Goodlight";
@@ -138,16 +145,21 @@ font-family: "Goodlight";
   color: #cf773b;
 }
 #Intermission .BottomBox,
-#Intermission .Content {
-  /* background-color: rgba(0, 0, 0, 0.3); */
+#Intermission .Content, #ReaderIntroduction .Content {
+  /* background-color: rgba(0, 0, 0, 0.85);
+}
+
+#IntermissionPlayer .UpcomingBar .Header {
+  background-color: #41245b; */
   	  text-align: left;
 }
 
 #Omnibar {
+  color: white;
   background: linear-gradient(0deg, rgba(56,31,78,1) 0%, rgba(92,50,130,1) 100%);
 }
 
-#Omnibar #Logo {
+#Omnibar > #Logo {
   content: url('./default/OmnibarLogo.png');
   /* padding: 0 10px; */
 }
@@ -182,3 +194,31 @@ font-family: "Goodlight";
 /* .BlockBlack {
   background-color: black;
 }  */
+
+#Omnibar .Alert {
+  background-color: rgba(255, 255, 255, 0.22);
+}
+
+#Omnibar .Milestone .Bar, #Omnibar .Goal .Bar {
+  background-color: #e8d53a;
+}
+
+#Omnibar .War1v1 .Bar1 {
+  background-color: #e8d53a;
+}
+
+#Omnibar .War1v1 .Bar2 {
+  background-color: #af60f7;
+}
+
+#Omnibar .WarOther .OptionWinning {
+  background-color: #877520;
+}
+
+#Omnibar .WarOther .OptionOther {
+  background-color: #502f59;
+}
+
+#Omnibar .MiniCredits > .Msg > span + span::before {
+  border-left: solid white 5px;
+}

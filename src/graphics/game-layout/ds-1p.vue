@@ -78,10 +78,6 @@
       <!--<commentators-reader />
       <commentators-reader show-reader />-->
     </div>
-
-    <!-- Media Box -->
-
-    <!-- Donation Bar -->
   </div>
 </template>
 

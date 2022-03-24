@@ -64,7 +64,7 @@
     </div>
     </div>
 
-    <!-- Player/Commetator -->
+    <!-- Player/Commentator -->
     <div
     class="Fixed FlexColumn BlockGreen"
     :style="{
@@ -103,7 +103,6 @@
       }"
     />
 
-    <!-- Donation Bar -->
   </div>
 </template>
 

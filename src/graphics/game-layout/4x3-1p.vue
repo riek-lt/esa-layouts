@@ -80,8 +80,6 @@
         height: '157px',
       }"
     />
-
-    <!-- Donation Bar -->
   </div>
 </template>
 

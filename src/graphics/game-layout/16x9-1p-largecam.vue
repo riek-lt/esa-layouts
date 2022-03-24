@@ -64,7 +64,7 @@
     </div>
     </div>
 
-    <!-- Player/Commetator -->
+    <!-- Player/Commetator/Media Box -->
     <div
     class="Fixed FlexColumn BlockGreen"
     :style="{
@@ -74,6 +74,7 @@
       height: '86px',
       }"
     >
+      <!-- Player/Commetator -->
       <player />
       <!--<commentators-reader />
       <commentators-reader show-reader />-->
@@ -91,7 +92,6 @@
       }"
     />
 
-    <!-- Donation Bar -->
   </div>
 </template>
 
@@ -113,7 +113,6 @@ import DonationBar from './components/DonationBar.vue';
     RunInfo,
     Timer,
     MediaBox,
-    DonationBar,
   },
 })
 export default class extends Vue {}

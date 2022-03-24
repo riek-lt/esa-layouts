@@ -54,86 +54,63 @@
   </div>
 </template>
 
-<script>
-import { TweenLite } from 'gsap';
-import { formatUSD } from '../../_misc/helpers';
+<script lang="ts">
+import { replicantModule } from '@esa-layouts/browser_shared/replicant_store';
+import { formatUSD } from '@esa-layouts/graphics/_misc/helpers';
+import { Vue, Component, Watch } from 'vue-property-decorator';
+import gsap from 'gsap';
 
-const totalRep = nodecg.Replicant('donationTotal');
+@Component
+export default class extends Vue {
+  // @Ref('SFX') sfx!: HTMLAudioElement;
+  total = 0;
+  playingAlerts = false;
+  showAlert = false;
+  alertText = '€0';
+  alertList: { total: number, amount: number }[] = [];
 
-export default {
-  name: 'Total',
-  data() {
-    return {
-      init: false,
-      total: -1,
-      tweenedTotal: -1,
-      totalSplitString: [],
-      alertList: [],
-      playingAlerts: false,
-    };
-  },
-  watch: {
-    total(newVal, oldVal) {
-      if (this.init) {
-        this.alertList.push({
-          total: newVal, amount: formatUSD(newVal - oldVal), timestamp: Date.now(),
-        });
-        if (!this.playingAlerts) {
-          this.playNextAlert(true);
-        }
-      } else {
-        this.tweenedTotal = this.total;
-        this.init = true;
-      }
-    },
-    tweenedTotal(val) {
-      this.totalSplitString = formatUSD(val).split('');
-    },
-  },
-  async mounted() {
-    totalRep.on('change', (newVal) => {
-      this.total = newVal;
-      // this.total = 1000;
-    });
+  get rawTotal(): number {
+    return replicantModule.repsTyped.donationTotal;
+  }
 
-    // Keep the SFX playing constantly but on mute to avoid garbage collection (hopefully).
-    this.$refs.SFX.muted = true;
-    await this.$refs.SFX.play();
-    this.$refs.SFX.addEventListener('ended', async () => {
-      this.$refs.SFX.muted = true;
-      await this.$refs.SFX.play();
-    });
-  },
-  methods: {
-    async playNextAlert(start = false) {
-      this.playingAlerts = true;
-      if (!start) {
-        await new Promise((res) => { setTimeout(res, 500); });
-      }
-      this.playSound();
+  get totalStr(): string {
+    return formatUSD(this.total);
+  }
+
+  async playNextAlert(start = false): Promise<void> {
+    this.playingAlerts = true;
+    if (!start) await new Promise((res) => { setTimeout(res, 500); });
+    if (this.alertList[0].amount > 0) { // Only show alerts for positive values
+      nodecg.sendMessage('omnibarPlaySound');
+      // await this.sfx.play();
       await new Promise((res) => { setTimeout(res, 500); });
-      TweenLite.to(this.$data, 5, { tweenedTotal: this.alertList[0].total });
-      window.setTimeout(() => {
-        this.alertList.shift();
-        if (this.alertList.length) {
-          this.playNextAlert();
-        } else {
-          this.playingAlerts = false;
-        }
-      }, 6000);
-    },
-    async playSound() {
-      try {
-        await this.$refs.SFX.pause();
-        this.$refs.SFX.currentTime = 0;
-        await this.$refs.SFX.play();
-        this.$refs.SFX.muted = false;
-      } catch (err) {
-        // catch
-      }
-    },
-  },
-};
+      this.showAlert = true;
+      this.alertText = formatUSD(this.alertList[0].amount);
+    }
+    gsap.to(this, {
+      total: this.alertList[0].total,
+      duration: 5,
+    });
+    await new Promise((res) => { setTimeout(res, 6000); });
+    this.alertList.shift();
+    this.showAlert = false;
+    if (this.alertList.length) this.playNextAlert();
+    else this.playingAlerts = false;
+  }
+
+  @Watch('rawTotal')
+  onRawTotalChanged(newVal: number, oldVal: number): void {
+    this.alertList.push({
+      total: newVal,
+      amount: newVal - oldVal,
+    });
+    if (!this.playingAlerts) this.playNextAlert(true);
+  }
+
+  async created(): Promise<void> {
+    this.total = this.rawTotal;
+  }
+}
 </script>
 
 <style scoped>
