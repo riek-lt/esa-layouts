@@ -58,13 +58,13 @@ export interface Configschema {
 		};
 	};
 	music: {
-		enable: boolean;
+		enabled: boolean;
 		address: string;
 		username: string;
 		password: string;
 	};
 	x32: {
-		enable: boolean;
+		enabled: boolean;
 		ip: string;
 		localPort: number;
 	};

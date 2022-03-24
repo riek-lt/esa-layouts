@@ -4,7 +4,7 @@ import { get as nodecg } from './util/nodecg';
 import obs from './util/obs';
 
 const config = (nodecg().bundleConfig as Configschema).music;
-const music = new Music(nodecg(), config);
+const music = new Music(nodecg(), config, obs);
 
 // Listen to OBS transitions to play/pause correctly.
 obs.conn.on('TransitionBegin', (data) => {
