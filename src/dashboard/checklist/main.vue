@@ -23,13 +23,19 @@
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator';
-import {Configschema} from '../../types/schemas';
+import { Configschema } from '../../types/schemas';
+
+type ChecklistItem = {
+  title: string;
+  checked: boolean;
+  defaultState?: boolean;
+};
 
 @Component
 export default class extends Vue {
   obsConfig = (nodecg.bundleConfig as Configschema).obs;
   unchecking = false;
-  checks = [
+  checks: ChecklistItem[] = [
     {
       title: 'Switch to intermission',
       checked: false,
@@ -41,6 +47,7 @@ export default class extends Vue {
     {
       title: '(automated)Tweet about the run WITH a picture',
       checked: true,
+      defaultState: true,
     },
     {
       title: 'Balance audio with donation reader',
@@ -120,7 +127,7 @@ export default class extends Vue {
     this.unchecking = true;
 
     for (const check of this.checks) {
-      check.checked = false;
+      check.checked = check.defaultState || false;
     }
 
     setTimeout(() => {
