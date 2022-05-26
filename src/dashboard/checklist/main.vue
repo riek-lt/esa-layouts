@@ -120,7 +120,7 @@ export default class extends Vue {
     }
 
     // Skip if nothing is checked
-    if (!this.checks.find((c) => c.checked)) {
+    if (!this.checks.find((c) => !c.defaultState || c.checked)) {
       return;
     }
 
