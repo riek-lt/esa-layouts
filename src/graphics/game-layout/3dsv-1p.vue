@@ -14,7 +14,7 @@
       }"
     />
     <game-capture
-      id="GameCapture2"
+      id="GameCapture3"
       class=" "
       :style="{
       left: '928px',
