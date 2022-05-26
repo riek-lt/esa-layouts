@@ -29,14 +29,12 @@
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator';
-import Divider from './components/Divider.vue';
 import Total from './components/Total.vue';
 import Ticker from './components/Ticker.vue';
 import Clock from './components/Clock.vue';
 
 @Component({
   components: {
-    Divider,
     Total,
     Ticker,
     Clock,

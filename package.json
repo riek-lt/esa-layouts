@@ -127,7 +127,7 @@
         "title": "Media Box Control",
         "width": 3,
         "file": "media-box-control.html",
-        "workspace": "Z2 - BSG Advanced",
+        "workspace": "Z - BSG Advanced",
         "headerColor": "#c49215"
       },
       {
@@ -150,7 +150,7 @@
         "title": "Intermission Player Control",
         "width": 3,
         "file": "intermission-player-control.html",
-        "workspace": "Z2 - BSG Advanced",
+        "workspace": "Z - BSG Advanced",
         "headerColor": "#c49215"
       },
       {
@@ -180,7 +180,7 @@
         "title": "Countdown Control",
         "width": 3,
         "file": "countdown-control.html",
-        "workspace": "Z2 - ESA Advanced",
+        "workspace": "Z - BSG Advanced",
         "headerColor": "#c49215"
       },
       {
@@ -188,7 +188,7 @@
         "title": "Omnibar Ticker Control",
         "width": 3,
         "file": "omnibar-ticker-control.html",
-        "workspace": "Z2 - BSG Advanced",
+        "workspace": "Z - BSG Advanced",
         "headerColor": "#c49215"
       },
       {

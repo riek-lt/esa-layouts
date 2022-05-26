@@ -1,24 +1,33 @@
 <template>
-  <div
-    class="Flex"
-    :style="{
+  <TickerDisplay>
+    <template #dash>
+      <div>This is a test</div>
+    </template>
+    <div
+      class="Flex"
+      :style="{
       'font-size': lines < 2 ? '33px' : '29px',
       'white-space': 'nowrap',
       'font-weight': 500,
       'text-align': 'center',
       'line-height': '100%',
     }"
-  >
-    <span :style="{ 'white-space': 'pre' }">{{ msg }}</span>
-  </div>
+    >
+      <span :style="{ 'white-space': 'pre' }">{{ msg }}</span>
+    </div>
+  </TickerDisplay>
 </template>
 
 <script lang="ts">
 import { wait } from '@esa-layouts/graphics/_misc/helpers';
 import { Vue, Component, Prop } from 'vue-property-decorator';
+import TickerDisplay from './Abstract/TickerDisplay.vue';
 
 @Component({
   name: 'GenericMsg',
+  components: {
+    TickerDisplay,
+  },
 })
 export default class extends Vue {
   @Prop({ type: String, default: 'Message?' }) readonly msg!: string;
