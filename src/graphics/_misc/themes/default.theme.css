@@ -35,9 +35,7 @@ align-items: left;
   /*background-color: #41245b;*/
 }
 
-.Player .Pronouns,
-.DonationReader .Pronouns,
-.CommAndReader .Pronouns {
+.Player .Pronouns {
   font-weight: 400;
   font-size: 0.8em;
   color: #d7d7d7;
@@ -48,8 +46,20 @@ justify-content: center;
   align-items: center;
 }
 
+.DonationReader .Pronouns,
 .CommAndReader .Pronouns {
-  background-color: #4b3163;
+  font-weight: 200;
+  font-size: 0.8em;
+  color: #d7d7d7;
+  text-transform: uppercase;
+  background-color: #914e21;
+    border-radius: 15px;
+justify-content: center;
+  align-items: center;
+}
+
+.CommAndReader .Pronouns {
+  background-color: #CF773B;
 }
 
 .Player .Icon {
@@ -162,6 +172,15 @@ font-family: "Goodlight";
   background-color: rgba(207, 119, 59, 0.4);
   border-radius: 15px;
 
+}
+
+.sub_div {
+    position: absolute;
+    width:100%;
+    bottom: 0px;
+    font-family: 'Goodlight';
+    font-size: '21pt';
+    white-space: 'normal';
 }
 
  /* .BlockRed {
