@@ -65,7 +65,7 @@
 </div>
       <!-- Run Game Info/Timer -->
       <div
-        class="Fixed Flex BlockYellow"
+        class="Fixed FlexColumn BlockYellow"
         :style="{
           flex: '1',
           width: '100%',
@@ -75,8 +75,12 @@
           height: '270px',
         }"
       >
-        <run-info />
-      </div>
+      <run-info :style="{ 'font-size': '35px' }" />
+      <div class="sub_div">
+      <commentators-reader />
+<commentators-reader show-reader />
+    </div>
+    </div>
 
       <!--TIMER-->
       <div
@@ -114,7 +118,7 @@ import { Vue, Component } from 'vue-property-decorator';
 import MediaBox from '@shared/graphics/mediabox';
 import GameCapture from './components/GameCapture.vue';
 import Player from './components/Player.vue';
-import CommAndReader from './components/CommAndReader.vue';
+import CommentatorsReader from './components/CommentatorsReader.vue';
 import RunInfo from './components/RunInfo.vue';
 import Timer from './components/Timer.vue';
 import DonationBar from './components/DonationBar.vue';
@@ -123,7 +127,7 @@ import DonationBar from './components/DonationBar.vue';
   components: {
     GameCapture,
     Player,
-    CommAndReader,
+    CommentatorsReader,
     RunInfo,
     Timer,
     MediaBox,

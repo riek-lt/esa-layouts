@@ -103,10 +103,10 @@
     <div
       class="Fixed FlexColumn BlockYellow"
       :style="{
-        left: '30px',
+        left: '24px',
         top: '603px',
         width: '550px',
-        height: '264px',
+        height: '274px',
       }"
     >
       <run-info />

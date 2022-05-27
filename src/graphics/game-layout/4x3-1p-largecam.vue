@@ -44,17 +44,26 @@
 
             <!-- Run Game Info/Timer -->
       <div
-        class="FlexColumn BlockYellow"
+        class="Fixed FlexColumn BlockYellow"
         :style="{
           flex: '1',
           'max-width': '100%',
           left: '0px',
           top: '0px',
           width: '552px',
-          height: '228px',
+          height: '240px',
         }"
       >
         <run-info />
+        <div class="sub_div"
+>
+  <commentators-reader show-reader
+  :style="{
+  'margin-right': '80px',
+  width: '93%',
+  }">
+      </div>
+
       </div>
 
       <!--TIMER-->
@@ -73,7 +82,16 @@
       </div>
 
     <!-- Media Box -->
-
+    <div class="Fixed"
+    :style="{
+    width: '97%',
+    left: '0px',
+    top: '737px',
+    width: '534px',
+    height: '111px',
+    }">
+    <commentators-reader />
+  </div>
     <!-- Donation Bar -->
   </div>
 

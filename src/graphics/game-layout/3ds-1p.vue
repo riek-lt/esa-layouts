@@ -36,6 +36,17 @@
       }"
     />
 
+    <div class="Fixed"
+    :style="{
+    width: '97%',
+    left: '0px',
+    top: '316px',
+    width: '539px',
+    height: '111px',
+    }">
+    <commentators-reader show-reader />
+  </div>
+
     <!-- Run Game Info/Timer -->
     <div
       class="Fixed Flex"

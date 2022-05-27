@@ -57,11 +57,29 @@
         left: '495px',
         top: '864px',
         width: '692px',
-        height: '162px',
+        height: '137px',
       }"
     >
       <timer />
-    </div>
+      <div class="sub_div"
+      :style="{
+      'margin-right': '24px',
+      width: '97%',
+      }">
+      <commentators-reader />
+      </div>
+      </div>
+
+      <div class="Fixed"
+      :style="{
+      width: '97%',
+      left: '18px',
+      top: '957px',
+      width: '428px',
+      height: '111px',
+      }">
+      <commentators-reader show-reader />
+      </div>
     </div>
 
     <!-- Player/Commetator -->

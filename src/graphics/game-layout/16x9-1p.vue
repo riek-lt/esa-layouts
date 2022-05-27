@@ -57,14 +57,30 @@
         left: '495px',
         top: '864px',
         width: '692px',
-        height: '162px',
+        height: '137px',
       }"
     >
       <timer />
+      <div class="sub_div"
+      :style="{
+      'margin-right': '24px',
+      width: '97%',
+      }">
+      <commentators-reader />
     </div>
     </div>
 
-    <!-- Player/Commetator -->
+    <div class="Fixed"
+    :style="{
+    width: '97%',
+    left: '18px',
+    top: '957px',
+    width: '428px',
+    height: '111px',
+    }">
+    <commentators-reader show-reader />
+  </div>
+
     <div
     class="Fixed FlexColumn BlockGreen"
     :style="{
@@ -75,8 +91,6 @@
       }"
     >
       <player />
-      <!--<commentators-reader />
-      <commentators-reader show-reader />-->
     </div>
     <div
     class="Fixed FlexColumn BlockGreen"
@@ -87,21 +101,21 @@
       height: '86px',
       }"
     >
-      <!--<commentators-reader />
-      <commentators-reader show-reader />-->
     </div>
 
     <!-- Media Box -->
+
 <media-box
-      :font-size="20"
-    class="Fixed FlexColumn BlockPurple"
-      :style="{
-        left: '18px',
-        top: '458px',
-        width: '428px',
-        height: '541px',
-      }"
-    />
+:font-size="20"
+  class="Fixed FlexColumn BlockPurple"
+    :style="{
+      left: '18px',
+      top: '458px',
+      width: '428px',
+      height: '511px',
+    }"
+    >
+
 
     <!-- Donation Bar -->
   </div>

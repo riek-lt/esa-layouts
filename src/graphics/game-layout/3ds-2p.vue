@@ -89,17 +89,21 @@
 </div>
       <!-- Run Game Info/Timer -->
       <div
-        class="Fixed Flex BlockYellow"
+        class="Fixed FlexColumn BlockYellow"
         :style="{
           flex: '1',
           width: '100%',
           left: '678px',
           top: '18px',
-          width: '546px',
-          height: '278px',
+          width: '528px',
+          height: '285px',
         }"
       >
         <run-info />
+        <div class="sub_div">
+        <commentators-reader />
+  <commentators-reader show-reader />
+      </div>
       </div>
 
       <!--TIMER-->
