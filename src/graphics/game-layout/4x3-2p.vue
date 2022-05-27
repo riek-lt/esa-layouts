@@ -64,7 +64,7 @@
 
     <!-- Player 1/Commentator -->
     <div
-      class="Fixed"
+      class="Fixed BlockGreen"
       :style="{
       left: '189px',
       top: '748px',

@@ -1,40 +1,42 @@
 <template>
-  <div>
+<div :style="{ 'backgroundImage': `url(bsgbacks/widescreen_3_bg.png)`,
+'background-repeat': 'no-repeat'}
+">
     <!-- Game Captures -->
     <game-capture
       id="GameCapture1"
-      class="BorderRight BorderBottom"
+      class="BlockRed"
       :slot-no="0"
       finish-time-pos="topleft"
       :style="{
         left: '0px',
-        top: '40px',
-        width: '765px',
-        height: '430px',
+        top: '0px',
+        width: '709px',
+        height: '402px',
       }"
     />
     <game-capture
       id="GameCapture2"
-      class="BorderLeft BorderBottom"
+      class=" BlockRed"
       :slot-no="1"
       finish-time-pos="topright"
       :style="{
-        left: '1155px',
-        top: '40px',
-        width: '765px',
-        height: '430px',
+        left: '602px',
+        top: '597px',
+        width: '711px',
+        height: '402px',
       }"
     />
     <game-capture
       id="GameCapture3"
-      class="BorderLeft"
+      class="BlockRed"
       :slot-no="2"
       finish-time-pos="bottomright"
       :style="{
-        left: '1155px',
-        top: '470px',
-        width: '765px',
-        height: '430px',
+        left: '1204px',
+        top: '0px',
+        width: '709px',
+        height: '402px',
       }"
     />
 
@@ -42,89 +44,105 @@
     <!-- Commentators Inside -->
     <div
       id="CameraCapture1"
-      class="Capture Flex BorderRight"
+      class="Capture Flex BlockBlue"
       :style="{
         'justify-content': 'flex-start',
         'flex-direction': 'column-reverse',
-        left: '0px',
-        top: '470px',
-        width: '765px',
-        height: '470px',
+        left: '740px',
+        top: '0px',
+        width: '438px',
+        height: '321px',
       }"
     >
-      <comm-and-reader />
+      <!--<comm-and-reader />-->
     </div>
 
     <!-- Players -->
+    <div
+      class="Fixed FlexColumn BlockGreen"
+    :style="{
+      'font-size': '22px',
+      left: '38px',
+      top: '418px',
+      width: '523px',
+      height: '83px',
+    }"
+    >
+    <player  :slot-no="0"  />
+        </div>
+
+        <div
+          class="Fixed FlexColumn BlockGreen"
+        :style="{
+          'font-size': '22px',
+          left: '714px',
+          top: '498px',
+          width: '523px',
+          height: '83px',
+        }"
+        >
+    <player :slot-no="1"/>
+    </div>
+
+    <div
+      class="Fixed FlexColumn BlockGreen"
+    :style="{
+      'font-size': '22px',
+      left: '1360px',
+      top: '418px',
+      width: '523px',
+      height: '83px',
+    }"
+    >
     <player
-      class="Fixed"
-      :slot-no="0"
-      :style="{
-        'font-size': '22px',
-        left: '0px',
-        top: '0px',
-        width: '765px',
-        height: '40px',
-      }"
-    />
-    <player
-      class="Fixed"
-      :slot-no="1"
-      :style="{
-        'font-size': '22px',
-        left: '1155px',
-        top: '0px',
-        width: '765px',
-        height: '40px',
-      }"
-    />
-    <player
-      class="Fixed"
       :slot-no="2"
-      :style="{
-        'font-size': '22px',
-        left: '1155px',
-        top: '900px',
-        width: '765px',
-        height: '40px',
-      }"
     />
+    </div>
 
     <!-- Run Game Info/Timer -->
     <div
-      class="Fixed FlexColumn BorderBottom"
+      class="Fixed FlexColumn BlockYellow"
       :style="{
-        left: '765px',
-        top: '0px',
-        width: '390px',
-        height: '390px',
+        left: '34px',
+        top: '603px',
+        width: '550px',
+        height: '222px',
       }"
     >
       <run-info no-wrap />
-      <timer />
+
     </div>
+
+    <!-- TIMER -->
+
+    <div
+      class="Fixed FlexColumn BlockBlack"
+      :style="{
+        flex: '1',
+        width: '100%',
+        left: '28px',
+        top: '896px',
+        width: '534px',
+        height: '100px',
+      }"
+    >
+            <timer />
+          </div>
 
     <!-- Media Box -->
     <media-box
       vertical
+      class="BlockPurple"
       :font-size="20"
       :style="{
-        left: '765px',
-        top: '390px',
-        width: '390px',
-        height: '550px',
+        left: '1353px',
+        top: '589px',
+        width: '548px',
+        height: '409px',
       }"
     />
 
     <!-- Donation Bar -->
-    <donation-bar
-      :style="{
-        left: '0px',
-        top: '940px',
-        width: '1920px',
-        height: '60px',
-      }"
-    />
   </div>
 </template>
 
