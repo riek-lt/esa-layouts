@@ -50,15 +50,11 @@ export default class extends Vue {
       defaultState: true,
     },
     {
-      title: 'Balance audio with donation reader',
+      title: 'Set up runner & get image on capcard',
       checked: false,
     },
     {
       title: 'Set Host and Commentators',
-      checked: false,
-    },
-    {
-      title: 'Make sure stream(s) are loaded',
       checked: false,
     },
     {
