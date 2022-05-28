@@ -54,13 +54,10 @@ export default class extends Vue {
       checked: false,
     },
     {
-<<<<<<< HEAD
       title: 'Set Host and Commentators',
       checked: false,
     },
     {
-=======
->>>>>>> 5093b628814ab033b33e624703cb3fb357ef8d76
       title: 'Verify run-info is correct',
       checked: false,
     },
