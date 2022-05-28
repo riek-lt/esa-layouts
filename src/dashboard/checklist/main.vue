@@ -37,10 +37,6 @@ export default class extends Vue {
   unchecking = false;
   checks: ChecklistItem[] = [
     {
-      title: 'Switch to intermission',
-      checked: false,
-    },
-    {
       title: 'Press Next Game in Run Player',
       checked: false,
     },
@@ -50,7 +46,11 @@ export default class extends Vue {
       defaultState: true,
     },
     {
-      title: 'Balance audio with donation reader',
+      title: 'Set up runner & get image on capcard',
+      checked: false,
+    },
+    {
+      title: 'Crop game if necessary',
       checked: false,
     },
     {
@@ -58,15 +58,11 @@ export default class extends Vue {
       checked: false,
     },
     {
-      title: 'Make sure stream(s) are loaded',
-      checked: false,
-    },
-    {
       title: 'Verify run-info is correct',
       checked: false,
     },
     {
-      title: 'Verify Game Layout',
+      title: 'Verify Game Layout (with the runner)',
       checked: false,
     },
     {
@@ -74,7 +70,7 @@ export default class extends Vue {
       checked: false,
     },
     {
-      title: 'Write down end time of previous run (when no scheduler is active)',
+      title: 'Check if Runner cam needs adjustment',
       checked: false,
     },
     {
