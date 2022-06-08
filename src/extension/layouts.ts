@@ -173,7 +173,8 @@ capturePositions.on('change', async (val) => {
         obsSourceKeys[key],
         (() => {
           if (key.startsWith('GameCapture')
-          && ['DS-1p', '3DS-1p', 'sm64-psp-2p'].includes(gameLayouts.value.selected || '')) {
+          // && ['DS-1p', '3DS-1p', 'sm64-psp-2p'].includes(gameLayouts.value.selected || '')) {
+            && ['sm64-psp-2p'].includes(gameLayouts.value.selected || '')) {
             if (gameLayouts.value.selected === 'sm64-psp-2p'
             && ['GameCapture1', 'GameCapture2'].includes(key)) {
               return {
@@ -192,7 +193,8 @@ capturePositions.on('change', async (val) => {
         crop,
         (() => {
           if (key.startsWith('GameCapture')
-          && ['DS-1p', '3DS-1p', 'sm64-psp-2p'].includes(gameLayouts.value.selected || '')) {
+          && ['sm64-psp-2p'].includes(gameLayouts.value.selected || '')) {
+            // && ['DS-1p', '3DS-1p', 'sm64-psp-2p'].includes(gameLayouts.value.selected || '')) {
             if (key === 'GameCapture1') {
               return true;
             }
