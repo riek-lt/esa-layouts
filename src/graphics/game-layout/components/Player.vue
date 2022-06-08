@@ -2,7 +2,7 @@
   <div
     v-if="player"
     ref="Player"
-    class="FlexPlayer Player FlexCenter"
+    class="FlexPlayer Player FlexCenter PlayerAudioLive"
     :style="{
       'justify-content': 'space-between',
       'font-weight': 500,
@@ -76,15 +76,14 @@
         width: 'calc(100% - 130px)',
         height: '100%',
         'align-items': 'flex-start',
-              'display': 'flex',
-              'top': '2px',
-              'justify-content': 'center',
-              'flex': '1',
-              'white-space': 'no-wrap',
-              'padding-right': '80px',
-
-              'font-weight': '600',
-              'font-family': 'Goodlight',
+        'display': 'flex',
+        'top': '2px',
+        'justify-content': 'center',
+        'flex': '1',
+        'white-space': 'no-wrap',
+        'padding-right': '80px',
+        'font-weight': '600',
+        'font-family': 'Goodlight',
       }"
     >
       <transition name="fade">
@@ -208,6 +207,16 @@ export default class extends Vue {
       }
     } else {
       this.team = this.runData?.teams[this.slotNo || 0] || null;
+    }
+  }
+
+  setGameAudioStatus(liveOnStream: boolean): void {
+    const playerEl = this.$refs.Player as Element;
+
+    if (liveOnStream) {
+      playerEl.classList.add('PlayerAudioLive');
+    } else {
+      playerEl.classList.add('PlayerAudioLive');
     }
   }
 

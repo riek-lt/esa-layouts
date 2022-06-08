@@ -4,6 +4,7 @@ import { Configschema } from '@esa-layouts/types/schemas/configschema';
 
 const { theme } = (nodecg.bundleConfig as Configschema).event;
 const { default: defaultTheme } = require('./themes/default.theme.css');
+const { default: bsgTheme } = require('./themes/bsg_general.theme.css');
 const { default: together } = require('./themes/together.theme.css');
 const { default: coronarelief } = require('./themes/coronarelief.theme.css');
 const { default: uksg } = require('./themes/uksg.theme.css');
@@ -15,6 +16,7 @@ const { default: summer } = require('./themes/summer.theme.css');
 const { default: winter } = require('./themes/winter.theme.css');
 
 defaultTheme.use();
+bsgTheme.use();
 
 switch (theme) {
   case 'together':

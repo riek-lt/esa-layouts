@@ -2,10 +2,24 @@ import type { Configschema } from '@esa-layouts/types/schemas/configschema';
 import { logError } from './util/helpers';
 import { get as nodecg } from './util/nodecg';
 import obs from './util/obs';
-import { currentRunDelay, obsData } from './util/replicants';
+import { obsData } from './util/replicants';
 import x32 from './util/x32';
 
 const config = (nodecg().bundleConfig as Configschema);
+
+if (config.x32.enable) {
+  x32.conn?.on('message', (message) => {
+    console.log(message);
+
+    if (message.address.indexOf('/chFaders') === 0) {
+      // TODO:
+      //  - Set up replicant to link players on screen to mixer events
+      //  - Map faders to player indexes (config?)
+      //  - Actually hook up an x32 to test this
+      console.log(`Fader ${message.address} is currently at value ${message.args}`);
+    }
+  });
+}
 
 function getNonGameScenes(): string[] {
   // These scenes will *not* have "LIVE Game/Mics" DCAs audible.
@@ -76,6 +90,8 @@ export function toggleLiveMics(scene: string): void {
   }
 }
 
+// no auto fading for us pls :)
+/*
 obs.conn.on('TransitionBegin', async (data) => {
   // Auto-fading for HEK's fullscreen intermission.
   const hekIntrmssn = config.obs.names.scenes.hekIntermission;
@@ -103,3 +119,4 @@ obs.conn.on('TransitionBegin', async (data) => {
     toggleFadeHelper('/dca/3/fader', intermissionScenes, data, false);
   }
 });
+*/
