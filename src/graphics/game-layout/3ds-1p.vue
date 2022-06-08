@@ -5,7 +5,7 @@
     <!-- Game Captures -->
     <game-capture
       id="GameCapture1"
-      class=" "
+      class=""
       :style="{
       left: '573px',
       top: '0px',
@@ -15,7 +15,7 @@
     />
     <game-capture
       id="GameCapture3"
-      class=" "
+      class=""
       :style="{
       left: '8px',
       top: '594px',

@@ -33,9 +33,9 @@
       id="CameraCapture1"
       class="Capture"
       :style="{
-      left: '726px',
+      left: '724px',
       top: '757px',
-      width: '470px',
+      width: '472px',
       height: '240px',
       }"
     />

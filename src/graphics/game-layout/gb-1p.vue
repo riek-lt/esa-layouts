@@ -22,7 +22,7 @@
       left: '0px',
       top: '297px',
       width: '554px',
-      height: '303px',
+      height: '307px',
       }"
     />
 

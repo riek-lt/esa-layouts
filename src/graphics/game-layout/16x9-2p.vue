@@ -19,9 +19,9 @@
       :slot-no="1"
       finish-time-pos="bottomright"
       :style="{
-      left: '965px',
+      left: '963px',
       top: '74px',
-      width: '955px',
+      width: '957px',
       height: '540px',
       }"
     />
@@ -33,10 +33,10 @@
       id="CameraCapture1"
       class="Capture"
       :style="{
-      left: '726px',
-      top: '734px',
-      width: '468px',
-      height: '266px',
+      left: '724px',
+      top: '732px',
+      width: '470px',
+      height: '268px',
       }"
     />
     <template v-else>

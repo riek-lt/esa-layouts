@@ -19,9 +19,9 @@
       class=" BlockRed"
       :slot-no="1"
       :style="{
-        left: '1260px',
+        left: '1258px',
         top: '0px',
-        width: '656px',
+        width: '658px',
         height: '496px',
       }"
     />
@@ -42,9 +42,9 @@
       id="CameraCapture1"
       class="Capture BlockBlue"
       :style="{
-        left: '1260px',
+        left: '1258px',
         top: '502px',
-        width: '656px',
+        width: '662px',
         height: '496px',
       }"
     />

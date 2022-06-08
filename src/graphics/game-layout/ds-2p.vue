@@ -15,7 +15,7 @@
       }"
     />
     <game-capture
-      id="GameCapture2"
+      id="GameCapture3"
       :slot-no="0"
       class=" BlockRed"
       finish-time-pos="bottomright"
@@ -27,25 +27,25 @@
       }"
     />
     <game-capture
-      id="GameCapture1"
+      id="GameCapture2"
       class="BlockRed"
       :slot-no="1"
       :style="{
-        left: '1260px',
+        left: '1258px',
         top: '0px',
-        width: '661px',
+        width: '663px',
         height: '496px',
       }"
     />
     <game-capture
-      id="GameCapture2"
+      id="GameCapture4"
       :slot-no="1"
       class=" BlockRed"
       finish-time-pos="bottomright"
       :style="{
-        left: '1260px',
+        left: '1258px',
         top: '504px',
-        width: '661px',
+        width: '663px',
         height: '496px',
       }"
     />
@@ -60,7 +60,7 @@
       left: '686px',
       top: '600px',
       width: '547px',
-      height: '396px',
+      height: '400px',
       }"
     />
     <template v-else>
@@ -120,7 +120,7 @@
         width: '100%',
         left: '677px',
         top: '0px',
-        width: '492px',
+        width: '466px',
         height: '283px',
         }"
       >

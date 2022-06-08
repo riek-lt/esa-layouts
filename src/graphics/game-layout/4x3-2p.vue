@@ -19,7 +19,7 @@
       :slot-no="1"
       finish-time-pos="bottomright"
       :style="{
-      left: '965px',
+      left: '964px',
       top: '0px',
       width: '955px',
       height: '716px',
@@ -33,10 +33,10 @@
       id="CameraCapture1"
       class="Capture"
       :style="{
-      left: '726px',
-      top: '837px',
-      width: '470px',
-      height: '164px',
+      left: '724px',
+      top: '834px',
+      width: '472px',
+      height: '166px',
       }"
     />
     <template v-else>

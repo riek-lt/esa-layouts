@@ -15,7 +15,7 @@
       }"
     />
     <game-capture
-      id="GameCapture2"
+      id="GameCapture3"
       :slot-no="0"
       class=" BlockRed"
       finish-time-pos="bottomright"
@@ -27,7 +27,7 @@
       }"
     />
     <game-capture
-      id="GameCapture1"
+      id="GameCapture2"
       class="  BlockRed"
       :slot-no="1"
       :style="{
@@ -38,7 +38,7 @@
       }"
     />
     <game-capture
-      id="GameCapture2"
+      id="GameCapture4"
       :slot-no="1"
       class=" BlockRed"
       finish-time-pos="bottomright"

@@ -11,8 +11,8 @@
       :style="{
         left: '0px',
         top: '0px',
-        width: '709px',
-        height: '402px',
+        width: '710px',
+        height: '404px',
       }"
     />
     <game-capture
@@ -23,8 +23,8 @@
       :style="{
         left: '602px',
         top: '597px',
-        width: '711px',
-        height: '402px',
+        width: '712px',
+        height: '404px',
       }"
     />
     <game-capture
@@ -35,8 +35,8 @@
       :style="{
         left: '1204px',
         top: '0px',
-        width: '709px',
-        height: '402px',
+        width: '712px',
+        height: '404px',
       }"
     />
 
@@ -51,7 +51,7 @@
         left: '740px',
         top: '0px',
         width: '438px',
-        height: '321px',
+        height: '323px',
       }"
     >
       <!--<comm-and-reader />-->

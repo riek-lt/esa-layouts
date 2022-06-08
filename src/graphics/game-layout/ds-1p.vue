@@ -29,10 +29,10 @@
       id="CameraCapture1"
       class="Capture"
       :style="{
-      left: '8px',
-      top: '230px',
-      width: '546px',
-      height: '292px',
+      left: '6px',
+      top: '228px',
+      width: '548px',
+      height: '294px',
       }"
     />
 

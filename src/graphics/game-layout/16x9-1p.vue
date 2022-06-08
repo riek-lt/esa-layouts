@@ -7,10 +7,10 @@
       id="GameCapture1"
       class="BlockRed"
       :style="{
-        left: '483px',
+        left: '482px',
         top: '0px',
-        width: '1437px',
-        height: '809px',
+        width: '1440px',
+        height: '810px',
       }"
     />
 

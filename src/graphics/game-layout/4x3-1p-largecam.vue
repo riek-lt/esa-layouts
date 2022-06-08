@@ -11,7 +11,7 @@
       :style="{
         left: '589px',
         top: '0px',
-        width: '1331px',
+        width: '1329px',
         height: '998px',
       }"
     />
@@ -22,15 +22,15 @@
       class="Capture BlockBlue"
       :style="{
         left: '10px',
-        top: '226mpx',
-        width: '557',
+        top: '226px',
+        width: '557px',
         height: '569px',
       }"
     />
 
     <!-- General Run Info -->
     <div
-      class="Fixed FlexColumn  BlockGreen"
+      class="Fixed FlexColumn BlockGreen"
       :style="{
         left: '0px',
         top: '788px',

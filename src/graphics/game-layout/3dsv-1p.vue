@@ -7,9 +7,9 @@
       id="GameCapture1"
       class=""
       :style="{
-      left: '846px',
+      left: '844px',
       top: '0px',
-      width: '809px',
+      width: '811px',
       height: '487px',
       }"
     />
