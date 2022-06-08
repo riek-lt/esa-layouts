@@ -1,22 +1,27 @@
 import type { Configschema } from '@esa-layouts/types/schemas/configschema';
 import { logError } from './util/helpers';
-import { get as nodecg } from './util/nodecg';
+import { get as nodecgGetter } from './util/nodecg';
 import obs from './util/obs';
 import { obsData } from './util/replicants';
 import x32 from './util/x32';
 
-const config = (nodecg().bundleConfig as Configschema);
+const nodecg = nodecgGetter();
+const config = (nodecg.bundleConfig as Configschema);
 
 if (config.x32.enable) {
   x32.conn?.on('message', (message) => {
-    console.log(message);
+    nodecg.log.info(message);
 
+    // /ch/[01…32]/mix/on -> {OFF, ON} -> OFF meaning the channel is muted?
+    // /ch/[01…32]/mix/fader -> level in Db [0.0…1.0(+10dB), 1024] -> not sure what the values are
+
+    // probably doesn't work, we don't specify this event.
     if (message.address.indexOf('/chFaders') === 0) {
       // TODO:
       //  - Set up replicant to link players on screen to mixer events
       //  - Map faders to player indexes (config?)
       //  - Actually hook up an x32 to test this
-      console.log(`Fader ${message.address} is currently at value ${message.args}`);
+      nodecg.log.info(`Fader ${message.address} is currently at value ${message.args}`);
     }
   });
 }
