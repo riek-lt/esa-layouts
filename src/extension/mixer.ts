@@ -31,7 +31,7 @@ const channelDefaultValue: ChannelDataReplicant[] = [
     active: false,
   },
 ];
-const channelStatuses = nodecg.Replicant('x32-game-channel-status', {
+const channelStatuses = nodecg.Replicant<ChannelDataReplicant[]>('x32-game-channel-status', {
   defaultValue: channelDefaultValue,
 });
 

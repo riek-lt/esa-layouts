@@ -178,7 +178,7 @@ import { RunDataActiveRun, RunDataTeam, RunDataPlayer } from 'speedcontrol-util/
 import { formatPronouns } from '../../_misc/helpers';
 import { ChannelDataReplicant as ChanData } from '../../../types/replicant-types';
 
-const channelDataReplicant = nodecg.Replicant('x32-game-channel-status');
+const channelDataReplicant = nodecg.Replicant<ChanData[]>('x32-game-channel-status');
 
 @Component
 export default class extends Vue {
