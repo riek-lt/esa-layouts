@@ -176,6 +176,9 @@ import fitty, { FittyInstance } from 'fitty';
 import { NameCycle } from '@esa-layouts/types/schemas';
 import { RunDataActiveRun, RunDataTeam, RunDataPlayer } from 'speedcontrol-util/types';
 import { formatPronouns } from '../../_misc/helpers';
+import { ChannelDataReplicant as ChanData } from '../../../types/replicant-types';
+
+const channelDataReplicant = nodecg.Replicant('x32-game-channel-status');
 
 @Component
 export default class extends Vue {
@@ -188,6 +191,7 @@ export default class extends Vue {
   playerIndex = 0;
   nameCycle = 0; // "Local" name cycle used so we can let flags load.
   fittyPlayer: FittyInstance | undefined;
+  replicantListener = (prev: ChanData[], curr: ChanData[]) => this.audioUpdate(curr);
 
   get formattedPronouns(): string | undefined {
     return formatPronouns(this.player?.pronouns);
@@ -210,13 +214,13 @@ export default class extends Vue {
     }
   }
 
-  setGameAudioStatus(liveOnStream: boolean): void {
+  audioUpdate(currentData: ChanData[]): void {
     const playerEl = this.$refs.Player as Element;
 
-    if (liveOnStream) {
+    if (currentData[this.playerIndex] && currentData[this.playerIndex].active) {
       playerEl.classList.add('PlayerAudioLive');
     } else {
-      playerEl.classList.add('PlayerAudioLive');
+      playerEl.classList.remove('PlayerAudioLive');
     }
   }
 
@@ -262,6 +266,12 @@ export default class extends Vue {
 
   mounted(): void {
     this.fit();
+
+    channelDataReplicant.on('change', this.replicantListener);
+  }
+
+  beforeDestroy() {
+    channelDataReplicant.off('change', this.replicantListener);
   }
 
   destroyed(): void {

@@ -67,6 +67,12 @@ export interface Configschema {
 		enable: boolean;
 		ip: string;
 		localPort: number;
+		channelMapping: {
+			player1Game: string;
+			player2Game: string;
+			player3Game: string;
+			player4Game: string;
+		};
 	};
 	tracker: {
 		enable: boolean;

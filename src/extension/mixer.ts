@@ -4,9 +4,38 @@ import { get as nodecgGetter } from './util/nodecg';
 import obs from './util/obs';
 import { obsData } from './util/replicants';
 import x32 from './util/x32';
+import { ChannelDataReplicant } from '../types/replicant-types';
 
 const nodecg = nodecgGetter();
 const config = (nodecg.bundleConfig as Configschema);
+
+// How to map?
+// index = player index?
+// Store channel index?
+// TODO: can channel be numbers?
+const channelDefaultValue: ChannelDataReplicant[] = [
+  {
+    channel: config.x32.channelMapping.player1Game,
+    active: false,
+  },
+  {
+    channel: config.x32.channelMapping.player2Game,
+    active: false,
+  },
+  {
+    channel: config.x32.channelMapping.player3Game,
+    active: false,
+  },
+  {
+    channel: config.x32.channelMapping.player4Game,
+    active: false,
+  },
+];
+const channelStatuses = nodecg.Replicant('x32-game-channel-status', {
+  defaultValue: channelDefaultValue,
+});
+
+const wantedFaders = Object.values(config.x32.channelMapping).map((v) => `/ch/${v}/mix/fader`);
 
 if (config.x32.enable) {
   x32.conn?.on('message', (message) => {
