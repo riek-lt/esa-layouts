@@ -16,7 +16,7 @@ const config = (nodecg.bundleConfig as Configschema);
 const channelDefaultValue: ChannelDataReplicant[] = [
   {
     channel: config.x32.channelMapping.player1Game,
-    active: false,
+    active: true,
   },
   {
     channel: config.x32.channelMapping.player2Game,
@@ -34,6 +34,12 @@ const channelDefaultValue: ChannelDataReplicant[] = [
 const channelStatuses = nodecg.Replicant<ChannelDataReplicant[]>('x32-game-channel-status', {
   defaultValue: channelDefaultValue,
 });
+
+// For testing
+setInterval(() => {
+  channelStatuses.value[0].active = !channelStatuses.value[0].active;
+  channelStatuses.value[1].active = !channelStatuses.value[1].active;
+}, 5000);
 
 const wantedFaders = Object.values(config.x32.channelMapping).map((v) => `/ch/${v}/mix/fader`);
 

@@ -2,7 +2,7 @@
   <div
     v-if="player"
     ref="Player"
-    class="FlexPlayer Player FlexCenter PlayerAudioLive"
+    class="FlexPlayer Player FlexCenter"
     :style="{
       'justify-content': 'space-between',
       'font-weight': 500,
@@ -178,12 +178,11 @@ import { RunDataActiveRun, RunDataTeam, RunDataPlayer } from 'speedcontrol-util/
 import { formatPronouns } from '../../_misc/helpers';
 import { ChannelDataReplicant as ChanData } from '../../../types/replicant-types';
 
-const channelDataReplicant = nodecg.Replicant<ChanData[]>('x32-game-channel-status');
-
 @Component
 export default class extends Vue {
   @State('runDataActiveRun') runData!: RunDataActiveRun;
   @State('nameCycle') nameCycleServer!: NameCycle;
+  @State('x32GameAudio') x32GameAudio!: ChanData[];
   @State coop!: boolean;
   @Prop(Number) slotNo!: number;
   team: RunDataTeam | null = null;
@@ -191,7 +190,6 @@ export default class extends Vue {
   playerIndex = 0;
   nameCycle = 0; // "Local" name cycle used so we can let flags load.
   fittyPlayer: FittyInstance | undefined;
-  replicantListener = (prev: ChanData[], curr: ChanData[]) => this.audioUpdate(curr);
 
   get formattedPronouns(): string | undefined {
     return formatPronouns(this.player?.pronouns);
@@ -211,16 +209,6 @@ export default class extends Vue {
       }
     } else {
       this.team = this.runData?.teams[this.slotNo || 0] || null;
-    }
-  }
-
-  audioUpdate(currentData: ChanData[]): void {
-    const playerEl = this.$refs.Player as Element;
-
-    if (currentData[this.playerIndex] && currentData[this.playerIndex].active) {
-      playerEl.classList.add('PlayerAudioLive');
-    } else {
-      playerEl.classList.remove('PlayerAudioLive');
     }
   }
 
@@ -261,22 +249,34 @@ export default class extends Vue {
 
   created(): void {
     this.updateTeam();
-    this.updatePlayer();
+    this.updatePlayer().then(() => {
+      // initial setting of the icon
+      this.onX32GameAudioChange(this.x32GameAudio);
+    });
   }
 
   mounted(): void {
     this.fit();
-
-    channelDataReplicant.on('change', this.replicantListener);
-  }
-
-  beforeDestroy() {
-    channelDataReplicant.off('change', this.replicantListener);
   }
 
   destroyed(): void {
     if (this.fittyPlayer) {
       this.fittyPlayer.unsubscribe();
+    }
+  }
+
+  @Watch('x32GameAudio')
+  onX32GameAudioChange(newVal: ChanData[]): void {
+    const playerEl = this.$refs.Player as Element;
+
+    if (!playerEl) {
+      return;
+    }
+
+    if (newVal[this.slotNo || 0].active) {
+      playerEl.classList.add('PlayerAudioLive');
+    } else {
+      playerEl.classList.remove('PlayerAudioLive');
     }
   }
 
