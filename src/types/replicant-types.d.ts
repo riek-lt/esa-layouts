@@ -1,4 +1,5 @@
 export interface ChannelDataReplicant {
   channel: string;
-  active: boolean;
+  faderUp: boolean;
+  muted: boolean;
 }

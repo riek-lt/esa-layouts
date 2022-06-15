@@ -273,7 +273,9 @@ export default class extends Vue {
       return;
     }
 
-    if (newVal[this.slotNo || 0].active) {
+    const mixerConfig = newVal[this.slotNo || 0];
+
+    if (!mixerConfig.muted && mixerConfig.faderUp) {
       playerEl.classList.add('PlayerAudioLive');
     } else {
       playerEl.classList.remove('PlayerAudioLive');
