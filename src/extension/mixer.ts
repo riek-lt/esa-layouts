@@ -40,15 +40,32 @@ const channelStatuses = nodecg.Replicant<ChannelDataReplicant[]>('x32-game-chann
 });
 
 // For testing
-setInterval(() => {
-  channelStatuses.value[0].faderUp = !channelStatuses.value[0].faderUp;
-  channelStatuses.value[1].faderUp = !channelStatuses.value[1].faderUp;
-}, 5000);
+// setInterval(() => {
+//   channelStatuses.value[0].faderUp = !channelStatuses.value[0].faderUp;
+//   channelStatuses.value[1].faderUp = !channelStatuses.value[1].faderUp;
+// }, 5000);
 
 const wantedFaders = Object.values(config.x32.channelMapping).map((v) => `/ch/${v}/mix/fader`);
 const wantedMutes = Object.values(config.x32.channelMapping).map((v) => `/ch/${v}/mix/on`);
 
 if (config.x32.enable) {
+  nodecg.log.info(x32.conn);
+
+  x32.conn?.on('ready', () => {
+    nodecg.log.info('Trying from our own side?');
+    x32.conn?.send({
+      address: '/batchsubscribe',
+      args: [
+        // This first argument seems to define local endpoint that the X32 will send this subscription data to.
+        { type: 's', value: '/chMutes' },
+        { type: 's', value: '/mix/on' },
+        { type: 'i', value: 0 },
+        { type: 'i', value: 63 },
+        { type: 'i', value: 10 },
+      ],
+    });
+  });
+
   x32.conn?.on('message', (message) => {
     nodecg.log.info(message);
 
