@@ -273,6 +273,11 @@ export default class extends Vue {
       return;
     }
 
+    if (this.runData.teams.length <= 1 && playerEl.classList.contains('PlayerAudioLive')) {
+      playerEl.classList.remove('PlayerAudioLive');
+      return;
+    }
+
     const mixerConfig = newVal[this.slotNo || 0];
 
     if (!mixerConfig.muted && mixerConfig.faderUp) {
@@ -294,6 +299,7 @@ export default class extends Vue {
     this.updatePlayer();
     await Vue.nextTick();
     this.fit();
+    this.onX32GameAudioChange(this.x32GameAudio);
   }
 
   @Watch('nameCycleServer')

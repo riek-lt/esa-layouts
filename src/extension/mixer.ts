@@ -1,4 +1,5 @@
 import type { Configschema } from '@esa-layouts/types/schemas/configschema';
+import { MetaArgument } from 'osc';
 import { logError } from './util/helpers';
 import { get as nodecgGetter } from './util/nodecg';
 import obs from './util/obs';
@@ -9,30 +10,26 @@ import { ChannelDataReplicant } from '../types/replicant-types';
 const nodecg = nodecgGetter();
 const config = (nodecg.bundleConfig as Configschema);
 
-// How to map?
-// index = player index?
-// Store channel index?
-// TODO: can channel be numbers?
 const channelDefaultValue: ChannelDataReplicant[] = [
   {
     channel: config.x32.channelMapping.player1Game,
     faderUp: false,
-    muted: false,
+    muted: true,
   },
   {
     channel: config.x32.channelMapping.player2Game,
     faderUp: false,
-    muted: false,
+    muted: true,
   },
   {
     channel: config.x32.channelMapping.player3Game,
     faderUp: false,
-    muted: false,
+    muted: true,
   },
   {
     channel: config.x32.channelMapping.player4Game,
     faderUp: false,
-    muted: false,
+    muted: true,
   },
 ];
 const channelStatuses = nodecg.Replicant<ChannelDataReplicant[]>('x32-game-channel-status', {
@@ -51,35 +48,55 @@ const wantedMutes = Object.values(config.x32.channelMapping).map((v) => `/ch/${v
 if (config.x32.enable) {
   nodecg.log.info(x32.conn);
 
+  // TODO: fetch initial statuses
+  /*
   x32.conn?.on('ready', () => {
     nodecg.log.info('Trying from our own side?');
     x32.conn?.send({
-      address: '/batchsubscribe',
+      address: '/shutdown',
       args: [
-        // This first argument seems to define local endpoint that the X32 will send this subscription data to.
-        { type: 's', value: '/chMutes' },
-        { type: 's', value: '/mix/on' },
-        { type: 'i', value: 0 },
-        { type: 'i', value: 63 },
-        { type: 'i', value: 10 },
       ],
     });
   });
+  */
+
+  const getFaderNr = (address: string): string => {
+    const regex = /\/ch\/([0-9]{2})\/mix\/(?:fader|on)/;
+
+    return address.match(regex)![1];
+  };
 
   x32.conn?.on('message', (message) => {
-    nodecg.log.info(message);
+    // nodecg.log.info(message);
+
+    // TODO: extract to function
+    if (wantedMutes.includes(message.address)) {
+      const fader = getFaderNr(message.address);
+      const muted = (message.args as Array<MetaArgument>)[0].value === 0;
+      const chIndex = channelStatuses.value.findIndex((x) => x.channel === fader);
+
+      channelStatuses.value[chIndex].muted = muted;
+
+      nodecg.log.debug(`Fader ${fader} muted status`, muted);
+
+      return;
+    }
+
+    if (wantedFaders.includes(message.address)) {
+      const fader = getFaderNr(message.address);
+      const faderValue = (message.args as Array<MetaArgument>)[0].value;
+      const faderActive = faderValue >= 0.3;
+      const chIndex = channelStatuses.value.findIndex((x) => x.channel === fader);
+
+      channelStatuses.value[chIndex].muted = faderActive;
+
+      nodecg.log.debug(`Fader ${fader} value ${faderValue}, audible on stream`, faderActive);
+
+      // return;
+    }
 
     // /ch/[01…32]/mix/on -> {OFF, ON} -> OFF meaning the channel is muted?
     // /ch/[01…32]/mix/fader -> level in Db [0.0…1.0(+10dB), 1024] -> not sure what the values are
-
-    // probably doesn't work, we don't specify this event.
-    if (message.address.indexOf('/chFaders') === 0) {
-      // TODO:
-      //  - Set up replicant to link players on screen to mixer events
-      //  - Map faders to player indexes (config?)
-      //  - Actually hook up an x32 to test this
-      nodecg.log.info(`Fader ${message.address} is currently at value ${message.args}`);
-    }
   });
 }
 
@@ -102,6 +119,10 @@ export function setFaderName(fader: string, name: string): void {
     });
   }
 }
+
+x32.conn?.on('ready', () => {
+  setFaderName('/ch/19', 'NODECG');
+});
 
 function toggleFadeHelper(
   address: string,
