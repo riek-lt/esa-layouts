@@ -1,5 +1,5 @@
 import type { Configschema } from '@esa-layouts/types/schemas/configschema';
-import { MetaArgument } from 'osc';
+import { MetaArgument, OscMessage } from 'osc';
 import { logError } from './util/helpers';
 import { get as nodecgGetter } from './util/nodecg';
 import obs from './util/obs';
@@ -36,67 +36,72 @@ const channelStatuses = nodecg.Replicant<ChannelDataReplicant[]>('x32-game-chann
   defaultValue: channelDefaultValue,
 });
 
-// For testing
-// setInterval(() => {
-//   channelStatuses.value[0].faderUp = !channelStatuses.value[0].faderUp;
-//   channelStatuses.value[1].faderUp = !channelStatuses.value[1].faderUp;
-// }, 5000);
-
 const wantedFaders = Object.values(config.x32.channelMapping).map((v) => `/ch/${v}/mix/fader`);
 const wantedMutes = Object.values(config.x32.channelMapping).map((v) => `/ch/${v}/mix/on`);
 
-if (config.x32.enable) {
-  nodecg.log.info(x32.conn);
-
-  // TODO: fetch initial statuses
-  /*
-  x32.conn?.on('ready', () => {
-    nodecg.log.info('Trying from our own side?');
+function fetchInitialStatus(): void {
+  wantedFaders.forEach((fader) => {
     x32.conn?.send({
-      address: '/shutdown',
-      args: [
-      ],
+      address: fader,
+      args: [],
     });
   });
-  */
 
-  const getFaderNr = (address: string): string => {
-    const regex = /\/ch\/([0-9]{2})\/mix\/(?:fader|on)/;
+  wantedMutes.forEach((fader) => {
+    x32.conn?.send({
+      address: fader,
+      args: [],
+    });
+  });
+}
 
-    return address.match(regex)![1];
-  };
+function getFaderNr(address: string): string {
+  const regex = /\/ch\/([0-9]{2})\/mix\/(?:fader|on)/;
 
+  return address.match(regex)![1];
+}
+
+function setMutedStatus(message: OscMessage): void {
+  const fader = getFaderNr(message.address);
+  const muted = (message.args as Array<MetaArgument>)[0].value === 0;
+  const chIndex = channelStatuses.value.findIndex((x) => x.channel === fader);
+
+  channelStatuses.value[chIndex].muted = muted;
+
+  nodecg.log.info(`Fader ${fader} muted status`, muted);
+}
+
+function setFaderStatus(message: OscMessage): void {
+  const fader = getFaderNr(message.address);
+  const faderValue = (message.args as Array<MetaArgument>)[0].value;
+  const faderActive = faderValue >= 0.3;
+  const chIndex = channelStatuses.value.findIndex((x) => x.channel === fader);
+
+  channelStatuses.value[chIndex].faderUp = faderActive;
+
+  nodecg.log.info(`Fader ${fader} value ${faderValue}, audible on stream`, faderActive);
+}
+
+if (config.x32.enable) {
+  // fetch initial statues for faders and mutes
+  x32.conn?.on('ready', () => {
+    fetchInitialStatus();
+  });
+
+  // /ch/[01…32]/mix/on -> {OFF, ON} -> OFF meaning the channel is muted?
+  // /ch/[01…32]/mix/fader -> level in Db [0.0…1.0(+10dB), 1024] -> not sure what the values are
   x32.conn?.on('message', (message) => {
-    // nodecg.log.info(message);
-
-    // TODO: extract to function
     if (wantedMutes.includes(message.address)) {
-      const fader = getFaderNr(message.address);
-      const muted = (message.args as Array<MetaArgument>)[0].value === 0;
-      const chIndex = channelStatuses.value.findIndex((x) => x.channel === fader);
-
-      channelStatuses.value[chIndex].muted = muted;
-
-      nodecg.log.debug(`Fader ${fader} muted status`, muted);
-
+      setMutedStatus(message);
       return;
     }
 
     if (wantedFaders.includes(message.address)) {
-      const fader = getFaderNr(message.address);
-      const faderValue = (message.args as Array<MetaArgument>)[0].value;
-      const faderActive = faderValue >= 0.3;
-      const chIndex = channelStatuses.value.findIndex((x) => x.channel === fader);
-
-      channelStatuses.value[chIndex].muted = faderActive;
-
-      nodecg.log.debug(`Fader ${fader} value ${faderValue}, audible on stream`, faderActive);
-
-      // return;
+      setFaderStatus(message);
     }
 
-    // /ch/[01…32]/mix/on -> {OFF, ON} -> OFF meaning the channel is muted?
-    // /ch/[01…32]/mix/fader -> level in Db [0.0…1.0(+10dB), 1024] -> not sure what the values are
+    // DON'T do this, also triggers for other faderss
+    // nodecg.log.info('Unknown OSC command', message);
   });
 }
 
@@ -119,10 +124,6 @@ export function setFaderName(fader: string, name: string): void {
     });
   }
 }
-
-x32.conn?.on('ready', () => {
-  setFaderName('/ch/19', 'NODECG');
-});
 
 function toggleFadeHelper(
   address: string,

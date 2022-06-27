@@ -173,7 +173,7 @@
 import { Vue, Component, Prop, Watch } from 'vue-property-decorator'; // eslint-disable-line object-curly-newline, max-len
 import { State } from 'vuex-class';
 import fitty, { FittyInstance } from 'fitty';
-import { NameCycle } from '@esa-layouts/types/schemas';
+import { GameLayouts, NameCycle } from '@esa-layouts/types/schemas';
 import { RunDataActiveRun, RunDataTeam, RunDataPlayer } from 'speedcontrol-util/types';
 import { formatPronouns } from '../../_misc/helpers';
 import { ChannelDataReplicant as ChanData } from '../../../types/replicant-types';
@@ -181,6 +181,7 @@ import { ChannelDataReplicant as ChanData } from '../../../types/replicant-types
 @Component
 export default class extends Vue {
   @State('runDataActiveRun') runData!: RunDataActiveRun;
+  @State('gameLayouts') gameLayouts!: GameLayouts;
   @State('nameCycle') nameCycleServer!: NameCycle;
   @State('x32GameAudio') x32GameAudio!: ChanData[];
   @State coop!: boolean;
@@ -273,7 +274,7 @@ export default class extends Vue {
       return;
     }
 
-    if (this.runData.teams.length <= 1 && playerEl.classList.contains('PlayerAudioLive')) {
+    if (this.gameLayouts!.selected!.endsWith('1p')) {
       playerEl.classList.remove('PlayerAudioLive');
       return;
     }
