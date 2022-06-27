@@ -61,7 +61,7 @@ function getFaderNr(address: string): string {
   return address.match(regex)![1];
 }
 
-function setMutedStatus(message: OscMessage): void {
+function updateMuteStatus(message: OscMessage): void {
   const fader = getFaderNr(message.address);
   const muted = (message.args as Array<MetaArgument>)[0].value === 0;
   const chIndex = channelStatuses.value.findIndex((x) => x.channel === fader);
@@ -71,7 +71,7 @@ function setMutedStatus(message: OscMessage): void {
   nodecg.log.info(`Fader ${fader} muted status`, muted);
 }
 
-function setFaderStatus(message: OscMessage): void {
+function updateFaderStatus(message: OscMessage): void {
   const fader = getFaderNr(message.address);
   const faderValue = (message.args as Array<MetaArgument>)[0].value;
   const faderActive = faderValue >= 0.3;
@@ -92,12 +92,12 @@ if (config.x32.enable) {
   // /ch/[01…32]/mix/fader -> level in Db [0.0…1.0(+10dB), 1024] -> not sure what the values are
   x32.conn?.on('message', (message) => {
     if (wantedMutes.includes(message.address)) {
-      setMutedStatus(message);
+      updateMuteStatus(message);
       return;
     }
 
     if (wantedFaders.includes(message.address)) {
-      setFaderStatus(message);
+      updateFaderStatus(message);
     }
 
     // DON'T do this, also triggers for other faderss
