@@ -54,26 +54,28 @@
           'text-align': 'left',
         }"
       >
-      <template v-if="runData">
-              <span v-if="runData.system" :style="{
-              'font-family': 'Goodlight-light',
-              }">{{ runData.system }}<br>
-                <span v-if="runData.category" :style="{
-                color: '#cf773b',
-                      'font-size': '21pt',
-                      'white-space': 'normal',
-                            'font-family': 'Goodlight-light',
-                }">{{ runData.category }}
-                <span :style="{
-                color: '#d7d7d7',
-                }">//</span>
-                <span v-if="runData.estimate" :style="{
-                color: '#d7d7d7',
-                      'font-size': '21pt',
-                      'white-space': 'normal',
-                      'font-family': 'Goodlight-light',
-                }">{{ runData.estimate }}</span>
-              </template>
+        <template v-if="runData">
+            <span v-if="runData.system" :style="{
+            'font-family': 'Goodlight-light',
+            }">{{ runData.system }}</span><br>
+              <span v-if="runData.category" :style="{
+                    color: '#cf773b',
+                    'font-size': '21pt',
+                    'white-space': 'normal',
+                    'font-family': 'Goodlight-light',
+              }">{{ runData.category }}</span>
+              <span :style="{
+              color: '#d7d7d7',
+              }">//</span>
+              <span v-if="runData.estimate" :style="{
+              color: '#d7d7d7',
+                    'font-size': '21pt',
+                    'white-space': 'normal',
+                    'font-family': 'Goodlight-light',
+              }">{{ runData.estimate }}</span>
+          <span class="flashingLightsWarning"
+             v-if="hasFlashingLights">This game contains flashing lights</span>
+        </template>
       </div>
     </div>
   </div>
@@ -95,6 +97,10 @@ export default class extends Vue {
 
   get hek(): boolean {
     return this.runData?.customData.info === 'HEK';
+  }
+
+  get hasFlashingLights(): boolean {
+    return this.runData?.customData?.flashingLights === 'true';
   }
 
   fit(): void {
@@ -148,7 +154,16 @@ export default class extends Vue {
 </script>
 
 <style scoped>
-  .RunInfoExtra > span:not(:last-child)::after {
+  /*.RunInfoExtra > span:not(:last-child)::after {
     content: ' /';
+  }*/
+
+  .flashingLightsWarning {
+    background-color: red;
+    box-sizing: border-box;
+    padding: 7px;
+    position: relative;
+    color: white;
+    line-height: 50px;
   }
 </style>
