@@ -8,10 +8,18 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component } from 'vue-property-decorator';
+import { Vue, Component, Prop } from 'vue-property-decorator';
 
 @Component({
   name: 'TickerDisplay',
 })
-export default class extends Vue {}
+export default class extends Vue {
+  @Prop({ type: Boolean, default: false }) readonly useDash!: boolean;
+}
 </script>
+
+<style lang="scss" scoped>
+.dash {
+  background-color: purple;
+}
+</style>

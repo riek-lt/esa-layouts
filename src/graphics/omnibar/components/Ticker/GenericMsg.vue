@@ -1,21 +1,16 @@
 <template>
-  <TickerDisplay>
-    <template #dash>
-      <div>This is a test</div>
-    </template>
-    <div
-      class="Flex"
-      :style="{
+  <div
+    class="Flex"
+    :style="{
       'font-size': lines < 2 ? '33px' : '29px',
       'white-space': 'nowrap',
       'font-weight': 500,
       'text-align': 'center',
-      'line-height': '100%',
+      // 'line-height': '100%',
     }"
-    >
-      <span :style="{ 'white-space': 'pre' }">{{ msg }}</span>
-    </div>
-  </TickerDisplay>
+  >
+    <span :style="{ 'white-space': 'pre' }">{{ msg }}</span>
+  </div>
 </template>
 
 <script lang="ts">

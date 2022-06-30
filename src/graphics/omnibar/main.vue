@@ -1,17 +1,17 @@
 <template>
-  <div id="omnibar" class="Flex">
+  <div id="omnibar">
+    <div id="information" class="no-dash">
+      <ticker/>
+    </div>
     <div id="left">
-      <div id="dash">
+<!--      <div id="dash">
         <p>Current run</p>
-      </div>
+      </div>-->
       <div class="box">
         <clock/>
-        <img src="./omniing/bsgstick.png" :style="{ padding: '0 10px' }">
+        <img src="./omniing/bsgstick.png"  id="logobsg">
       </div>
     </div>
-      <div class="background">
-        <ticker/>
-      </div>
         <div id="right">
       <total :style="{
           // 'padding-left': '100px',
@@ -59,21 +59,21 @@ html, body {
 }
 
 #omnibar {
-  display: flex;
-  position: fixed;
+  //display: flex;
+  position: relative;
+  //position: fixed;
   flex-grow: 1;
-  justify-content: space-between;
   width: 1920px;
   height: 82px;
 
   background: linear-gradient(180deg, var(--bg-start) 0%, var(--bg-end) 100%);
 
   #left {
-    display: inline-flex;
-    align-self: flex-start;
+    position: absolute;
 
     .box {
-      display: inline-flex;
+      position: absolute;
+      left: 0;
       height: 82px;
       width: 256px;
       background: var(--bsg-color);
@@ -84,13 +84,74 @@ html, body {
         height: 50px;
       }*/
     }
+
+    #logobsg {
+      position: relative;
+      left: 169px;
+      width: 50px;
+      height: 50px;
+      top: calc((82px - 202px) / 2);
+      font-size: 39px;
+    }
+
+    #dash {
+      position: absolute;
+      background: url("https://i.duncte123.me/bsg/left_dash.png?v2");
+      left: 244px;
+      width: 321px;
+      height: 82px;
+      top: 0;
+      animation-duration: 500ms;
+
+      &.hide {
+        display: none;
+      }
+
+      p {
+        color: white;
+        position: absolute;
+        left: 52px;
+        max-width: 200px;
+        word-break: break-word;
+        font-size: 39px;
+        top: calc((82px - 118px) / 2);
+        vertical-align: middle;
+        text-align: center;
+      }
+    }
+  }
+
+  #information {
+    position: absolute;
+    color: white;
+    font-size: 39px;
+    top: calc((82px - 50px) / 2);
+    left: 545px;
+    animation-duration: 500ms;
+
+    &.no-dash {
+      left: 269px;
+    }
+
+    &.show {
+      opacity: 1;
+      animation: fadeInUp;
+      animation-duration: 500ms;
+    }
+
+    &.hide {
+      display: none;
+    }
   }
 
   #right {
-    display: inline-flex;
-    align-self: flex-end;
+    position: absolute;
+    right: 0;
+    top: 0;
 
     .box {
+      position: absolute;
+      right: 0;
       height: 82px;
       width: 203px;
       background: var(--bsg-color);
