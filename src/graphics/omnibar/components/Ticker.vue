@@ -52,8 +52,6 @@ export default class extends Vue {
 
   // Sends "omnibarShowNext" to extension; retries if not successful after 5s.
   async showNext(): Promise<void> {
-    console.log(this.omnibar);
-
     try {
       await awaitTimeout(nodecg.sendMessage('omnibarShowNext'), 5000);
     } catch (err) {

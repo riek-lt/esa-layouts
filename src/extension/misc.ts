@@ -1,5 +1,5 @@
 import type { Configschema } from '@esa-layouts/types/schemas/configschema';
-import AudioNormaliser from '@shared/extension/audio-normaliser';
+// import AudioNormaliser from '@shared/extension/audio-normaliser';
 import type { RunData } from 'speedcontrol-util/types';
 import { formatSrcomPronouns, formatUSD, getOtherStreamEventShort, logError } from './util/helpers';
 import * as mqLogging from './util/mq-logging';
@@ -10,7 +10,7 @@ import { bigbuttonPlayerMap, commentators, donationReader, donationTotal, otherS
 import { sc } from './util/speedcontrol';
 
 const config = (nodecg().bundleConfig as Configschema);
-new AudioNormaliser(nodecg()); // eslint-disable-line no-new
+// new AudioNormaliser(nodecg()); // eslint-disable-line no-new
 
 // Increase max listeners on the nodecg-speedcontrol timer a bit to stop errors.
 // This may want to be moved to that bundle directly in the future? It impacts all bundles!

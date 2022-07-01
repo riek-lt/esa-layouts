@@ -11,7 +11,7 @@
         >
       </audio>
       <span
-        v-for="(char, i) in totalSplitString"
+        v-for="(char, i) in totalStr"
         :key="i"
         :class="(char === ',' ? 'Comma' : undefined)"
       >
@@ -22,6 +22,8 @@
     <div :style="{
       position: 'absolute',
       top: '10px',
+      left: '-98px',
+      'z-index': 99999999999,
     }">
       <transition
         name="fade"
@@ -30,7 +32,7 @@
         <div
           v-if="alertList[0]"
           :key="alertList[0].timestamp"
-          class="Flex"
+          class="Flex coin-thing"
         >
           <img
             src="../omniing/RetroCoin.png"
@@ -76,6 +78,15 @@ export default class extends Vue {
   get totalStr(): string {
     return formatUSD(this.total);
   }
+
+  /*
+  mounted() {
+    this.alertList.push({
+      total: 50000,
+      amount: 2000000,
+    });
+  }
+  */
 
   async playNextAlert(start = false): Promise<void> {
     this.playingAlerts = true;
@@ -167,6 +178,10 @@ export default class extends Vue {
     display: inline-block;
     width: 0.22em;
     text-align: center;
+  }
+
+  .coin-thing {
+    z-index: 10000000;
   }
 
   .fade-enter-active, .fade-leave-active {

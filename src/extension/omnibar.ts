@@ -20,22 +20,23 @@ let tempMiniCreditsStorage: Omnibar['miniCredits'] = {
 
 // Filter helper used below.
 function filterUpcomingRuns(run: RunData): boolean {
+  // TODO: remove if we have a schedule that has runs in the future
+  if (Date.now() > 1) {
+    return true;
+  }
+
   return !run.scheduledS || run.scheduledS >= (Date.now() / 1000);
 }
 
 // Gets next upcoming run from the cache (after refilling it if needed).
 let upcomingRunsCache: RunData[] = [];
 function getUpcomingRun(): RunData | undefined {
-  nodecg().log.info('1', upcomingRunsCache);
-
   // Filter out any already passed runs (according to schedule) from cache.
   upcomingRunsCache = upcomingRunsCache.filter(filterUpcomingRuns);
   // Fill up cache if empty, also run the filter again.
   if (!upcomingRunsCache.length) upcomingRunsCache = sc.getNextRuns(4).filter(filterUpcomingRuns);
-  nodecg().log.info('2', upcomingRunsCache);
   // Just return nothing if cache now happens to be empty.
   if (!upcomingRunsCache.length) return undefined;
-  nodecg().log.info('3', upcomingRunsCache);
   return upcomingRunsCache.shift();
 }
 

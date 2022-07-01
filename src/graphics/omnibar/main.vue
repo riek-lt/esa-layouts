@@ -13,13 +13,15 @@
       </div>
     </div>
         <div id="right">
-      <total :style="{
-          // 'padding-left': '100px',
-          // 'padding-top': '8px',
-          'margin-right': '3px',
-          'text-align': 'right',
-          'font-family': 'Goodlight',
-          }"/>
+          <div class="dash">
+            <total :style="{
+              // 'padding-left': '100px',
+              // 'padding-top': '8px',
+              'margin-right': '3px',
+              'text-align': 'right',
+              'font-family': 'Goodlight',
+              }"/>
+          </div>
           <div class="box">
             <img src="./omniing/mind_logo.png" alt="">
           </div>
@@ -122,15 +124,21 @@ html, body {
   }
 
   #information {
+    transform: translateY(-50%);
+    top: 50%;
+
     position: absolute;
     color: white;
     font-size: 39px;
-    top: calc((82px - 50px) / 2);
+    //top: calc((82px - 50px) / 2);
     left: 545px;
     animation-duration: 500ms;
+    width: 855px;
+    //border: 1px green solid;
 
     &.no-dash {
       left: 269px;
+      width: 1240px;
     }
 
     &.show {
@@ -162,6 +170,55 @@ html, body {
         position: relative;
         height: 82px;
         left: 79px;
+      }
+    }
+
+    .dash {
+      position: absolute;
+      // background: url("https://i.duncte123.me/bsg/left_dash.png");
+      background: #914e21;
+      right: 222px;
+      // width: 404px;
+      min-width: 10px;
+      height: 82px;
+      top: 0;
+      animation-duration: 500ms;
+
+      &:before {
+        content: '';
+        position: absolute;
+        background: url('https://i.duncte123.me/bsg/right_dash_front.png');
+        background-position: center center;
+        background-size: cover;
+        height: 82px;
+        width: 104px;
+        left: -104px;
+        top: 0px;
+      }
+
+      &:after {
+        content: '';
+        position: absolute;
+        z-index: 0;
+        background: url('https://i.duncte123.me/bsg/right_dash_back.png?v2');
+        background-position: center center;
+        background-size: cover;
+        height: 82px;
+        width: 44px;
+        right: -44px;
+        top: 0px;
+      }
+
+      &.hide {
+        display: none;
+      }
+
+      p {
+        color: white;
+        position: relative;
+        top: calc((82px - 50px) / 2);
+        // left: 114px;
+        font-size: 39px;
       }
     }
   }

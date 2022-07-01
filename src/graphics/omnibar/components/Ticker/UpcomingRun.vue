@@ -54,7 +54,6 @@ export default class extends Vue {
   }
 
   async created(): Promise<void> {
-    console.log('AAAAAAAAAAAAAA');
     await wait(this.seconds * 1000); // Wait the specified length.
     this.$emit('end');
   }
