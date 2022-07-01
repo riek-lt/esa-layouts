@@ -98,7 +98,8 @@ html, body {
 
     #dash {
       position: absolute;
-      background: url("https://i.duncte123.me/bsg/left_dash.png?v2");
+      // TODO: local file
+      background: url("./omniing/left_dash.png");
       left: 244px;
       width: 321px;
       height: 82px;
@@ -134,6 +135,7 @@ html, body {
     left: 545px;
     animation-duration: 500ms;
     width: 855px;
+    height: 82px;
     //border: 1px green solid;
 
     &.no-dash {
@@ -141,6 +143,7 @@ html, body {
       width: 1240px;
     }
 
+    /* TODO: put this in the ticker transition */
     &.show {
       opacity: 1;
       animation: fadeInUp;
@@ -175,7 +178,7 @@ html, body {
 
     .dash {
       position: absolute;
-      // background: url("https://i.duncte123.me/bsg/left_dash.png");
+      // background: url("./omniing/left_dash.png");
       background: #914e21;
       right: 222px;
       // width: 404px;
@@ -187,8 +190,7 @@ html, body {
       &:before {
         content: '';
         position: absolute;
-        background: url('https://i.duncte123.me/bsg/right_dash_front.png');
-        background-position: center center;
+        background: url('./omniing/right_dash_front.png') center center;
         background-size: cover;
         height: 82px;
         width: 104px;
@@ -200,8 +202,7 @@ html, body {
         content: '';
         position: absolute;
         z-index: 0;
-        background: url('https://i.duncte123.me/bsg/right_dash_back.png?v2');
-        background-position: center center;
+        background: url('./omniing/right_dash_back.png') center center;
         background-size: cover;
         height: 82px;
         width: 44px;

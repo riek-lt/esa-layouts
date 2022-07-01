@@ -4,12 +4,6 @@
       id="Total"
       class="Flex"
     >
-      <audio ref="SFX">
-        <source
-          src="./sfx/mario_coin.mp3"
-          type="audio/mpeg"
-        >
-      </audio>
       <span
         v-for="(char, i) in totalStr"
         :key="i"
@@ -64,7 +58,6 @@ import gsap from 'gsap';
 
 @Component
 export default class extends Vue {
-  // @Ref('SFX') sfx!: HTMLAudioElement;
   total = 0;
   playingAlerts = false;
   showAlert = false;
@@ -78,15 +71,6 @@ export default class extends Vue {
   get totalStr(): string {
     return formatUSD(this.total);
   }
-
-  /*
-  mounted() {
-    this.alertList.push({
-      total: 50000,
-      amount: 2000000,
-    });
-  }
-  */
 
   async playNextAlert(start = false): Promise<void> {
     this.playingAlerts = true;
@@ -135,7 +119,7 @@ export default class extends Vue {
 
   /* Each character in the total is in a span; setting width so the numbers appear monospaced. */
   #Total > span {
-    padding-top: 10px;
+    padding-top: 14px;
     display: inline-block;
     text-align: center;
     background: var(--slide-color);
@@ -146,7 +130,7 @@ export default class extends Vue {
     padding-left: 10px;
   }
 
-  #Total span:first-of-type:before {
+  /*#Total span:first-of-type:before {
     content: '';
     position: absolute;
     background: url('../omniing/right_dash_front.png');
@@ -156,13 +140,13 @@ export default class extends Vue {
     width: 104px;
     left: -104px;
     top: 0px;
-  }
+  }*/
 
   #Total span:last-of-type {
     padding-right: 10px;
   }
 
-  #Total span:last-of-type:after {
+  /*#Total span:last-of-type:after {
     content: '';
     position: absolute;
     background: url('../omniing/right_dash_back.png');
@@ -172,7 +156,7 @@ export default class extends Vue {
     width: 44px;
     right: -44px;
     top: 0px;
-  }
+  }*/
 
   #Total > .Comma {
     display: inline-block;
@@ -184,6 +168,7 @@ export default class extends Vue {
     z-index: 10000000;
   }
 
+  /* TODO: implement animatecss with this */
   .fade-enter-active, .fade-leave-active {
     transition: opacity 0.5s ease;
   }

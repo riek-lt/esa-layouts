@@ -68,6 +68,7 @@ export default class extends Vue {
     flex: 1;
     padding-top: 2px;
     margin-left: 12px;
+    align-items: center;
     font-family: 'Goodlight';
   }
   .ticker-enter-active, .ticker-leave-active {
