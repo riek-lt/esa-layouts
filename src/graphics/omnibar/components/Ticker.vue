@@ -61,7 +61,9 @@ export default class extends Vue {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+  @import "~animate.css/animate.min.css";
+
   #Ticker {
     height: 100%;
     min-width: 0;
@@ -71,9 +73,19 @@ export default class extends Vue {
     align-items: center;
     font-family: 'Goodlight';
   }
-  .ticker-enter-active, .ticker-leave-active {
-    transition: opacity 1s;
+
+  .ticker-leave-active {
+    animation: fadeOutUp;
+    animation-duration: 500ms;
+    animation-timing-function: ease-in-out;
   }
+
+  .ticker-enter-active {
+    animation: fadeInUp;
+    animation-duration: 500ms;
+    animation-timing-function: ease-in-out;
+  }
+
   .ticker-enter, .ticker-leave-to {
     opacity: 0;
   }

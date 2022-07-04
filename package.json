@@ -32,6 +32,7 @@
   },
   "dependencies": {
     "@esamarathon/mq-events": "^1.0.1",
+    "animate.css": "^4.1.1",
     "clone": "^2.1.2",
     "discord.js": "^13.6.0",
     "lodash": "^4.17.21",
