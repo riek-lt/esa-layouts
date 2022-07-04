@@ -11,7 +11,7 @@
   >
     <transition name="ticker">
       <component
-        v-if="omnibar.current"
+        v-if="omnibar.current && mayShow"
         :is="omnibar.current.type"
         :key="`${omnibar.current.type}${JSON.stringify(omnibar.current.props)}`"
         v-bind="omnibar.current.props"
@@ -23,9 +23,9 @@
 
 <script lang="ts">
 import { replicantNS } from '@esa-layouts/browser_shared/replicant_store';
-import { awaitTimeout } from '@esa-layouts/graphics/_misc/helpers';
+import { awaitTimeout, wait } from '@esa-layouts/graphics/_misc/helpers';
 import { Omnibar } from '@esa-layouts/types/schemas';
-import { Vue, Component } from 'vue-property-decorator';
+import { Vue, Component, Watch } from 'vue-property-decorator';
 import GenericMsg from './Ticker/GenericMsg.vue';
 import Tweet from './Ticker/Tweet.vue';
 import MiniCredits from './Ticker/MiniCredits.vue';
@@ -49,6 +49,7 @@ import Milestone from './Ticker/Milestone.vue';
 })
 export default class extends Vue {
   @replicantNS.State((s) => s.reps.omnibar) readonly omnibar!: Omnibar;
+  mayShow = true;
 
   // Sends "omnibarShowNext" to extension; retries if not successful after 5s.
   async showNext(): Promise<void> {
@@ -58,12 +59,35 @@ export default class extends Vue {
       this.showNext();
     }
   }
+
+  @Watch('omnibar')
+  async onOmnibarChange(newVal?: Omnibar, oldVal?: Omnibar): Promise<void> {
+    this.mayShow = false;
+    await Vue.nextTick();
+    await wait(500);
+
+    if (oldVal?.current?.props?.dash) {
+      // Wait for the dash to hide before showing next
+      this.$emit('set-dash', null);
+      await wait(500);
+      await Vue.nextTick();
+    }
+
+    const nextDash = newVal?.current?.props?.dash;
+
+    this.$emit('set-dash', nextDash);
+    await Vue.nextTick();
+
+    if (nextDash) {
+      await wait(600);
+    }
+
+    this.mayShow = true;
+  }
 }
 </script>
 
 <style lang="scss" scoped>
-  @import "~animate.css/animate.min.css";
-
   #Ticker {
     height: 100%;
     min-width: 0;

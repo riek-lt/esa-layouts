@@ -42,5 +42,12 @@ export interface Omnibar {
 }
 export interface Props {
 	seconds?: number;
+  dash?: DashProps;
 	[k: string]: unknown;
+}
+
+export interface DashProps {
+  text: string;
+  fontSize: number;
+  top: number;
 }

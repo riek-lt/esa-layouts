@@ -7,7 +7,7 @@
       'align-items': 'center',
     }"
   >
-    <div
+<!--    <div
       :style="{
         'font-size': '20px',
         'text-align': 'right',
@@ -16,7 +16,7 @@
       }"
     >
       Upcoming<br>Goal
-    </div>
+    </div>-->
     <div
       :style="{
         position: 'relative',

@@ -171,7 +171,16 @@ async function showNext(): Promise<void> {
     if (next.type === 'UpcomingRun') {
       const run = getUpcomingRun();
       if (!run) { showNext(); return; }
-      omnibar.value.current = { ...next, props: { ...next.props, run } };
+      omnibar.value.current = { ...next,
+        props: { ...next.props,
+          run,
+          dash: {
+            text: 'Up next',
+            top: 23,
+            fontSize: 37,
+          },
+        },
+      };
     } else if (next.type === 'Prize') {
       const prize = getPrize();
       if (!prize) { showNext(); return; }
@@ -179,11 +188,30 @@ async function showNext(): Promise<void> {
     } else if (next.type === 'Milestone') {
       const milestone = getMilestone();
       if (!milestone) { showNext(); return; }
-      omnibar.value.current = { ...next, props: { ...next.props, milestone } };
+      omnibar.value.current = { ...next,
+        props: { ...next.props,
+          milestone,
+          dash: {
+            text: 'Upcoming Milestone',
+            fontSize: 26,
+            top: 2,
+          },
+        },
+      };
     } else if (next.type === 'Bid') {
       const bid = getBid();
       if (!bid) { showNext(); return; }
-      omnibar.value.current = { ...next, props: { ...next.props, bid } };
+      omnibar.value.current = { ...next,
+        props: {
+          ...next.props,
+          bid,
+          dash: {
+            text: bid.war ? 'Upcoming Bid War' : 'Upcoming Goal',
+            fontSize: 25,
+            top: 6,
+          },
+        },
+      };
     } else {
       omnibar.value.current = clone(next);
     }

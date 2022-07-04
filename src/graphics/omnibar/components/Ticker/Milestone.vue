@@ -7,7 +7,7 @@
       'white-space': 'nowrap',
     }"
   >
-    <div
+<!--    <div
       :style="{
         'font-size': '30px',
         'text-align': 'right',
@@ -16,7 +16,7 @@
       }"
     >
       Upcoming<br>Milestone
-    </div>
+    </div>-->
     <div
       :style="{
         position: 'relative',

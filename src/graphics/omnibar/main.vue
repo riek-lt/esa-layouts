@@ -1,12 +1,17 @@
 <template>
   <div id="omnibar">
-    <div id="information" class="no-dash">
-      <ticker/>
+    <div id="information" :class="{ 'no-dash': !dashInfo }">
+      <ticker @set-dash="updateDash"/>
     </div>
     <div id="left">
-<!--      <div id="dash">
-        <p>Current run</p>
-      </div>-->
+      <transition name="omnibar-dash">
+        <div id="dash" v-if="dashInfo" :key="JSON.stringify(dashInfo)">
+          <p :style="{
+            'font-size': `${dashInfo.fontSize}px`,
+            'top': `${dashInfo.top}px`,
+          }">{{ dashInfo.text }}</p>
+        </div>
+      </transition>
       <div class="box">
         <clock/>
         <img src="./omniing/bsgstick.png"  id="logobsg">
@@ -30,10 +35,12 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component } from 'vue-property-decorator';
+import { Component, Vue } from 'vue-property-decorator';
+import { replicantModule } from '@esa-layouts/browser_shared/replicant_store';
 import Total from './components/Total.vue';
 import Ticker from './components/Ticker.vue';
 import Clock from './components/Clock.vue';
+import { DashProps, Omnibar } from '../../types/schemas';
 
 @Component({
   components: {
@@ -43,11 +50,23 @@ import Clock from './components/Clock.vue';
   },
 })
 export default class extends Vue {
-  // code
+  dashInfo?: DashProps | null | undefined = null;
+
+  updateDash(newDashText: DashProps | null | undefined): void {
+    console.log(JSON.stringify(newDashText));
+    this.dashInfo = newDashText;
+  }
+
+  created(): void {
+    const omnibar = replicantModule.reps.omnibar as Omnibar;
+    this.dashInfo = omnibar?.current?.props?.dash;
+  }
 }
 </script>
 
 <style lang="scss">
+@import "~animate.css";
+
 html, body {
   padding: 0;
   margin: 0;
@@ -105,6 +124,7 @@ html, body {
       height: 82px;
       top: 0;
       animation-duration: 500ms;
+      font-family: 'Goodlight';
 
       &.hide {
         display: none;
@@ -113,13 +133,17 @@ html, body {
       p {
         color: white;
         position: absolute;
-        left: 52px;
+        left: 34px;
         max-width: 200px;
         word-break: break-word;
-        font-size: 39px;
-        top: calc((82px - 118px) / 2);
+        top: 22px;
+        font-size: 1.9vw;
+        //font-size: 37px;
+        // top: calc((82px - 118px) / 2);
+        text-transform: uppercase;
         vertical-align: middle;
         text-align: center;
+        margin: 0;
       }
     }
   }
@@ -227,5 +251,21 @@ html, body {
 
 #GenericMessage {
   padding-top: 8px;
+}
+
+.omnibar-dash-leave-active {
+  animation: slideOutLeft;
+  animation-duration: 500ms;
+  animation-timing-function: ease-in-out;
+}
+
+.omnibar-dash-enter-active {
+  animation: slideInLeft;
+  animation-duration: 500ms;
+  animation-timing-function: ease-in-out;
+}
+
+.omnibar-dash-enter, .omnibar-dash-leave-to {
+  left: 0px;
 }
 </style>

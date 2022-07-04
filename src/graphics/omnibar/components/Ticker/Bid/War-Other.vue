@@ -7,7 +7,7 @@
       'align-items': 'center',
     }"
   >
-    <div
+<!--    <div
       :style="{
         'font-size': '20px',
         'text-align': 'right',
@@ -16,7 +16,7 @@
       }"
     >
       Upcoming<br>Bid War
-    </div>
+    </div>-->
     <div
       :style="{
         'flex-grow': 1,
