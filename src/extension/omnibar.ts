@@ -176,7 +176,7 @@ async function showNext(): Promise<void> {
           run,
           dash: {
             text: 'Up next',
-            top: 23,
+            top: 20,
             fontSize: 37,
           },
         },

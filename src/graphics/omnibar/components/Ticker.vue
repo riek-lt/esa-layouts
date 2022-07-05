@@ -6,6 +6,7 @@
       flex: 1,
       overflow: 'hidden',
       height: '100%',
+      'padding-top': '0',
       // 'min-width': 0, // was probably used for overlapping things?
     }"
   >
@@ -72,6 +73,9 @@ export default class extends Vue {
       await wait(500);
       await Vue.nextTick();
     }
+
+    // wait before starting the next animation
+    await wait(500);
 
     const nextDash = newVal?.current?.props?.dash;
 

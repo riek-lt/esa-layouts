@@ -21,8 +21,8 @@
       :style="{
         'flex-grow': 1,
         display: 'flex',
-        margin: '10px',
-        height: '60px',
+        // margin: '10px',
+        height: '70px',
         'background-color': 'rgba(0, 0, 0, 0.3)',
         overflow: 'hidden',
       }"

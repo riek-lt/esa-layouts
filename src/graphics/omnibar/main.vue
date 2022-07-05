@@ -13,8 +13,8 @@
         </div>
       </transition>
       <div class="box">
-        <clock/>
-        <img src="./omniing/bsgstick.png"  id="logobsg">
+        <clock class="clock"/>
+<!--        <img src="./omniing/bsgstick.png"  id="logobsg">-->
       </div>
     </div>
         <div id="right">
@@ -53,7 +53,6 @@ export default class extends Vue {
   dashInfo?: DashProps | null | undefined = null;
 
   updateDash(newDashText: DashProps | null | undefined): void {
-    console.log(JSON.stringify(newDashText));
     this.dashInfo = newDashText;
   }
 
@@ -77,6 +76,8 @@ html, body {
   --slide-color: #914e21;
   --bg-start: #303030;
   --bg-end: #212121;
+
+  --dash-left-width: 194px;
 }
 
 #omnibar {
@@ -96,7 +97,9 @@ html, body {
       position: absolute;
       left: 0;
       height: 82px;
-      width: 256px;
+      //width: 256px;
+      width: var(--dash-left-width);
+      //width: 194px;
       background: var(--bsg-color);
       border-radius: 0px 0px 34px 0px / 0px 0px 100px 0px;
 
@@ -111,15 +114,15 @@ html, body {
       left: 169px;
       width: 50px;
       height: 50px;
-      top: calc((82px - 202px) / 2);
-      font-size: 39px;
+      top: -62px;
     }
 
     #dash {
       position: absolute;
       // TODO: local file
       background: url("./omniing/left_dash.png");
-      left: 244px;
+      //left: 244px;
+      left: calc(var(--dash-left-width) - 14px);
       width: 321px;
       height: 82px;
       top: 0;
@@ -156,14 +159,17 @@ html, body {
     color: white;
     font-size: 39px;
     //top: calc((82px - 50px) / 2);
-    left: 545px;
+    left: 492px;
+    width: 884px;
+    //box-sizing: border-box;
+    //border: solid green;
     animation-duration: 500ms;
-    width: 855px;
     height: 82px;
     //border: 1px green solid;
 
     &.no-dash {
-      left: 269px;
+      //left: 269px;
+      left: 194px;
       width: 1240px;
     }
 

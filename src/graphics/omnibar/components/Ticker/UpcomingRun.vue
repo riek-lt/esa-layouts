@@ -3,14 +3,15 @@
     class="Flex"
     :style="{
       padding: '0 17px',
+      'padding-top': '10px',
       height: '100%',
       'font-weight': 500,
       'flex-direction': 'column',
       'align-items': 'flex-start',
     }"
   >
-    <div :style="{ 'font-size': '25px' }">
-      Coming up {{ when }}: {{ run.game }}
+    <div :style="{ 'font-size': '24px' }">
+      {{ when }}: {{ run.game }}
     </div>
     <div :style="{ 'font-size': '22px' }">
       <span v-if="run.category">

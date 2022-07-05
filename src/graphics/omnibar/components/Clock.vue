@@ -39,7 +39,7 @@ export default class extends Vue {
   font-size: 35px;
   /*width: 90px;*/
   padding-left: 30px;
-  padding-top: 12px;
+  padding-top: 19px;
   font-family: 'Goodlight'
 }
 </style>
