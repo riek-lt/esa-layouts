@@ -173,10 +173,6 @@ async function setup(): Promise<void> {
       updateDonationTotalFromAPI(true);
       setInterval(updateDonationTotalFromAPI, 60 * 1000);
     } else {
-      setInterval(() => {
-        donationTotal.value += Math.random() * 1000;
-      }, 60 * 1000);
-
       donationTotal.value = eventInfo.reduce((p, e) => p + e.total, 0);
     }
 
