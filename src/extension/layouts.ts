@@ -1,6 +1,7 @@
 import type { Configschema } from '@esa-layouts/types/schemas/configschema';
 import Countdown from '@shared/extension/countdown';
 import clone from 'clone';
+import SpeedcontrolUtil from 'speedcontrol-util';
 import { logError } from './util/helpers';
 import { get as nodecg } from './util/nodecg';
 import obs from './util/obs';
@@ -184,9 +185,9 @@ capturePositions.on('change', async (val) => {
           (() => { // Area
             // Special game capture settings for DS-1p, 3DS-1p and sm64-psp-2p when online.
             if (config.event.online && key.startsWith('GameCapture')
-            && ['DS-1p', '3DS-1p', 'sm64-psp-2p'].includes(gameLayouts.value.selected || '')) {
+            //&& ['DS-1p', '3DS-1p', 'sm64-psp-2p'].includes(gameLayouts.value.selected || '')) {
               // sm64-psp-2p.
-              if (gameLayouts.value.selected === 'sm64-psp-2p'
+              && ['sm64-psp-2p'].includes(gameLayouts.value.selected || '')) {if (gameLayouts.value.selected === 'sm64-psp-2p'
               && ['GameCapture1', 'GameCapture2'].includes(key)) {
                 return {
                   x: key === 'GameCapture2' ? config.obs.canvasResolution.width / 2 : 0,
@@ -211,8 +212,8 @@ capturePositions.on('change', async (val) => {
           crop, // Crop
           (() => { // Visible
             // Special game capture settings for DS-1p, 3DS-1p and sm64-psp-2p when online.
-            if (config.event.online && key.startsWith('GameCapture')
-            && ['DS-1p', '3DS-1p', 'sm64-psp-2p'].includes(gameLayouts.value.selected || '')) {
+            if (config.event.online && key.startsWith('GameCapture')&& ['sm64-psp-2p'].includes(gameLayouts.value.selected || '')) {
+            //&& ['DS-1p', '3DS-1p', 'sm64-psp-2p'].includes(gameLayouts.value.selected || '')) {
               if (key === 'GameCapture1') return true;
               if (key === 'GameCapture2' && gameLayouts.value.selected === 'sm64-psp-2p') {
                 return true;

@@ -14,7 +14,7 @@
       }"
     />
     <game-capture
-      id="GameCapture2"
+      id="GameCapture3"
       class=" "
       :style="{
       left: '102px',
@@ -29,16 +29,16 @@
       id="CameraCapture1"
       class="Capture"
       :style="{
-      left: '8px',
-      top: '230px',
-      width: '546px',
-      height: '292px',
+      left: '6px',
+      top: '228px',
+      width: '548px',
+      height: '294px',
       }"
     />
 
     <!-- Run Game Info/Timer -->
     <div
-      class="Fixed Flex"
+      class="Fixed FlexColumn BlockYellow"
       :style="{
       left: '0px',
       top: '0px',
@@ -47,6 +47,7 @@
       }"
     >
       <run-info />
+
       </div>
 
           <!--TIMER-->
@@ -63,6 +64,16 @@
           >
             <timer />
     </div>
+
+    <div class="Fixed"
+    :style="{
+    left: '-6px',
+    top: '205px',
+    width: '531px',
+    height: '111px',
+    }">
+    <commentators-reader show-reader />
+  </div>
 
     <!-- Player/Commetator -->
     <div

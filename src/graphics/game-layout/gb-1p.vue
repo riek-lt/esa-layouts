@@ -22,7 +22,7 @@
       left: '0px',
       top: '297px',
       width: '554px',
-      height: '303px',
+      height: '307px',
       }"
     />
 
@@ -42,15 +42,19 @@
 
       <!-- Run Game Info/Timer -->
       <div
-        class="Flex"
+        class="Fixed FlexColumn"
         :style="{ flex: '1',
         left: '0px',
-        top: '70px',
-        width: '552px',
-        height: '208px',
+        top: '0px',
+        width: '522px',
+        height: '278px',
     }"
       >
         <run-info />
+        <div class="sub_div">
+        <commentators-reader />
+  <commentators-reader show-reader />
+      </div>
         </div>
 
     <!--TIMER-->

@@ -10,7 +10,7 @@
       :style="{
         left: '589px',
         top: '0px',
-        width: '1331px',
+        width: '1329px',
         height: '998px',
       }"
     />
@@ -43,16 +43,20 @@
 </div>
       <!-- Run Game Info/Timer -->
       <div
-        class="Flex BlockYellow"
+        class="Fixed FlexColumn BlockYellow"
         :style="{
           flex: '1',
           left: '0px',
           top: '0px',
-          width: '552px',
+          width: '530px',
           height: '278px',
         }"
       >
         <run-info />
+        <div class="sub_div">
+        <commentators-reader />
+  <commentators-reader show-reader />
+      </div>
         </div>
 
 <!--TIMER-->

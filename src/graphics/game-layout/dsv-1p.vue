@@ -14,7 +14,7 @@
       }"
     />
     <game-capture
-      id="GameCapture2"
+      id="GameCapture3"
       class=" "
       :style="{
       left: '930px',
@@ -38,15 +38,19 @@
 
     <!-- Run Game Info/Timer -->
     <div
-      class="Fixed Flex"
+      class="Fixed FlexColumn"
       :style="{
       left: '0px',
       top: '0px',
-      width: '552px',
-      height: '278px',
+      width: '517px',
+      height: '290px',
       }"
     >
       <run-info />
+      <div class="sub_div">
+      <commentators-reader />
+<commentators-reader show-reader />
+    </div>
       </div>
 
           <!--TIMER-->

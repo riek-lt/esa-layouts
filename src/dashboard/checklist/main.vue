@@ -6,9 +6,14 @@
       Uncheck all
     </v-btn>
     <h2 class="mt-2">Checklist</h2>
+    <div class="multiselect with-transition" :class="{
+        'multiselect-on': audioReady,
+      }">
+      <input id="audio-ready-cb" type="checkbox" disabled :checked="audioReady">
+      <label for="audio-ready-cb">Audio Ready</label>
+    </div>
     <ul>
-      <li :class="{
-        multiselect: true,
+      <li class="multiselect" :class="{
         'with-transition': unchecking,
         'multiselect-on': check.checked,
       }" v-for="(check, i) in checks"
@@ -23,17 +28,29 @@
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator';
-import {Configschema} from '../../types/schemas';
+import Pusher from 'pusher-js';
+import { Configschema } from '../../types/schemas';
+
+type ChecklistItem = {
+  title: string;
+  checked: boolean;
+  defaultState?: boolean;
+};
+
+Pusher.logToConsole = false;
+
+const pusher = new Pusher('2c53693ab820e678c32e', {
+  cluster: 'eu',
+});
+
+const channel = pusher.subscribe('bsg-checklist');
 
 @Component
 export default class extends Vue {
   obsConfig = (nodecg.bundleConfig as Configschema).obs;
   unchecking = false;
-  checks = [
-    {
-      title: 'Switch to intermission',
-      checked: false,
-    },
+  audioReady = false;
+  checks: ChecklistItem[] = [
     {
       title: 'Press Next Game in Run Player',
       checked: false,
@@ -41,9 +58,14 @@ export default class extends Vue {
     {
       title: '(automated)Tweet about the run WITH a picture',
       checked: true,
+      defaultState: true,
     },
     {
-      title: 'Balance audio with donation reader',
+      title: 'Set up runner & get image on capcard',
+      checked: false,
+    },
+    {
+      title: 'Crop game if necessary',
       checked: false,
     },
     {
@@ -51,15 +73,11 @@ export default class extends Vue {
       checked: false,
     },
     {
-      title: 'Make sure stream(s) are loaded',
-      checked: false,
-    },
-    {
       title: 'Verify run-info is correct',
       checked: false,
     },
     {
-      title: 'Verify Game Layout',
+      title: 'Verify Game Layout (with the runner)',
       checked: false,
     },
     {
@@ -67,7 +85,7 @@ export default class extends Vue {
       checked: false,
     },
     {
-      title: 'Write down end time of previous run (when no scheduler is active)',
+      title: 'Check if Runner cam needs adjustment',
       checked: false,
     },
     {
@@ -85,7 +103,15 @@ export default class extends Vue {
       // reset the checkmarks if we change to the game layout
       if (scene === this.obsConfig.names.scenes.gameLayout) {
         this.resetChecks();
+        fetch('https://pusher.bsg.duncte123.nl/sendUncheck.php', {
+          mode: 'no-cors',
+        })
+          .catch(console.log);
       }
+    });
+
+    channel.bind('audio-ready', (data: { ready: boolean }) => {
+      this.audioReady = data.ready;
     });
 
     nodecg.listenFor('changeCheckStatus', ({ i, checked }) => {
@@ -113,14 +139,14 @@ export default class extends Vue {
     }
 
     // Skip if nothing is checked
-    if (!this.checks.find((c) => c.checked)) {
+    if (!this.checks.find((c) => !c.defaultState || c.checked)) {
       return;
     }
 
     this.unchecking = true;
 
     for (const check of this.checks) {
-      check.checked = false;
+      check.checked = check.defaultState || false;
     }
 
     setTimeout(() => {
@@ -144,6 +170,7 @@ export default class extends Vue {
     padding: 5px;
     border-radius: 5px;
     margin-bottom: 4px;
+    box-sizing: border-box;
   }
 
   .with-transition {

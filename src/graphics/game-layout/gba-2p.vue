@@ -33,9 +33,9 @@
       id="CameraCapture1"
       class="Capture"
       :style="{
-      left: '726px',
+      left: '724px',
       top: '757px',
-      width: '470px',
+      width: '472px',
       height: '240px',
       }"
     />
@@ -90,18 +90,41 @@
 
       <!-- Run Game Info/Timer -->
       <div
-      class="Fixed Flex BlockYellow"
+      class="Fixed FlexColumn BlockYellow"
       :style="{
         flex: '1',
         width: '100%',
         left: '1213px',
-        top: '727px',
+        top: '739px',
         width: '534px',
         height: '270px',
         }"
       >
         <run-info :style="{ 'font-size': '35px' }" />
       </div>
+
+      <div class="Fixed"
+      :style="{
+      width: '97%',
+      left: '1229px',
+      top: '957px',
+      width: '534px',
+      height: '111px',
+      }">
+      <commentators-reader />
+    </div>
+    <div class="Fixed"
+    :style="{
+    width: '97%',
+    left: '18px',
+    top: '957px',
+    width: '685px',
+    height: '111px',
+    }">
+    <commentators-reader show-reader />
+  </div>
+
+
       <div
   class="Fixed FlexColumn BlockBlack"
   :style="{
@@ -138,7 +161,7 @@ import { Configschema } from '@esa-layouts/types/schemas/configschema';
 import MediaBox from '@shared/graphics/mediabox';
 import GameCapture from './components/GameCapture.vue';
 import Player from './components/Player.vue';
-import CommAndReader from './components/CommAndReader.vue';
+import CommentatorsReader from './components/CommentatorsReader.vue';
 import RunInfo from './components/RunInfo.vue';
 import Timer from './components/Timer.vue';
 import DonationBar from './components/DonationBar.vue';
@@ -147,7 +170,7 @@ import DonationBar from './components/DonationBar.vue';
   components: {
     GameCapture,
     Player,
-    CommAndReader,
+    CommentatorsReader,
     RunInfo,
     Timer,
     MediaBox,

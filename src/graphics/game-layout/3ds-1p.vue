@@ -5,7 +5,7 @@
     <!-- Game Captures -->
     <game-capture
       id="GameCapture1"
-      class=" "
+      class=""
       :style="{
       left: '573px',
       top: '0px',
@@ -14,8 +14,8 @@
       }"
     />
     <game-capture
-      id="GameCapture2"
-      class=" "
+      id="GameCapture3"
+      class=""
       :style="{
       left: '8px',
       top: '594px',
@@ -35,6 +35,17 @@
       height: '364px',
       }"
     />
+
+    <div class="Fixed"
+    :style="{
+    width: '97%',
+    left: '0px',
+    top: '316px',
+    width: '539px',
+    height: '111px',
+    }">
+    <commentators-reader show-reader />
+  </div>
 
     <!-- Run Game Info/Timer -->
     <div

@@ -7,14 +7,14 @@
       id="GameCapture1"
       class=""
       :style="{
-      left: '846px',
+      left: '844px',
       top: '0px',
-      width: '809px',
+      width: '811px',
       height: '487px',
       }"
     />
     <game-capture
-      id="GameCapture2"
+      id="GameCapture3"
       class=" "
       :style="{
       left: '928px',
@@ -38,15 +38,19 @@
 
     <!-- Run Game Info/Timer -->
     <div
-      class="Fixed Flex"
+      class="Fixed FlexColumn BlockYellow"
       :style="{
       left: '0x',
       top: '0px',
-      width: '560px',
-      height: '280px',
+      width: '517px',
+      height: '289px',
       }"
     >
       <run-info />
+      <div class="sub_div">
+      <commentators-reader />
+<commentators-reader show-reader />
+    </div>
       </div>
 
           <!--TIMER-->

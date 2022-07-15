@@ -50,6 +50,11 @@ const routes = [
     component: List.L_16x9_1p_LargeCam,
   },
   {
+    name: '16:9 2 Player Co-op (no line in middle)',
+    path: '/16x9-2p-c',
+    component: List.L_16x9_2p_c,
+  },
+  {
     name: '16:9 2 Player',
     path: '/16x9-2p',
     component: List.L_16x9_2p,
@@ -108,11 +113,6 @@ const routes = [
     name: 'DS 2 Player',
     path: '/DS-2p',
     component: List.L_DS_2p,
-  },
-  {
-    name: '16:9 2 Player coop',
-    path: '/16x9-2p-c',
-    component: List.L_16x9_2p_c,
   },
   {
     path: '*',

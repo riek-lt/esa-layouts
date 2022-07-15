@@ -14,6 +14,7 @@
       'box-sizing': 'border-box',
     }"
   >
+
     <!-- Player/Twitch Icon -->
     <div
       :style="{
@@ -62,8 +63,8 @@
           key="name"
           class="Icon"
           src="../../_misc/PlayerIconSolo.png"
-        >
-      </transition>-->
+        >-->
+      </transition>
     </div>
 
     <!-- Player Name/Twitch -->
@@ -157,9 +158,9 @@
           :src="player.country ? `/bundles/esa-layouts/flags/${player.country}.png` : ''"
           :style="{
             position: 'absolute',
-            right: '0',
+            right: '7px',
             height: 'calc(100% - 4px)',
-            'border-size': '2px',
+            'border-width': '2px',
             'border-style': 'solid',
             opacity: player.country ? 1 : 0,
           }"

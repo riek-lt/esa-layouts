@@ -19,9 +19,9 @@
       :slot-no="1"
       finish-time-pos="bottomright"
       :style="{
-      left: '965px',
+      left: '963px',
       top: '74px',
-      width: '955px',
+      width: '957px',
       height: '540px',
       }"
     />
@@ -33,10 +33,10 @@
       id="CameraCapture1"
       class="Capture"
       :style="{
-      left: '726px',
-      top: '734px',
-      width: '468px',
-      height: '266px',
+      left: '724px',
+      top: '732px',
+      width: '470px',
+      height: '268px',
       }"
     />
     <template v-else>
@@ -91,17 +91,21 @@
 
       <!-- Run Game Info/Timer -->
       <div
-      class="Fixed Flex BlockYellow"
+      class="Fixed FlexColumn BlockYellow"
       :style="{
         flex: '1',
         width: '100%',
         left: '1213px',
         top: '727px',
-        width: '534px',
+        width: '545px',
         height: '270px',
         }"
       >
         <run-info :style="{ 'font-size': '35px' }" />
+        <div class="sub_div">
+        <commentators-reader />
+  <commentators-reader show-reader />
+      </div>
       </div>
       <div
   class="Fixed FlexColumn BlockBlack"

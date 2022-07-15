@@ -19,10 +19,10 @@
       :slot-no="1"
       finish-time-pos="bottomright"
       :style="{
-        left: '965px',
-        top: '74px',
-        width: '955px',
-        height: '540px',
+      left: '963px',
+      top: '74px',
+      width: '957px',
+      height: '540px',
       }"
     />
 
@@ -31,10 +31,10 @@
       id="CameraCapture1"
       class="Capture   "
       :style="{
-        left: '726px',
-        top: '734px',
-        width: '468px',
-        height: '266px',
+      left: '724px',
+      top: '732px',
+      width: '470px',
+      height: '268px',
       }"
     />
 
@@ -65,7 +65,7 @@
 </div>
       <!-- Run Game Info/Timer -->
       <div
-        class="Fixed Flex BlockYellow"
+        class="Fixed FlexColumn BlockYellow"
         :style="{
           flex: '1',
           width: '100%',
@@ -75,8 +75,12 @@
           height: '270px',
         }"
       >
-        <run-info />
-      </div>
+      <run-info :style="{ 'font-size': '35px' }" />
+      <div class="sub_div">
+      <commentators-reader />
+<commentators-reader show-reader />
+    </div>
+    </div>
 
       <!--TIMER-->
       <div
@@ -114,7 +118,7 @@ import { Vue, Component } from 'vue-property-decorator';
 import MediaBox from '@shared/graphics/mediabox';
 import GameCapture from './components/GameCapture.vue';
 import Player from './components/Player.vue';
-import CommAndReader from './components/CommAndReader.vue';
+import CommentatorsReader from './components/CommentatorsReader.vue';
 import RunInfo from './components/RunInfo.vue';
 import Timer from './components/Timer.vue';
 import DonationBar from './components/DonationBar.vue';
@@ -123,7 +127,7 @@ import DonationBar from './components/DonationBar.vue';
   components: {
     GameCapture,
     Player,
-    CommAndReader,
+    CommentatorsReader,
     RunInfo,
     Timer,
     MediaBox,

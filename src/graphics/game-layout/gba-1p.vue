@@ -37,22 +37,26 @@
       }"
     >
       <player />
-      <!--<commentators-reader />
-      <commentators-reader show-reader />-->
+      <!--<comm-and-reader />-->
 
       <!-- Run Game Info/Timer -->
       <div
-        class="Fixed Flex BlockYellow"
+        class="Fixed FlexColumn BlockYellow"
         :style="{
           flex: '1',
           width: '100%',
-          left: '0x',
+          left: '0px',
           top: '0px',
-          width: '560px',
+          width: '530px',
           height: '280px',
         }"
       >
+
         <run-info />
+        <div class="sub_div">
+        <commentators-reader />
+        <commentators-reader show-reader />
+      </div>
         </div>
 
               <!--TIMER-->
