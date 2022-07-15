@@ -255,7 +255,10 @@
                       "minItems": 1
                     }
                   ],
-                  "default": "Game Source"
+                  "default": [
+                    "Game Source 1",
+                    "Game Source 2"
+                  ]
                 },
                 "cameraSources": {
                   "oneOf": [
@@ -335,7 +338,10 @@
                       "minItems": 1
                     }
                   ],
-                  "default": "Game Capture"
+                  "default": [
+                    "Game Capture 1",
+                    "Game Capture 2"
+                  ]
                 },
                 "cameraCaptures": {
                   "oneOf": [
