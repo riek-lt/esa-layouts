@@ -6,9 +6,14 @@
       Uncheck all
     </v-btn>
     <h2 class="mt-2">Checklist</h2>
+    <div class="multiselect with-transition" :class="{
+        'multiselect-on': audioReady,
+      }">
+      <input id="audio-ready-cb" type="checkbox" disabled :checked="audioReady">
+      <label for="audio-ready-cb">Audio Ready</label>
+    </div>
     <ul>
-      <li :class="{
-        multiselect: true,
+      <li class="multiselect" :class="{
         'with-transition': unchecking,
         'multiselect-on': check.checked,
       }" v-for="(check, i) in checks"
@@ -23,6 +28,7 @@
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator';
+import Pusher from 'pusher-js';
 import { Configschema } from '../../types/schemas';
 
 type ChecklistItem = {
@@ -31,10 +37,19 @@ type ChecklistItem = {
   defaultState?: boolean;
 };
 
+Pusher.logToConsole = false;
+
+const pusher = new Pusher('2c53693ab820e678c32e', {
+  cluster: 'eu',
+});
+
+const channel = pusher.subscribe('bsg-checklist');
+
 @Component
 export default class extends Vue {
   obsConfig = (nodecg.bundleConfig as Configschema).obs;
   unchecking = false;
+  audioReady = false;
   checks: ChecklistItem[] = [
     {
       title: 'Press Next Game in Run Player',
@@ -88,7 +103,15 @@ export default class extends Vue {
       // reset the checkmarks if we change to the game layout
       if (scene === this.obsConfig.names.scenes.gameLayout) {
         this.resetChecks();
+        fetch('https://pusher.bsg.duncte123.nl/sendUncheck.php', {
+          mode: 'no-cors',
+        })
+          .catch(console.log);
       }
+    });
+
+    channel.bind('audio-ready', (data: { ready: boolean }) => {
+      this.audioReady = data.ready;
     });
 
     nodecg.listenFor('changeCheckStatus', ({ i, checked }) => {
@@ -147,6 +170,7 @@ export default class extends Vue {
     padding: 5px;
     border-radius: 5px;
     margin-bottom: 4px;
+    box-sizing: border-box;
   }
 
   .with-transition {

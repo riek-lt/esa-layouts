@@ -38,6 +38,7 @@
     "module-alias": "^2.2.2",
     "moment": "^2.29.1",
     "needle": "^3.0.0",
+    "pusher-js": "^7.1.1-beta",
     "sharp": "^0.29.3",
     "speedcontrol-util": "^0.6.0-RC6",
     "streamdeck-util": "^0.3.3",
