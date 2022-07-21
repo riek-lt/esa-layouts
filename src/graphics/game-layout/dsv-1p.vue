@@ -59,8 +59,8 @@
             :style="{
               flex: '1',
               width: '100%',
-              left: '16px',
-              top: '732px',
+              left: '147px',
+              top: '740px',
               width: '535px',
               height: '103px',
             }"

@@ -60,12 +60,18 @@
               flex: '1',
               width: '100%',
               left: '16px',
-              top: '730px',
+              top: '740px',
               width: '535px',
               height: '103px',
             }"
           >
+          <div
+          :style="{
+          left: '122px',
+          'position': 'absolute',
+          }">
             <timer />
+      </div>
     </div>
 
     <!-- Player/Commetator -->

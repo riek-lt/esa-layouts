@@ -130,8 +130,8 @@
   :style="{
     flex: '1',
     width: '100%',
-    left: '745px',
-    top: '656px',
+    left: '823px',
+    top: '667px',
     width: '412px',
     height: '75px',
   }"

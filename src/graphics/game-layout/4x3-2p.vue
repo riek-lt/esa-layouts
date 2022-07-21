@@ -107,8 +107,8 @@
   :style="{
     flex: '1',
     width: '100%',
-    left: '745px',
-    top: '737px',
+    left: '827px',
+    top: '747px',
     width: '412px',
     height: '69px',
   }"

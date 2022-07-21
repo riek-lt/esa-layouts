@@ -60,7 +60,14 @@
         height: '137px',
       }"
     >
+    <div
+    :style="{
+    left: '200px',
+    'position': 'absolute',
+    }">
       <timer />
+</div>
+
       <div class="sub_div"
       :style="{
       'margin-right': '24px',
