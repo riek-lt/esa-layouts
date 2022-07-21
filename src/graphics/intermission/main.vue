@@ -9,18 +9,7 @@
     <div id="Layout">
       <!-- Logo linksboven-->
       <div
-        v-if="!isHek"
         class="Logo Fixed"
-        :style="{
-          left: '53px',
-          top: '43px',
-          width: '609px',
-          height: '276px',
-        }"
-      />
-      <div
-        v-else
-        class="Fixed"
         :style="{
           left: '53px',
           top: '43px',
@@ -117,10 +106,6 @@ import MusicTrack from './components/MusicTrack.vue';
 export default class extends Vue {
   @State nextRuns!: RunData[];
   clipPath = 'unset';
-
-  get isHek(): boolean {
-    return this.nextRuns[0]?.customData.info === 'HEK';
-  }
 
   mounted(): void {
     // Bring this back if we actually gain some cameras on this layout.

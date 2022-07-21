@@ -37,8 +37,9 @@
       }"
     >
       <player />
-      <!--<comm-and-reader />-->
-</div>
+      <!--<commentators-reader />
+      <commentators-reader show-reader />-->
+
       <!-- Run Game Info/Timer -->
       <div
         class="Fixed FlexColumn"
@@ -62,8 +63,8 @@
       :style="{
         flex: '1',
         width: '100%',
-        left: '16px',
-        top: '732px',
+        left: '146px',
+        top: '740px',
         width: '535px',
         height: '103px',
       }"
@@ -81,7 +82,6 @@
       height: '157px',
       }"
     />
-    <!-- Donation Bar -->
   </div>
 </template>
 

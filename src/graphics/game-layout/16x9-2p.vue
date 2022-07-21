@@ -73,7 +73,8 @@
       }"
     >
       <player :slot-no="0" />
-      <!--<comm-and-reader />-->
+      <!--<commentators-reader />
+      <commentators-reader show-reader />-->
     </div>
 
     <!-- Player 2/General Run Info -->
@@ -94,7 +95,7 @@
       :style="{
         flex: '1',
         width: '100%',
-        left: '1213px',
+        left: '1227px',
         top: '727px',
         width: '545px',
         height: '270px',
@@ -111,8 +112,8 @@
   :style="{
     flex: '1',
     width: '100%',
-    left: '745px',
-    top: '636px',
+    left: '821px',
+    top: '644px',
     width: '412px',
     height: '69px',
   }"
@@ -132,7 +133,6 @@
       }"
     />
 
-    <!-- Donation Bar -->
   </div>
 </template>
 

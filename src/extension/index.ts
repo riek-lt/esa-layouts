@@ -1,9 +1,7 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-/* eslint-disable global-require */
+/* eslint-disable global-require, @typescript-eslint/no-var-requires */
 
 // This must go first so we can use module aliases!
 /* eslint-disable import/first */
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 require('module-alias').addAlias('@esa-layouts', require('path').join(__dirname, '.'));
 require('module-alias').addAlias('@shared', require('path').join(__dirname, '../shared'));
 
@@ -29,6 +27,10 @@ export = (nodecg: NodeCG): ExtensionReturn => {
     nodecg.log.warn('USING TEST DATA, MAKE SURE TO DISABLE THIS IN PRODUCTION!');
   }
 
+  /**
+   * Because of how `import`s work, it helps to use `require`s to force
+   * things to be loaded *after* the NodeCG context is set.
+   */
   require('./obs-data');
   require('./layouts');
   require('./tracker');
@@ -36,13 +38,15 @@ export = (nodecg: NodeCG): ExtensionReturn => {
   require('./mixer');
   require('./streamdeck-buttons');
   require('./timer');
-  require('./restream');
   require('./media-box');
   require('./text-to-speech');
-  require('./twitch-ext');
   require('./music');
-  require('./video-player');
-  // require('./twitch-subs');
+  require('./intermission-player');
+  require('./flagcarrier');
+  require('./omnibar');
+  require('./reader-introduction');
+  require('./commercials');
+  require('./player-hud');
 
   return {
     obs: require('./util/obs').default,

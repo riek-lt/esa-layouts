@@ -56,8 +56,8 @@
             :style="{
               flex: '1',
               width: '100%',
-              left: '17px',
-              top: '613px',
+              left: '156px',
+              top: '620px',
               width: '536px',
               height: '85px',
             }"
@@ -67,7 +67,7 @@
 
     <div class="Fixed"
     :style="{
-    left: '-6px',
+    left: '0px',
     top: '205px',
     width: '531px',
     height: '111px',
@@ -75,7 +75,7 @@
     <commentators-reader show-reader />
   </div>
 
-    <!-- Player/Commetator -->
+    <!-- Player/Commentator -->
     <div
       class="Fixed"
       :style="{
@@ -89,10 +89,6 @@
       <!--<commentators-reader />
       <commentators-reader show-reader />-->
     </div>
-
-    <!-- Media Box -->
-
-    <!-- Donation Bar -->
   </div>
 </template>
 

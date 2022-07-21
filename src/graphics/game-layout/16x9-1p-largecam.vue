@@ -60,7 +60,13 @@
         height: '137px',
       }"
     >
+    <div
+    :style="{
+    left: '195px',
+    'position': 'absolute',
+    }">
       <timer />
+</div>
       <div class="sub_div"
       :style="{
       'margin-right': '24px',
@@ -82,7 +88,7 @@
       </div>
     </div>
 
-    <!-- Player/Commetator -->
+    <!-- Player/Commetator/Media Box -->
     <div
     class="Fixed FlexColumn BlockGreen"
     :style="{
@@ -92,6 +98,7 @@
       height: '86px',
       }"
     >
+      <!-- Player/Commetator -->
       <player />
       <!--<commentators-reader />
       <commentators-reader show-reader />-->
@@ -109,7 +116,6 @@
       }"
     />
 
-    <!-- Donation Bar -->
   </div>
 </template>
 
@@ -131,7 +137,6 @@ import DonationBar from './components/DonationBar.vue';
     RunInfo,
     Timer,
     MediaBox,
-    DonationBar,
   },
 })
 export default class extends Vue {}

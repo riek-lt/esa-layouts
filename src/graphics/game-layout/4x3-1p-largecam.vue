@@ -72,8 +72,8 @@
         :style="{
           flex: '1',
           width: '100%',
-          left: '19px',
-          top: '899px',
+          left: '140px',
+          top: '905px',
           width: '536px',
           height: '108px',
         }"

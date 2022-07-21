@@ -1,23 +1,5 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "definitions": {
-    "restreamItem": {
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "address": {
-          "type": "string"
-        },
-        "key": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "address",
-        "key"
-      ]
-    }
-  },
   "type": "object",
   "additionalProperties": false,
   "properties": {
@@ -30,8 +12,8 @@
       "additionalProperties": false,
       "properties": {
         "theme": {
-          "type": "string",
-          "$comment": "Theme to be used in the graphical overlays; will use default if none supplied."
+          "$comment": "Theme to be used in the graphical overlays; will use default if none supplied.",
+          "type": "string"
         },
         "shorts": {
           "$comment": "This/these must match the tracker, if that feature is enabled.",
@@ -52,8 +34,8 @@
           "default": "EVENT_SHORT"
         },
         "thisEvent": {
-          "type": "number",
           "$comment": "If the 'event' has multiple tracker events, this a 1-indexed value of which one is applicable to this stream from the shorts array.",
+          "type": "number",
           "minimum": 1,
           "maximum": 2,
           "default": 1
@@ -82,11 +64,39 @@
         "online"
       ]
     },
+    "omnibar": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "miniCredits": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "header": {
+              "type": "string",
+              "default": "Thanks to all these people!"
+            },
+            "screeners": {
+              "type": "string"
+            },
+            "tech": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "header"
+          ]
+        }
+      },
+      "required": [
+        "miniCredits"
+      ]
+    },
     "streamdeck": {
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "enable": {
+        "enabled": {
           "type": "boolean",
           "default": true
         },
@@ -104,7 +114,7 @@
         }
       },
       "required": [
-        "enable",
+        "enabled",
         "port",
         "key",
         "debug"
@@ -114,7 +124,7 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "enable": {
+        "enabled": {
           "type": "boolean",
           "default": true
         },
@@ -137,10 +147,13 @@
         "vhost": {
           "type": "string",
           "default": "esa_prod"
+        },
+        "queuePrepend": {
+          "type": "string"
         }
       },
       "required": [
-        "enable",
+        "enabled",
         "protocol",
         "hostname",
         "username",
@@ -148,45 +161,11 @@
         "vhost"
       ]
     },
-    "restream": {
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "enable": {
-          "type": "boolean",
-          "default": false
-        },
-        "instances": {
-          "oneOf": [
-            {
-              "$ref": "#/definitions/restreamItem"
-            },
-            {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/restreamItem"
-              },
-              "uniqueItems": true,
-              "minItems": 1,
-              "maxItems": 2
-            }
-          ],
-          "default": {
-            "address": "localhost:1234",
-            "key": "DEFAULT_KEY"
-          }
-        }
-      },
-      "required": [
-        "enable",
-        "instances"
-      ]
-    },
     "obs": {
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "enable": {
+        "enabled": {
           "type": "boolean",
           "default": true
         },
@@ -197,6 +176,24 @@
         "password": {
           "type": "string",
           "default": ""
+        },
+        "canvasResolution": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "width": {
+              "type": "number",
+              "default": 1920
+            },
+            "height": {
+              "type": "number",
+              "default": 1080
+            }
+          },
+          "required": [
+            "width",
+            "height"
+          ]
         },
         "names": {
           "type": "object",
@@ -214,65 +211,82 @@
                   "type": "string",
                   "default": "Game Layout"
                 },
+                "readerIntroduction": {
+                  "type": "string",
+                  "default": "Reader Introduction"
+                },
                 "intermission": {
                   "type": "string",
                   "default": "Intermission"
                 },
-                "videoPlayer": {
+                "intermissionPlayer": {
                   "type": "string",
                   "default": "Intermission Player"
                 },
                 "countdown": {
                   "type": "string",
                   "default": "Countdown"
-                },
-                "hekIntermission": {
-                  "type": "string",
-                  "default": "HEK Fullscreen"
                 }
               },
               "required": [
                 "commercials",
                 "gameLayout",
+                "readerIntroduction",
                 "intermission",
-                "videoPlayer",
-                "countdown",
-                "hekIntermission"
+                "intermissionPlayer",
+                "countdown"
               ]
             },
             "sources": {
               "type": "object",
               "additionalProperties": false,
               "properties": {
-                "gameCapture1": {
-                  "type": "string",
-                  "default": "Game Capture 1"
+                "gameSources": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "uniqueItems": true,
+                      "minItems": 1
+                    }
+                  ],
+                  "default": [
+                    "Game Source 1",
+                    "Game Source 2"
+                  ]
                 },
-                "gameCapture2": {
-                  "type": "string",
-                  "default": "Game Capture 2"
+                "cameraSources": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "uniqueItems": true,
+                      "minItems": 1
+                    }
+                  ],
+                  "default": "Camera Source"
                 },
-                "gameCapture3": {
-                  "type": "string",
-                  "default": "Game Capture 3"
+                "cameraSourceCrowd": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
                 },
-                "gameCapture4": {
-                  "type": "string",
-                  "default": "Game Capture 4"
-                },
-                "cameraCapture1": {
-                  "type": "string",
-                  "default": "Camera Capture 1"
-                },
-                "cameraCapture2": {
-                  "type": "string",
-                  "default": "Camera Capture 2"
-                },
-                "cameraCapture3": {
-                  "type": "string",
-                  "default": "Camera Capture 3"
-                },
-                "restreamSources": {
+                "twitchSources": {
                   "oneOf": [
                     {
                       "type": "string"
@@ -287,36 +301,83 @@
                       "maxItems": 2
                     }
                   ],
-                  "default": "Restream Source"
+                  "default": "Twitch Source"
                 },
                 "videoPlayer": {
                   "type": "string",
                   "default": "Video Player Source"
+                },
+                "donationSound": {
+                  "type": "string",
+                  "default": "Donation Sound"
                 }
               },
               "required": [
-                "gameCapture1",
-                "gameCapture2",
-                "gameCapture3",
-                "gameCapture4",
-                "cameraCapture1",
-                "cameraCapture2",
-                "cameraCapture3",
-                "restreamSources",
-                "videoPlayer"
+                "gameSources",
+                "cameraSources",
+                "twitchSources",
+                "videoPlayer",
+                "donationSound"
+              ]
+            },
+            "groups": {
+              "type":  "object",
+              "additionalProperties": false,
+              "properties": {
+                "gameCaptures": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "uniqueItems": true,
+                      "minItems": 1
+                    }
+                  ],
+                  "default": [
+                    "Game Capture 1",
+                    "Game Capture 2"
+                  ]
+                },
+                "cameraCaptures": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "uniqueItems": true,
+                      "minItems": 1
+                    }
+                  ],
+                  "default": "Camera Capture"
+                }
+              },
+              "required": [
+                "gameCaptures",
+                "cameraCaptures"
               ]
             }
           },
           "required": [
             "scenes",
-            "sources"
+            "sources",
+            "groups"
           ]
         }
       },
       "required": [
-        "enable",
+        "enabled",
         "address",
         "password",
+        "canvasResolution",
         "names"
       ]
     },
@@ -324,7 +385,7 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "enable": {
+        "enabled": {
           "type": "boolean",
           "default": true
         },
@@ -342,7 +403,7 @@
         }
       },
       "required": [
-        "enable",
+        "enabled",
         "address",
         "username",
         "password"
@@ -352,7 +413,7 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "enable": {
+        "enabled": {
           "type": "boolean",
           "default": true
         },
@@ -366,16 +427,29 @@
         }
       },
       "required": [
-        "enable",
+        "enabled",
         "ip",
         "localPort"
+      ]
+    },
+    "xkeys": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "default": true
+        }
+      },
+      "required": [
+        "enabled"
       ]
     },
     "tracker": {
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "enable": {
+        "enabled": {
           "type": "boolean",
           "default": true
         },
@@ -390,47 +464,20 @@
         "password": {
           "type": "string",
           "default": "PASSWORD"
-        },
-        "commentaryBias": {
-          "type": "object",
-          "additionalProperties": false,
-          "properties": {
-            "bidId": {
-              "type": "number",
-              "default": 0,
-              "$comment": "ID of relevant bid in the tracker."
-            },
-            "option1Id": {
-              "type": "number",
-              "default": 0,
-              "$comment": "ID of option of team 1 in the tracker on the above bid."
-            },
-            "option2Id": {
-              "type": "number",
-              "default": 0,
-              "$comment": "ID of option of team 2 in the tracker on the above bid."
-            }
-          },
-          "required": [
-            "bidId",
-            "option1Id",
-            "option2Id"
-          ]
         }
       },
       "required": [
-        "enable",
+        "enabled",
         "address",
         "username",
-        "password",
-        "commentaryBias"
+        "password"
       ]
     },
     "tts": {
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "enable": {
+        "enabled": {
           "type": "boolean",
           "default": false
         },
@@ -440,40 +487,107 @@
         }
       },
       "required": [
-        "enable",
+        "enabled",
         "voiceAPI"
       ]
     },
-    "twitchExt": {
+    "flagcarrier": {
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "enable": {
+        "enabled": {
+          "type": "boolean",
+          "default": true
+        },
+        "allowedDevices": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "uniqueItems": true,
+              "minItems": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "group": {
+          "type": "string",
+          "default": "stream1"
+        }
+      },
+      "required": [
+        "enabled",
+        "group"
+      ]
+    },
+    "offsite": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "default": false
+        },
+        "address": {
+          "type": "string",
+          "default": "https://app.esamarathon.com/offsite/api"
+        },
+        "key": {
+          "type": "string",
+          "default": "SECRET_KEY"
+        }
+      },
+      "required": [
+        "enabled",
+        "address",
+        "key"
+      ]
+    },
+    "discord": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
           "type": "boolean",
           "default": false
         },
         "token": {
           "type": "string",
-          "default": "TOKEN"
+          "default": "BOT_TOKEN"
+        },
+        "textChannelId": {
+          "type": "string",
+          "default": "TEXT_CHANNEL_ID"
         }
       },
       "required": [
-        "enable",
-        "token"
+        "enabled",
+        "token",
+        "textChannelId"
       ]
     }
   },
   "required": [
     "useTestData",
     "event",
+    "omnibar",
     "streamdeck",
     "rabbitmq",
-    "restream",
     "obs",
     "music",
     "x32",
+    "xkeys",
     "tracker",
     "tts",
-    "twitchExt"
+    "flagcarrier",
+    "offsite",
+    "discord"
   ]
 }
