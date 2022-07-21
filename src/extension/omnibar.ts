@@ -20,11 +20,6 @@ let tempMiniCreditsStorage: Omnibar['miniCredits'] = {
 
 // Filter helper used below.
 function filterUpcomingRuns(run: RunData): boolean {
-  // TODO: remove if we have a schedule that has runs in the future
-  if (Date.now() > 1) {
-    return true;
-  }
-
   return !run.scheduledS || run.scheduledS >= (Date.now() / 1000);
 }
 
@@ -110,6 +105,16 @@ async function showNext(): Promise<void> {
     if (item) {
       item = clone(item);
       nodecg().log.debug('[Omnibar] Pin available, will show:', pin.type);
+      const dashConfig = pin.type === 'Bid' ? {
+        text: (item as Bids[0]).war ? 'Upcoming Bid War' : 'Upcoming Goal',
+        fontSize: 25,
+        top: 6,
+      } : {
+        text: 'Upcoming Milestone',
+        fontSize: 26,
+        top: 2,
+      };
+
       omnibar.value.current = {
         type: pin.type,
         id: uuid(),
@@ -117,6 +122,7 @@ async function showNext(): Promise<void> {
           seconds: -1,
           bid: pin.type === 'Bid' ? item : undefined,
           milestone: pin.type === 'Milestone' ? item : undefined,
+          dash: dashConfig,
         },
       };
     } else {
@@ -314,6 +320,7 @@ mq.evt.on('donationFullyProcessed', (data) => {
 });
 
 // Pushes our "mini credits" to the alert queue.
+/*
 sc.on('timerStopped', () => {
   nodecg().log.debug('[Omnibar] Timer stopped, generating mini credits');
   // If there's any credits in the queue, removes them.
@@ -412,3 +419,4 @@ sc.on('timerStopped', () => {
     },
   });
 });
+*/

@@ -1,3 +1,5 @@
+@import '../common.css';
+
 body {
   color: #d7d7d7;
 }
@@ -191,8 +193,8 @@ font-family: "Goodlight";
     width:100%;
     bottom: 0px;
     font-family: 'Goodlight';
-    font-size: '21pt';
-    white-space: 'normal';
+    font-size: 21pt;
+    white-space: normal;
 }
 
  /* .BlockRed {
