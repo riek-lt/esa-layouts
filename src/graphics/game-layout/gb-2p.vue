@@ -94,7 +94,7 @@
       :style="{
         flex: '1',
         width: '100%',
-        left: '1213px',
+        left: '1227px',
         top: '827px',
         width: '534px',
         height: '170px',

@@ -8,6 +8,7 @@
       opacity: show ? 1 : 0,
       'margin-top': show ? '12px' : 0,
       'font-weight': 200,
+      'margin-left': '8px',
       background: 'rgba(0, 0, 0, 0.4)', // HARDCODED, BAD!
       color: 'white', // HARDCODED, BAD!
       'margin-bottom': '12px',

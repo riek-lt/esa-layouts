@@ -67,7 +67,7 @@
 
     <div class="Fixed"
     :style="{
-    left: '-6px',
+    left: '0px',
     top: '205px',
     width: '531px',
     height: '111px',
@@ -75,7 +75,7 @@
     <commentators-reader show-reader />
   </div>
 
-    <!-- Player/Commetator -->
+    <!-- Player/Commentator -->
     <div
       class="Fixed"
       :style="{

@@ -94,8 +94,8 @@
       :style="{
         flex: '1',
         width: '100%',
-        left: '1213px',
-        top: '739px',
+        left: '1227px',
+        top: '746px',
         width: '534px',
         height: '270px',
         }"
