@@ -64,6 +64,10 @@
   overflow: hidden;
 }
 
+.Relative {
+  position: relative;
+}
+
 .Capture {
   box-sizing: border-box;
   position: fixed;

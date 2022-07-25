@@ -73,8 +73,6 @@
                     'white-space': 'normal',
                     'font-family': 'Goodlight-light',
               }">{{ runData.estimate }}</span>
-          <span class="flashingLightsWarning"
-             v-if="hasFlashingLights">This game contains flashing lights</span>
         </template>
       </div>
     </div>
@@ -97,10 +95,6 @@ export default class extends Vue {
 
   get hek(): boolean {
     return this.runData?.customData.info === 'HEK';
-  }
-
-  get hasFlashingLights(): boolean {
-    return this.runData?.customData?.flashingLights === 'true';
   }
 
   fit(): void {

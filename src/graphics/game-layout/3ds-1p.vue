@@ -27,14 +27,16 @@
     <!-- Camera Captures -->
     <div
       id="CameraCapture1"
-      class="Capture"
+      class="Capture Relative"
       :style="{
       left: '8px',
       top: '8px',
-      width: '530px',
-      height: '364px',
+      width: '538px',
+      height: '379px',
       }"
-    />
+    >
+      <flashing-lights-warning/>
+    </div>
 
     <div class="Fixed"
     :style="{
@@ -122,6 +124,7 @@ import CommentatorsReader from './components/CommentatorsReader.vue';
 import RunInfo from './components/RunInfo.vue';
 import Timer from './components/Timer.vue';
 import DonationBar from './components/DonationBar.vue';
+import FlashingLightsWarning from './components/FlashingLightsWarning.vue';
 
 @Component({
   components: {
@@ -132,6 +135,7 @@ import DonationBar from './components/DonationBar.vue';
     Timer,
     MediaBox,
     DonationBar,
+    FlashingLightsWarning,
   },
 })
 export default class extends Vue {}

@@ -40,14 +40,16 @@
     <!-- Camera Captures -->
     <div
       id="CameraCapture1"
-      class="Capture BlockBlue"
+      class="Capture BlockBlue Relative"
       :style="{
         left: '1258px',
         top: '502px',
         width: '662px',
         height: '496px',
       }"
-    />
+    >
+      <flashing-lights-warning/>
+    </div>
 
     <!-- General Run Info -->
 
@@ -64,7 +66,6 @@
     <player :slot-no="0"  />
     </div>
 
-
     <div
       class="Fixed FlexColumn BlockGreen"
       :style="{
@@ -76,7 +77,6 @@
     >
     <player :slot-no="1" />
     </div>
-
 
     <div
       class="Fixed FlexColumn BlockGreen"
@@ -123,7 +123,6 @@
               <timer />
             </div>
 
-
     <!-- Media Box -->
     <media-box
       vertical
@@ -147,6 +146,7 @@ import CommentatorsReader from './components/CommentatorsReader.vue';
 import RunInfo from './components/RunInfo.vue';
 import Timer from './components/Timer.vue';
 import DonationBar from './components/DonationBar.vue';
+import FlashingLightsWarning from './components/FlashingLightsWarning.vue';
 
 @Component({
   components: {
@@ -157,6 +157,7 @@ import DonationBar from './components/DonationBar.vue';
     Timer,
     MediaBox,
     DonationBar,
+    FlashingLightsWarning,
   },
 })
 export default class extends Vue {}

@@ -44,7 +44,7 @@
     <!-- Commentators Inside -->
     <div
       id="CameraCapture1"
-      class="Capture Flex BlockBlue"
+      class="Capture Flex BlockBlue Relative"
       :style="{
         'justify-content': 'flex-start',
         'flex-direction': 'column-reverse',
@@ -54,6 +54,7 @@
         height: '323px',
       }"
     >
+      <flashing-lights-warning/>
       <!--<comm-and-reader />-->
     </div>
 
@@ -158,6 +159,7 @@ import CommentatorsReader from './components/CommentatorsReader.vue';
 import RunInfo from './components/RunInfo.vue';
 import Timer from './components/Timer.vue';
 import DonationBar from './components/DonationBar.vue';
+import FlashingLightsWarning from './components/FlashingLightsWarning.vue';
 
 @Component({
   components: {
@@ -168,6 +170,7 @@ import DonationBar from './components/DonationBar.vue';
     Timer,
     MediaBox,
     DonationBar,
+    FlashingLightsWarning,
   },
 })
 export default class extends Vue {}

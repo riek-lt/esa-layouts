@@ -19,14 +19,20 @@
     <!-- Camera Captures -->
     <div
       id="CameraCapture1"
-      class="Capture BlockBlue"
+      class="Capture BlockBlue Relative"
       :style="{
         left: '10px',
         top: '226px',
         width: '557px',
         height: '569px',
       }"
-    />
+    >
+      <flashing-lights-warning
+        :style="{
+          top: '32px',
+        }"
+      />
+    </div>
 
     <!-- General Run Info -->
     <div
@@ -106,6 +112,7 @@ import CommentatorsReader from './components/CommentatorsReader.vue';
 import RunInfo from './components/RunInfo.vue';
 import Timer from './components/Timer.vue';
 import DonationBar from './components/DonationBar.vue';
+import FlashingLightsWarning from './components/FlashingLightsWarning.vue';
 
 @Component({
   components: {
@@ -116,6 +123,7 @@ import DonationBar from './components/DonationBar.vue';
     Timer,
     MediaBox,
     DonationBar,
+    FlashingLightsWarning,
   },
 })
 export default class extends Vue {}

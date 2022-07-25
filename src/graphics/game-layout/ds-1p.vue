@@ -27,14 +27,20 @@
     <!-- Camera Captures -->
     <div
       id="CameraCapture1"
-      class="Capture"
+      class="Capture Relative"
       :style="{
       left: '6px',
       top: '228px',
       width: '548px',
       height: '294px',
       }"
-    />
+    >
+      <flashing-lights-warning
+        :style="{
+          top: '33px',
+        }"
+      />
+    </div>
 
     <!-- Run Game Info/Timer -->
     <div
@@ -101,6 +107,7 @@ import CommentatorsReader from './components/CommentatorsReader.vue';
 import RunInfo from './components/RunInfo.vue';
 import Timer from './components/Timer.vue';
 import DonationBar from './components/DonationBar.vue';
+import FlashingLightsWarning from './components/FlashingLightsWarning.vue';
 
 @Component({
   components: {
@@ -111,6 +118,7 @@ import DonationBar from './components/DonationBar.vue';
     Timer,
     MediaBox,
     DonationBar,
+    FlashingLightsWarning,
   },
 })
 export default class extends Vue {}

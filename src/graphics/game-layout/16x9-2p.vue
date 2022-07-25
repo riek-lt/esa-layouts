@@ -1,5 +1,5 @@
 <template>
-<div :style="{ 'backgroundImage': `url(bsgbacks/widescreen_2_bg.png)`,
+  <div :style="{ 'backgroundImage': `url(bsgbacks/widescreen_2_bg.png)`,
 'background-repeat': 'no-repeat'}
 ">
     <!-- Game Captures -->
@@ -31,14 +31,16 @@
     <div
       v-if="!online"
       id="CameraCapture1"
-      class="Capture"
+      class="Capture Relative"
       :style="{
       left: '724px',
       top: '732px',
       width: '470px',
       height: '268px',
       }"
-    />
+    >
+      <flashing-lights-warning/>
+    </div>
     <template v-else>
       <div
         id="CameraCapture1"
@@ -91,8 +93,8 @@
 
       <!-- Run Game Info/Timer -->
       <div
-      class="Fixed FlexColumn BlockYellow"
-      :style="{
+        class="Fixed FlexColumn BlockYellow"
+        :style="{
         flex: '1',
         width: '100%',
         left: '1227px',
@@ -103,13 +105,13 @@
       >
         <run-info :style="{ 'font-size': '35px' }" />
         <div class="sub_div">
-        <commentators-reader />
-  <commentators-reader show-reader />
-      </div>
+          <commentators-reader />
+          <commentators-reader show-reader />
+        </div>
       </div>
       <div
-  class="Fixed FlexColumn BlockBlack"
-  :style="{
+        class="Fixed FlexColumn BlockBlack"
+        :style="{
     flex: '1',
     width: '100%',
     left: '821px',
@@ -117,9 +119,9 @@
     width: '412px',
     height: '69px',
   }"
->
-  <timer />
-</div>
+      >
+        <timer />
+      </div>
     </div>
 
     <!-- Media Box -->
@@ -146,6 +148,7 @@ import CommentatorsReader from './components/CommentatorsReader.vue';
 import RunInfo from './components/RunInfo.vue';
 import Timer from './components/Timer.vue';
 import DonationBar from './components/DonationBar.vue';
+import FlashingLightsWarning from './components/FlashingLightsWarning.vue';
 
 @Component({
   components: {
@@ -156,6 +159,7 @@ import DonationBar from './components/DonationBar.vue';
     Timer,
     MediaBox,
     DonationBar,
+    FlashingLightsWarning,
   },
 })
 export default class extends Vue {
