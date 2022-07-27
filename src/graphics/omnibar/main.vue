@@ -160,7 +160,7 @@ html, body {
     font-size: 39px;
     //top: calc((82px - 50px) / 2);
     left: 492px;
-    width: 950px;
+    width: 981px;
     //box-sizing: border-box;
     //border: solid green;
     animation-duration: 500ms;
