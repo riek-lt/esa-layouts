@@ -1,6 +1,7 @@
 import type { Configschema } from '@esa-layouts/types/schemas/configschema';
 import AudioNormaliser from '@shared/extension/audio-normaliser';
 import type { RunData } from 'speedcontrol-util/types';
+import { lookupUsersByStr } from './server';
 import { formatSrcomPronouns, formatUSD, getOtherStreamEventShort, logError } from './util/helpers';
 import * as mqLogging from './util/mq-logging';
 import { get as nodecg } from './util/nodecg';
@@ -58,8 +59,9 @@ sc.runDataActiveRun.on('change', (newVal, oldVal) => {
     // Having things erased.
     if (sc.runDataActiveRun.value && newVal && newVal.scheduled) {
       commentators.value.length = 0;
-      // If not online, we also clear the teams and big button player map.
-      if (!config.event.online) {
+      // If not online and flagcarrier is enabled,
+      // we also clear the teams and big button player map.
+      if (!config.event.online && config.flagcarrier.enabled) {
         bigbuttonPlayerMap.value = {};
         // TODO: Reselecting the current run would overwrite these, but not much I can do right now!
         sc.runDataActiveRun.value.teams = [];
@@ -111,9 +113,17 @@ export async function searchSrcomPronouns(val: string): Promise<string> {
 // Processes adding commentators from the dashboard panel.
 nodecg().listenFor('commentatorAdd', async (val: string | null | undefined, ack) => {
   if (val) {
-    const str = await searchSrcomPronouns(val);
-    if (!commentators.value.includes(str)) {
-      commentators.value.push(str);
+    let user;
+    try {
+      [user] = (await lookupUsersByStr(val));
+    } catch (err) {
+      // catch
+    }
+    if (user) {
+      const str = user.pronouns ? `${user.name} (${user.pronouns})` : user.name;
+      if (!commentators.value.includes(str)) {
+        commentators.value.push(str);
+      }
     }
   }
   if (ack && !ack.handled) {
@@ -137,19 +147,17 @@ async function changeTwitchMetadata(title?: string, gameId?: string): Promise<vo
   try {
     // Hardcoded fallback title for now!
     // TODO: Unhardcode!
-    let t = title || '🔴 ESA Winter 2022 - {{total}}/$100,000 in aid of Alzheimerfonden';
+    let t = title || '🔴 ESA Summer 2022 - {{total}}/$115,000 in aid of Save the Children';
     if (t) {
       t = (t as string).replace(/{{total}}/g, formatUSD(donationTotal.value, true));
     }
-    const gID = gameId || twitchChannelInfo.value.game_id;
-    nodecg().log.debug('[Misc] Decided Twitch title is: %s - Decided game ID is %s', t, gID);
+    nodecg().log.debug('[Misc] Decided Twitch title is: %s - Decided game ID is %s', t, gameId);
+    const data: { title: string, game_id?: string } = { title: (t as string)?.slice(0, 140) };
+    if (gameId) data.game_id = gameId;
     const resp = await sc.sendMessage('twitchAPIRequest', {
       method: 'patch',
       endpoint: `/channels?broadcaster_id=${twitchAPIData.value.channelID}`,
-      data: {
-        title: (t as string)?.slice(0, 140),
-        game_id: gID || '',
-      },
+      data,
       newAPI: true,
     });
     if (resp.statusCode !== 204) {
@@ -157,7 +165,7 @@ async function changeTwitchMetadata(title?: string, gameId?: string): Promise<vo
     }
     // "New" API doesn't return anything so update the data with what we've got.
     twitchChannelInfo.value.title = (t as string)?.slice(0, 140) || '';
-    twitchChannelInfo.value.game_id = gID || '';
+    if (gameId) twitchChannelInfo.value.game_id = gameId;
     // twitchChannelInfo.value.game_name = dir?.name || '';
     nodecg().log.debug('[Misc] Twitch title/game updated');
   } catch (err) {
