@@ -40,7 +40,8 @@ export async function lookupUsersByStr(str: string): Promise<any[]> {
       },
     },
   );
-  return resp.body.data;
+
+  return resp.body;
 }
 
 horaroImportStatus.on('change', async (newVal, oldVal) => {

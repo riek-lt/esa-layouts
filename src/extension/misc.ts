@@ -110,29 +110,36 @@ export async function searchSrcomPronouns(val: string): Promise<string> {
   return pronouns ? `${name} (${pronouns})` : name;
 }
 
+export async function searchOengusPronouns(val: string): Promise<string> {
+  let user;
+
+  try {
+    const foundUsers = await lookupUsersByStr(val);
+
+    if (foundUsers.length) {
+      [user] = foundUsers;
+    }
+  } catch (err) {
+    nodecg().log.error(err);
+  }
+
+  let str;
+
+  if (user) {
+    str = user.pronouns ? `${user.username} (${
+      user.pronouns.split(',')[0]
+    })` : user.username;
+  } else {
+    str = val;
+  }
+
+  return str;
+}
+
 // Processes adding commentators from the dashboard panel.
 nodecg().listenFor('commentatorAdd', async (val: string | null | undefined, ack) => {
   if (val) {
-    let user;
-    try {
-      const foundUsers = await lookupUsersByStr(val);
-
-      if (foundUsers.length) {
-        [user] = foundUsers;
-      }
-    } catch (err) {
-      // catch
-    }
-
-    let str;
-
-    if (user) {
-      str = user.pronouns ? `${user.username} (${
-        user.pronouns.split(',')[0]
-      })` : user.username;
-    } else {
-      str = val;
-    }
+    const str = await searchOengusPronouns(val);
 
     if (!commentators.value.includes(str)) {
       commentators.value.push(str);
@@ -148,7 +155,7 @@ nodecg().listenFor('readerModify', async (val: string | null | undefined, ack) =
   if (!val) {
     donationReader.value = null;
   } else {
-    donationReader.value = await searchSrcomPronouns(val);
+    donationReader.value = await searchOengusPronouns(val);
   }
   if (ack && !ack.handled) {
     ack(null);
