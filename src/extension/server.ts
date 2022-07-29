@@ -4,11 +4,11 @@ import { get as nodecg } from './util/nodecg';
 import { horaroImportStatus } from './util/replicants';
 import { sc } from './util/speedcontrol';
 
-// TODO: switch to oengus
 const config = (nodecg().bundleConfig as Configschema).server;
 
+// TODO: oengus does not have this
 export async function lookupUserByID(id: number): Promise<any> {
-  if (!config.enabled) {
+  /* if (!config.enabled) {
     return null;
   }
 
@@ -21,7 +21,9 @@ export async function lookupUserByID(id: number): Promise<any> {
       },
     },
   );
-  return resp.body.data;
+  return resp.body.data; */
+
+  return null;
 }
 
 export async function lookupUsersByStr(str: string): Promise<any[]> {
@@ -31,10 +33,10 @@ export async function lookupUsersByStr(str: string): Promise<any[]> {
 
   const resp = await needle(
     'get',
-    `${config.address}/users?search=${str}`,
+    `${config.address}/users/${str}/search`,
     {
       headers: {
-        Authorization: `Bearer ${config.key}`,
+        // Authorization: `Bearer ${config.key}`,
       },
     },
   );

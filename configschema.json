@@ -111,14 +111,18 @@
               "default": "Thanks to all these people!"
             },
             "screeners": {
-              "type": "string"
+              "type": "string",
+              "default": "Same as host"
             },
             "tech": {
-              "type": "string"
+              "type": "string",
+              "default": "duncte123"
             }
           },
           "required": [
-            "header"
+            "header",
+            "screeners",
+            "tech"
           ]
         }
       },
@@ -607,7 +611,7 @@
         },
         "address": {
           "type": "string",
-          "default": "https://register.esamarathon.com/api"
+          "default": "https://oengus.io/api/v1"
         },
         "key": {
           "type": "string",

@@ -115,12 +115,18 @@ nodecg().listenFor('commentatorAdd', async (val: string | null | undefined, ack)
   if (val) {
     let user;
     try {
-      [user] = (await lookupUsersByStr(val));
+      const foundUsers = await lookupUsersByStr(val);
+
+      if (foundUsers.length) {
+        [user] = foundUsers;
+      }
     } catch (err) {
       // catch
     }
     if (user) {
-      const str = user.pronouns ? `${user.name} (${user.pronouns})` : user.name;
+      const str = user.pronouns ? `${user.username} (${
+        user.pronouns.split(',')[0]
+      })` : user.username;
       if (!commentators.value.includes(str)) {
         commentators.value.push(str);
       }
