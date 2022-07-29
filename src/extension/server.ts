@@ -4,9 +4,14 @@ import { get as nodecg } from './util/nodecg';
 import { horaroImportStatus } from './util/replicants';
 import { sc } from './util/speedcontrol';
 
+// TODO: switch to oengus
 const config = (nodecg().bundleConfig as Configschema).server;
 
 export async function lookupUserByID(id: number): Promise<any> {
+  if (!config.enabled) {
+    return null;
+  }
+
   const resp = await needle(
     'get',
     `${config.address}/users/${id}`,
@@ -20,6 +25,10 @@ export async function lookupUserByID(id: number): Promise<any> {
 }
 
 export async function lookupUsersByStr(str: string): Promise<any[]> {
+  if (!config.enabled) {
+    return [];
+  }
+
   const resp = await needle(
     'get',
     `${config.address}/users?search=${str}`,
@@ -33,6 +42,10 @@ export async function lookupUsersByStr(str: string): Promise<any[]> {
 }
 
 horaroImportStatus.on('change', async (newVal, oldVal) => {
+  if (!config.enabled) {
+    return;
+  }
+
   if (oldVal && oldVal.importing && !newVal.importing) {
     nodecg().log.info('[Server] Schedule reimported, looking up user information');
     const runs = sc.getRunDataArray();
