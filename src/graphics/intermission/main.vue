@@ -1,5 +1,6 @@
 <template>
 <div id="Intermission" :style="{
+  'background-image': 'url(bsgbacks/break_bg_edited.png)',
 'background-repeat': 'no-repeat'}
 ">
     <div
@@ -113,3 +114,13 @@ export default class extends Vue {
   }
 }
 </script>
+
+<style scoped>
+#Intermission {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+</style>

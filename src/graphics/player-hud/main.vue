@@ -179,10 +179,6 @@ export default class extends Vue {
 </script>
 
 <style>
-  body {
-    margin: 0;
-  }
-
   .PlayerHUD {
     background-color: black;
     color: white;

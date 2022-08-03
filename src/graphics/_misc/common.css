@@ -1,17 +1,16 @@
 /* @import url('../_misc/fonts/barlow-condensed.css'); */
 @import 'fonts/goodlightotf.css';
-/* @import 'fonts/montserrat.css'; */
+@import url('../_misc/fonts/montserrat.css');
 
-/* body {
-  font-family: 'Barlow Condensed', sans-serif;
+ body {
+  font-family: 'Goodlight', sans-serif;
   font-weight: 600;
-  color: var(--font-colour);
-  /* text-shadow: 2px 2px 2px black; * /
-  overflow: hidden;
+  /*color: var(--font-colour);*/
+  /* text-shadow: 2px 2px 2px black; */
+  /*overflow: hidden;*/
   margin: 0;
   padding: 0;
-} */
-/* text-shadow: 2px 2px 2px black; */
+}
 
 #Background, #Layout {
   width: 1920px;
