@@ -10,22 +10,28 @@
       :style="{
         left: '589px',
         top: '0px',
-        width: '1331px',
-        height: '998px',
+        width: '1329px',
+        height: '998px'
       }"
     />
 
     <!-- Camera Captures -->
     <div
       id="CameraCapture1"
-      class="Capture BlockBlue"
+      class="Capture BlockBlue Relative"
       :style="{
         left: '7px',
         top: '273px',
         width: '547px',
-        height: '360px',
+        height: '360px'
       }"
-    />
+    >
+      <flashing-lights-warning
+        :style="{
+          top: '33px',
+        }"
+      />
+    </div>
 
     <!-- General Run Info -->
     <div
@@ -38,9 +44,7 @@
       }"
     >
       <player />
-      <!--<commentators-reader />
-      <commentators-reader show-reader />-->
-</div>
+    </div>
       <!-- Run Game Info/Timer -->
       <div
         class="Fixed FlexColumn BlockYellow"
@@ -54,10 +58,10 @@
       >
         <run-info />
         <div class="sub_div">
-        <commentators-reader />
-  <commentators-reader show-reader />
-      </div>
+          <commentators-reader />
+          <commentators-reader show-reader />
         </div>
+      </div>
 
 <!--TIMER-->
 <div
@@ -65,8 +69,8 @@
   :style="{
     flex: '1',
     width: '100%',
-    left: '16px',
-    top: '732px',
+    left: '140px',
+    top: '742px',
     width: '535px',
     height: '103px',
   }"
@@ -84,8 +88,6 @@
         height: '157px',
       }"
     />
-
-    <!-- Donation Bar -->
   </div>
 </template>
 
@@ -98,6 +100,7 @@ import CommentatorsReader from './components/CommentatorsReader.vue';
 import RunInfo from './components/RunInfo.vue';
 import Timer from './components/Timer.vue';
 import DonationBar from './components/DonationBar.vue';
+import FlashingLightsWarning from './components/FlashingLightsWarning.vue';
 
 @Component({
   components: {
@@ -108,6 +111,7 @@ import DonationBar from './components/DonationBar.vue';
     Timer,
     MediaBox,
     DonationBar,
+    FlashingLightsWarning,
   },
 })
 export default class extends Vue {}

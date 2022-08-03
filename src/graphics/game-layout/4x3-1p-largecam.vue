@@ -11,7 +11,7 @@
       :style="{
         left: '589px',
         top: '0px',
-        width: '1331px',
+        width: '1329px',
         height: '998px',
       }"
     />
@@ -19,18 +19,24 @@
     <!-- Camera Captures -->
     <div
       id="CameraCapture1"
-      class="Capture BlockBlue"
+      class="Capture BlockBlue Relative"
       :style="{
         left: '10px',
-        top: '226mpx',
-        width: '557',
+        top: '226px',
+        width: '557px',
         height: '569px',
       }"
-    />
+    >
+      <flashing-lights-warning
+        :style="{
+          top: '32px',
+        }"
+      />
+    </div>
 
     <!-- General Run Info -->
     <div
-      class="Fixed FlexColumn  BlockGreen"
+      class="Fixed FlexColumn BlockGreen"
       :style="{
         left: '0px',
         top: '788px',
@@ -72,8 +78,8 @@
         :style="{
           flex: '1',
           width: '100%',
-          left: '19px',
-          top: '899px',
+          left: '140px',
+          top: '905px',
           width: '536px',
           height: '108px',
         }"
@@ -106,6 +112,7 @@ import CommentatorsReader from './components/CommentatorsReader.vue';
 import RunInfo from './components/RunInfo.vue';
 import Timer from './components/Timer.vue';
 import DonationBar from './components/DonationBar.vue';
+import FlashingLightsWarning from './components/FlashingLightsWarning.vue';
 
 @Component({
   components: {
@@ -116,6 +123,7 @@ import DonationBar from './components/DonationBar.vue';
     Timer,
     MediaBox,
     DonationBar,
+    FlashingLightsWarning,
   },
 })
 export default class extends Vue {}

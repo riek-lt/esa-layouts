@@ -27,14 +27,20 @@
     <!-- Camera Captures -->
     <div
       id="CameraCapture1"
-      class="Capture"
+      class="Capture Relative"
       :style="{
-      left: '8px',
-      top: '230px',
-      width: '546px',
-      height: '292px',
+      left: '6px',
+      top: '228px',
+      width: '548px',
+      height: '294px',
       }"
-    />
+    >
+      <flashing-lights-warning
+        :style="{
+          top: '33px',
+        }"
+      />
+    </div>
 
     <!-- Run Game Info/Timer -->
     <div
@@ -56,8 +62,8 @@
             :style="{
               flex: '1',
               width: '100%',
-              left: '17px',
-              top: '613px',
+              left: '156px',
+              top: '620px',
               width: '536px',
               height: '85px',
             }"
@@ -67,7 +73,7 @@
 
     <div class="Fixed"
     :style="{
-    left: '-6px',
+    left: '0px',
     top: '205px',
     width: '531px',
     height: '111px',
@@ -75,7 +81,7 @@
     <commentators-reader show-reader />
   </div>
 
-    <!-- Player/Commetator -->
+    <!-- Player/Commentator -->
     <div
       class="Fixed"
       :style="{
@@ -89,10 +95,6 @@
       <!--<commentators-reader />
       <commentators-reader show-reader />-->
     </div>
-
-    <!-- Media Box -->
-
-    <!-- Donation Bar -->
   </div>
 </template>
 
@@ -105,6 +107,7 @@ import CommentatorsReader from './components/CommentatorsReader.vue';
 import RunInfo from './components/RunInfo.vue';
 import Timer from './components/Timer.vue';
 import DonationBar from './components/DonationBar.vue';
+import FlashingLightsWarning from './components/FlashingLightsWarning.vue';
 
 @Component({
   components: {
@@ -115,6 +118,7 @@ import DonationBar from './components/DonationBar.vue';
     Timer,
     MediaBox,
     DonationBar,
+    FlashingLightsWarning,
   },
 })
 export default class extends Vue {}

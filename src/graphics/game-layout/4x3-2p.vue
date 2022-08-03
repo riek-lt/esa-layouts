@@ -19,7 +19,7 @@
       :slot-no="1"
       finish-time-pos="bottomright"
       :style="{
-      left: '965px',
+      left: '964px',
       top: '0px',
       width: '955px',
       height: '716px',
@@ -27,18 +27,20 @@
     />
 
     <!-- Camera Captures -->
-    <!-- Online has 2 camera spots -->
+    <!-- Online has 2 camera spots. -->
     <div
       v-if="!online"
       id="CameraCapture1"
-      class="Capture"
+      class="Capture Relative"
       :style="{
-      left: '726px',
-      top: '837px',
-      width: '470px',
-      height: '164px',
+      left: '724px',
+      top: '834px',
+      width: '472px',
+      height: '166px',
       }"
-    />
+    >
+      <flashing-lights-warning/>
+    </div>
     <template v-else>
       <div
         id="CameraCapture1"
@@ -73,7 +75,6 @@
       }"
     >
       <player :slot-no="0" />
-      <!--<comm-and-reader />-->
     </div>
 
     <!-- Player 2/General Run Info -->
@@ -94,7 +95,7 @@
       :style="{
         flex: '1',
         width: '100%',
-        left: '1213px',
+        left: '1227px',
         top: '827px',
         width: '534px',
         height: '170px',
@@ -107,8 +108,8 @@
   :style="{
     flex: '1',
     width: '100%',
-    left: '745px',
-    top: '737px',
+    left: '827px',
+    top: '747px',
     width: '412px',
     height: '69px',
   }"
@@ -132,14 +133,12 @@
     :style="{
     width: '97%',
     left: '47px',
-    top: '815px',
+    top: '961px',
     width: '661px',
     height: '111px',
     }">
     <commentators-reader show-reader />
   </div>
-
-    <!-- Donation Bar -->
   </div>
 </template>
 
@@ -147,12 +146,13 @@
 import { Vue, Component } from 'vue-property-decorator';
 import { Configschema } from '@esa-layouts/types/schemas/configschema';
 import MediaBox from '@shared/graphics/mediabox';
+import CommentatorsReader from './components/CommentatorsReader.vue';
 import GameCapture from './components/GameCapture.vue';
 import Player from './components/Player.vue';
-import CommentatorsReader from './components/CommentatorsReader.vue';
 import RunInfo from './components/RunInfo.vue';
 import Timer from './components/Timer.vue';
 import DonationBar from './components/DonationBar.vue';
+import FlashingLightsWarning from './components/FlashingLightsWarning.vue';
 
 @Component({
   components: {
@@ -163,6 +163,7 @@ import DonationBar from './components/DonationBar.vue';
     Timer,
     MediaBox,
     DonationBar,
+    FlashingLightsWarning,
   },
 })
 export default class extends Vue {

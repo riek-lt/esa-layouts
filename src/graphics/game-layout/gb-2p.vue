@@ -31,14 +31,16 @@
     <div
       v-if="!online"
       id="CameraCapture1"
-      class="Capture"
+      class="Capture Relative"
       :style="{
       left: '725px',
       top: '835px',
       width: '470px',
       height: '164px',
       }"
-    />
+    >
+      <flashing-lights-warning/>
+    </div>
     <template v-else>
       <div
         id="CameraCapture1"
@@ -94,7 +96,7 @@
       :style="{
         flex: '1',
         width: '100%',
-        left: '1213px',
+        left: '1227px',
         top: '827px',
         width: '534px',
         height: '170px',
@@ -107,8 +109,8 @@
   :style="{
     flex: '1',
     width: '100%',
-    left: '745px',
-    top: '737px',
+    left: '824px',
+    top: '745px',
     width: '412px',
     height: '75px',
   }"
@@ -153,6 +155,7 @@ import CommentatorsReader from './components/CommentatorsReader.vue';
 import RunInfo from './components/RunInfo.vue';
 import Timer from './components/Timer.vue';
 import DonationBar from './components/DonationBar.vue';
+import FlashingLightsWarning from './components/FlashingLightsWarning.vue';
 
 @Component({
   components: {
@@ -163,6 +166,7 @@ import DonationBar from './components/DonationBar.vue';
     Timer,
     MediaBox,
     DonationBar,
+    FlashingLightsWarning,
   },
 })
 export default class extends Vue {

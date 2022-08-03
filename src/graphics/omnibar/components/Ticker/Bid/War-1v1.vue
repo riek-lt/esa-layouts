@@ -1,12 +1,13 @@
 <template>
   <div
+    class="War1v1"
     :style="{
       height: '100%',
       display: 'flex',
       'align-items': 'center',
     }"
   >
-    <div
+<!--    <div
       :style="{
         'font-size': '20px',
         'text-align': 'right',
@@ -15,13 +16,13 @@
       }"
     >
       Upcoming<br>Bid War
-    </div>
+    </div>-->
     <div
       :style="{
         position: 'relative',
         'flex-grow': 1,
-        margin: '10px',
-        height: '60px',
+        // margin: '10px',
+        height: '70px',
         'background-color': 'rgba(0, 0, 0, 0.3)',
       }"
     >
@@ -105,14 +106,14 @@
 </template>
 
 <script lang="ts">
-import { formatUSD } from '@esa-layouts/graphics/_misc/helpers';
+import { formatUSD, wait } from '@esa-layouts/graphics/_misc/helpers';
 import { Bids } from '@esa-layouts/types/schemas';
 import { Vue, Component, Prop, Watch } from 'vue-property-decorator';
 import gsap from 'gsap';
-import { isPinned, waitForPinFinish } from '../Bid.vue';
 
 @Component
 export default class extends Vue {
+  @Prop({ type: Number, required: true }) readonly seconds!: number;
   @Prop({ type: Object, required: true }) readonly bid!: Bids[0];
   formatUSD = formatUSD;
   tweened = { progress1: 0, progress2: 0, total1: 0, total2: 0 };
@@ -134,12 +135,10 @@ export default class extends Vue {
 
   async created(): Promise<void> {
     this.tweenValues();
-    if (isPinned(this.bid)) {
-      await waitForPinFinish(this.bid);
-    } else {
-      await new Promise((res) => { window.setTimeout(res, 25 * 1000); });
+    if (this.seconds >= 0) {
+      await wait(this.seconds * 1000); // Wait the specified length.
+      this.$emit('end');
     }
-    this.$emit('end');
   }
 }
 </script>

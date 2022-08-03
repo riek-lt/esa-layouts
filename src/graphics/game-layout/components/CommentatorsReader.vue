@@ -8,9 +8,11 @@
       opacity: show ? 1 : 0,
       'margin-top': show ? '12px' : 0,
       'font-weight': 200,
+      'margin-left': '8px',
       background: 'rgba(0, 0, 0, 0.4)', // HARDCODED, BAD!
       color: 'white', // HARDCODED, BAD!
       'margin-bottom': '12px',
+              'font-family': 'Goodlight-light',
     }"
   >
     <div
@@ -38,7 +40,7 @@
         'flex-grow': 1,
         'justify-content': 'flex-end',
         'margin': '0 10px',
-        overflow: 'hidden',
+
       }"
     >
       <div :style="{ width: '98%', 'text-align': 'center' }">
@@ -121,12 +123,13 @@ export default class extends Vue {
     position: relative;
     display: inline-block;
     font-weight: 200;
-    font-size: 0.8em;
+    font-size: 0.6em;
     top: 0.1em;
     /* background: #2d1d3c; /* ESA */
     background: #914e21; /* UKSG */
     color: #ffffff;
     text-transform: uppercase;
+    font-family: Goodlight-light;
     padding: 0 3px;
     margin-left: 3px;
   }

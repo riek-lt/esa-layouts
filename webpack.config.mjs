@@ -69,7 +69,7 @@ const config = (name) => {
         patterns: [
           { from: './bsgbacks', to: '../graphics/bsgbacks' },
           { from: './omnibar/omniing', to: '../graphics/img/omniing' },
-          { from: './host-dashboard.*', to: './' },
+          // { from: './host-dashboard.*', to: './' },
         ],
       }),
     );

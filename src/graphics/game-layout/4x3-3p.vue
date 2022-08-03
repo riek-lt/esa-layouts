@@ -19,9 +19,9 @@
       class=" BlockRed"
       :slot-no="1"
       :style="{
-        left: '1260px',
+        left: '1258px',
         top: '0px',
-        width: '656px',
+        width: '658px',
         height: '496px',
       }"
     />
@@ -40,14 +40,16 @@
     <!-- Camera Captures -->
     <div
       id="CameraCapture1"
-      class="Capture BlockBlue"
+      class="Capture BlockBlue Relative"
       :style="{
-        left: '1260px',
+        left: '1258px',
         top: '502px',
-        width: '656px',
+        width: '662px',
         height: '496px',
       }"
-    />
+    >
+      <flashing-lights-warning/>
+    </div>
 
     <!-- General Run Info -->
 
@@ -64,7 +66,6 @@
     <player :slot-no="0"  />
     </div>
 
-
     <div
       class="Fixed FlexColumn BlockGreen"
       :style="{
@@ -76,7 +77,6 @@
     >
     <player :slot-no="1" />
     </div>
-
 
     <div
       class="Fixed FlexColumn BlockGreen"
@@ -104,7 +104,7 @@
         <run-info />
         <div class="sub_div">
         <commentators-reader />
-  <commentators-reader show-reader />
+        <commentators-reader show-reader />
       </div>
         </div>
 
@@ -114,15 +114,14 @@
         :style="{
           flex: '1',
           width: '100%',
-          left: '690px',
-          top: '670px',
+          left: '810px',
+          top: '675px',
           width: '535px',
           height: '103px',
         }"
       >
               <timer />
             </div>
-
 
     <!-- Media Box -->
     <media-box
@@ -139,14 +138,14 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component } from 'vue-property-decorator';
 import MediaBox from '@shared/graphics/mediabox';
+import { Component, Vue } from 'vue-property-decorator';
+import CommentatorsReader from './components/CommentatorsReader.vue';
 import GameCapture from './components/GameCapture.vue';
 import Player from './components/Player.vue';
-import CommentatorsReader from './components/CommentatorsReader.vue';
 import RunInfo from './components/RunInfo.vue';
 import Timer from './components/Timer.vue';
-import DonationBar from './components/DonationBar.vue';
+import FlashingLightsWarning from './components/FlashingLightsWarning.vue';
 
 @Component({
   components: {
@@ -156,7 +155,7 @@ import DonationBar from './components/DonationBar.vue';
     RunInfo,
     Timer,
     MediaBox,
-    DonationBar,
+    FlashingLightsWarning,
   },
 })
 export default class extends Vue {}

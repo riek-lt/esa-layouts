@@ -5,9 +5,8 @@ import { setUpReplicantsComponent as setUpReplicantsMediabox } from '@shared/gra
 import { RunDataActiveRun } from 'speedcontrol-util/types';
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import '../_misc/fonts/barlow-condensed.css';
+import '../_misc/common.css';
 import '../_misc/theme';
-import './common.css';
 import * as List from './list';
 import App from './main.vue';
 import waitForReplicants from './store';
@@ -49,6 +48,11 @@ const routes = [
     name: '16:9 1 Player (Large Camera)',
     path: '/16x9-1p-largecam',
     component: List.L_16x9_1p_LargeCam,
+  },
+  {
+    name: '16:9 2 Player Co-op (no line in middle)',
+    path: '/16x9-2p-c',
+    component: List.L_16x9_2p_c,
   },
   {
     name: '16:9 2 Player',
@@ -109,11 +113,6 @@ const routes = [
     name: 'DS 2 Player',
     path: '/DS-2p',
     component: List.L_DS_2p,
-  },
-  {
-    name: '16:9 2 Player coop',
-    path: '/16x9-2p-c',
-    component: List.L_16x9_2p_c,
   },
   {
     path: '*',

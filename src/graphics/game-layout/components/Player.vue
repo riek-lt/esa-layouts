@@ -94,7 +94,7 @@
         >
           <div class="PlayerText">
             <span
-              v-if="team.name"
+              v-if="team && team.name"
               :style="{ 'font-size': '1.15em', 'font-weight': 600 }"
             >
               {{ team.name }}:
@@ -102,14 +102,14 @@
             /{{ player.social.twitch }}
             <!-- Custom Title code repeated twice, needs cleaning up! -->
             <span
-              v-if="formattedPronouns"
+              v-if="pronouns"
               class="Pronouns"
               :style="{
                 padding: '3px 5px',
                 'margin-left': '5px',
               }"
             >
-              {{ formattedPronouns }}
+              {{ pronouns }}
             </span>
           </div>
         </div>
@@ -128,14 +128,14 @@
             {{ player.name }}
             <!-- Custom Title code repeated twice, needs cleaning up! -->
             <span
-              v-if="formattedPronouns"
+              v-if="pronouns"
               class="Pronouns"
               :style="{
                 padding: '3px 5px',
                 'margin-left': '5px',
               }"
             >
-              {{ formattedPronouns }}
+              {{ pronouns }}
             </span>
           </div>
         </div>
@@ -170,13 +170,12 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop, Watch } from 'vue-property-decorator'; // eslint-disable-line object-curly-newline, max-len
-import { State } from 'vuex-class';
-import fitty, { FittyInstance } from 'fitty';
-import { GameLayouts, NameCycle } from '@esa-layouts/types/schemas';
-import { RunDataActiveRun, RunDataTeam, RunDataPlayer } from 'speedcontrol-util/types';
-import { formatPronouns } from '../../_misc/helpers';
 import { ChannelDataReplicant as ChanData } from '../../../types/replicant-types';
+import { GameLayouts, NameCycle } from '@esa-layouts/types/schemas';
+import fitty, { FittyInstance } from 'fitty';
+import { RunDataActiveRun, RunDataPlayer, RunDataTeam } from 'speedcontrol-util/types';
+import { Component, Prop, Vue, Watch } from 'vue-property-decorator'; // eslint-disable-line object-curly-newline, max-len
+import { State } from 'vuex-class';
 
 @Component
 export default class extends Vue {
@@ -192,22 +191,20 @@ export default class extends Vue {
   nameCycle = 0; // "Local" name cycle used so we can let flags load.
   fittyPlayer: FittyInstance | undefined;
 
-  get formattedPronouns(): string | undefined {
-    return formatPronouns(this.player?.pronouns);
+  get pronouns(): string | undefined {
+    return this.player?.pronouns;
   }
 
   updateTeam(): void {
-    // Makes a fake team with just 1 player in it.
-    if (typeof this.slotNo === 'number' && (this.coop || this.runData?.relay)) {
-      if (this.runData?.relay) {
-        const team = this.runData.teams[this.slotNo];
-        const player = team?.players.find((p) => p.id === team.relayPlayerID);
-        this.team = player ? { name: team.name, id: player.id, players: [player] } : null;
-      } else if (this.coop) {
-        const team = this.runData?.teams[0];
-        const player = team?.players[this.slotNo];
-        this.team = team && player ? { name: team.name, id: player.id, players: [player] } : null;
-      }
+    // Makes a fake team with just 1 player in it for coop/relay.
+    if (this.runData?.relay) {
+      const team = this.runData?.teams[this.slotNo ?? 0];
+      const player = team?.players.find((p) => p.id === team.relayPlayerID);
+      this.team = player ? { name: team.name, id: player.id, players: [player] } : null;
+    } else if (typeof this.slotNo === 'number' && this.coop) {
+      const team = this.runData?.teams[0];
+      const player = team?.players[this.slotNo];
+      this.team = team && player ? { name: team.name, id: player.id, players: [player] } : null;
     } else {
       this.team = this.runData?.teams[this.slotNo || 0] || null;
     }

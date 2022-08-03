@@ -7,9 +7,9 @@
       id="GameCapture1"
       class=""
       :style="{
-      left: '846px',
+      left: '844px',
       top: '0px',
-      width: '809px',
+      width: '811px',
       height: '487px',
       }"
     />
@@ -27,14 +27,20 @@
     <!-- Camera Captures -->
     <div
       id="CameraCapture1"
-      class="Capture"
+      class="Capture Relative"
       :style="{
       left: '8px',
       top: '273px',
       width: '546px',
       height: '355px',
       }"
-    />
+    >
+      <flashing-lights-warning
+        :style="{
+          top: '33px',
+        }"
+      />
+    </div>
 
     <!-- Run Game Info/Timer -->
     <div
@@ -60,12 +66,18 @@
               flex: '1',
               width: '100%',
               left: '16px',
-              top: '730px',
+              top: '740px',
               width: '535px',
               height: '103px',
             }"
           >
+          <div
+          :style="{
+          left: '122px',
+          'position': 'absolute',
+          }">
             <timer />
+      </div>
     </div>
 
     <!-- Player/Commetator -->
@@ -107,6 +119,7 @@ import CommentatorsReader from './components/CommentatorsReader.vue';
 import RunInfo from './components/RunInfo.vue';
 import Timer from './components/Timer.vue';
 import DonationBar from './components/DonationBar.vue';
+import FlashingLightsWarning from './components/FlashingLightsWarning.vue';
 
 @Component({
   components: {
@@ -117,6 +130,7 @@ import DonationBar from './components/DonationBar.vue';
     Timer,
     MediaBox,
     DonationBar,
+    FlashingLightsWarning,
   },
 })
 export default class extends Vue {}

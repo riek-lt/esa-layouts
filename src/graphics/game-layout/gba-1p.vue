@@ -17,14 +17,20 @@
     <!-- Camera Captures -->
     <div
       id="CameraCapture1"
-      class="Capture BlockBlue"
+      class="Capture BlockBlue Relative"
       :style="{
       left: '8px',
       top: '273px',
       width: '555px',
       height: '354px',
       }"
-    />
+    >
+      <flashing-lights-warning
+        :style="{
+          top: '33px',
+        }"
+      />
+    </div>
 
     <!-- General Run Info -->
     <div
@@ -46,16 +52,16 @@
           flex: '1',
           width: '100%',
           left: '0px',
-top: '0px',
-width: '530px',
-height: '280px',
+          top: '0px',
+          width: '530px',
+          height: '280px',
         }"
       >
 
         <run-info />
         <div class="sub_div">
         <commentators-reader />
-  <commentators-reader show-reader />
+        <commentators-reader show-reader />
       </div>
         </div>
 
@@ -65,8 +71,8 @@ height: '280px',
                 :style="{
                   flex: '1',
                   width: '100%',
-                  left: '16px',
-                  top: '732px',
+                  left: '156px',
+                  top: '742px',
                   width: '535px',
                   height: '103px',
                 }"
@@ -87,7 +93,6 @@ height: '280px',
       }"
     />
 
-    <!-- Donation Bar -->
   </div>
 </template>
 
@@ -100,6 +105,7 @@ import CommentatorsReader from './components/CommentatorsReader.vue';
 import RunInfo from './components/RunInfo.vue';
 import Timer from './components/Timer.vue';
 import DonationBar from './components/DonationBar.vue';
+import FlashingLightsWarning from './components/FlashingLightsWarning.vue';
 
 @Component({
   components: {
@@ -110,6 +116,7 @@ import DonationBar from './components/DonationBar.vue';
     Timer,
     MediaBox,
     DonationBar,
+    FlashingLightsWarning,
   },
 })
 export default class extends Vue {}

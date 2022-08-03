@@ -15,7 +15,7 @@
       }"
     />
     <game-capture
-      id="GameCapture2"
+      id="GameCapture3"
       :slot-no="0"
       class=" BlockRed"
       finish-time-pos="bottomright"
@@ -27,7 +27,7 @@
       }"
     />
     <game-capture
-      id="GameCapture1"
+      id="GameCapture2"
       class="  BlockRed"
       :slot-no="1"
       :style="{
@@ -38,7 +38,7 @@
       }"
     />
     <game-capture
-      id="GameCapture2"
+      id="GameCapture4"
       :slot-no="1"
       class=" BlockRed"
       finish-time-pos="bottomright"
@@ -53,14 +53,16 @@
     <!-- Camera Captures -->
     <div
       id="CameraCapture1"
-      class="Capture BlockBlue"
+      class="Capture BlockBlue Relative"
       :style="{
         left: '686px',
         top: '600px',
         width: '547px',
         height: '396px',
       }"
-    />
+    >
+      <flashing-lights-warning/>
+    </div>
 
     <!-- Player 1/Commentator -->
     <div
@@ -113,12 +115,18 @@
           flex: '1',
           width: '100%',
           left: '745px',
-          top: '327px',
+          top: '334px',
           width: '412px',
           height: '69px',
         }"
       >
+      <div
+      :style="{
+      left: '80px',
+      'position': 'absolute',
+      }">
         <timer />
+  </div>
       </div>
 
     <!-- Media Box -->
@@ -145,6 +153,7 @@ import CommentatorsReader from './components/CommentatorsReader.vue';
 import RunInfo from './components/RunInfo.vue';
 import Timer from './components/Timer.vue';
 import DonationBar from './components/DonationBar.vue';
+import FlashingLightsWarning from './components/FlashingLightsWarning.vue';
 
 @Component({
   components: {
@@ -155,6 +164,7 @@ import DonationBar from './components/DonationBar.vue';
     Timer,
     MediaBox,
     DonationBar,
+    FlashingLightsWarning,
   },
 })
 export default class extends Vue {}

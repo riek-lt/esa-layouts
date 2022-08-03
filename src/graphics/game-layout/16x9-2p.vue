@@ -1,5 +1,5 @@
 <template>
-<div :style="{ 'backgroundImage': `url(bsgbacks/widescreen_2_bg.png)`,
+  <div :style="{ 'backgroundImage': `url(bsgbacks/widescreen_2_bg.png)`,
 'background-repeat': 'no-repeat'}
 ">
     <!-- Game Captures -->
@@ -19,9 +19,9 @@
       :slot-no="1"
       finish-time-pos="bottomright"
       :style="{
-      left: '965px',
+      left: '963px',
       top: '74px',
-      width: '955px',
+      width: '957px',
       height: '540px',
       }"
     />
@@ -31,14 +31,16 @@
     <div
       v-if="!online"
       id="CameraCapture1"
-      class="Capture"
+      class="Capture Relative"
       :style="{
-      left: '726px',
-      top: '734px',
-      width: '468px',
-      height: '266px',
+      left: '724px',
+      top: '732px',
+      width: '470px',
+      height: '268px',
       }"
-    />
+    >
+      <flashing-lights-warning/>
+    </div>
     <template v-else>
       <div
         id="CameraCapture1"
@@ -73,7 +75,8 @@
       }"
     >
       <player :slot-no="0" />
-      <!--<comm-and-reader />-->
+      <!--<commentators-reader />
+      <commentators-reader show-reader />-->
     </div>
 
     <!-- Player 2/General Run Info -->
@@ -90,11 +93,11 @@
 
       <!-- Run Game Info/Timer -->
       <div
-      class="Fixed FlexColumn BlockYellow"
-      :style="{
+        class="Fixed FlexColumn BlockYellow"
+        :style="{
         flex: '1',
         width: '100%',
-        left: '1213px',
+        left: '1227px',
         top: '727px',
         width: '545px',
         height: '270px',
@@ -102,23 +105,23 @@
       >
         <run-info :style="{ 'font-size': '35px' }" />
         <div class="sub_div">
-        <commentators-reader />
-  <commentators-reader show-reader />
-      </div>
+          <commentators-reader />
+          <commentators-reader show-reader />
+        </div>
       </div>
       <div
-  class="Fixed FlexColumn BlockBlack"
-  :style="{
+        class="Fixed FlexColumn BlockBlack"
+        :style="{
     flex: '1',
     width: '100%',
-    left: '745px',
-    top: '636px',
+    left: '821px',
+    top: '644px',
     width: '412px',
     height: '69px',
   }"
->
-  <timer />
-</div>
+      >
+        <timer />
+      </div>
     </div>
 
     <!-- Media Box -->
@@ -132,20 +135,19 @@
       }"
     />
 
-    <!-- Donation Bar -->
   </div>
 </template>
 
 <script lang="ts">
-import { Vue, Component } from 'vue-property-decorator';
 import { Configschema } from '@esa-layouts/types/schemas/configschema';
 import MediaBox from '@shared/graphics/mediabox';
+import { Component, Vue } from 'vue-property-decorator';
+import CommentatorsReader from './components/CommentatorsReader.vue';
 import GameCapture from './components/GameCapture.vue';
 import Player from './components/Player.vue';
-import CommentatorsReader from './components/CommentatorsReader.vue';
 import RunInfo from './components/RunInfo.vue';
 import Timer from './components/Timer.vue';
-import DonationBar from './components/DonationBar.vue';
+import FlashingLightsWarning from './components/FlashingLightsWarning.vue';
 
 @Component({
   components: {
@@ -155,7 +157,7 @@ import DonationBar from './components/DonationBar.vue';
     RunInfo,
     Timer,
     MediaBox,
-    DonationBar,
+    FlashingLightsWarning,
   },
 })
 export default class extends Vue {

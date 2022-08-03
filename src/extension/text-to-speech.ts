@@ -17,7 +17,7 @@ export async function speak(donation: Tracker.FormattedDonation): Promise<void> 
   const text = `${donation.name} donated $${donation.amount.toFixed(2)}`
     + `${donation.comment ? `: ${donation.comment}` : ''}`;
   const url = `${config.voiceAPI}?voice=${ttsVoices.value.selected}`
-    + `&text=${encodeURIComponent(text)}`;
+    + `&text=${encodeURIComponent(text)}&key=${config.key}`;
   nodecg().sendMessage('ttsToRead', url);
   nodecg().log.debug('[TTS] URL sent to overlay:', url);
 }
@@ -69,6 +69,6 @@ async function init(): Promise<void> {
   }
 }
 
-if (config.enable && config.voiceAPI) {
+if (config.enabled && config.voiceAPI) {
   init();
 }

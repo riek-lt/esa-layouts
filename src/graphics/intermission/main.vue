@@ -1,5 +1,6 @@
 <template>
 <div id="Intermission" :style="{
+  'background-image': 'url(bsgbacks/break_bg_edited.png)',
 'background-repeat': 'no-repeat'}
 ">
     <div
@@ -9,18 +10,7 @@
     <div id="Layout">
       <!-- Logo linksboven-->
       <div
-        v-if="!isHek"
         class="Logo Fixed"
-        :style="{
-          left: '53px',
-          top: '43px',
-          width: '609px',
-          height: '276px',
-        }"
-      />
-      <div
-        v-else
-        class="Fixed"
         :style="{
           left: '53px',
           top: '43px',
@@ -118,13 +108,19 @@ export default class extends Vue {
   @State nextRuns!: RunData[];
   clipPath = 'unset';
 
-  get isHek(): boolean {
-    return this.nextRuns[0]?.customData.info === 'HEK';
-  }
-
   mounted(): void {
     // Bring this back if we actually gain some cameras on this layout.
     // this.clipPath = generateClipPath();
   }
 }
 </script>
+
+<style scoped>
+#Intermission {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+</style>

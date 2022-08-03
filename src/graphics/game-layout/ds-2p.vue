@@ -15,7 +15,7 @@
       }"
     />
     <game-capture
-      id="GameCapture2"
+      id="GameCapture3"
       :slot-no="0"
       class=" BlockRed"
       finish-time-pos="bottomright"
@@ -27,25 +27,25 @@
       }"
     />
     <game-capture
-      id="GameCapture1"
+      id="GameCapture2"
       class="BlockRed"
       :slot-no="1"
       :style="{
-        left: '1260px',
+        left: '1258px',
         top: '0px',
-        width: '661px',
+        width: '663px',
         height: '496px',
       }"
     />
     <game-capture
-      id="GameCapture2"
+      id="GameCapture4"
       :slot-no="1"
       class=" BlockRed"
       finish-time-pos="bottomright"
       :style="{
-        left: '1260px',
+        left: '1258px',
         top: '504px',
-        width: '661px',
+        width: '663px',
         height: '496px',
       }"
     />
@@ -55,14 +55,20 @@
     <div
       v-if="!online"
       id="CameraCapture1"
-      class="Capture"
+      class="Capture Relative"
       :style="{
       left: '686px',
       top: '600px',
       width: '547px',
-      height: '396px',
+      height: '400px',
       }"
-    />
+    >
+      <flashing-lights-warning
+        :style="{
+          top: '50px',
+        }"
+      />
+    </div>
     <template v-else>
       <div
         id="CameraCapture1"
@@ -120,7 +126,7 @@
         width: '100%',
         left: '677px',
         top: '0px',
-        width: '492px',
+        width: '466px',
         height: '283px',
         }"
       >
@@ -135,8 +141,8 @@
   :style="{
     flex: '1',
     width: '100%',
-    left: '696px',
-    top: '526px',
+    left: '820px',
+    top: '536px',
     width: '528px',
     height: '108px',
   }"
@@ -161,6 +167,7 @@ import CommentatorsReader from './components/CommentatorsReader.vue';
 import RunInfo from './components/RunInfo.vue';
 import Timer from './components/Timer.vue';
 import DonationBar from './components/DonationBar.vue';
+import FlashingLightsWarning from './components/FlashingLightsWarning.vue';
 
 @Component({
   components: {
@@ -171,6 +178,7 @@ import DonationBar from './components/DonationBar.vue';
     Timer,
     MediaBox,
     DonationBar,
+    FlashingLightsWarning,
   },
 })
 export default class extends Vue {
