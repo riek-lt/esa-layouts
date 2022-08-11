@@ -14,7 +14,20 @@
               v-for="(name, i) in commentators"
               :key="i"
             >
-              {{ name }}
+              <v-list-item-content>
+                {{ name }}
+                <v-btn
+                  height="56px"
+                  :style="{
+                    'min-width': '0',
+                    'width': '20%',
+                    'pointer-events': 'auto'
+                  }"
+                  @click="removeCommentator(name)"
+                >
+                  <v-icon>mdi-delete</v-icon>
+                </v-btn>
+              </v-list-item-content>
             </v-list-item>
           </template>
           <v-list-item
@@ -67,6 +80,7 @@ export default class extends Vue {
   disable = false;
   @replicantNS.State((s) => s.reps.commentators) readonly commentators!: Commentators;
   clear = storeModule.clearCommentators;
+  removeCommentator = storeModule.removeCommentator;
 
   async add(): Promise<void> {
     this.disable = true;
