@@ -6,22 +6,21 @@
     >
       <v-list
         dense
-        disabled
       >
         <v-list-item-group>
           <template v-if="commentators.length">
             <v-list-item
               v-for="(name, i) in commentators"
               :key="i"
+              inactive
+              selectable
             >
               <v-list-item-content>
                 {{ name }}
                 <v-btn
-                  height="56px"
                   :style="{
                     'min-width': '0',
                     'width': '20%',
-                    'pointer-events': 'auto'
                   }"
                   @click="removeCommentator(name)"
                 >
@@ -32,6 +31,7 @@
           </template>
           <v-list-item
             v-else
+            disabled
             :style="{ 'font-style': 'italic' } "
           >
             No commentators specified
