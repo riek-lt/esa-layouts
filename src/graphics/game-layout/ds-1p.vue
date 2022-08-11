@@ -63,7 +63,7 @@
               flex: '1',
               width: '100%',
               left: '156px',
-              top: '620px',
+              top: '612px',
               width: '536px',
               height: '85px',
             }"
