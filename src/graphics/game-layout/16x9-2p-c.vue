@@ -91,9 +91,9 @@
           flex: '1',
           width: '100%',
           left: '821px',
-          top: '644px',
+          top: '636px',
           width: '412px',
-          height: '69px',
+          height: '75px',
         }"
       >
         <timer />

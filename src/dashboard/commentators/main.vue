@@ -6,19 +6,32 @@
     >
       <v-list
         dense
-        disabled
       >
         <v-list-item-group>
           <template v-if="commentators.length">
             <v-list-item
               v-for="(name, i) in commentators"
               :key="i"
+              inactive
+              selectable
             >
-              {{ name }}
+              <v-list-item-content>
+                {{ name }}
+                <v-btn
+                  :style="{
+                    'min-width': '0',
+                    'width': '20%',
+                  }"
+                  @click="removeCommentator(name)"
+                >
+                  <v-icon>mdi-delete</v-icon>
+                </v-btn>
+              </v-list-item-content>
             </v-list-item>
           </template>
           <v-list-item
             v-else
+            disabled
             :style="{ 'font-style': 'italic' } "
           >
             No commentators specified
@@ -67,6 +80,7 @@ export default class extends Vue {
   disable = false;
   @replicantNS.State((s) => s.reps.commentators) readonly commentators!: Commentators;
   clear = storeModule.clearCommentators;
+  removeCommentator = storeModule.removeCommentator;
 
   async add(): Promise<void> {
     this.disable = true;

@@ -110,7 +110,7 @@
     flex: '1',
     width: '100%',
     left: '824px',
-    top: '745px',
+    top: '736px',
     width: '412px',
     height: '75px',
   }"

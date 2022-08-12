@@ -19,6 +19,20 @@ class OurModule extends VuexModule {
       name: 'commentators', val: [],
     });
   }
+
+  @Mutation
+  removeCommentator(name: string) {
+    const currentComs = replicantModule.repsTyped.commentators;
+    const nameIndex = currentComs.indexOf(name);
+
+    if (nameIndex > -1) {
+      currentComs.splice(nameIndex, 1);
+    }
+
+    replicantModule.setReplicant<Commentators>({
+      name: 'commentators', val: currentComs,
+    });
+  }
 }
 
 const store = new Store({
