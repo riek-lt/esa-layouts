@@ -1,14 +1,13 @@
 import type { Configschema } from '@esa-layouts/types/schemas/configschema';
 import { MetaArgument, OscMessage } from 'osc';
-import { logError, wait } from './util/helpers';
-import { get as nodecgGetter } from './util/nodecg';
+import { logError } from './util/helpers';
+import { get as nodecg } from './util/nodecg';
 import obs from './util/obs';
 import { obsData } from './util/replicants';
 import x32 from './util/x32';
 import { ChannelDataReplicant } from '../types/replicant-types';
 
-const nodecg = nodecgGetter();
-const config = (nodecg.bundleConfig as Configschema);
+const config = (nodecg().bundleConfig as Configschema);
 
 const channelDefaultValue: ChannelDataReplicant[] = [
   {
@@ -32,7 +31,7 @@ const channelDefaultValue: ChannelDataReplicant[] = [
     muted: true,
   },
 ];
-const channelStatuses = nodecg.Replicant<ChannelDataReplicant[]>('x32-game-channel-status', {
+const channelStatuses = nodecg().Replicant<ChannelDataReplicant[]>('x32-game-channel-status', {
   defaultValue: channelDefaultValue,
 });
 
@@ -68,7 +67,7 @@ function updateMuteStatus(message: OscMessage): void {
 
   channelStatuses.value[chIndex].muted = muted;
 
-  nodecg.log.info(`Fader ${fader} muted status`, muted);
+  nodecg().log.info(`Fader ${fader} muted status`, muted);
 }
 
 function updateFaderStatus(message: OscMessage): void {
@@ -79,7 +78,7 @@ function updateFaderStatus(message: OscMessage): void {
 
   channelStatuses.value[chIndex].faderUp = faderActive;
 
-  nodecg.log.info(`Fader ${fader} value ${faderValue}, audible on stream`, faderActive);
+  nodecg().log.info(`Fader ${fader} value ${faderValue}, audible on stream`, faderActive);
 }
 
 if (config.x32.enabled) {
