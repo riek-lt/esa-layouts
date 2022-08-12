@@ -82,7 +82,7 @@ function updateFaderStatus(message: OscMessage): void {
   nodecg.log.info(`Fader ${fader} value ${faderValue}, audible on stream`, faderActive);
 }
 
-if (config.x32.enable) {
+if (config.x32.enabled) {
   // fetch initial statues for faders and mutes
   x32.conn?.on('ready', () => {
     fetchInitialStatus();
