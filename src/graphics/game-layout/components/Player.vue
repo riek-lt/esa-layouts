@@ -1,3 +1,4 @@
+<script src="../../../extension/mixer.ts"></script>
 <template>
   <div
     v-if="player"
@@ -276,7 +277,19 @@ export default class extends Vue {
       return;
     }
 
-    const mixerConfig = newVal[this.slotNo || 0];
+    let chosenSlot = this.slotNo || 0;
+
+    if (this.player && this.player.customData.audioChannelOverride) {
+      let overrideChannel = parseInt(this.player.customData.audioChannelOverride, 10);
+
+      if (overrideChannel > 0) {
+        overrideChannel -= 1;
+      }
+
+      chosenSlot = Math.max(0, Math.min(3, overrideChannel));
+    }
+
+    const mixerConfig = newVal[chosenSlot];
 
     if (!mixerConfig.muted && mixerConfig.faderUp) {
       playerEl.classList.add('PlayerAudioLive');
