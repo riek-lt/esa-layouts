@@ -65,8 +65,7 @@
   :style="{
   'margin-right': '80px',
   width: '93%',
-  }">
-      </div>
+  }"/></div>
 
       </div>
 

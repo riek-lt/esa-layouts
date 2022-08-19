@@ -1,4 +1,3 @@
-<script src="../../../extension/mixer.ts"></script>
 <template>
   <div
     v-if="player"
@@ -171,7 +170,7 @@
 </template>
 
 <script lang="ts">
-import { ChannelDataReplicant as ChanData } from '../../../types/replicant-types';
+import { ChannelDataReplicant as ChanData } from '@esa-layouts/types/replicant-types';
 import { GameLayouts, NameCycle } from '@esa-layouts/types/schemas';
 import fitty, { FittyInstance } from 'fitty';
 import { RunDataActiveRun, RunDataPlayer, RunDataTeam } from 'speedcontrol-util/types';
