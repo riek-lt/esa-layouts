@@ -6,9 +6,9 @@
   background-repeat: no-repeat;
 }
 
-/*#Intermission {
-  background-image: url('bsgbacks/break_bg_edited.png');
-}*/
+#Intermission {
+  background-image: url('./bsg/intermission.png');
+}
 
 ._3ds_1p {
   background-image: url("./bsg/gamelayout/3ds-1p.png");
