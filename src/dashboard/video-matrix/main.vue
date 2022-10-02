@@ -21,6 +21,7 @@
             <td v-for="i in gameCaptures.length" :key="i">
               <input type="radio"
                      v-model="selectedCaptures[si]"
+                     :disabled="locked"
                      :value="i - 1">
               <!--<v-radio
                 v-model="selectedCaptures[si]"
@@ -42,6 +43,7 @@ export default class extends Vue {
   obsConfig = (nodecg.bundleConfig as Configschema).obs;
   gameCaptures: string[] = [];
   selectedCaptures: number[] = [];
+  locked = false;
 
   async mounted(): Promise<void> {
     // Only compute on startup for performance reasons :)
@@ -76,9 +78,11 @@ export default class extends Vue {
   }
 
   @Watch('selectedCaptures')
-  onSelectedCapturesChanged(newVal: number[]): void {
+  async onSelectedCapturesChanged(newVal: number[]): Promise<void> {
+    this.locked = true;
     // We're using a different event here to prevent loops.
-    nodecg.sendMessage('setSelectedCaptures', newVal); // TODO: await?
+    await nodecg.sendMessage('setSelectedCaptures', newVal); // TODO: await?
+    this.locked = false;
   }
 }
 </script>
