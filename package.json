@@ -124,6 +124,14 @@
         "headerColor": "#DB3A34"
       },
       {
+        "name": "video-matrix",
+        "title": "Video Input Matrix",
+        "width": 3,
+        "file": "video-matrix.html",
+        "workspace": "Z - BSG Advanced",
+        "headerColor": "#c49215"
+      },
+      {
         "name": "media-box-control",
         "title": "Media Box Control",
         "width": 3,

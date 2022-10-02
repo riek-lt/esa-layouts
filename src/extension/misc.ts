@@ -18,7 +18,9 @@ new AudioNormaliser(nodecg()); // eslint-disable-line no-new
 sc.timer.setMaxListeners(20);
 
 serverTimestamp.value = Date.now();
-setInterval(() => { serverTimestamp.value = Date.now(); }, 100);
+setInterval(() => {
+  serverTimestamp.value = Date.now();
+}, 100);
 
 // Screened data from our moderation tool.
 mq.evt.on('newScreenedSub', (data) => {
@@ -52,8 +54,8 @@ let init = false;
 sc.runDataActiveRun.on('change', (newVal, oldVal) => {
   // Do some stuff when the run changes and not on the game layout scene (if OBS is connected).
   if (oldVal?.id !== newVal?.id
-  && ((!obs.connected && init)
-  || (obs.connected && !obs.isCurrentScene(config.obs.names.scenes.gameLayout)))) {
+    && ((!obs.connected && init)
+      || (obs.connected && !obs.isCurrentScene(config.obs.names.scenes.gameLayout)))) {
     // Only trigger these changes if the new run has a scheduled time, which means it was
     // imported from an external schedule. This stops manually added runs (like bonus runs)
     // Having things erased.
@@ -113,16 +115,18 @@ export async function searchSrcomPronouns(val: string): Promise<string> {
 }
 
 export async function searchOengusPronouns(val: string): Promise<string> {
-  if (config.server.enabled) {let user;
+  let user;
 
-  try {
-    const foundUsers = await lookupUsersByStr(val);
+  if (config.server.enabled) {
+    try {
+      const foundUsers = await lookupUsersByStr(val);
 
-    if (foundUsers.length) {
-      [user] = foundUsers;
+      if (foundUsers.length) {
+        [user] = foundUsers;
+      }
+    } catch (err) {
+      nodecg().log.error(err);
     }
-  } catch (err) {
-    nodecg().log.error(err);
   }
 
   let str;
@@ -145,15 +149,17 @@ nodecg().listenFor('commentatorAdd', async (val: string | null | undefined, ack)
       const str = await searchOengusPronouns(val);
 
       if (!commentators.value.includes(str)) {
-        commentators.value.push(str);}
-      } else {
-        const str = await searchSrcomPronouns(val);
-        if (!commentators.value.includes(str)) {
-          commentators.value.push(str);
-        }
+        commentators.value.push(str);
+      }
+    } else {
+      const str = await searchSrcomPronouns(val);
+
+      if (!commentators.value.includes(str)) {
+        commentators.value.push(str);
       }
     }
   }
+
   if (ack && !ack.handled) {
     ack(null);
   }
