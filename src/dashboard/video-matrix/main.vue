@@ -4,8 +4,10 @@
       <template #default> <!-- v-slot:default -->
         <thead>
           <tr>
-            <th class="text-left text-muted">
-              output/input
+            <th class="text-left text-muted input-dash-output">
+              <span>input</span>
+              <hr>
+              <span>output</span>
             </th>
             <th v-for="capture in gameCaptures"
                 :key="capture"
@@ -118,8 +120,29 @@ export default class extends Vue {
   }
 }
 </script>
-<style scoped>
+<style lang="scss" scoped>
 .theme--dark.v-data-table>.v-data-table__wrapper>table>tbody>tr:hover:not(.v-data-table__expanded__content):not(.v-data-table__empty-wrapper) {
   background: #1e1e1e !important;
+}
+
+.input-dash-output {
+  position: relative;
+
+  hr {
+    transform: rotate(21deg);
+  }
+
+  span {
+    position: absolute;
+
+    &:first-of-type {
+      top: 5px;
+      right: 25px;
+    }
+
+    &:last-of-type {
+      left: 17px;
+    }
+  }
 }
 </style>
