@@ -330,38 +330,28 @@ nodecg().listenFor('getGameSourceVisibility', async (val: string | null | undefi
   }
 });
 
-nodecg().listenFor('setSelectedCaptures', async (val: number[], ack) => {
-  // this is different from the xkeys one since it uses numbers here
-  const sources = gameSources;
-  const selectedGameSources = selected.gameSource;
+nodecg().listenFor('setSelectedCaptures', async (data: { [key: string]: string }, ack) => {
+  const { sceneName, sourceName } = data;
 
-  // TODO: DON'T LOOP OVER ALL SCENES YOU IDIOT ONLY UPDATE THE ONE THAT'S CHANGED
-  // eslint-disable-next-line guard-for-in
-  for (const i in selectedGameSources) {
-    const source = val[i];
-    const capture = gameCaptures[i];
-
-    for (const name of sources) {
-      try {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore: Typings say we need to specify more than we actually do.
-        await obs.conn.send('SetSceneItemProperties', {
-          'scene-name': capture,
-          item: { name },
-          visible: sources.indexOf(name) === source,
-        });
-      } catch (err) {
-        logError(
-          '[Layouts] Could not change source visibility [%s: %s]',
-          err,
-          capture,
-          name,
-        );
-      }
+  // this is different from the xkeys one since it uses numbers there
+  for (const name of gameSources) {
+    try {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore: Typings say we need to specify more than we actually do.
+      await obs.conn.send('SetSceneItemProperties', {
+        'scene-name': sceneName,
+        item: { name },
+        visible: name === sourceName,
+      });
+    } catch (err) {
+      logError(
+        '[Layouts] Could not change source visibility [%s: %s]',
+        err,
+        sceneName,
+        sourceName,
+      );
     }
   }
-
-  selected.gameSource = val;
 
   if (ack && !ack.handled) {
     ack(null);

@@ -18,14 +18,10 @@
           <tr v-for="(source, si) in gameSources"
               :key="source">
             <td class="text--lighten-5">{{ source }}</td>
-            <td v-for="i in gameCaptures.length" :key="i">
-              <input type="radio"
-                     v-model="selectedCaptures[si]"
-                     :disabled="locked"
-                     :value="i - 1">
-              <!--<v-radio
-                v-model="selectedCaptures[si]"
-                :value="`${i}-${si}`"/> <! -- `${gameCaptureIndex}-${gameSourceIndex}` -->
+            <td v-for="ci in gameCaptures.length" :key="ci">
+              <v-radio-group v-model="selectedCaptures[si]" row :name="`selctor-${source}`">
+                <v-radio :value="ci - 1"/>
+              </v-radio-group>
             </td>
           </tr>
         </tbody>
@@ -46,6 +42,8 @@ export default class extends Vue {
   locked = false;
 
   async mounted(): Promise<void> {
+    this.locked = true;
+
     // Only compute on startup for performance reasons :)
     this.gameCaptures = this.computeGameCaptures();
 
@@ -55,6 +53,8 @@ export default class extends Vue {
 
     // load initial settings
     this.selectedCaptures = await nodecg.sendMessage('getGameSourceVisibility');
+
+    this.locked = false;
   }
 
   computeGameCaptures(): string[] {
@@ -77,11 +77,43 @@ export default class extends Vue {
     return [sources];
   }
 
-  @Watch('selectedCaptures')
-  async onSelectedCapturesChanged(newVal: number[]): Promise<void> {
+  get selectedCapturesComputed(): number[] {
+    return JSON.parse(JSON.stringify(this.selectedCaptures));
+  }
+
+  @Watch('selectedCapturesComputed')
+  async onSelectedCapturesChanged(newVal: number[], oldVal?: number[]): Promise<void> {
+    if (this.locked || !oldVal) {
+      return;
+    }
+
+    // find the index that changed
+    const changedIndexes: number[] = [];
+
+    // eslint-disable-next-line no-plusplus
+    for (let i = 0; i < newVal.length; i++) {
+      const newNum = newVal[i];
+      const oldNum = oldVal[i];
+
+      if (newNum !== oldNum) {
+        changedIndexes.push(i);
+      }
+    }
+
     this.locked = true;
-    // We're using a different event here to prevent loops.
-    await nodecg.sendMessage('setSelectedCaptures', newVal); // TODO: await?
+
+    for (const captureIndex of changedIndexes) {
+      const captureName = this.gameCaptures[captureIndex];
+      const sourceName = this.gameSources[newVal[captureIndex]];
+
+      // We're using a different event here to prevent loops.
+      // eslint-disable-next-line no-await-in-loop
+      await nodecg.sendMessage('setSelectedCaptures', {
+        sceneName: captureName,
+        sourceName,
+      });
+    }
+
     this.locked = false;
   }
 }
