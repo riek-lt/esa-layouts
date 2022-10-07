@@ -5,9 +5,9 @@
         <thead>
           <tr>
             <th class="text-left text-muted input-dash-output">
-              <span>input</span>
-              <hr>
               <span>output</span>
+              <hr>
+              <span>input</span>
             </th>
             <th v-for="capture in gameCaptures"
                 :key="capture"

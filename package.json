@@ -125,7 +125,7 @@
       },
       {
         "name": "video-matrix",
-        "title": "Video Input Matrix",
+        "title": "Game Feed Matrix",
         "width": 3,
         "file": "video-matrix.html",
         "workspace": "Z - BSG Advanced",
