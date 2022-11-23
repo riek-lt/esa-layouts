@@ -42,15 +42,6 @@ html, body {
   margin: 0;
 }
 
-* {
-  --bsg-color: #cf773b;
-  --slide-color: #914e21;
-  --bg-start: #303030;
-  --bg-end: #212121;
-
-  --dash-left-width: 194px;
-}
-
 .lower-third-leave-active {
   animation: backOutDown;
   animation-duration: 500ms;
