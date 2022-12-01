@@ -4,10 +4,12 @@
       <div class="left">
         <div class="box"/>
       </div>
-      <div class="names">
-        <p v-for="(name, i) in lowerThird.names"
-           :key="i">{{ name }}</p>
-      </div>
+      <transition name="fade" v-if="showNames">
+        <div class="names">
+          <p v-for="(name, i) in lowerThird.names"
+             :key="i">{{ name }}</p>
+        </div>
+      </transition>
       <div class="right">
         <div class="box"/>
       </div>
@@ -27,6 +29,7 @@ import { LowerThird } from '@esa-layouts/types/schemas';
 })
 export default class extends Vue {
   @replicantNS.State((s) => s.reps.lowerThird) readonly lowerThird!: LowerThird;
+  showNames = true;
 
   created(): void {
     //
@@ -42,6 +45,27 @@ html, body {
   margin: 0;
 }
 
+.lower-third {
+  display: flex;
+  position: fixed;
+
+  .left {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100px;
+    background: green;
+  }
+
+  .right {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 100px;
+    background: green;
+  }
+}
+
 .lower-third-leave-active {
   animation: backOutDown;
   animation-duration: 500ms;
@@ -52,5 +76,15 @@ html, body {
   animation: backInUp;
   animation-duration: 500ms;
   animation-timing-function: ease-in-out;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>
