@@ -142,22 +142,26 @@ export async function searchOengusPronouns(val: string): Promise<string> {
   return str;
 }
 
+async function searchName(val: string, currentVal: string[]): Promise<void> {
+  if (config.server.enabled) {
+    const str = await searchOengusPronouns(val);
+
+    if (!currentVal.includes(str)) {
+      currentVal.push(str);
+    }
+  } else {
+    const str = await searchSrcomPronouns(val);
+
+    if (!currentVal.includes(str)) {
+      currentVal.push(str);
+    }
+  }
+}
+
 // Processes adding commentators from the dashboard panel.
 nodecg().listenFor('commentatorAdd', async (val: string | null | undefined, ack) => {
   if (val) {
-    if (config.server.enabled) {
-      const str = await searchOengusPronouns(val);
-
-      if (!commentators.value.includes(str)) {
-        commentators.value.push(str);
-      }
-    } else {
-      const str = await searchSrcomPronouns(val);
-
-      if (!commentators.value.includes(str)) {
-        commentators.value.push(str);
-      }
-    }
+    await searchName(val, commentators.value);
   }
 
   if (ack && !ack.handled) {
