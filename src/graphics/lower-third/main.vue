@@ -1,20 +1,25 @@
 <template>
-  <transition name="lower-third">
-    <div class="lower-third" v-if="lowerThird.visible">
-      <div class="left">
-        <div class="box"/>
-      </div>
-      <transition name="fade" v-if="showNames">
-        <div class="names">
-          <span v-for="(name, i) in lowerThird.names"
-             :key="i">{{ name }}</span>
-        </div>
-      </transition>
-      <div class="right">
-        <div class="box"/>
-      </div>
+  <div>
+    <div class="d-flex">
+      <button @click="showNames = !showNames">Toggle</button>
     </div>
-  </transition>
+    <transition name="lower-third">
+      <div class="lower-third" v-if="lowerThird.visible">
+        <div class="left">
+          <div class="box"/>
+        </div>
+        <transition name="names">
+          <div class="names" v-if="showNames">
+          <span v-for="(name, i) in lowerThird.names"
+                :key="i">{{ name }}</span>
+          </div>
+        </transition>
+        <div class="right">
+          <div class="box"/>
+        </div>
+      </div>
+    </transition>
+  </div>
 </template>
 
 <script lang="ts">
@@ -89,7 +94,8 @@ html, body {
     width: 100%;
     padding-top: 5px;
     // top: calc((82px - 50px) / 2);
-    animation-duration: 500ms;
+    animation-duration: 250ms;
+    animation-timing-function: ease-in-out;
 
     z-index: 1;
 
@@ -131,13 +137,16 @@ html, body {
   animation-timing-function: ease-in-out;
 }
 
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.5s ease;
+.names-enter-active {
+  animation: fadeInUp;
 }
 
-.fade-enter-from,
-.fade-leave-to {
+.names-leave-active {
+  animation: fadeOutDown;
+}
+
+.names-enter,
+.names-leave-to {
   opacity: 0;
 }
 </style>
