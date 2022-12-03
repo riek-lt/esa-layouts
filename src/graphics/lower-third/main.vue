@@ -1,10 +1,10 @@
 <template>
   <div>
     <div class="d-flex">
-      <button @click="showNames = !showNames">Toggle</button>
+      <button @click="toggle">Toggle</button>
     </div>
     <transition name="lower-third">
-      <div class="lower-third" v-if="lowerThird.visible">
+      <div class="lower-third" v-if="barVisible">
         <div class="left">
           <div class="box"/>
         </div>
@@ -26,6 +26,7 @@
 import { Component, Vue } from 'vue-property-decorator';
 import { replicantNS } from '@esa-layouts/browser_shared/replicant_store';
 import { LowerThird } from '@esa-layouts/types/schemas';
+import { wait } from '../_misc/helpers';
 
 @Component({
   components: {
@@ -35,12 +36,31 @@ import { LowerThird } from '@esa-layouts/types/schemas';
 export default class extends Vue {
   @replicantNS.State((s) => s.reps.lowerThird) readonly lowerThird!: LowerThird;
   showNames = true;
+  barVisible = true;
+
+  toggle(): void {
+    if (this.barVisible) {
+      this.hide();
+    } else {
+      this.show();
+    }
+  }
+
+  async show(): Promise<void> {
+    this.barVisible = true;
+    await wait(500);
+    this.showNames = true;
+    await wait(250);
+  }
+
+  async hide(): Promise<void> {
+    this.showNames = false;
+    await wait(250);
+    this.barVisible = false;
+  }
 
   created(): void {
-    // TODO: figure out how the transition thing works
-    /*setInterval(() => {
-      this.showNames = !this.showNames;
-    }, 5000);*/
+    this.barVisible = this.lowerThird.visible;
   }
 }
 </script>
