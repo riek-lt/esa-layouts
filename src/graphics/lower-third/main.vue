@@ -4,18 +4,24 @@
       <button @click="toggle">Toggle</button>
     </div>
     <transition name="lower-third">
-      <div class="lower-third" v-if="barVisible">
-        <div class="left">
-          <div class="box"/>
-        </div>
-        <transition name="names">
-          <div class="names" v-if="showNames">
+      <div class="lowe-third-wrapper" v-if="barVisible" >
+        <div class="lower-third" :style="{
+        'width': `${barWidth}%`,
+       }">
+          <!-- NOTE: we cannot animate left and right due to the before pos of the dash -->
+          <!-- It'll overflow -->
+          <div class="left">
+            <div class="box"/>
+          </div>
+          <transition name="names">
+            <div class="names" v-if="showNames">
           <span v-for="(name, i) in lowerThird.names"
                 :key="i">{{ name }}</span>
+            </div>
+          </transition>
+          <div class="right">
+            <div class="box"/>
           </div>
-        </transition>
-        <div class="right">
-          <div class="box"/>
         </div>
       </div>
     </transition>
@@ -23,20 +29,20 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue, Watch } from 'vue-property-decorator';
 import { replicantNS } from '@esa-layouts/browser_shared/replicant_store';
 import { LowerThird } from '@esa-layouts/types/schemas';
+import gsap from 'gsap';
 import { wait } from '../_misc/helpers';
 
-@Component({
-  components: {
-    //
-  },
-})
+@Component
 export default class extends Vue {
   @replicantNS.State((s) => s.reps.lowerThird) readonly lowerThird!: LowerThird;
   showNames = true;
   barVisible = true;
+  barWidth = 90;
+  barOpenState = 90;
+  barClosedState = 16;
 
   toggle(): void {
     if (this.barVisible) {
@@ -48,7 +54,14 @@ export default class extends Vue {
 
   async show(): Promise<void> {
     this.barVisible = true;
-    await wait(500);
+    await wait(550);
+    gsap.to(this, {
+      barWidth: this.barOpenState,
+      duration: 1,
+      ease: 'back.out(1.7)',
+    });
+    // little shorter here cuz it looks cool
+    await wait(800);
     this.showNames = true;
     await wait(250);
   }
@@ -56,11 +69,27 @@ export default class extends Vue {
   async hide(): Promise<void> {
     this.showNames = false;
     await wait(250);
+    gsap.to(this, {
+      barWidth: this.barClosedState,
+      duration: 1,
+      ease: 'power3.inOut',
+    });
+    await wait(900);
     this.barVisible = false;
+    await wait(500);
   }
 
   created(): void {
     this.barVisible = this.lowerThird.visible;
+  }
+
+  @Watch('lowerThird')
+  onLowerThirdChanged(newVal: LowerThird): void {
+    if (newVal.visible) {
+      this.show();
+    } else {
+      this.hide();
+    }
   }
 }
 </script>
@@ -81,16 +110,25 @@ html, body {
   z-index: 99;
 }
 
-.lower-third {
+.lowe-third-wrapper {
   display: flex;
   position: fixed;
-  width: 90%;
-  margin-left: 5%;
-  height: var(--lt-height);
+  width: 100%;
+  justify-content: center;
 
   bottom: 150px;
 
-  animation-timing-function: ease-in-out;
+  animation-timing-function: ease-in-out
+}
+
+.lower-third {
+  display: flex;
+  //position: fixed;
+  position: relative;
+  // max-width: 90%;
+  width: 90%;
+  //margin-left: 5%;
+  height: var(--lt-height);
 
   background: linear-gradient(180deg, var(--bg-start) 0%, var(--bg-end) 100%);
 
@@ -98,9 +136,20 @@ html, body {
     position: absolute;
     left: 0;
     top: 0;
-    width: 100px;
+    width: 50px;
     height: var(--lt-height);
-    background: green;
+    background: var(--slide-color);;
+
+    .box:before {
+      content: '';
+      position: absolute;
+      background: url('./assets/left_dash_crop.png') center center;
+      background-size: cover;
+      height: var(--lt-height);
+      width: 106px;
+      left: 50px;
+      top: 0;
+    }
   }
 
   .names {
@@ -123,25 +172,26 @@ html, body {
       flex-grow: 0;
       align-self: center;
     }
-
-    &.show {
-      opacity: 1;
-      animation: fadeInUp;
-      animation-duration: 500ms;
-    }
-
-    &.hide {
-      display: none;
-    }
   }
 
   .right {
     position: absolute;
     right: 0;
     top: 0;
-    width: 100px;
+    width: 50px;
     height: var(--lt-height);
-    background: green;
+    background: var(--slide-color);
+
+    .box:before {
+      content: '';
+      position: absolute;
+      background: url('./assets/right_dash.png') center center;
+      background-size: cover;
+      height: var(--lt-height);
+      width: 104px;
+      left: -103px;
+      top: 0;
+    }
   }
 }
 
