@@ -54,7 +54,7 @@ export default class extends Vue {
 
   async show(): Promise<void> {
     this.barVisible = true;
-    await wait(550);
+    await wait(500); // --lt-up-down-anim-dur
     gsap.to(this, {
       barWidth: this.barOpenState,
       duration: 1,
@@ -63,24 +63,33 @@ export default class extends Vue {
     // little shorter here cuz it looks cool
     await wait(800);
     this.showNames = true;
-    await wait(250);
+    await wait(250); // --lt-names-show-hide-anim-dur
   }
 
   async hide(): Promise<void> {
     this.showNames = false;
-    await wait(250);
+    await wait(100); // --lt-names-show-hide-anim-dur - 150 cuz looks cool
     gsap.to(this, {
       barWidth: this.barClosedState,
       duration: 1,
-      ease: 'power3.inOut',
+      ease: 'back.in(1.7)',
     });
-    await wait(900);
+    await wait(/* GTX */1070);
     this.barVisible = false;
-    await wait(500);
+    await wait(500); // --lt-up-down-anim-dur
   }
 
+  // initial state
   created(): void {
-    this.barVisible = this.lowerThird.visible;
+    if (this.lowerThird.visible) {
+      this.barVisible = true;
+      this.showNames = true;
+      this.barWidth = this.barOpenState;
+    } else {
+      this.barVisible = false;
+      this.showNames = false;
+      this.barWidth = this.barClosedState;
+    }
   }
 
   @Watch('lowerThird')
@@ -104,6 +113,10 @@ html, body {
 
 * {
   --lt-height: 50px;
+
+  // animation settings
+  --lt-up-down-anim-dur: 500ms;
+  --lt-names-show-hide-anim-dur: 250ms;
 }
 
 .box {
@@ -115,10 +128,7 @@ html, body {
   position: fixed;
   width: 100%;
   justify-content: center;
-
   bottom: 150px;
-
-  animation-timing-function: ease-in-out
 }
 
 .lower-third {
@@ -162,9 +172,6 @@ html, body {
     font-size: 26px;
     width: 100%;
     padding-top: 5px;
-    // top: calc((82px - 50px) / 2);
-    animation-duration: 250ms;
-    animation-timing-function: ease-in-out;
 
     z-index: 1;
 
@@ -197,22 +204,26 @@ html, body {
 
 .lower-third-leave-active {
   animation: backOutDown;
-  animation-duration: 500ms;
+  animation-duration: var(--lt-up-down-anim-dur);
   animation-timing-function: ease-in-out;
 }
 
 .lower-third-enter-active {
   animation: backInUp;
-  animation-duration: 500ms;
+  animation-duration: var(--lt-up-down-anim-dur);
   animation-timing-function: ease-in-out;
 }
 
 .names-enter-active {
   animation: fadeInUp;
+  animation-duration: var(--lt-names-show-hide-anim-dur);
+  animation-timing-function: ease-in-out;
 }
 
 .names-leave-active {
   animation: fadeOutDown;
+  animation-duration: var(--lt-names-show-hide-anim-dur);
+  animation-timing-function: ease-in-out;
 }
 
 .names-enter,
