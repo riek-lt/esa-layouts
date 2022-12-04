@@ -69,6 +69,7 @@ export default class extends Vue {
   async hide(): Promise<void> {
     this.showNames = false;
     await wait(100); // --lt-names-show-hide-anim-dur - 150 cuz looks cool
+    // docs: https://greensock.com/ease-visualizer/
     gsap.to(this, {
       barWidth: this.barClosedState,
       duration: 1,
