@@ -91,6 +91,16 @@ export default class extends Vue {
       this.showNames = false;
       this.barWidth = this.barClosedState;
     }
+
+    nodecg.listenFor('lower-third:show', async ({ autoHide, showForSecs }) => {
+      await this.show();
+
+      if (autoHide) {
+        await wait(showForSecs * 1000);
+        await this.hide();
+      }
+    });
+    nodecg.listenFor('lower-third:hide', () => this.hide());
   }
 
   @Watch('lowerThird')

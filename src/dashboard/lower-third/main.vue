@@ -35,7 +35,7 @@
         filled
         :spellcheck="false"
       />
-      <v-btn>Show lower-third (todo)</v-btn>
+      <v-btn @click="showLowerThird">Show lower-third (todo)</v-btn>
     </div>
   </v-app>
 </template>
@@ -50,5 +50,15 @@ import { LowerThird } from '../../types/schemas';
 export default class extends Vue {
   @replicantNS.State((s) => s.reps.lowerThird) readonly lowerThird!: LowerThird;
   removeName = storeModule.removeCommentator;
+
+  showLowerThird(): void {
+    nodecg.sendMessage('lower-third:show', {
+      autoHide: true, showForSecs: 5,
+    });
+  }
+
+  mounted(): void {
+    //
+  }
 }
 </script>
