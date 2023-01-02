@@ -35,6 +35,7 @@
         filled
         :spellcheck="false"
       />
+      <v-btn>Show lower-third (todo)</v-btn>
     </div>
   </v-app>
 </template>
