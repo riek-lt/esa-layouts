@@ -1,5 +1,5 @@
 import { replicantModule, ReplicantModule, ReplicantTypes } from '@esa-layouts/browser_shared/replicant_store';
-import { Commentators } from '@esa-layouts/types/schemas';
+import { Commentators, LowerThird } from '@esa-layouts/types/schemas';
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
 import { getModule, Module, Mutation, VuexModule } from 'vuex-module-decorators';
@@ -14,23 +14,38 @@ class OurModule extends VuexModule {
   }
 
   @Mutation
-  clearCommentators(): void {
-    replicantModule.setReplicant<Commentators>({
-      name: 'commentators', val: [],
+  clearNames(): void {
+    const currentLt = replicantModule.repsTyped.lowerThird;
+
+    currentLt.names = [];
+
+    replicantModule.setReplicant<LowerThird>({
+      name: 'lowerThird', val: currentLt,
     });
   }
 
   @Mutation
-  removeCommentator(name: string) {
-    const currentComs = replicantModule.repsTyped.commentators;
-    const nameIndex = currentComs.indexOf(name);
+  addName(name: string): void {
+    const currentLt = replicantModule.repsTyped.lowerThird;
+
+    currentLt.names.push(name);
+
+    replicantModule.setReplicant<LowerThird>({
+      name: 'lowerThird', val: currentLt,
+    });
+  }
+
+  @Mutation
+  removeName(name: string): void {
+    const currentLt = replicantModule.repsTyped.lowerThird;
+    const nameIndex = currentLt.names.indexOf(name);
 
     if (nameIndex > -1) {
-      currentComs.splice(nameIndex, 1);
+      currentLt.names.splice(nameIndex, 1);
     }
 
-    replicantModule.setReplicant<Commentators>({
-      name: 'commentators', val: currentComs,
+    replicantModule.setReplicant<LowerThird>({
+      name: 'lowerThird', val: currentLt,
     });
   }
 }

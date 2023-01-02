@@ -42,7 +42,7 @@ export default class extends Vue {
   barVisible = true;
   barWidth = 90;
   barOpenState = 90;
-  barClosedState = 16;
+  barClosedState = 9;
 
   toggle(): void {
     if (this.barVisible) {
@@ -75,7 +75,7 @@ export default class extends Vue {
       duration: 1,
       ease: 'back.in(1.7)',
     });
-    await wait(/* GTX */1070);
+    await wait(1050);
     this.barVisible = false;
     await wait(500); // --lt-up-down-anim-dur
   }
@@ -92,6 +92,7 @@ export default class extends Vue {
       this.barWidth = this.barClosedState;
     }
 
+    // TODO: Toggle these from the extension side of things
     nodecg.listenFor('lower-third:show', async ({ autoHide, showForSecs }) => {
       await this.show();
 
