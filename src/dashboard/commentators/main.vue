@@ -16,16 +16,18 @@
               selectable
             >
               <v-list-item-content>
-                {{ name }}
-                <v-btn
-                  :style="{
+                <div class="d-flex" style="justify-content: space-between">
+                  <span>{{ name }}</span>
+                  <v-btn
+                    :style="{
                     'min-width': '0',
                     'width': '20%',
                   }"
-                  @click="removeCommentator(name)"
-                >
-                  <v-icon>mdi-delete</v-icon>
-                </v-btn>
+                    @click="removeCommentator(name)"
+                  >
+                    <v-icon>mdi-delete</v-icon>
+                  </v-btn>
+                </div>
               </v-list-item-content>
             </v-list-item>
           </template>

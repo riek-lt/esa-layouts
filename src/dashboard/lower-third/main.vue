@@ -13,16 +13,20 @@
             selectable
           >
             <v-list-item-content>
-              {{ name }}
-              <v-btn
-                :style="{
+              <div class="d-flex" style="justify-content: space-between">
+                <span>{{ name }}</span>
+                <v-btn
+                  :style="{
                     'min-width': '0',
                     'width': '20%',
                   }"
-                @click="removeName(name)"
-              >
-                <v-icon>mdi-delete</v-icon>
-              </v-btn>
+                  @click="removeName(name)"
+                  :disabled="inputsDisabled"
+                >
+                  <v-icon>mdi-delete</v-icon>
+                </v-btn>
+              </div>
+              <hr>
             </v-list-item-content>
           </v-list-item>
         </v-list-item-group>
@@ -35,34 +39,38 @@
         hide-details
         filled
         :spellcheck="false"
-        :disabled="disable"
+        :disabled="inputsDisabled"
       />
       <v-btn
         height="56px"
         :style="{ 'min-width': '0', 'margin-left': '5px' }"
-        :disabled="disable"
+        :disabled="inputsDisabled"
         @click="add"
       >
         <v-icon>mdi-check</v-icon>
       </v-btn>
     </div>
-    <v-btn
-      :style="{ 'margin-top': '10px' }"
-      @click="showLowerThird"
-      :disabled="!lowerThird.visible || lowerThird.transitioning || disable">
-      Show lower-third
-    </v-btn>
-    <v-btn
-      :style="{ 'margin-top': '10px' }"
-      @click="hideLowerThird"
-      :disabled="lowerThird.transitioning || disable || lowerThird.visible">
-      Hide lower-third
-    </v-btn>
+    <div class="d-flex">
+      <v-btn
+        height="56px"
+        :style="{ 'margin-top': '10px', 'margin-left': '5px' }"
+        @click="showLowerThird"
+        :disabled="lowerThird.transitioning || updatingName || lowerThird.visible">
+        Show
+      </v-btn>
+      <v-btn
+        height="56px"
+        :style="{ 'margin-top': '10px', 'margin-left': '5px' }"
+        @click="hideLowerThird"
+        :disabled="lowerThird.transitioning || updatingName || !lowerThird.visible">
+        Hide
+      </v-btn>
+    </div>
   </v-app>
 </template>
 
 <script lang="ts">
-import { Vue, Component, Watch } from 'vue-property-decorator';
+import { Vue, Component } from 'vue-property-decorator';
 import { replicantNS } from '@esa-layouts/browser_shared/replicant_store';
 import { LowerThird } from '@esa-layouts/types/schemas';
 import { storeModule } from './store';
@@ -71,7 +79,7 @@ import { storeModule } from './store';
 @Component
 export default class extends Vue {
   nameEntry = '';
-  disable = false;
+  updatingName = false;
   @replicantNS.State((s) => s.reps.lowerThird) readonly lowerThird!: LowerThird;
   removeName = storeModule.removeName;
 
@@ -85,20 +93,19 @@ export default class extends Vue {
     nodecg.sendMessage('lower-third:hide');
   }
 
+  get inputsDisabled(): boolean {
+    return this.lowerThird.visible || this.updatingName;
+  }
+
   async add(): Promise<void> {
-    this.disable = true;
+    this.updatingName = true;
     try {
       await nodecg.sendMessage('lower-third:add-name', this.nameEntry);
     } catch (err) {
       // catch
-      console.error(err);
     }
-    this.disable = false;
+    this.updatingName = false;
     this.nameEntry = '';
-  }
-  @Watch('lowerThird', { deep: true })
-  onLowerThirdChange(newVal: LowerThird, oldVal?: LowerThird): void {
-    console.log('LOWER THIRD UPDATE', newVal.transitioning);
   }
 
   mounted(): void {

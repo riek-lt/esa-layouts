@@ -29,10 +29,11 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from 'vue-property-decorator';
+import { Component, Vue } from 'vue-property-decorator';
 import { replicantNS } from '@esa-layouts/browser_shared/replicant_store';
 import { LowerThird } from '@esa-layouts/types/schemas';
 import gsap from 'gsap';
+import { storeModule } from './store';
 import { wait } from '../_misc/helpers';
 
 @Component
@@ -43,6 +44,8 @@ export default class extends Vue {
   barWidth = 90;
   barOpenState = 90;
   barClosedState = 9;
+  setTransitioning = storeModule.setTransitioning;
+  setVisible = storeModule.setVisible;
 
   toggle(): void {
     if (this.barVisible) {
@@ -53,6 +56,7 @@ export default class extends Vue {
   }
 
   async show(): Promise<void> {
+    this.setTransitioning(true);
     this.barVisible = true;
     await wait(500); // --lt-up-down-anim-dur
     gsap.to(this, {
@@ -64,9 +68,12 @@ export default class extends Vue {
     await wait(800);
     this.showNames = true;
     await wait(250); // --lt-names-show-hide-anim-dur
+    this.setTransitioning(false);
+    this.setVisible(true);
   }
 
   async hide(): Promise<void> {
+    this.setTransitioning(true);
     this.showNames = false;
     await wait(100); // --lt-names-show-hide-anim-dur - 150 cuz looks cool
     // docs: https://greensock.com/ease-visualizer/
@@ -78,6 +85,8 @@ export default class extends Vue {
     await wait(1050);
     this.barVisible = false;
     await wait(500); // --lt-up-down-anim-dur
+    this.setTransitioning(false);
+    this.setVisible(false);
   }
 
   // initial state
@@ -92,7 +101,6 @@ export default class extends Vue {
       this.barWidth = this.barClosedState;
     }
 
-    // TODO: Toggle these from the extension side of things
     nodecg.listenFor('lower-third:show', async ({ autoHide, showForSecs }) => {
       await this.show();
 
@@ -102,15 +110,6 @@ export default class extends Vue {
       }
     });
     nodecg.listenFor('lower-third:hide', () => this.hide());
-  }
-
-  @Watch('lowerThird')
-  onLowerThirdChanged(newVal: LowerThird): void {
-    if (newVal.visible) {
-      this.show();
-    } else {
-      this.hide();
-    }
   }
 }
 </script>
