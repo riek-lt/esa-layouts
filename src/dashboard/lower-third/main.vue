@@ -50,21 +50,40 @@
         <v-icon>mdi-check</v-icon>
       </v-btn>
     </div>
-    <div class="d-flex">
+    <div class="d-flex" style="margin-top: 10px;">
       <v-btn
         height="56px"
-        :style="{ 'margin-top': '10px', 'margin-left': '5px' }"
+        :style="{ 'margin-left': '5px' }"
         @click="showLowerThird"
-        :disabled="lowerThird.transitioning || updatingName || lowerThird.visible">
+        :disabled="toggleButtonsDisabled || lowerThird.visible">
         Show
       </v-btn>
       <v-btn
         height="56px"
-        :style="{ 'margin-top': '10px', 'margin-left': '5px' }"
+        :style="{ 'margin-left': '5px' }"
         @click="hideLowerThird"
-        :disabled="lowerThird.transitioning || updatingName || !lowerThird.visible">
+        :disabled="autoHide || toggleButtonsDisabled || !lowerThird.visible">
         Hide
       </v-btn>
+    </div>
+    <div class="d-flex" style="margin-top: 10px;">
+      <v-checkbox
+        v-model="autoHide"
+        :disabled="inputsDisabled"
+        label="Auto hide after"
+      />
+
+      <v-text-field
+        v-model="autoHideSeconds"
+        label="seconds"
+        :style="{
+          'width': '10px',
+        }"
+        hide-details
+        filled
+        :spellcheck="false"
+        :disabled="inputsDisabled"
+      />
     </div>
   </v-app>
 </template>
@@ -75,17 +94,25 @@ import { replicantNS } from '@esa-layouts/browser_shared/replicant_store';
 import { LowerThird } from '@esa-layouts/types/schemas';
 import { storeModule } from './store';
 
-// TODO: add settings for auto-hiding
 @Component
 export default class extends Vue {
   nameEntry = '';
   updatingName = false;
+  autoHide = false;
+  autoHideSeconds = '5';
   @replicantNS.State((s) => s.reps.lowerThird) readonly lowerThird!: LowerThird;
   removeName = storeModule.removeName;
 
   showLowerThird(): void {
+    let finalAutoHide = this.autoHide;
+    const afterSecs = parseInt(this.autoHideSeconds, 10);
+
+    if (afterSecs < 1) {
+      finalAutoHide = false;
+    }
+
     nodecg.sendMessage('lower-third:show', {
-      autoHide: false, showForSecs: 5,
+      autoHide: finalAutoHide, showForSecs: afterSecs,
     });
   }
 
@@ -93,8 +120,12 @@ export default class extends Vue {
     nodecg.sendMessage('lower-third:hide');
   }
 
+  get toggleButtonsDisabled(): boolean {
+    return this.lowerThird.transitioning || this.updatingName;
+  }
+
   get inputsDisabled(): boolean {
-    return this.lowerThird.visible || this.updatingName;
+    return this.toggleButtonsDisabled || this.lowerThird.visible;
   }
 
   async add(): Promise<void> {
@@ -106,10 +137,6 @@ export default class extends Vue {
     }
     this.updatingName = false;
     this.nameEntry = '';
-  }
-
-  mounted(): void {
-    //
   }
 }
 </script>
