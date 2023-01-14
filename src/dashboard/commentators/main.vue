@@ -12,28 +12,17 @@
             <v-list-item
               v-for="(name, i) in commentators"
               :key="i"
-              inactive
-              selectable
             >
+              <v-list-item-action>
+                <v-icon @click="del(i)">mdi-delete</v-icon>
+              </v-list-item-action>
               <v-list-item-content>
-                <div class="d-flex" style="justify-content: space-between">
-                  <span>{{ name }}</span>
-                  <v-btn
-                    :style="{
-                    'min-width': '0',
-                    'width': '20%',
-                  }"
-                    @click="removeCommentator(name)"
-                  >
-                    <v-icon>mdi-delete</v-icon>
-                  </v-btn>
-                </div>
+                {{ name }}
               </v-list-item-content>
             </v-list-item>
           </template>
           <v-list-item
             v-else
-            disabled
             :style="{ 'font-style': 'italic' } "
           >
             No commentators specified
@@ -71,9 +60,9 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component } from 'vue-property-decorator';
-import { Commentators } from '@esa-layouts/types/schemas';
 import { replicantNS } from '@esa-layouts/browser_shared/replicant_store';
+import { Commentators } from '@esa-layouts/types/schemas';
+import { Component, Vue } from 'vue-property-decorator';
 import { storeModule } from './store';
 
 @Component
@@ -82,7 +71,6 @@ export default class extends Vue {
   disable = false;
   @replicantNS.State((s) => s.reps.commentators) readonly commentators!: Commentators;
   clear = storeModule.clearCommentators;
-  removeCommentator = storeModule.removeCommentator;
 
   async add(): Promise<void> {
     this.disable = true;
@@ -93,6 +81,16 @@ export default class extends Vue {
     }
     this.disable = false;
     this.nameEntry = '';
+  }
+
+  async del(index: number): Promise<void> {
+    this.disable = true;
+    try {
+      await nodecg.sendMessage('commentatorRemove', index);
+    } catch (err) {
+      // catch
+    }
+    this.disable = false;
   }
 }
 </script>
