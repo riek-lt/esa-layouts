@@ -235,18 +235,6 @@ obs.conn.on('TransitionBegin', async (data) => {
       toggleFadeHelper('/dca/1/fader', gameScenes, data, false); // LIVE Runners
       toggleFadeHelper('/dca/2/fader', readerScenes, data, false); // LIVE Readers
       toggleFadeHelper('/dca/3/fader', gameScenes, data, false); // LIVE Games
-    // Souls Winter Charity Fest
-    } else if (config.event.shorts === 'swcf') {
-      // DCA1: Mics - audible on Intermission/Game Layout/Tournament Bracket scenes.
-      toggleFadeHelper('/dca/1/fader', [
-        obs.findScene(config.obs.names.scenes.intermission),
-        obs.findScene(config.obs.names.scenes.gameLayout),
-        obs.findScene('Tournament Bracket'),
-      ], data, false);
-      // DCA2: Games - audible only on Game Layout scene
-      toggleFadeHelper('/dca/2/fader', [
-        obs.findScene(config.obs.names.scenes.gameLayout),
-      ], data, false);
     // Online
     } else if (config.event.online === true || config.event.online === 'full') {
       const nonGameScenes = getNonGameScenes(); // These scenes will *not* have "LIVE" DCAs audible.
