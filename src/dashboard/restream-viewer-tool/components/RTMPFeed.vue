@@ -1,56 +1,57 @@
 <template>
   <div>
     <v-checkbox
-      v-model="enabled"
-      label="Feed 1"
+      :disabled="!value.editAllowed"
+      v-model="value.enabled"
+      :label="`Feed ${value.feedIndex}`"
     />
     <v-row>
       <v-col cols="5">
         <v-select
-          :disabled="!enabled"
-          v-model="select"
+          :disabled="!canEdit"
+          v-model="value.server"
           label="Instance"
           item-text="name"
           item-value="prefix"
           :items="instances"
           persistent-hint
-          return-object
           single-line
         />
       </v-col>
       <v-col>
-        <v-text-field label="Stream key" filled :disabled="!enabled" />
+        <v-text-field label="Stream key" filled :disabled="!canEdit" />
       </v-col>
     </v-row>
-    <v-text-field :value="`rtmp://${select.prefix}.bsgmarathon.com/live`" readonly filled :disabled="!enabled" />
+    <v-text-field
+      :value="`rtmp://${value.server}.bsgmarathon.com/live`"
+      readonly
+      filled
+      :disabled="!canEdit" />
+    <!-- TODO: refresh button  -->
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
+import { RtmpFeed } from '@esa-layouts/types/schemas';
+import { Vue, Component, Prop } from 'vue-property-decorator';
+import { PropType } from 'vue';
 
-export default defineComponent({
-  setup() {
-    const instances = [
-      {
-        prefix: 'eu',
-        name: 'Europe',
-      },
-      {
-        prefix: 'na',
-        name: 'North-America',
-      },
-    ];
+@Component
+export default class extends Vue {
+  @Prop({ type: Object as PropType<RtmpFeed>, required: true }) value!: RtmpFeed;
+  instances = [
+    {
+      prefix: 'eu',
+      name: 'Europe',
+    },
+    {
+      prefix: 'na',
+      name: 'North-America',
+    },
+  ];
 
-    const select = ref(instances[1]);
-
-    return {
-      instances,
-      select,
-    };
-  },
-  data: () => ({
-    enabled: true,
-  }),
-});
+  get canEdit(): boolean {
+    return this.value.editAllowed && this.value.enabled;
+  }
+}
 </script>
