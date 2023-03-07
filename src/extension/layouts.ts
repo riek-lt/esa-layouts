@@ -1,7 +1,6 @@
 import type { Configschema } from '@esa-layouts/types/schemas/configschema';
 import Countdown from '@shared/extension/countdown';
 import clone from 'clone';
-import SpeedcontrolUtil from 'speedcontrol-util';
 import { logError } from './util/helpers';
 import { get as nodecg } from './util/nodecg';
 import obs from './util/obs';
@@ -126,6 +125,8 @@ capturePositions.on('change', async (val) => {
   // or there's no game-layout values.
   if (config.event.online === 'partial' || !val['game-layout']) return;
 
+  // TODO: if online event: return
+
   // Loops through all possible sources to move and does the work.
   for (const [key, value] of Object.entries(obsSourceKeys)) {
     if (value) { // Only continue if key -> value pair is set
@@ -247,6 +248,9 @@ capturePositions.on('change', async (val) => {
 // Things to do on OBS initial connection/authentication.
 // This should also trigger even if authentication is turned off, after initial connection.
 obs.conn.on('AuthenticationSuccess', async () => {
+  // TODO: disable all game can camera captures with online events.
+  //  Enable RTMP sources
+
   // Game
   for (const capName of gameCaptures) {
     // Gets cropping values and stores them on initial connection.
