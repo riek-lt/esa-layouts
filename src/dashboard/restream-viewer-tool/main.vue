@@ -1,12 +1,10 @@
 <template>
   <v-app v-if="online">
-    <!-- eslint-disable-next-line vue/valid-v-model -->
     <div v-for="feed in feeds" :key="feed.feedIndex">
       <RTMPFeed :value="feed" />
       <hr>
     </div>
-    <pre>{{ feeds }}</pre>
-    <v-btn>Save</v-btn>
+    <v-btn :disabled="!canEdit" @click="updateInObs">Update OBS</v-btn>
   </v-app>
   <v-app v-else>
     <p>Disabled for in-person events</p>
@@ -15,7 +13,8 @@
 
 <script lang="ts">
 import { Vue, Component, Watch } from 'vue-property-decorator';
-import { Configschema, RtmpFeed as RtmpSettings } from '@esa-layouts/types/schemas';
+import { Configschema, ObsData, RtmpFeed as RtmpSettings } from '@esa-layouts/types/schemas';
+import { replicantNS } from '@esa-layouts/browser_shared/replicant_store';
 import RTMPFeed from './components/RTMPFeed.vue';
 
 @Component({
@@ -24,6 +23,8 @@ import RTMPFeed from './components/RTMPFeed.vue';
   },
 })
 export default class extends Vue {
+  @replicantNS.State((s) => s.reps.obsData) readonly obsData!: ObsData;
+  gameLayout = (nodecg.bundleConfig as Configschema).obs.names.scenes.gameLayout;
   online = (nodecg.bundleConfig as Configschema).event.online;
   feeds: RtmpSettings[] = [
     {
@@ -42,19 +43,37 @@ export default class extends Vue {
     },
   ];
 
-  created(): void {
-    // TODO: read data from obs
-    // sources "[rtmp] feed {index}"
-    // Stream keys auto generated from runner's username ({usn + rng}?)
+  get canEdit(): boolean {
+    return this.feeds.map((feed) => feed.editAllowed).reduce((a, b) => a || b, false);
   }
 
-  updateInObs(): void {
-    // TODO: update data in obs
+  async mounted(): Promise<void> {
+    if (!this.online) {
+      return;
+    }
+
+    this.feeds = await nodecg.sendMessage('geRtmpSettings');
+
+    const isOnGame = this.obsData.scene === this.gameLayout;
+
+    for (const feed of this.feeds) {
+      feed.editAllowed = !isOnGame;
+    }
+
+    // TODO: Stream keys auto generated from runner's username ({usn + rng}?)
   }
 
-  @Watch('feeds', { deep: true })
-  onFeedsChange() {
-    // TODO: Check if data is changed and enable save button
+  async updateInObs(): Promise<void> {
+    await nodecg.sendMessage('setRtmpSettings', this.feeds);
+  }
+
+  @Watch('obsData', { deep: true })
+  onObsDataChange() {
+    const isOnGame = this.obsData.scene === this.gameLayout;
+
+    for (const feed of this.feeds) {
+      feed.editAllowed = !isOnGame;
+    }
   }
 }
 </script>

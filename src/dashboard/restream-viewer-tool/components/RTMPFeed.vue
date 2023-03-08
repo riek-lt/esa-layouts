@@ -19,7 +19,7 @@
         />
       </v-col>
       <v-col>
-        <v-text-field label="Stream key" filled :disabled="!canEdit" />
+        <v-text-field label="Stream key" v-model="value.streamKey" filled :disabled="!canEdit" />
       </v-col>
     </v-row>
     <v-text-field

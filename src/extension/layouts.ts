@@ -1,6 +1,7 @@
 import type { Configschema } from '@esa-layouts/types/schemas/configschema';
 import Countdown from '@shared/extension/countdown';
 import clone from 'clone';
+import { RtmpFeed } from '@esa-layouts/types/schemas';
 import { logError } from './util/helpers';
 import { get as nodecg } from './util/nodecg';
 import obs from './util/obs';
@@ -339,6 +340,89 @@ obs.conn.on('AuthenticationSuccess', async () => {
 nodecg().listenFor('getGameSourceVisibility', async (val: string | null | undefined, ack) => {
   if (ack && !ack.handled) {
     ack(null, selected.gameSource);
+  }
+});
+
+nodecg().listenFor('geRtmpSettings', async (val: string | null | undefined, ack) => {
+  const indexes = [1, 2];
+  const rtmpRegex = /rtmp:\/\/([^.]+)\.bsgmarathon\.com\/live\/(.*)/;
+  const feeds: RtmpFeed[] = [];
+
+  for (const index of indexes) {
+    const sceneName = `RTMP Source ${index}`;
+    const sourceName = `[RTMP] feed ${index}`;
+
+    const { sourceSettings } = await obs.conn.send('GetSourceSettings', {
+      sourceName,
+    });
+
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const rtmpUrl = sourceSettings.playlist[0].value as string;
+
+    const { visible } = await obs.conn.send('GetSceneItemProperties', {
+      'scene-name': config.obs.names.scenes.gameLayout,
+      item: { name: sceneName },
+    });
+
+    const feed: RtmpFeed = {
+      streamKey: 'DEFAULT',
+      server: 'eu',
+      enabled: visible,
+      feedIndex: index,
+      editAllowed: true,
+    };
+
+    const match = rtmpRegex.exec(rtmpUrl);
+
+    if (match !== null) {
+      feed.server = match[1] as RtmpFeed['server'];
+      // eslint-disable-next-line prefer-destructuring
+      feed.streamKey = match[2];
+    }
+
+    feeds.push(feed);
+  }
+
+  if (ack && !ack.handled) {
+    ack(null, feeds);
+  }
+});
+
+nodecg().listenFor('setRtmpSettings', async (data: RtmpFeed[], ack) => {
+  for (const settings of data) {
+    const rtmpUrl = `rtmp://${settings.server}.bsgmarathon.com/live/${settings.streamKey}`;
+    // TODO: unhardcode
+    const sceneName = `RTMP Source ${settings.feedIndex}`;
+    const sourceName = `[RTMP] feed ${settings.feedIndex}`;
+
+    await obs.conn.send('SetSourceSettings', {
+      sourceName,
+      sourceSettings: {
+        loop: false,
+        shuffle: false,
+        playback_behavior: 'always_play',
+        playlist: [
+          {
+            hidden: false,
+            selected: false,
+            value: rtmpUrl,
+          },
+        ],
+      },
+    });
+
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore: Typings say we need to specify more than we actually do.
+    await obs.conn.send('SetSceneItemProperties', {
+      'scene-name': config.obs.names.scenes.gameLayout,
+      item: { name: sceneName },
+      visible: settings.enabled,
+    });
+  }
+
+  if (ack && !ack.handled) {
+    ack(null);
   }
 });
 
