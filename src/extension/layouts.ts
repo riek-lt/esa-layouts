@@ -125,7 +125,10 @@ capturePositions.on('change', async (val) => {
   // or there's no game-layout values.
   if (config.event.online === 'partial' || !val['game-layout']) return;
 
-  // TODO: if online event: return
+  // [BSG] We don't use this for online events
+  if (config.event.online) {
+    return;
+  }
 
   // Loops through all possible sources to move and does the work.
   for (const [key, value] of Object.entries(obsSourceKeys)) {
@@ -249,7 +252,12 @@ capturePositions.on('change', async (val) => {
 // This should also trigger even if authentication is turned off, after initial connection.
 obs.conn.on('AuthenticationSuccess', async () => {
   // TODO: disable all game can camera captures with online events.
-  //  Enable RTMP sources
+  //  Enable RTMP sources?
+
+  // [BSG] We don't use this for online events
+  if (config.event.online) {
+    return;
+  }
 
   // Game
   for (const capName of gameCaptures) {
