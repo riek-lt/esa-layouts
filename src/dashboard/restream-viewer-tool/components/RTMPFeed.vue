@@ -23,11 +23,11 @@
       </v-col>
     </v-row>
     <v-text-field
+      label="RTMP url"
       :value="`rtmp://${value.server}.bsgmarathon.com/live`"
       readonly
       filled
       :disabled="!canEdit" />
-    <!-- TODO: refresh button  -->
   </div>
 </template>
 
