@@ -343,14 +343,38 @@ nodecg().listenFor('getGameSourceVisibility', async (val: string | null | undefi
   }
 });
 
+function rtmpFromIndex(index: number) {
+  return {
+    sceneName: `RTMP Source ${index}`,
+    sourceName: `[RTMP] feed ${index}`,
+  };
+}
+
+nodecg().listenFor('refreshRtmpSources', async (val: number[], ack) => {
+  for (const index of val) {
+    const { sourceName } = rtmpFromIndex(index);
+
+    await obs.conn.send('RestartMedia', {
+      sourceName,
+    });
+  }
+
+  if (ack && !ack.handled) {
+    ack(null);
+  }
+});
+
 nodecg().listenFor('geRtmpSettings', async (val: string | null | undefined, ack) => {
   const indexes = [1, 2];
   const rtmpRegex = /rtmp:\/\/([^.]+)\.bsgmarathon\.com\/live\/(.*)/;
   const feeds: RtmpFeed[] = [];
 
+  if (!obs.connected) {
+    return;
+  }
+
   for (const index of indexes) {
-    const sceneName = `RTMP Source ${index}`;
-    const sourceName = `[RTMP] feed ${index}`;
+    const { sceneName, sourceName } = rtmpFromIndex(index);
 
     const { sourceSettings } = await obs.conn.send('GetSourceSettings', {
       sourceName,
@@ -393,8 +417,7 @@ nodecg().listenFor('setRtmpSettings', async (data: RtmpFeed[], ack) => {
   for (const settings of data) {
     const rtmpUrl = `rtmp://${settings.server}.bsgmarathon.com/live/${settings.streamKey}`;
     // TODO: unhardcode
-    const sceneName = `RTMP Source ${settings.feedIndex}`;
-    const sourceName = `[RTMP] feed ${settings.feedIndex}`;
+    const { sceneName, sourceName } = rtmpFromIndex(settings.feedIndex);
 
     await obs.conn.send('SetSourceSettings', {
       sourceName,
