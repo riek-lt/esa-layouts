@@ -369,7 +369,11 @@ nodecg().listenFor('geRtmpSettings', async (val: string | null | undefined, ack)
   const rtmpRegex = /rtmp:\/\/([^.]+)\.bsgmarathon\.com\/live\/(.*)/;
   const feeds: RtmpFeed[] = [];
 
+  // send empty feeds in case of error
   if (!obs.connected) {
+    if (ack && !ack.handled) {
+      ack(null, []);
+    }
     return;
   }
 
@@ -383,7 +387,6 @@ nodecg().listenFor('geRtmpSettings', async (val: string | null | undefined, ack)
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     const rtmpUrl = sourceSettings.playlist[0].value as string;
-
     const { visible } = await obs.conn.send('GetSceneItemProperties', {
       'scene-name': config.obs.names.scenes.gameLayout,
       item: { name: sceneName },
