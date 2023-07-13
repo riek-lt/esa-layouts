@@ -22,7 +22,6 @@ import type {
   UpcomingRunID,
   VideoPlayer,
 } from '@esa-layouts/types/schemas';
-import { Asset } from '@shared/types';
 import clone from 'clone';
 import { SpeedcontrolUtilBrowser } from 'speedcontrol-util';
 import { RunDataActiveRun, RunDataArray, Timer } from 'speedcontrol-util/types';
@@ -36,7 +35,7 @@ const sc = new SpeedcontrolUtilBrowser(nodecg);
 
 // Declaring replicants.
 export const reps: {
-  assetsReaderIntroductionImages: NodeCGTypes.ClientReplicant<Asset[]>;
+  assetsReaderIntroductionImages: NodeCGTypes.ClientReplicant<NodeCGTypes.AssetFile[]>;
   bids: NodeCGTypes.ClientReplicant<Bids>;
   bigbuttonPlayerMap: NodeCGTypes.ClientReplicant<BigbuttonPlayerMap>;
   commentators: NodeCGTypes.ClientReplicant<Commentators>;

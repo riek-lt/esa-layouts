@@ -1,7 +1,6 @@
-import { Configschema } from '@esa-layouts/types/schemas';
+import { Configschema, RtmpFeed } from '@esa-layouts/types/schemas';
 import Countdown from '@shared/extension/countdown';
 import clone from 'clone';
-import { RtmpFeed } from '@esa-layouts/types/schemas';
 import { DeepWritable } from 'ts-essentials';
 import { logError } from './util/helpers';
 import { get as nodecg } from './util/nodecg';

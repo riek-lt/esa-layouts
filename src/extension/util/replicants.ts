@@ -13,6 +13,7 @@ import {
   DonationTotal,
   DonationTotalMilestones,
   GameLayouts,
+  IntermissionSlides,
   LowerThird,
   MusicData,
   NameCycle,
@@ -29,7 +30,7 @@ import {
   VideoPlayer,
 } from '@esa-layouts/types/schemas';
 import type NodeCGTypes from '@nodecg/types';
-import { HoraroImportStatus, OengusImportStatus, TwitchAPIData, TwitchChannelInfo } from 'speedcontrol-util/types/speedcontrol/schemas';
+import { HoraroImportStatus, OengusImportStatus, TwitchAPIData, TwitchChannelInfo } from 'speedcontrol-util/types/schemas';
 import { get as nodecg } from './nodecg';
 
 /**
@@ -53,7 +54,8 @@ export const donationTotal = nodecg().Replicant<DonationTotal>('donationTotal') 
 export const donationTotalMilestones = nodecg().Replicant<DonationTotalMilestones>('donationTotalMilestones') as unknown as NodeCGTypes.ServerReplicantWithSchemaDefault<DonationTotalMilestones>;
 export const gameLayouts = nodecg().Replicant<GameLayouts>('gameLayouts') as unknown as NodeCGTypes.ServerReplicantWithSchemaDefault<GameLayouts>;
 export const horaroImportStatus = nodecg().Replicant<HoraroImportStatus>('horaroImportStatus', 'nodecg-speedcontrol') as unknown as NodeCGTypes.ServerReplicantWithSchemaDefault<HoraroImportStatus>;
-export const lowerThird = nodecg().Replicant<LowerThird>('lowerThird');
+export const intermissionSlides = nodecg().Replicant<IntermissionSlides>('intermissionSlides') as unknown as NodeCGTypes.ServerReplicantWithSchemaDefault<IntermissionSlides>;
+export const lowerThird = nodecg().Replicant<LowerThird>('lowerThird') as unknown as NodeCGTypes.ServerReplicantWithSchemaDefault<LowerThird>;
 export const musicData = nodecg().Replicant<MusicData>('musicData') as unknown as NodeCGTypes.ServerReplicantWithSchemaDefault<MusicData>;
 export const nameCycle = nodecg().Replicant<NameCycle>('nameCycle', { persistent: false }) as unknown as NodeCGTypes.ServerReplicantWithSchemaDefault<NameCycle>;
 export const notableDonations = nodecg().Replicant<NotableDonations>('notableDonations') as unknown as NodeCGTypes.ServerReplicantWithSchemaDefault<NotableDonations>;
