@@ -160,7 +160,9 @@ export async function searchOengusPronouns(val: string): Promise<string> {
     ? user.pronouns.split(',')[0]
     : user.pronouns?.[0];
 
-  return pronouns ? `${user.username} (${pronouns})` : user.username;
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore (display name is not in types yet)
+  return pronouns ? `${user.displayName} (${pronouns})` : user.username;
 }
 
 async function searchPronounsOnEsByStr(val: string): Promise<string> {
