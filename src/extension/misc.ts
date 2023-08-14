@@ -162,7 +162,7 @@ export async function searchOengusPronouns(val: string): Promise<string> {
 
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore (display name is not in types yet)
-  return pronouns ? `${user.displayName} (${pronouns})` : user.username;
+  return pronouns ? `${user.displayName} (${pronouns})` : user.displayName;
 }
 
 async function searchPronounsOnEsByStr(val: string): Promise<string> {
