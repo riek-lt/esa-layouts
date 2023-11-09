@@ -2,7 +2,7 @@
   <v-app>
     <v-row>
       <v-col>
-        <p>Contestant name is used for image lookup in the assets</p>
+        <p>Contestant name is used for image lookup in the assets ({name}.ext)</p>
         <p>Temp score / visible score</p>
       </v-col>
       <v-col>
@@ -38,7 +38,14 @@
       </v-col>
       <v-col>
         <v-btn color="warning" @click="sendToGraphic" class="ml-2">Send to graphic</v-btn>
-        <v-btn color="red" @click="resetTempScores">Reset temp</v-btn>
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col>
+        <v-btn color="red" @click="resetAllScores">Reset ALL scores</v-btn>
+      </v-col>
+      <v-col>
+        <v-btn color="red" @click="resetTempScores">Reset temp scores</v-btn>
       </v-col>
     </v-row>
   </v-app>
@@ -58,6 +65,7 @@ export default class extends Vue {
 
   removeContestant = storeModule.removeParticipant;
   resetTempScores = storeModule.resetTempScores;
+  resetAllScores = storeModule.resetAllScores;
   sendToGraphic = storeModule.sendUpdate;
 
   addContestantPoints(id: string, points: number): void {

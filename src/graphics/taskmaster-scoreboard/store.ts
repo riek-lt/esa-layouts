@@ -12,19 +12,6 @@ class OurModule extends VuexModule {
   get reps(): ReplicantTypes {
     return this.context.rootState.ReplicantModule.reps;
   }
-
-  @Mutation
-  setPoints(index: number, points: number): void {
-    const contestants = replicantModule.repsTyped.taskmasterContestantList;
-
-    contestants[index].currentScore = points;
-    contestants[index].visibleScore = points;
-
-    replicantModule.setReplicant<TaskMasterContestantList>({
-      name: 'taskmasterContestantList',
-      val: contestants,
-    });
-  }
 }
 
 const store = new Store({

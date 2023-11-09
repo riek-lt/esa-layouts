@@ -86,6 +86,18 @@ class OurModule extends VuexModule {
   }
 
   @Mutation
+  resetAllScores(): void {
+    replicantModule.setReplicant<TaskMasterContestantList>({
+      name: 'taskmasterContestantList',
+      val: replicantModule.repsTyped.taskmasterContestantList.map((c) => ({
+        ...c,
+        visibleScore: 0,
+        currentScore: 0,
+      })),
+    });
+  }
+
+  @Mutation
   sendUpdate(): void {
     const contestants = replicantModule.repsTyped.taskmasterContestantList;
 
