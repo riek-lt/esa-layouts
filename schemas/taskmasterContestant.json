@@ -4,22 +4,27 @@
   "additionalProperties": false,
   "properties": {
     "uuid": {
-      "type": "string"
+      "type": "string",
+      "default": null
     },
     "name": {
-      "type": "string"
+      "type": "string",
+      "default": null
     },
     "currentScore": {
-      "type": "number"
+      "type": "number",
+      "default": 0
     },
     "visibleScore": {
-      "type": "number"
+      "type": "number",
+      "default": 0
     }
   },
   "required": [
     "uuid",
     "name",
     "currentScore",
+    "transitionScore",
     "visibleScore"
   ]
 }

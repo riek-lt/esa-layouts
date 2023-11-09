@@ -1,7 +1,8 @@
-import { ReplicantModule, ReplicantTypes } from '@esa-layouts/browser_shared/replicant_store';
+import { replicantModule, ReplicantModule, ReplicantTypes } from '@esa-layouts/browser_shared/replicant_store';
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
 import { getModule, Module, Mutation, VuexModule } from 'vuex-module-decorators';
+import { TaskMasterContestantList } from '@esa-layouts/types/schemas';
 
 Vue.use(Vuex);
 
@@ -13,23 +14,16 @@ class OurModule extends VuexModule {
   }
 
   @Mutation
-  addParticipant(name: string): void {
-    //
-  }
+  setPoints(index: number, points: number): void {
+    const contestants = replicantModule.repsTyped.taskmasterContestantList;
 
-  @Mutation
-  removeParticipant(name: string): void {
-    //
-  }
+    contestants[index].currentScore = points;
+    contestants[index].visibleScore = points;
 
-  @Mutation
-  addPoints(name: string, points: number): void {
-    //
-  }
-
-  @Mutation
-  sendUpdate(): void {
-    //
+    replicantModule.setReplicant<TaskMasterContestantList>({
+      name: 'taskmasterContestantList',
+      val: contestants,
+    });
   }
 }
 

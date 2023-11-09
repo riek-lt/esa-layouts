@@ -1,25 +1,31 @@
 <template>
-  <main>
+  <main :style="mainStyle">
+    <p>{{ maxScore }} = {{ maxCount }}</p>
     <div class="contestant"
          v-for="(contestant, i) in contestantsSorted"
          :key="contestant.uuid"
-         :class="{
-           'large': contestant.visibleScore === maxScore && maxCount > 2,
-           'larger': contestant.visibleScore === maxScore && maxCount === 1,
-         }"
          :style="{
            'transform': `translateX(${(275 * i + 30)}px)`,
          }"
     >
-      <div class="frame-scaler">
-        <div class="frame-container">
+      <div class="frame-scaler"
+           :class="{
+             'large': contestant.visibleScore === maxScore && maxCount >= 2,
+             'larger': contestant.visibleScore === maxScore && maxCount === 1,
+           }"
+      >
+        <div class="frame-container"
+             :style="{
+               'animationDelay': `${-i * 1.25}s`,
+             }"
+        >
           <div class="fill"
                style="background-image: var(--frame-inner-picture)"
                :style="{
                  '--frame-inner-picture': getContestantHeadshot(contestant),
                }"
           >
-            <div class="shadow" />
+            <div class="shadow"/>
           </div>
           <img src="./assets/frame.png" class="frame">
         </div>
@@ -33,10 +39,12 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Watch, Vue } from 'vue-property-decorator';
 import { replicantNS } from '@esa-layouts/browser_shared/replicant_store';
 import { TaskmasterContestant, TaskMasterContestantList } from '@esa-layouts/types/schemas';
 import NodeCGTypes from '@nodecg/types';
+import gsap from 'gsap';
+import { storeModule } from './store';
 
 @Component
 export default class extends Vue {
@@ -51,16 +59,24 @@ export default class extends Vue {
   maxCount = 1;
 
   contestantsSorted: TaskMasterContestantList = [];
+  locked = false;
+  mainStyle = {
+    transform: '',
+    left: '',
+  };
 
   mounted(): void {
     this.sortContestants();
+
+    window.addEventListener('resize', () => this.resize());
+    this.resize();
   }
 
   sortContestants(): void {
     console.log(this.contestants);
 
     // copy first because sort mutates
-    const tmpArray = [...this.contestants];
+    const tmpArray: TaskMasterContestantList = JSON.parse(JSON.stringify(this.contestants));
 
     tmpArray.sort((a, b) => {
       if (a.currentScore < b.currentScore) {
@@ -88,10 +104,122 @@ export default class extends Vue {
     this.contestantsSorted = tmpArray;
   }
 
+  resize(): void {
+    const w = window.innerWidth;
+    const h = window.innerHeight;
+
+    const wm = 1400 * ((this.contestantsSorted.length + (this.locked ? 0 : 0.25)) / 5);
+
+    const m = Math.min(w / wm, h / 1080);
+
+    this.mainStyle.transform = `scale(${m})`;
+
+    this.mainStyle.left = `${(w - wm * m) / 2}px`;
+  }
+
   getContestantHeadshot(contestant: TaskmasterContestant): string | undefined {
-    return this.headshots.find(
+    const asset = this.headshots.find(
       (hs) => hs.name.toLowerCase().startsWith(contestant.name.toLowerCase()),
-    )?.url;
+    );
+
+    if (asset) {
+      return `url(${asset.url})`;
+    }
+
+    return undefined;
+  }
+
+  ease(t: number, a: number, b: number) {
+    const eased = t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+
+    return (b - a) * eased + a;
+  }
+
+  play(): void {
+    if (!this.locked) {
+      this.locked = true;
+      document.body.classList.add('locked');
+      this.resize();
+    }
+
+    const tmpScores: { [key: string]: number } = {};
+
+    setTimeout(() => {
+      let start = 0;
+      const loop = (dt: number) => {
+        if (start === 0) {
+          start = dt;
+        }
+
+        for (const contestant of this.contestantsSorted) {
+          tmpScores[contestant.uuid] = contestant.visibleScore;
+        }
+
+        // eslint-disable-next-line no-plusplus
+        for (let i = 0; i < this.contestantsSorted.length; ++i) {
+          const con = this.contestantsSorted[i];
+          const transitionScore = tmpScores[con.uuid];
+
+          const startRemainder = transitionScore - Math.floor(transitionScore);
+          const endRemainder = con.currentScore - Math.floor(con.currentScore);
+
+          let score = Math.round(this.ease(
+            Math.min((dt - start) / 2000, 1),
+            Math.floor(transitionScore),
+            Math.floor(con.currentScore),
+          ));
+
+          if (dt - start < 1000) {
+            score += startRemainder;
+          } else {
+            score += endRemainder;
+          }
+
+          con.visibleScore = score;
+        }
+
+        if (dt - start < 2000) {
+          // window.requestAnimationFrame(loop);
+          this.$nextTick(() => {
+            window.requestAnimationFrame(loop);
+          });
+        } else {
+          // eslint-disable-next-line no-plusplus
+          /*
+          for (let i = 0, l = this.contestantsSorted.length; i < l; ++i) {
+            const con = this.contestantsSorted[i];
+            storeModule.setPoints(i, con.currentScore);
+          }
+          */
+        }
+      };
+
+      this.sortContestants();
+      window.requestAnimationFrame(loop);
+    }, 1000);
+  }
+
+  scoreIsSame(o1: TaskmasterContestant): boolean {
+    const o2 = this.contestantsSorted.find((c) => c.uuid === o1.uuid);
+
+    if (!o2) {
+      return false;
+    }
+
+    return o2.visibleScore === o1.visibleScore;
+  }
+
+  @Watch('contestants', { deep: true })
+  contestantsUpdated() {
+    if (this.contestantsSorted.length === this.contestants.length) {
+      if (this.contestants.find((c) => !this.scoreIsSame(c))) {
+        this.play();
+      }
+      return;
+    }
+
+    this.sortContestants();
+    this.resize();
   }
 }
 </script>
@@ -128,128 +256,6 @@ body {
   font-family: sans-serif;
 
   overflow: hidden;
-}
-
-a {
-  color: white;
-  font-weight: 600;
-}
-
-#settings {
-  padding: 20px;
-  padding: 2rem;
-
-  transition: opacity 0.2s;
-
-  width: 80%;
-  max-width: 500px;
-  max-width: 50rem;
-
-  color: white;
-
-  position: absolute;
-
-  z-index: 100;
-}
-
-#settings-link {
-  background-color: rgba(88, 15, 13, 0.8);
-  padding: 10px;
-  padding: 1rem;
-  line-height: 200%;
-  height: 200%;
-}
-
-.inner-container {
-  background-color: rgba(88, 15, 13, 0.8);
-  padding: 20px;
-  padding: 2rem;
-}
-
-.inner-container.invisible {
-  display: none;
-}
-
-.invisible {
-  opacity: 0;
-}
-
-.contestant-settings {
-  width: 100%;
-  height: 72px;
-  height: 7.2rem;
-
-  margin-top: -1px;
-  margin-top: -0.1rem;
-
-  border: 1px solid rgba(0, 0, 0, 0.6);
-  border: 0.1rem solid rgba(0, 0, 0 , 0.6);
-}
-
-.contestant-settings * {
-  float: right;
-
-  margin-right: 10px;
-  margin-right: 1rem;
-}
-
-.contestant-settings .img-container {
-  height: 72px;
-  width: 72px;
-
-  height: 7.2rem;
-  width: 7.2rem;
-
-  display: block;
-
-  float: left;
-}
-
-.contestant-settings img {
-  max-width: 72px;
-  max-height: 72px;
-
-  max-width: 7.2rem;
-  max-height: 7.2rem;
-
-  display: block;
-}
-
-.contestant-settings label {
-  line-height: 72px;
-  line-height: 7.2rem;
-}
-
-.contestant-settings input {
-  width: 90px;
-  width: 9rem;
-
-  font-size: 30px;
-  font-size: 3rem;
-  height: 30px;
-  height: 3rem;
-
-  padding: 0;
-  border: none;
-
-  margin-top: 21px;
-  margin-top: 2.1rem;
-}
-
-.contestant-settings .delete {
-  line-height: 72px;
-  line-height: 7.2rem;
-
-  padding: 0 4px;
-  padding: 0 0.4rem;
-
-  cursor: pointer;
-}
-
-#add {
-  text-align: center;
-  line-height: 64px;
-  line-height: 6.4rem;
 }
 
 main {
@@ -395,16 +401,6 @@ main {
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
 }
 
-.score-edit {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  text-align: center;
-  font-size: 92px;
-}
-
 .cover {
   position: absolute;
   top: 0;
@@ -420,87 +416,7 @@ main {
   display: none;
 }
 
-noscript h1 {
-  background-color: white;
-}
-
 #file-input {
   display: none;
-}
-
-#play-button {
-  color: transparent;
-  width: 80px;
-  width: 8rem;
-  height: 80px;
-  height: 8rem;
-
-  border-radius: 100%;
-  border: 2px solid black;
-  border: 0.2rem solid black;
-
-  background: rgba(0, 0, 0, 0.2);
-
-  position: absolute;
-
-  right: 32px;
-  right: 3.2rem;
-  top: 32px;
-  top: 3.2rem;
-
-  cursor: pointer;
-
-  display: none;
-}
-
-#play-button::after {
-  content: "";
-
-  width: 0;
-  height: 0;
-
-  position: absolute;
-  top: 50%;
-  left: 50%;
-
-  border: 22px solid transparent;
-  border-left: 30px solid #fff;
-  margin-top: -22px;
-  margin-left: -10px;
-}
-
-.exit-button {
-  position: absolute;
-  top: -25px;
-  right: -25px;
-
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
-
-  font-size: 32px;
-}
-
-.locked .exit-button, .locked .add-button {
-  display: none;
-}
-
-.add-button {
-  top: 149.5px;
-
-  position: absolute;
-  width: 72px;
-  height: 72px;
-
-  border-radius: 50%;
-
-  background: black;
-  background: rgba(127, 127, 127, 0.8);
-  border: 2px solid black;
-
-  font-size: 50px;
-  color: white;
-
-  cursor: pointer;
 }
 </style>
