@@ -274,6 +274,11 @@
     ],
     "graphics": [
       {
+        "file": "taskmaster-scoreboard.html",
+        "width": 1920,
+        "height": 1000
+      },
+      {
         "file": "transition.html",
         "width": 1920,
         "height": 1000
@@ -390,6 +395,18 @@
       {
         "name": "reader-introduction-images",
         "title": "Reader Introduction Images",
+        "allowedTypes": [
+          "jpg",
+          "jpeg",
+          "png",
+          "svg",
+          "webp",
+          "gif"
+        ]
+      },
+      {
+        "name": "taskmaster-participant-headshots",
+        "title": "Taskmaster Participant Headshots",
         "allowedTypes": [
           "jpg",
           "jpeg",

@@ -17,7 +17,7 @@ import type {
   Prizes,
   ReaderIntroduction,
   ServerTimestamp,
-  StreamDeckData,
+  StreamDeckData, TaskMasterContestantList,
   TtsVoices,
   UpcomingRunID,
   VideoPlayer,
@@ -35,7 +35,9 @@ const sc = new SpeedcontrolUtilBrowser(nodecg);
 
 // Declaring replicants.
 export const reps: {
+  assetsIntermissionSlides: NodeCGTypes.ClientReplicant<NodeCGTypes.AssetFile[]>;
   assetsReaderIntroductionImages: NodeCGTypes.ClientReplicant<NodeCGTypes.AssetFile[]>;
+  assetsTaskmasterParticipantHeadshots: NodeCGTypes.ClientReplicant<NodeCGTypes.AssetFile[]>;
   bids: NodeCGTypes.ClientReplicant<Bids>;
   bigbuttonPlayerMap: NodeCGTypes.ClientReplicant<BigbuttonPlayerMap>;
   commentators: NodeCGTypes.ClientReplicant<Commentators>;
@@ -58,6 +60,7 @@ export const reps: {
   runDataArray: NodeCGTypes.ClientReplicant<RunDataArray>;
   serverTimestamp: NodeCGTypes.ClientReplicant<ServerTimestamp>;
   streamDeckData: NodeCGTypes.ClientReplicant<StreamDeckData>;
+  taskmasterContestantList: NodeCGTypes.ClientReplicant<TaskMasterContestantList>;
   timer: NodeCGTypes.ClientReplicant<Timer>;
   ttsVoices: NodeCGTypes.ClientReplicant<TtsVoices>;
   upcomingRunID: NodeCGTypes.ClientReplicant<UpcomingRunID>;
@@ -66,6 +69,7 @@ export const reps: {
 } = {
   assetsIntermissionSlides: nodecg.Replicant('assets:intermission-slides'),
   assetsReaderIntroductionImages: nodecg.Replicant('assets:reader-introduction-images'),
+  assetsTaskmasterParticipantHeadshots: nodecg.Replicant('assets:taskmaster-participant-headshots'),
   bids: nodecg.Replicant('bids'),
   bigbuttonPlayerMap: nodecg.Replicant('bigbuttonPlayerMap'),
   commentators: nodecg.Replicant('commentators'),
@@ -88,6 +92,7 @@ export const reps: {
   runDataArray: sc.runDataArray,
   serverTimestamp: nodecg.Replicant('serverTimestamp'),
   streamDeckData: nodecg.Replicant('streamDeckData'),
+  taskmasterContestantList: nodecg.Replicant('taskmasterContestantList'),
   timer: sc.timer,
   ttsVoices: nodecg.Replicant('ttsVoices'),
   upcomingRunID: nodecg.Replicant('upcomingRunID'),
@@ -98,6 +103,7 @@ export const reps: {
 export interface ReplicantTypes {
   assetsIntermissionSlides: NodeCGTypes.AssetFile[];
   assetsReaderIntroductionImages: NodeCGTypes.AssetFile[];
+  assetsTaskmasterParticipantHeadshots: NodeCGTypes.AssetFile[];
   bids: Bids;
   bigbuttonPlayerMap: BigbuttonPlayerMap;
   commentators: Commentators;
@@ -120,6 +126,7 @@ export interface ReplicantTypes {
   runDataArray: RunDataArray;
   serverTimestamp: ServerTimestamp;
   streamDeckData: StreamDeckData;
+  taskmasterContestantList: TaskMasterContestantList;
   timer: Timer;
   ttsVoices: TtsVoices;
   upcomingRunID: UpcomingRunID;
