@@ -1,6 +1,7 @@
 import AudioNormaliser from '@shared/extension/audio-normaliser';
 import type { OengusUser, RunData } from 'speedcontrol-util/types';
 import needle from 'needle';
+import { CommentatorsNew, DonationReaderNew } from '@esa-layouts/types/schemas';
 import { lookupUsersByStr } from './server';
 import { formatSrcomPronouns, formatUSD, getOtherStreamEventShort, logError } from './util/helpers';
 import * as mqLogging from './util/mq-logging';
@@ -24,12 +25,6 @@ import {
   upcomingRunID,
 } from './util/replicants';
 import { sc } from './util/speedcontrol';
-
-type UserWithCountryAndPronouns = {
-  name: string;
-  country: string | undefined;
-  pronouns: string | undefined;
-};
 
 const config = nodecg().bundleConfig;
 new AudioNormaliser(nodecg()); // eslint-disable-line no-new
@@ -120,7 +115,7 @@ nodecg().listenFor('forceUpcomingRun', (id?: string) => {
   upcomingRunID.value = run?.id || null;
 });
 
-function processNameWithPronouns(val: string): UserWithCountryAndPronouns {
+function processNameWithPronouns(val: string): DonationReaderNew {
   // User not found, process string as NAME or NAME (PRONOUNS).
   return {
     name: val.replace(/\((.*?)\)/g, '').trim(),
@@ -129,17 +124,33 @@ function processNameWithPronouns(val: string): UserWithCountryAndPronouns {
   };
 }
 
-function objToSimpleDisplay(input: UserWithCountryAndPronouns): string {
-  if (input.pronouns) {
-    return `${input.name} (${input.pronouns})`;
+function objToSimpleDisplay(input: DonationReaderNew | CommentatorsNew): string {
+  if (!input) {
+    return '';
   }
 
-  return input.name;
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  let selected: DonationReaderNew = input;
+
+  if ('length' in input) {
+    selected = input[0] as DonationReaderNew;
+  }
+
+  if (!selected) {
+    return '';
+  }
+
+  if (selected.pronouns) {
+    return `${selected.name} (${selected.pronouns})`;
+  }
+
+  return selected.name;
 }
 
 // Helper function to get pronouns of a specified user name from speedrun.com
 // eslint-disable-next-line import/prefer-default-export
-export async function searchSrcomPronouns(val: string): Promise<UserWithCountryAndPronouns> {
+export async function searchSrcomPronouns(val: string): Promise<DonationReaderNew> {
   const name = val.replace(/\((.*?)\)/g, '').trim();
   let pronouns = (val.match(/\((.*?)\)/g) || [])[0]?.replace(/[()]/g, '');
   if (!pronouns) {
@@ -154,8 +165,8 @@ export async function searchSrcomPronouns(val: string): Promise<UserWithCountryA
   return processNameWithPronouns(pronouns ? `${name} (${pronouns})` : name);
 }
 
-export async function searchOengusPronouns(val: string): Promise<UserWithCountryAndPronouns> {
-  let user: OengusUser | undefined;
+export async function searchOengusPronouns(val: string): Promise<DonationReaderNew> {
+  let user: OengusUser & { displayName: string } | undefined;
 
   try {
     const resp = await needle(
@@ -171,6 +182,8 @@ export async function searchOengusPronouns(val: string): Promise<UserWithCountry
     const foundUsers = resp.body as OengusUser[];
 
     if (foundUsers.length) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore display name is not in types
       [user] = foundUsers;
     }
   } catch (err) {
@@ -186,15 +199,13 @@ export async function searchOengusPronouns(val: string): Promise<UserWithCountry
     : user.pronouns?.[0];
 
   return {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore (display name is not in types yet)
     name: user.displayName || user.username,
     pronouns: pronouns || undefined,
     country: user.country || undefined,
   };
 }
 
-async function searchPronounsOnEsByStr(val: string): Promise<UserWithCountryAndPronouns> {
+async function searchPronounsOnEsByStr(val: string): Promise<DonationReaderNew> {
   let user;
   const foundUsers = await lookupUsersByStr(val);
 
@@ -216,21 +227,21 @@ async function searchPronounsOnEsByStr(val: string): Promise<UserWithCountryAndP
   };
 }
 
-async function searchName(val: string, currentVal: UserWithCountryAndPronouns[]): Promise<void> {
+async function searchName(val: string, currentVal: CommentatorsNew): Promise<void> {
   if (config.server.enabled) {
-    const str = await searchPronounsOnEsByStr(val);
+    const str = await searchPronounsOnEsByStr(val) as CommentatorsNew[0];
 
     if (!currentVal.includes(str)) {
       currentVal.push(str);
     }
   } else if (config.useOengusInsteadOfSrdc) {
-    const str = await searchOengusPronouns(val);
+    const str = await searchOengusPronouns(val) as CommentatorsNew[0];
 
     if (!currentVal.includes(str)) {
       currentVal.push(str);
     }
   } else {
-    const str = await searchSrcomPronouns(val);
+    const str = await searchSrcomPronouns(val) as CommentatorsNew[0];
 
     if (!currentVal.includes(str)) {
       currentVal.push(str);
@@ -240,22 +251,22 @@ async function searchName(val: string, currentVal: UserWithCountryAndPronouns[])
 
 async function searchNameOld(val: string, currentVal: string[]): Promise<void> {
   if (config.server.enabled) {
-    const str = await searchPronounsOnEsByStr(val);
+    const res = await searchPronounsOnEsByStr(val);
 
-    if (!currentVal.includes(str.name)) {
-      currentVal.push(str.name);
+    if (res && !currentVal.includes(res.name)) {
+      currentVal.push(res.name);
     }
   } else if (config.useOengusInsteadOfSrdc) {
-    const str = await searchOengusPronouns(val);
+    const res = await searchOengusPronouns(val);
 
-    if (!currentVal.includes(str.name)) {
-      currentVal.push(str.name);
+    if (res && !currentVal.includes(res.name)) {
+      currentVal.push(res.name);
     }
   } else {
-    const str = await searchSrcomPronouns(val);
+    const res = await searchSrcomPronouns(val);
 
-    if (!currentVal.includes(str.name)) {
-      currentVal.push(str.name);
+    if (res && !currentVal.includes(res.name)) {
+      currentVal.push(res.name);
     }
   }
 }
