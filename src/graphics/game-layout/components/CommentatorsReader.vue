@@ -1,54 +1,55 @@
 <template>
   <div
+    v-show="show"
     class="Flex"
     :style="{
       width: '100%',
-      'font-size': '0.2em',
-      height: show ? '20px' : 0,
+      // width: '575px',
+      'align-items': 'center',
+      height: show ? '44px' : 0,
       opacity: show ? 1 : 0,
-      'margin-top': show ? '12px' : 0,
       'font-weight': 200,
-      'margin-left': '8px',
-      background: 'rgba(0, 0, 0, 0.4)', // HARDCODED, BAD!
-      color: 'white', // HARDCODED, BAD!
-      'margin-bottom': '12px',
-              'font-family': 'Goodlight-light',
+      color: 'var(--text-color)',
+      'font-family': 'Goodlight-light',
+      'border-bottom':'5px solid var(--bsg-color)',
     }"
   >
     <div
       class="Flex"
       :style="{
-        'min-width': '140px',
+        width: '89px',
         height: '100%',
-        background: '#914e21', // HARDCODED, BAD!
+        background: 'var(--bsg-color)',
         'justify-content': 'center',
-        // 'padding-left': '10px',
-        'font-size': '20px',
+        'align-items': 'center',
         'font-weight': 200,
-        'font-size': '18px',
+        'font-size': '1.5em',
         'font-family': 'Goodlight-light',
       }"
     >
       <template v-if="showReader">Host</template>
-      <template v-else>
-        <template v-if="comms.length > 1">Commentators</template>
-        <template v-else>Commentator</template>
-      </template>
+      <template v-else>Comm</template>
     </div>
     <div
+      class="Flex"
       :style="{
-        'flex-grow': 1,
-        'justify-content': 'flex-end',
-        'margin': '0 10px',
+        width: '486px',
+        height: '43px',
+        'justify-content': 'center',
+        'align-items': 'center',
       }"
     >
-      <div :style="{ width: '98%', 'text-align': 'center' }">
+      <div
+        class="Flex"
+        :style="{
+        'text-align': 'center',
+        'align-self': 'center',
+      }">
         <span
           ref="Fit"
           :style="{
             'white-space': 'nowrap',
             display: 'flex !important',
-            height: '100%',
           }"
         >
           <template v-if="showReader">
@@ -57,9 +58,14 @@
           </template>
 
           <template v-else>
+            <!-- weird html? I know -->
+            <!-- new lines are taken as extra spacing here -->
             <span v-for="({ name, pronouns }, i) in comms" :key="i">
-              {{ name }}<span v-if="pronouns" class="Pronouns">
-                {{ pronouns }}</span><template v-if="i < comms.length - 1">,</template>
+              {{ name }}
+              <span
+                v-if="pronouns"
+                class="Pronouns">{{ pronouns }}</span><template
+              v-if="i < comms.length - 1">,</template>
             </span>
           </template>
         </span>
@@ -69,16 +75,16 @@
 </template>
 
 <script lang="ts">
-import { Commentators, DonationReader } from '@esa-layouts/types/schemas';
-import { Vue, Component, Ref, Prop } from 'vue-property-decorator';
+import { CommentatorsNew, DonationReaderNew } from '@esa-layouts/types/schemas';
+import { Component, Prop, Ref, Vue } from 'vue-property-decorator';
 import { State } from 'vuex-class';
 import fitty, { FittyInstance } from 'fitty';
 
 @Component
 export default class extends Vue {
   @Prop(Boolean) readonly showReader!: boolean;
-  @State readonly commentators!: Commentators;
-  @State readonly donationReader!: DonationReader;
+  @State readonly commentatorsNew!: CommentatorsNew;
+  @State readonly donationReaderNew!: DonationReaderNew;
   @Ref('Fit') toFit!: HTMLElement;
   fittyInstance!: FittyInstance;
 
@@ -86,27 +92,18 @@ export default class extends Vue {
     return !!(this.showReader ? this.reader : this.comms.length);
   }
 
-  get comms(): { name: string, pronouns?: string }[] {
-    return this.commentators.map((c) => ({
-      name: c.replace(/\((.*?)\)/g, '').trim(),
-      pronouns: (c.match(/\((.*?)\)/g) || [])[0]?.replace(/[()]/g, ''),
-    }));
+  get comms(): CommentatorsNew {
+    return this.commentatorsNew;
   }
 
-  get reader(): { name: string, pronouns?: string } | undefined {
-    if (!this.donationReader) {
-      return undefined;
-    }
-    return {
-      name: this.donationReader.replace(/\((.*?)\)/g, '').trim(),
-      pronouns: (this.donationReader.match(/\((.*?)\)/g) || [])[0]?.replace(/[()]/g, ''),
-    };
+  get reader(): DonationReaderNew | undefined {
+    return this.donationReaderNew;
   }
 
   mounted(): void {
     this.fittyInstance = fitty(this.toFit, {
       minSize: 1,
-      maxSize: 18,
+      maxSize: 20,
       multiLine: false,
     });
   }
@@ -120,16 +117,18 @@ export default class extends Vue {
 <style scoped>
   .Pronouns {
     position: relative;
-    display: inline-block;
-    font-weight: 200;
-    font-size: 0.6em;
-    top: 0.1em;
-    /* background: #2d1d3c; /* ESA */
-    background: #914e21; /* UKSG */
-    color: #ffffff;
+    height: 19px;
+    margin-left: 5px;
+    margin-right: 5px;
+
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 5px;
+
+    font-size: 0.8em;
+    background: var(--slide-color);
+    color: var(--text-color);
     text-transform: uppercase;
     font-family: Goodlight-light;
-    padding: 0 3px;
-    margin-left: 3px;
   }
 </style>

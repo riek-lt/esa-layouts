@@ -20,10 +20,7 @@
       top: '336px',
       width: '576px',
       height: '347px',
-      }"
-    >
-      <flashing-lights-warning/>
-    </div>
+      }"/>
 
     <!-- General Run Info -->
     <div
@@ -35,9 +32,7 @@
       height: '44px',
       }"
     >
-      <player />
-
-      <!-- Run Game Info/Timer -->
+      <!-- Run Game Info -->
       <div
         class="Fixed FlexColumn"
         :style="{ flex: '1',
@@ -48,7 +43,10 @@
     }"
       >
         <run-info />
+        <flashing-lights-warning/>
       </div>
+
+      <player />
     </div>
 
     <!--host, comms, timer, and mediabox-->
@@ -60,24 +58,27 @@
         top: '688px',
         width: '575px',
         height: '322px',
-        background: 'red',
+        // background: 'red',
       }"
     >
       <commentators-reader />
       <commentators-reader show-reader />
-      <timer />
-    </div>
+      <timer line-right />
 
-    <!-- Media Box -->
-    <media-box
-      :font-size="20"
-      :style="{
-      left: '24px',
-      top: '840px',
-      width: '528px',
-      height: '157px',
-      }"
-    />
+      <!-- Media Box -->
+      <!-- TODO: media-box-box for better control and the nice side border -->
+      <media-box
+        class="MBNoPadding"
+        :font-size="20"
+        :style="{
+          // background: 'white',
+          left: '0px',
+          top: '891px',
+          width: '575px',
+          height: '118px',
+        }"
+      />
+    </div>
   </div>
 </template>
 

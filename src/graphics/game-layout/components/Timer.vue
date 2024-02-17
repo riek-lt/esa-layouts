@@ -1,18 +1,34 @@
 <template>
-  <div>
-    <div
-      :class="`Flex Timer${timerState}`"
-      :style="{
+  <div
+    class="Flex"
+    :style="{
+      'justify-content': 'center',
+      'border-bottom':'5px solid var(--bsg-color)',
+    }"
+  >
+    <div class="TimerContainer Flex"
+         :style="{
+            'align-self': 'center',
+            'box-sizing': 'border-box',
+            'border-right': lineRight ? '5px solid var(--slide-color)' : 'unset',
+            'border-left': lineLeft ? '5px solid var(--slide-color)' : 'unset',
+            'justify-content': 'center',
+            width: 'calc(100% - 14px)',
+            height: 'calc(100% - 12px)',
+         }">
+      <div
+        :class="`Flex Timer${timerState}`"
+        :style="{
         'text-align': 'center',
         // 'margin-top': topMargin,
         transition: '500ms',
         height: '100%',
-        'font-family': 'Goodlight',
+        'font-family': 'Arial, sans-serif',
         'font-weight': 700,
-        'font-size': '44pt',
+        'font-size': '65pt',
         // 'margin-top': '-0.07em',
       }"
-    >
+      >
       <span
         v-for="(char, i) in timeStr"
         :key="i"
@@ -27,6 +43,7 @@
       >
         {{ char }}
       </span>
+      </div>
     </div>
   </div>
 </template>
@@ -42,6 +59,8 @@ import { msToTimeStr } from '../../_misc/helpers';
 export default class extends Vue {
   @Prop({ type: String, default: '-0.07em' }) topMargin!: string;
   @Prop({ type: String, default: '100px' }) fontSize!: string;
+  @Prop({ type: Boolean, default: false }) lineLeft!: string;
+  @Prop({ type: Boolean, default: false }) lineRight!: string;
   @State('timer') originalTimer!: Timer;
   @State('delayedTimer') timer!: DelayedTimer;
   timeStr = '00:00:00';

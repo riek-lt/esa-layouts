@@ -1,10 +1,16 @@
 * {
   --bsg-color: #cf773b;
   --slide-color: #914e21;
+  --text-color: white;
   --bg-start: #303030;
   --bg-end: #212121;
 
   --dash-left-width: 194px;
+}
+
+.MBNoPadding .Slide {
+  padding: 0px !important;
+  padding-bottom: 10px !important;
 }
 
 .PlayerAudioLive {

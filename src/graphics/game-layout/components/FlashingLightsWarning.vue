@@ -30,9 +30,9 @@ export default class extends Vue {
   color: white;
   line-height: 50px;
 
-  position: absolute;
-  top: 9px;
-  left: 9px;
+  position: relative;
+  top: 0px;
+  left: 0px;
   width: 100%;
 
   font-size: 21pt;
