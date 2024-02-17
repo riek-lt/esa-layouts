@@ -5,33 +5,33 @@
     class="FlexColumn"
     :style="{
       'font-size': '36pt',
-       'font-family': 'Goodlight',
+      'font-family': 'Goodlight',
       width: '100%',
       'text-align': 'left',
       padding: '5px 20px',
       'box-sizing': 'border-box',
-      'min-height': 0,
+      'height': '100%',
       'line-height': lineHeight || 'unset',
       'white-space': 'normal',
     }"
   >
     <div
       class="Flex"
-      :style="{ width: '100%' }"
-    >
+      :style="{
+      width: '100%',
+      'text-align': 'center',
+    }">
       <div
         v-show="runData && runData.game"
         class="RunGame"
         :style="{
+         width: '100%',
         'font-family': 'Goodlight',
-        'font-size': '24pt',
+        'font-size': '50pt',
         'font-weight': 600,
-        'text-align': 'left',
         'line-height': 1.5,
-        'display': 'flex',
-        'width': '90%',
-        'justify-content': 'left',
-        'align-items': 'left',
+        display: 'flex',
+        'max-width': '100%',
         'padding-top': '12px',
         }"
       >
@@ -40,39 +40,45 @@
         </template>
       </div>
     </div>
+
     <div
-    class="Flex"
-    :style="{ width: '100%',
-    'font-size': '55pt',
-    'text-align': 'left', }"
-    >
+      class="Flex"
+      :style="{
+      width: '100%',
+      height: '100%',
+      'font-size': '55pt',
+      'text-align': 'center',
+      'justify-content': 'center',
+      'align-items': 'baseline',
+    }">
       <div
         v-show="runData && (runData.category || runData.system || runData.estimate)"
-        class="RunInfoExtra"
+        class="FlexColumn RunInfoExtra"
         :style="{
-          'font-size': '0.5em', // Also gets set in the script, here as backup.
-          'text-align': 'left',
+          height: '100%',
+          'font-size': '2em', // Also gets set in the script, here as backup.
+          'text-align': 'center',
+          'font-family': 'Goodlight-light',
         }"
       >
         <template v-if="runData">
-            <span v-if="runData.system" :style="{
-            'font-family': 'Goodlight-light',
-            }">{{ runData.system }}</span><br>
-              <span v-if="runData.category" :style="{
-                    color: '#cf773b',
-                    'font-size': '21pt',
-                    'white-space': 'normal',
-                    'font-family': 'Goodlight-light',
-              }">{{ runData.category }}</span>
-              <span :style="{
-              color: '#d7d7d7',
-              }">//</span>
-              <span v-if="runData.estimate" :style="{
-              color: '#d7d7d7',
-                    'font-size': '21pt',
-                    'white-space': 'normal',
-                    'font-family': 'Goodlight-light',
-              }">{{ runData.estimate }}</span>
+          <span class="systemEst">
+            <span v-if="runData.system" class="system">{{ runData.system }}</span>
+            <span v-if="runData.release" class="release">{{ runData.release }}</span>
+          </span>
+          <div class="catEstBlock">
+            <span v-if="runData.category" class="categoryEst" :style="{
+                      color: 'var(--bsg-color)',
+                      'font-size': '21pt',
+                      'white-space': 'normal',
+                      'margin-right': '5px',
+                }">{{ runData.category }}</span>
+              <span v-if="runData.estimate" class="categoryEst" :style="{
+                color: 'var(--bsg-color)',
+                      'font-size': '21pt',
+                      'white-space': 'normal',
+                }">{{ runData.estimate }}</span>
+          </div>
         </template>
       </div>
     </div>
@@ -103,11 +109,11 @@ export default class extends Vue {
       if (!this.noWrap) {
         [this.fittyGame] = fitty('.RunGame', {
           minSize: 1,
-          maxSize: parseInt(elem.style.fontSize, 10) * 0.8,
+          maxSize: parseInt(elem.style.fontSize, 10) * 1.5,
         });
         [this.fittyInfoExtra] = fitty('.RunInfoExtra', {
           minSize: 1,
-          maxSize: parseInt(elem.style.fontSize, 10) * 0.6,
+          maxSize: parseInt(elem.style.fontSize, 10) * 0.9,
         });
       } else {
         // If there is no horizontal fitting, will crudely attempt to
@@ -143,21 +149,45 @@ export default class extends Vue {
       await Vue.nextTick();
       this.fit();
     }
+
+    // Hack: stuff goes whack when the flashing lights warning dissapears and re-appears
+    if (newVal?.customData?.flashingLights !== oldVal?.customData?.flashingLights) {
+      await Vue.nextTick();
+      this.fit();
+    }
   }
 }
 </script>
 
 <style scoped>
-  /*.RunInfoExtra > span:not(:last-child)::after {
-    content: ' /';
-  }*/
+.RunGame {
+  text-align: center !important;
+}
 
-  .flashingLightsWarning {
-    background-color: red;
-    box-sizing: border-box;
-    padding: 7px;
-    position: relative;
-    color: white;
-    line-height: 50px;
-  }
+.RunInfoExtra {
+  display: flex !important;
+  justify-content: space-between;
+  align-content: space-between;
+}
+
+.RunInfoExtra span {
+  display: inline-block !important;
+}
+
+.catEstBlock {
+  display: inline-flex;
+  align-self: flex-end;
+}
+
+.RunInfoExtra > .systemEst > span:not(:last-child)::after {
+  content: ' - ';
+}
+
+.categoryEst {
+  text-transform: uppercase;
+}
+
+.RunInfoExtra > .catEstBlock > span:not(:last-child)::after {
+  content: ' | ';
+}
 </style>

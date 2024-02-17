@@ -22,32 +22,32 @@
       height: '347px',
       }"/>
 
-    <!-- General Run Info -->
-    <div
-      class="Fixed FlexColumn"
-      :style="{
-      left: '0px',
-      top: '286px',
-      width: '575px',
-      height: '44px',
-      }"
-    >
-      <!-- Run Game Info -->
-      <div
-        class="Fixed FlexColumn"
-        :style="{ flex: '1',
+  <!-- Run Game Info -->
+  <div
+    class="Flex FlexColumn"
+    :style="{
         left: '0px',
         top: '0px',
         width: '563px',
         height: '281px',
+        'justify-content': 'space-between',
     }"
-      >
-        <run-info />
-        <flashing-lights-warning/>
-      </div>
+  >
+    <run-info />
+    <flashing-lights-warning class="Flex" style="align-self: flex-end" />
+  </div>
 
-      <player />
-    </div>
+  <div
+    class="Fixed FlexColumn"
+    :style="{
+    left: '0px',
+    top: '286px',
+    width: '575px',
+    height: '44px',
+    }"
+  >
+    <player />
+  </div>
 
     <!--host, comms, timer, and mediabox-->
     <div

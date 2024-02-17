@@ -20,13 +20,12 @@
         :class="`Flex Timer${timerState}`"
         :style="{
         'text-align': 'center',
-        // 'margin-top': topMargin,
+        'margin-top': topMargin,
         transition: '500ms',
         height: '100%',
         'font-family': 'Arial, sans-serif',
         'font-weight': 700,
         'font-size': '65pt',
-        // 'margin-top': '-0.07em',
       }"
       >
       <span
@@ -35,7 +34,7 @@
         :style="{
           display: 'inline-block',
           // replace 0.22em with undefined for better styling
-          width: ([2, 5].includes(i)) ? undefined : '0.75em',
+          // width: ([2, 5].includes(i)) ? undefined : '0.75em',
           'text-align': 'center',
           // Make the colon appear more towards the centre.
           'margin-top': ([2, 5].includes(i)) ? '-0.1em' : 'unset',
