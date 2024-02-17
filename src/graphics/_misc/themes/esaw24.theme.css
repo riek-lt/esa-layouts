@@ -40,7 +40,7 @@ Actually I lied, this isn't in the default.theme.css for some reason,
 so I added it from another file.
 **/
 #Countdown .Logo {
-  content: url('./winter/CountdownLogo.svg');
+  content: url('./uksgblue/CountdownLogo.png');
   height: 500px;
 }
 

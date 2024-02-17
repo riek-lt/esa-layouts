@@ -296,6 +296,8 @@ function setup(): void {
     return res.status(400).send('Request not applicable to this endpoint.');
   });
 
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   nodecg().mount(`/${nodecg().bundleName}`, router);
 }
 

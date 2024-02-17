@@ -15,16 +15,6 @@ Vue.use(VueRouter);
 
 const routes = [
   {
-    name: '(ESAW24) 4:3 1 Player',
-    path: '/esaw24-4x3-1p',
-    component: List.L_ESAW24_4x3_1p,
-  },
-  {
-    name: '(ESAW24) 16:9 1 Player',
-    path: '/esaw24-16x9-1p',
-    component: List.L_ESAW24_16x9_1p,
-  },
-  {
     name: '4:3 1 Player',
     path: '/4x3-1p',
     component: List.L_4x3_1p,
@@ -133,11 +123,6 @@ const routes = [
     name: 'Full Camera',
     path: '/full-cam',
     component: List.L_FullCam,
-  },
-  {
-    name: 'Taskmaster Timer',
-    path: '/taskmaster-timer',
-    component: List.L_Taskmaster_Timer,
   },
   {
     path: '*',

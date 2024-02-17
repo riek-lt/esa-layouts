@@ -3,24 +3,23 @@
     <!-- Game Captures -->
     <game-capture
       id="GameCapture1"
-      class="BlockRed"
       :style="{
       left: '700px',
       top: '0px',
-      width: '1110px',
-      height: '998px',
+      width: '1108px',
+      height: '1000px',
       }"
     />
 
     <!-- Camera Captures -->
     <div
       id="CameraCapture1"
-      class="Capture BlockBlue Relative"
+      class="Capture Relative"
       :style="{
       left: '0px',
-      top: '297px',
-      width: '554px',
-      height: '307px',
+      top: '336px',
+      width: '576px',
+      height: '347px',
       }"
     >
       <flashing-lights-warning/>
@@ -28,17 +27,15 @@
 
     <!-- General Run Info -->
     <div
-      class="Fixed FlexColumn BlockGreen"
+      class="Fixed FlexColumn"
       :style="{
       left: '0px',
-      top: '622px',
-      width: '536px',
-      height: '82px',
+      top: '286px',
+      width: '575px',
+      height: '44px',
       }"
     >
       <player />
-      <!--<commentators-reader />
-      <commentators-reader show-reader />-->
 
       <!-- Run Game Info/Timer -->
       <div
@@ -46,29 +43,28 @@
         :style="{ flex: '1',
         left: '0px',
         top: '0px',
-        width: '522px',
-        height: '278px',
+        width: '563px',
+        height: '281px',
     }"
       >
         <run-info />
-        <div class="sub_div">
-          <commentators-reader />
-          <commentators-reader show-reader />
-        </div>
       </div>
     </div>
-    <!--TIMER-->
+
+    <!--host, comms, timer, and mediabox-->
     <div
-      class="Fixed FlexColumn BlockBlack"
+      class="Fixed FlexColumn"
       :style="{
         flex: '1',
-        width: '100%',
-        left: '146px',
-        top: '735px',
-        width: '535px',
-        height: '103px',
+        left: '0px',
+        top: '688px',
+        width: '575px',
+        height: '322px',
+        background: 'red',
       }"
     >
+      <commentators-reader />
+      <commentators-reader show-reader />
       <timer />
     </div>
 
