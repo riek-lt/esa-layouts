@@ -19,22 +19,24 @@
       class="Flex"
       :style="{
       width: '100%',
+      height: '75px',
       'text-align': 'center',
+      position: 'relative',
+      'justify-content': 'center',
+      'align-items': 'center',
     }">
       <div
         v-show="runData && runData.game"
         class="RunGame"
         :style="{
-         width: '100%',
         'font-family': 'Goodlight',
-        'font-size': '50pt',
+        'font-size': '20px',
         'font-weight': 600,
         'line-height': 1.5,
         display: 'flex',
         'max-width': '100%',
         'padding-top': '12px',
-        }"
-      >
+      }">
         <template v-if="runData && runData.game">
           {{ runData.game }}
         </template>
@@ -146,24 +148,22 @@ export default class extends Vue {
     // Re-fit the elements if run data becomes definded (as elements do no exist before this).
     if ((newVal && !oldVal) || this.noWrap) {
       this.lineHeight = null;
-      await Vue.nextTick();
-      this.fit();
     }
 
-    // Hack: stuff goes whack when the flashing lights warning dissapears and re-appears
-    if (newVal?.customData?.flashingLights !== oldVal?.customData?.flashingLights) {
-      await Vue.nextTick();
-      this.fit();
-    }
+    await Vue.nextTick();
+    this.fit();
   }
 }
 </script>
 
 <style scoped lang="scss">
 .RunGame {
+  margin-top: 10px;
+  position: relative;
   text-align: center !important;
   text-shadow: 5px 5px 0px var(--bsg-color);
   text-transform: uppercase;
+  white-space: unset !important;
 }
 
 .catEstBlock {
@@ -176,6 +176,7 @@ export default class extends Vue {
   display: flex !important;
   justify-content: space-between;
   align-content: space-between;
+  margin-top: 5px;
 
   span {
     display: inline-block !important;

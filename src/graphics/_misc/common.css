@@ -41,11 +41,13 @@
   align-items: left;
   justify-content: left;
 }
+
 .FlexPlayer {
   display: flex;
   align-items: center;
   justify-content: center;
 }
+
 .FlexColumn {
   flex-direction: column;
 }

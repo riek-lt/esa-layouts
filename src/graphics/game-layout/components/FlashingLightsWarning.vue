@@ -7,7 +7,7 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component } from 'vue-property-decorator'; // eslint-disable-line object-curly-newline, max-len
+import { Vue, Component } from 'vue-property-decorator';
 import { State } from 'vuex-class';
 import { RunDataActiveRun } from 'speedcontrol-util/types';
 

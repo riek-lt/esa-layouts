@@ -38,7 +38,6 @@ export default class extends Vue {
   position: relative;
   width: 100%;
   justify-content: center;
-  //background-color: white;
 }
 
 .right-line {
