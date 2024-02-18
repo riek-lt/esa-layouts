@@ -162,6 +162,8 @@ export default class extends Vue {
 <style scoped>
 .RunGame {
   text-align: center !important;
+  text-shadow: 5px 5px 0px var(--bsg-color);
+  text-transform: uppercase;
 }
 
 .RunInfoExtra {
@@ -177,6 +179,7 @@ export default class extends Vue {
 .catEstBlock {
   display: inline-flex;
   align-self: flex-end;
+  margin-bottom: 15px;
 }
 
 .RunInfoExtra > .systemEst > span:not(:last-child)::after {
