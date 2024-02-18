@@ -64,18 +64,11 @@
       <commentators-reader />
       <commentators-reader show-reader />
       <timer line-right />
-
-      <!-- Media Box -->
-      <!-- TODO: media-box-box for better control and the nice side border -->
-      <media-box
-        class="MBNoPadding"
-        :font-size="20"
+      <media-box-box
+        line-right
         :style="{
-          // background: 'white',
-          left: '0px',
-          top: '891px',
           width: '575px',
-          height: '118px',
+          height: '115px',
         }"
       />
     </div>
@@ -84,7 +77,6 @@
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator';
-import MediaBox from '@shared/graphics/mediabox';
 import GameCapture from './components/GameCapture.vue';
 import Player from './components/Player.vue';
 import CommentatorsReader from './components/CommentatorsReader.vue';
@@ -92,6 +84,7 @@ import RunInfo from './components/RunInfo.vue';
 import Timer from './components/Timer.vue';
 import DonationBar from './components/DonationBar.vue';
 import FlashingLightsWarning from './components/FlashingLightsWarning.vue';
+import MediaBoxBox from './components/MediaBoxBox.vue';
 
 @Component({
   components: {
@@ -100,7 +93,7 @@ import FlashingLightsWarning from './components/FlashingLightsWarning.vue';
     CommentatorsReader,
     RunInfo,
     Timer,
-    MediaBox,
+    MediaBoxBox,
     DonationBar,
     FlashingLightsWarning,
   },

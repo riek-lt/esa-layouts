@@ -159,21 +159,11 @@ export default class extends Vue {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .RunGame {
   text-align: center !important;
   text-shadow: 5px 5px 0px var(--bsg-color);
   text-transform: uppercase;
-}
-
-.RunInfoExtra {
-  display: flex !important;
-  justify-content: space-between;
-  align-content: space-between;
-}
-
-.RunInfoExtra span {
-  display: inline-block !important;
 }
 
 .catEstBlock {
@@ -182,15 +172,25 @@ export default class extends Vue {
   margin-bottom: 15px;
 }
 
-.RunInfoExtra > .systemEst > span:not(:last-child)::after {
-  content: ' - ';
+.RunInfoExtra {
+  display: flex !important;
+  justify-content: space-between;
+  align-content: space-between;
+
+  span {
+    display: inline-block !important;
+  }
+
+  &> .catEstBlock > span:not(:last-child)::after {
+    content: ' | ';
+  }
+
+  &> .systemEst > span:not(:last-child)::after {
+    content: ' - ';
+  }
 }
 
 .categoryEst {
   text-transform: uppercase;
-}
-
-.RunInfoExtra > .catEstBlock > span:not(:last-child)::after {
-  content: ' | ';
 }
 </style>
