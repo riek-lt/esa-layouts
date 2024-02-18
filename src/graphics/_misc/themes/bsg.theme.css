@@ -21,6 +21,10 @@
   background-repeat: no-repeat;
 }
 
+.TimerParent {
+  background: url('./bsg/timer_grid.png');
+}
+
 #Intermission {
   background-image: url('./bsg/intermission.png');
 }

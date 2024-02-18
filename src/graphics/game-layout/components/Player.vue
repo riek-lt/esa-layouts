@@ -5,7 +5,7 @@
     class="FlexPlayer Player FlexCenter"
     :style="{
       'justify-content': 'space-between',
-      'font-weight': 500,
+      'font-weight': 300,
       width: '100%',
       height: '45px',
       padding: '0px',
@@ -73,7 +73,6 @@
     <div
       class="FlexPlayer FlexCenter"
       :style="{
-        'font-size': '25px',
         width: 'calc(100% - 130px)',
         height: '100%',
         'align-items': 'center',
@@ -82,7 +81,9 @@
         'flex': '1',
         'white-space': 'no-wrap',
         'padding-right': '80px',
-        'font-family': 'Goodlight-light',
+        'font-size': '18pt',
+        'font-weight': 600,
+        'font-family': 'Bahnschrift',
       }"
     >
       <transition name="fade">
@@ -101,16 +102,16 @@
             {{ player.social.twitch }}
             <!-- Custom Title code repeated twice, needs cleaning up! -->
             <!-- No need for pronouns during twitch -->
-<!--            <span
+            <!-- <span
               v-if="pronouns"
               class="Pronouns"
               :style="{
-                padding: '3px 5px',
+                padding: '4px',
                 'margin-left': '5px',
               }"
             >
               {{ pronouns }}
-            </span>-->
+            </span> -->
           </div>
         </div>
         <div
@@ -118,7 +119,7 @@
           key="name"
           class="FlexPlayer TextWrapper"
         >
-          <div class="FlexRow PlayerText">
+          <div class="PlayerText">
             <span
               v-if="team?.name"
               :style="{ 'font-size': '1.15em', 'font-weight': 600 }"
@@ -131,7 +132,7 @@
               v-if="pronouns"
               class="Pronouns"
               :style="{
-                padding: '3px 5px',
+                padding: '4px',
                 'margin-left': '5px',
               }"
             >
@@ -156,7 +157,7 @@
           class="Flag"
           :src="player.country ? `/bundles/esa-layouts/flags/${player.country}.png` : ''"
           :style="{
-            position: 'absolute',
+            position: 'relative',
             right: '7px',
             height: 'calc(100% - 4px)',
             'border-width': '2px',
@@ -165,6 +166,19 @@
           }"
         >
       </transition>
+      <!-- TODO: I could do this, but it causes a lot of style issues -->
+<!--      <transition name="fade">
+        <span
+          v-if="pronouns"
+          class="Pronouns"
+          :style="{
+            padding: '4px',
+            'margin-left': '5px',
+          }"
+        >
+          {{ pronouns }}
+        </span>
+      </transition>-->
     </div>
   </div>
 </template>
@@ -306,9 +320,10 @@ export default class extends Vue {
     height: 30px;
   }
 
-  .Player .Pronouns {
+  .Player .Pronouns,
+  .Pronouns {
     display: inline;
-    font-size: 0.5em;
+    font-size: 9pt;
     height: 19px;
   }
 

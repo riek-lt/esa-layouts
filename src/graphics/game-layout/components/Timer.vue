@@ -1,6 +1,6 @@
 <template>
   <div
-    class="Flex"
+    class="TimerParent Flex"
     :style="{
       'justify-content': 'center',
       'border-bottom':'5px solid var(--bsg-color)',
@@ -23,8 +23,8 @@
         'margin-top': topMargin,
         transition: '500ms',
         height: '100%',
-        'font-family': 'Arial, sans-serif',
-        'font-weight': 700,
+        'font-family': 'LiquidCrystal',
+        'font-weight': 300,
         'font-size': '65pt',
       }"
       >
@@ -56,7 +56,7 @@ import { msToTimeStr } from '../../_misc/helpers';
 
 @Component
 export default class extends Vue {
-  @Prop({ type: String, default: '-0.07em' }) topMargin!: string;
+  @Prop({ type: String, default: '0.07em' }) topMargin!: string;
   @Prop({ type: String, default: '100px' }) fontSize!: string;
   @Prop({ type: Boolean, default: false }) lineLeft!: string;
   @Prop({ type: Boolean, default: false }) lineRight!: string;

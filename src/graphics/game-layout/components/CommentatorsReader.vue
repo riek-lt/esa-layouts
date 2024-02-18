@@ -4,13 +4,13 @@
     class="Flex"
     :style="{
       width: '100%',
-      // width: '575px',
       'align-items': 'center',
       height: show ? '44px' : 0,
       opacity: show ? 1 : 0,
-      'font-weight': 200,
+      'font-weight': 600,
       color: 'var(--text-color)',
-      'font-family': 'Goodlight-light',
+      'font-family': 'Bahnschrift',
+      'font-size': '1.5em',
       'border-bottom':'5px solid var(--bsg-color)',
     }"
   >
@@ -22,9 +22,9 @@
         background: 'var(--bsg-color)',
         'justify-content': 'center',
         'align-items': 'center',
-        'font-weight': 200,
-        'font-size': '1.5em',
-        'font-family': 'Goodlight-light',
+        'font-weight': 300,
+        'font-size': '18pt',
+        'font-family': 'pixelmix',
       }"
     >
       <template v-if="showReader">Host</template>
@@ -121,14 +121,14 @@ export default class extends Vue {
     margin-left: 5px;
     margin-right: 5px;
 
-    padding-left: 5px;
-    padding-right: 5px;
-    padding-top: 5px;
+    font-size: 9pt;
 
-    font-size: 0.8em;
+    padding: 4px;
+
+    //font-size: 0.8em;
     background: var(--slide-color);
     color: var(--text-color);
     text-transform: uppercase;
-    font-family: Goodlight-light;
+    font-family: pixelmix;
   }
 </style>

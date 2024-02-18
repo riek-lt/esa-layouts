@@ -19,7 +19,7 @@ body {
 
 .TimerRunning {
   color: #d7d7d7;
-  font-family: "Goodlight";
+  /*font-family: "Goodlight";*/
 }
 
 .TimerFinished {
@@ -35,19 +35,23 @@ body {
   /*align-items: left; this is an invalid property value riek*/
 }
 
+.PlayerText {
+  font-family: Bahnschrift;
+}
+
 .Player {
-  color: #d7d7d7;
+  color: var(--text-color);
   /*background-color: #41245b;*/
 }
 
 .Player .Pronouns,
 .DonationReader .Pronouns,
 .CommAndReader .Pronouns {
-  font-family: Goodlight-light;
-  font-size: 0.8em;
-  color: #d7d7d7;
+  font-family: pixelmix;
+  font-size: 9pt;
+  color: var(--text-color);
   text-transform: uppercase;
-  background-color: #914e21;
+  background-color: var(--slide-color);
   justify-content: center;
   align-items: center;
 }
@@ -56,10 +60,10 @@ body {
   background-color: #CF773B;
 }
 
-.Player .Pronouns {
+/*.Player .Pronouns {
   font-weight: 400 !important;
   padding-top: 10px !important;
-}
+}*/
 
 /** New commentators and reader component! **/
 #GameLayout .CommentatorsReader .Header {
@@ -201,38 +205,10 @@ body {
   position: absolute;
   width: 100%;
   bottom: 0px;
-  font-family: 'Goodlight';
+  font-family: 'Bahnschrift';
   font-size: 21pt;
   white-space: normal;
 }
-
-/*
-.BlockRed {
-  background-color: red;
-}
-.BlockBlue {
-  background-color: blue;
-}
-.BlockGreen {
-  background-color: green;
-}
-.BlockYellow {
-  background-color: yellow;
-}
-.BlockPurple {
-  background-color: purple;
-}
-.BlockBlack {
-  background-color: black;
-}
-*/
-
-/*
-.BlockYellow {
-  background-color: yellow;
-  opacity: 0.3;
-}
-*/
 
 #Omnibar .Alert {
   background-color: rgba(255, 255, 255, 0.22);

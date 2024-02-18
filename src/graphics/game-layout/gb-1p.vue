@@ -68,7 +68,7 @@
         line-right
         :style="{
           width: '575px',
-          height: '115px',
+          height: '109px',
         }"
       />
     </div>
