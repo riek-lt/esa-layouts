@@ -13,26 +13,32 @@ body {
   border-color: #41245b;
 }
 
+*[class*='Timer'] span {
+  color: var(--timer-color);
+  text-shadow: 0 0 10px var(--timer-color);
+  /*box-shadow: 0 0 10px var(--timer-color);*/
+}
+
 .TimerStopped, .TimerPaused {
-  color: #4B5267;
+  --timer-color: #BCBCBC;
 }
 
 .TimerRunning {
-  color: #d7d7d7;
-  /*font-family: "Goodlight";*/
+  /*--timer-color: #d7d7d7;*/
+  --timer-color: #FFFFFF;
 }
 
 .TimerFinished {
-  color: #AAFAC8;
+  /*--timer-color: #AAFAC8;*/
+  --timer-color: #fffacc;
 }
 
 .TimerForfeit {
-  color: #ff6767;
+  --timer-color: #ff6767;
 }
 
 #GameLayout .RunInfoExtra {
   color: #d7d7d7;
-  /*align-items: left; this is an invalid property value riek*/
 }
 
 .PlayerText {

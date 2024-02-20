@@ -13,6 +13,7 @@
       'height': '100%',
       'line-height': lineHeight || 'unset',
       'white-space': 'normal',
+      'padding-top': '12px',
     }"
   >
     <div
@@ -35,7 +36,6 @@
         'line-height': 1.5,
         display: 'flex',
         'max-width': '100%',
-        'padding-top': '12px',
       }">
         <template v-if="runData && runData.game">
           {{ runData.game }}

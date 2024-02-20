@@ -4,10 +4,10 @@
     <game-capture
       id="GameCapture1"
       :style="{
-      left: '700px',
-      top: '0px',
-      width: '1108px',
-      height: '1000px',
+        left: '700px',
+        top: '0px',
+        width: '1108px',
+        height: '1000px',
       }"
     />
 
@@ -16,11 +16,11 @@
       id="CameraCapture1"
       class="Capture Relative"
       :style="{
-      left: '0px',
-      top: '336px',
-      width: '576px',
-      height: '347px',
-      }"/>
+        left: '0px',
+        top: '336px',
+        width: '576px',
+        height: '347px',
+    }"/>
 
   <!-- Run Game Info -->
   <div
@@ -58,7 +58,6 @@
         top: '688px',
         width: '575px',
         height: '322px',
-        // background: 'red',
       }"
     >
       <commentators-reader />
@@ -68,7 +67,8 @@
         line-right
         :style="{
           width: '575px',
-          height: '109px',
+          // height: '109px',
+          height: '118px',
         }"
       />
     </div>

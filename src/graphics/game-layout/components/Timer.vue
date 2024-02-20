@@ -26,16 +26,18 @@
         'font-family': 'LiquidCrystal',
         'font-weight': 300,
         'font-size': '65pt',
+        'align-content': 'center',
+        'justify-content': 'center',
       }"
       >
       <span
         v-for="(char, i) in timeStr"
         :key="i"
         :style="{
-          display: 'inline-block',
+          // display: 'inline-block',
           // replace 0.22em with undefined for better styling
           // width: ([2, 5].includes(i)) ? undefined : '0.75em',
-          'text-align': 'center',
+          // 'text-align': 'center',
           // Make the colon appear more towards the centre.
           'margin-top': ([2, 5].includes(i)) ? '-0.1em' : 'unset',
         }"
@@ -56,7 +58,7 @@ import { msToTimeStr } from '../../_misc/helpers';
 
 @Component
 export default class extends Vue {
-  @Prop({ type: String, default: '0.07em' }) topMargin!: string;
+  @Prop({ type: String, default: '0em' }) topMargin!: string;
   @Prop({ type: String, default: '100px' }) fontSize!: string;
   @Prop({ type: Boolean, default: false }) lineLeft!: string;
   @Prop({ type: Boolean, default: false }) lineRight!: string;
