@@ -1,8 +1,8 @@
 <template>
   <div class="FlexColumn media-box-box">
     <div class="FlexColumn right-line" :style="{
-        'border-right': lineRight ? '5px solid var(--slide-color)' : 'unset',
-        'border-left': lineLeft ? '5px solid var(--slide-color)' : 'unset',
+        'border-right': lineRight ? '5px solid var(--slide-color)' : '5px solid rgba(0,0,0,0)',
+        'border-left': lineLeft ? '5px solid var(--slide-color)' : '5px solid rgba(0,0,0,0)',
     }">
       <media-box
         class="MBNoPadding"
@@ -35,6 +35,7 @@ export default class extends Vue {
 
 <style scoped lang="scss">
 .media-box-box {
+  box-sizing: border-box;
   position: relative;
   width: 100%;
   justify-content: center;

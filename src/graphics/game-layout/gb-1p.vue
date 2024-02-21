@@ -57,7 +57,8 @@
         left: '0px',
         top: '688px',
         width: '575px',
-        height: '322px',
+        // height: '322px',
+        height: '310px',
       }"
     >
       <commentators-reader />
@@ -68,7 +69,8 @@
         :style="{
           width: '575px',
           // height: '109px',
-          height: '118px',
+          // height: '118px',
+          height: '100%',
         }"
       />
     </div>

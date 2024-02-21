@@ -2,6 +2,7 @@
   <div
     class="TimerParent Flex"
     :style="{
+      'box-sizing': 'border-box',
       'justify-content': 'center',
       'border-bottom':'5px solid var(--bsg-color)',
     }"
@@ -10,8 +11,8 @@
          :style="{
             'align-self': 'center',
             'box-sizing': 'border-box',
-            'border-right': lineRight ? '5px solid var(--slide-color)' : 'unset',
-            'border-left': lineLeft ? '5px solid var(--slide-color)' : 'unset',
+            'border-right': lineRight ? '5px solid var(--slide-color)' : '5px solid rgba(0,0,0,0)',
+            'border-left': lineLeft ? '5px solid var(--slide-color)' : '5px solid rgba(0,0,0,0)',
             'justify-content': 'center',
             width: 'calc(100% - 14px)',
             height: 'calc(100% - 12px)',
