@@ -109,7 +109,7 @@ export default class extends Vue {
   mounted(): void {
     this.fittyInstance = fitty(this.toFit, {
       minSize: 1,
-      maxSize: 20,
+      maxSize: 30,
       multiLine: false,
     });
   }
@@ -127,7 +127,7 @@ export default class extends Vue {
     margin-left: 5px;
     margin-right: 5px;
 
-    font-size: 9pt;
+    font-size: 12pt;
 
     padding: 4px;
 

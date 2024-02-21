@@ -78,7 +78,7 @@
         'align-items': 'center',
         'align-content': 'center',
         'justify-content': 'center',
-        'font-size': '18pt',
+        'font-size': '20pt',
         'font-weight': 600,
         'font-family': 'Bahnschrift',
       }"
@@ -324,7 +324,7 @@ export default class extends Vue {
   .Player .Pronouns,
   .Pronouns {
     display: inline;
-    font-size: 9pt;
+    font-size: 12pt;
     height: 19px;
   }
 
