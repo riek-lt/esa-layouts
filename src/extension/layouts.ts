@@ -365,6 +365,26 @@ obs.conn.on('AuthenticationSuccess', async () => {
   nodecg().sendMessage('gameSourceVisibilityUpdated', selected.sourceIndex);
 });
 
+nodecg().listenFor('updateFlashingLightsWarning', async (val: boolean, ack) => {
+  const currRun = sc.getCurrentRun();
+
+  if (currRun) {
+    await sc.sendMessage('modifyRun', {
+      runData: {
+        ...currRun,
+        customData: {
+          ...currRun.customData,
+          flashingLights: String(val),
+        },
+      },
+    });
+  }
+
+  if (ack && !ack.handled) {
+    ack(null);
+  }
+});
+
 nodecg().listenFor('getGameSourceVisibility', async (val: string | null | undefined, ack) => {
   if (ack && !ack.handled) {
     ack(null, selected.sourceIndex);
