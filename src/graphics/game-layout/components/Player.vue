@@ -142,7 +142,9 @@
 
     <!-- Country Flag -->
     <div
+      class="FlexColumn"
       :style="{
+        'justify-content': 'center',
         position: 'relative',
         height: '100%',
       }"
@@ -156,7 +158,9 @@
           :style="{
             position: 'relative',
             right: '7px',
-            height: 'calc(100% - 4px)',
+            // width: '52px',
+            height: '28px',
+            'align-self': 'center',
             'border-width': '2px',
             'border-style': 'solid',
             opacity: player.country ? 1 : 0,

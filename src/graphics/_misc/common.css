@@ -49,6 +49,10 @@
   justify-content: center;
 }
 
+.FlexRow {
+  flex-direction: row;
+}
+
 .FlexColumn {
   flex-direction: column;
 }

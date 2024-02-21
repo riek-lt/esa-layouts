@@ -7,7 +7,7 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component } from 'vue-property-decorator';
+import { Vue, Component, Watch } from 'vue-property-decorator';
 import { State } from 'vuex-class';
 import { RunDataActiveRun } from 'speedcontrol-util/types';
 
@@ -17,6 +17,11 @@ export default class extends Vue {
 
   get hasFlashingLights(): boolean {
     return this.runData?.customData?.flashingLights === 'true';
+  }
+
+  @Watch('hasFlashingLights', { immediate: true })
+  onFlashingLightsChanged(newValue: boolean) {
+    this.$emit('flashing-lights-updated', newValue);
   }
 }
 </script>

@@ -11,7 +11,7 @@
       color: 'var(--text-color)',
       'font-family': 'Bahnschrift',
       'font-size': '1.5em',
-      'border-bottom':'5px solid var(--bsg-color)',
+      [borderLocation]: '5px solid var(--bsg-color)',
     }"
   >
     <div
@@ -33,7 +33,8 @@
     <div
       class="Flex"
       :style="{
-        width: '486px',
+        // width: '486px',
+        width: '100%',
         height: '43px',
         'justify-content': 'center',
         'align-items': 'center',
@@ -83,6 +84,7 @@ import fitty, { FittyInstance } from 'fitty';
 @Component
 export default class extends Vue {
   @Prop(Boolean) readonly showReader!: boolean;
+  @Prop(Boolean) readonly lineTop!: boolean;
   @State readonly commentatorsNew!: CommentatorsNew;
   @State readonly donationReaderNew!: DonationReaderNew;
   @Ref('Fit') toFit!: HTMLElement;
@@ -98,6 +100,10 @@ export default class extends Vue {
 
   get reader(): DonationReaderNew | undefined {
     return this.donationReaderNew;
+  }
+
+  get borderLocation(): string {
+    return this.lineTop ? 'border-top' : 'border-bottom';
   }
 
   mounted(): void {

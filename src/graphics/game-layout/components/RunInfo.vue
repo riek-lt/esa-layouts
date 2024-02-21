@@ -21,10 +21,10 @@
       :style="{
       width: '100%',
       height: '75px',
-      'text-align': 'center',
+      'text-align': textAlignCss,
       position: 'relative',
-      'justify-content': 'center',
-      'align-items': 'center',
+      'justify-content': textAlign,
+      'align-items': textAlign,
     }">
       <div
         v-show="runData && runData.game"
@@ -49,26 +49,35 @@
       width: '100%',
       height: '100%',
       'font-size': '55pt',
-      'text-align': 'center',
-      'justify-content': 'center',
+      'text-align': textAlignCss,
+      'justify-content': textAlign,
       'align-items': 'baseline',
     }">
       <div
         v-show="runData && (runData.category || runData.system || runData.estimate)"
-        class="FlexColumn RunInfoExtra"
+        :class="{
+          'FlexColumn': !infoIsRow,
+          'FlexRow': infoIsRow,
+        }"
+        class="RunInfoExtra"
         :style="{
           height: '100%',
+          width: '100%',
           'font-size': '2em', // Also gets set in the script, here as backup.
-          'text-align': 'center',
+          'text-align': textAlignCss,
           'font-family': 'Goodlight-light',
         }"
       >
         <template v-if="runData">
-          <span class="systemEst">
+          <span class="systemEst" :style="{
+            'align-self': textAlign,
+          }">
             <span v-if="runData.system" class="system">{{ runData.system }}</span>
             <span v-if="runData.release" class="release">{{ runData.release }}</span>
           </span>
-          <div class="catEstBlock">
+          <div class="catEstBlock" :style="{
+            'align-self': textAlign,
+          }">
             <span v-if="runData.category" class="categoryEst" :style="{
                       color: 'var(--bsg-color)',
                       'font-size': '21pt',
@@ -97,6 +106,8 @@ import fitty, { FittyInstance } from 'fitty';
 export default class extends Vue {
   @State('runDataActiveRun') runData!: RunDataActiveRun;
   @Prop(Boolean) readonly noWrap!: boolean;
+  @Prop(Boolean) readonly infoIsRow!: boolean;
+  @Prop({ type: String, default: 'center' }) readonly textAlign!: string;
   lineHeight: string | null = null;
   fittyGame: FittyInstance | undefined;
   fittyInfoExtra: FittyInstance | undefined;
@@ -143,6 +154,10 @@ export default class extends Vue {
     }
   }
 
+  get textAlignCss(): string {
+    return this.textAlign === 'center' ? 'center' : 'left';
+  }
+
   @Watch('runData')
   async onRunDataChange(newVal: RunDataActiveRun, oldVal?: RunDataActiveRun): Promise<void> {
     // Re-fit the elements if run data becomes definded (as elements do no exist before this).
@@ -166,21 +181,26 @@ export default class extends Vue {
   white-space: unset !important;
 }
 
+.systemEst {
+  align-self: flex-start;
+  display: inline-flex;
+}
+
 .catEstBlock {
   display: inline-flex;
-  align-self: flex-end;
+  //align-self: flex-end;
   margin-bottom: 15px;
 }
 
 .RunInfoExtra {
   display: flex !important;
   justify-content: space-between;
-  align-content: space-between;
+  align-content: flex-start;
   margin-top: 5px;
 
-  span {
-    display: inline-block !important;
-  }
+  //span {
+  //  display: inline-block !important;
+  //}
 
   &> .catEstBlock > span:not(:last-child)::after {
     content: ' | ';
