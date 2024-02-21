@@ -296,6 +296,7 @@ function setup(): void {
     return res.status(400).send('Request not applicable to this endpoint.');
   });
 
+  // @ts-expect-error Types are wrong.
   nodecg().mount(`/${nodecg().bundleName}`, router);
 }
 
