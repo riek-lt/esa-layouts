@@ -86,7 +86,7 @@
         height: '216px',
         }"
     >
-      <run-info text-align="flex-start" :info-is-row="runInfoIsRow" />
+      <run-info line-right text-align="flex-start" :info-is-row="runInfoIsRow" />
       <flashing-lights-warning
         class="Flex"
         @flashing-lights-updated="flashingLightsChanged"
@@ -103,7 +103,7 @@
         }"
     >
       <media-box-box
-        line-right
+        line-left
         :style="{
           width: '710px',
           height: '100%',

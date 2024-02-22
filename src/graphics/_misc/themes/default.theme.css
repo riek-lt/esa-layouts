@@ -66,10 +66,13 @@ body {
   background-color: #CF773B;
 }
 
-/*.Player .Pronouns {
-  font-weight: 400 !important;
-  padding-top: 10px !important;
-}*/
+.has-side-lines {
+  align-self: center;
+  box-sizing: border-box;
+  position: relative;
+  width: calc(100% - 14px);
+  height: calc(100% - 12px);
+}
 
 /** New commentators and reader component! **/
 #GameLayout .CommentatorsReader .Header {

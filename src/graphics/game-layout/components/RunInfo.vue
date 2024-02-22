@@ -1,24 +1,32 @@
 <template>
   <div
-    v-show="runData"
-    ref="RunInfo"
-    class="FlexColumn"
+    class="Flex"
     :style="{
+      height: '100%',
+      width: '100%',
+      'justify-content': 'center',
+    }"
+  >
+    <div
+      v-show="runData"
+      ref="RunInfo"
+      class="FlexColumn has-side-lines"
+      :style="{
+      'box-sizing': 'border-box',
+      'border-right': lineRight ? '5px solid var(--slide-color)' : '5px solid rgba(0,0,0,0)',
+      'border-left': lineLeft ? '5px solid var(--slide-color)' : '5px solid rgba(0,0,0,0)',
       'font-size': '36pt',
       'font-family': 'Goodlight',
-      width: '100%',
       'text-align': 'left',
-      padding: '5px 20px',
-      'box-sizing': 'border-box',
-      'height': '100%',
+      // padding: '5px 20px',
       'line-height': lineHeight || 'unset',
       'white-space': 'normal',
       'padding-top': '12px',
     }"
-  >
-    <div
-      class="Flex"
-      :style="{
+    >
+      <div
+        class="Flex"
+        :style="{
       width: '100%',
       height: '75px',
       'text-align': textAlignCss,
@@ -26,10 +34,10 @@
       'justify-content': textAlign,
       'align-items': textAlign,
     }">
-      <div
-        v-show="runData && runData.game"
-        class="RunGame"
-        :style="{
+        <div
+          v-show="runData && runData.game"
+          class="RunGame"
+          :style="{
         'font-family': 'Goodlight',
         'font-size': '20px',
         'font-weight': 600,
@@ -37,15 +45,15 @@
         display: 'flex',
         'max-width': '100%',
       }">
-        <template v-if="runData && runData.game">
-          {{ runData.game }}
-        </template>
+          <template v-if="runData && runData.game">
+            {{ runData.game }}
+          </template>
+        </div>
       </div>
-    </div>
 
-    <div
-      class="Flex"
-      :style="{
+      <div
+        class="Flex"
+        :style="{
       width: '100%',
       height: '100%',
       'font-size': '55pt',
@@ -53,29 +61,29 @@
       'justify-content': textAlign,
       'align-items': 'baseline',
     }">
-      <div
-        v-show="runData && (runData.category || runData.system || runData.estimate)"
-        :class="{
+        <div
+          v-show="runData && (runData.category || runData.system || runData.estimate)"
+          :class="{
           'FlexColumn': !infoIsRow,
           'FlexRow': infoIsRow,
         }"
-        class="RunInfoExtra"
-        :style="{
+          class="RunInfoExtra"
+          :style="{
           height: '100%',
           width: '100%',
           'font-size': '2em', // Also gets set in the script, here as backup.
           'text-align': textAlignCss,
           'font-family': 'Goodlight-light',
         }"
-      >
-        <template v-if="runData">
+        >
+          <template v-if="runData">
           <span class="systemEst" :style="{
             'align-self': textAlign,
           }">
             <span v-if="runData.system" class="system">{{ runData.system }}</span>
             <span v-if="runData.release" class="release">{{ runData.release }}</span>
           </span>
-          <div class="catEstBlock" :style="{
+            <div class="catEstBlock" :style="{
             'align-self': textAlign,
           }">
             <span v-if="runData.category" class="categoryEst" :style="{
@@ -89,8 +97,9 @@
                       'font-size': '21pt',
                       'white-space': 'normal',
                 }">{{ runData.estimate }}</span>
-          </div>
-        </template>
+            </div>
+          </template>
+        </div>
       </div>
     </div>
   </div>
@@ -108,6 +117,8 @@ export default class extends Vue {
   @Prop(Boolean) readonly noWrap!: boolean;
   @Prop(Boolean) readonly infoIsRow!: boolean;
   @Prop({ type: String, default: 'center' }) readonly textAlign!: string;
+  @Prop({ type: Boolean, default: false }) lineLeft!: string;
+  @Prop({ type: Boolean, default: false }) lineRight!: string;
   lineHeight: string | null = null;
   fittyGame: FittyInstance | undefined;
   fittyInfoExtra: FittyInstance | undefined;

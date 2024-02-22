@@ -28,12 +28,12 @@
     :style="{
         left: '0px',
         top: '0px',
-        width: '563px',
+        width: '576px',
         height: '281px',
         'justify-content': 'space-between',
     }"
   >
-    <run-info />
+    <run-info line-right />
     <flashing-lights-warning class="Flex" style="align-self: flex-end" />
   </div>
 
