@@ -30,10 +30,10 @@
       id="CameraCapture1"
       class="Capture Relative"
       :style="{
-      left: '720px',
-      top: '831px',
-      width: '480px',
-      height: '167px',
+      left: '721px',
+      top: '750px',
+      width: '477px',
+      height: '248px',
       }"
     />
 

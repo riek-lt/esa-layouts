@@ -73,12 +73,14 @@
           width: '100%',
           'font-size': '2em', // Also gets set in the script, here as backup.
           'text-align': textAlignCss,
-          'font-family': 'Goodlight-light',
+          'font-weight': 300,
+          'font-family': 'Goodlight',
         }"
         >
           <template v-if="runData">
           <span class="systemEst" :style="{
             'align-self': textAlign,
+            'font-family': 'Corbel-Bold',
           }">
             <span v-if="runData.system" class="system">{{ runData.system }}</span>
             <span v-if="runData.release" class="release">{{ runData.release }}</span>
@@ -90,7 +92,6 @@
                       color: 'var(--bsg-color)',
                       'font-size': '21pt',
                       'white-space': 'normal',
-                      'margin-right': '5px',
                 }">{{ runData.category }}</span>
               <span v-if="runData.estimate" class="categoryEst" :style="{
                 color: 'var(--bsg-color)',
@@ -187,18 +188,20 @@ export default class extends Vue {
   margin-top: 10px;
   position: relative;
   text-align: center !important;
-  text-shadow: 5px 5px 0px var(--bsg-color);
+  text-shadow: 5px 5px 0px var(--bsg-color), 5px 7px 3px rgba(0, 0, 0, 0.5);
   text-transform: uppercase;
   white-space: unset !important;
 }
 
 .systemEst {
   align-self: flex-start;
+  text-shadow: 1px 2px 3px rgba(0, 0, 0, 0.5);
   display: inline-flex;
 }
 
 .catEstBlock {
   display: inline-flex;
+  text-shadow: 1px 2px 3px rgba(0, 0, 0, 0.5);
   //align-self: flex-end;
   margin-bottom: 15px;
 }
@@ -214,11 +217,17 @@ export default class extends Vue {
   //}
 
   &> .catEstBlock > span:not(:last-child)::after {
-    content: ' | ';
+    content: ' // ';
+    display: inline-block;
+    margin-left: 15px;
+    margin-right: 15px;
   }
 
   &> .systemEst > span:not(:last-child)::after {
     content: ' - ';
+    display: inline-block;
+    margin-left: 15px;
+    margin-right: 15px;
   }
 }
 
