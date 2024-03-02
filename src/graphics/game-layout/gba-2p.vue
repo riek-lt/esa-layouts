@@ -86,7 +86,7 @@
         height: '298px',
         }"
     >
-      <run-info line-right text-align="flex-start" />
+      <run-info line-right />
       <flashing-lights-warning
         class="Flex"
         style="align-self: flex-end"/>

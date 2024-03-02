@@ -217,7 +217,8 @@ export default class extends Vue {
   //}
 
   &> .catEstBlock > span:not(:last-child)::after {
-    content: ' // ';
+    content: ' | ';
+    color: var(--text-color);
     display: inline-block;
     margin-left: 15px;
     margin-right: 15px;
@@ -225,6 +226,7 @@ export default class extends Vue {
 
   &> .systemEst > span:not(:last-child)::after {
     content: ' - ';
+    color: var(--text-color);
     display: inline-block;
     margin-left: 15px;
     margin-right: 15px;
