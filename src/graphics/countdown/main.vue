@@ -11,6 +11,10 @@
     >
       <countdown :style="{ 'margin-top': '50px' }" />
 
+      <div class="game-container">
+        <game/>
+      </div>
+
       <div class="musicContainer">
         <music-track hide-icon class="music" />
       </div>
@@ -20,16 +24,18 @@
 
 <script lang="ts">
 import Countdown from '@shared/graphics/countdown';
-import { Component, Ref, Vue } from 'vue-property-decorator';
+import { Component, Vue } from 'vue-property-decorator';
 import { Countdown as CountdownType } from '@shared/types/schemas';
 import MusicTrack from '@esa-layouts/graphics/intermission/components/MusicTrack.vue';
 import { State } from 'vuex-class';
+import Game from './game/game.vue';
 import { getZoomAmountCSS } from '../_misc/helpers';
 
 @Component({
   components: {
     Countdown,
     MusicTrack,
+    Game,
   },
 })
 export default class extends Vue {
