@@ -62,12 +62,18 @@ export default class extends Vue {
   }
 }
 
+.game-container {
+  position: absolute;
+  left: 50px;
+  top: 720px;
+}
+
 .musicContainer {
-  position: relative;
+  position: absolute;
   width: 672px;
   height: 100px;
-  left: 484px;
-  top: 200px;
+  left: 1110px;
+  top: 950px;
   font-size: 20px;
   //background: rgba(255, 255, 255, 0.5);
 }
