@@ -1,7 +1,10 @@
+import ComfyJS from 'comfy.js';
+
 const INPUT_JUMP = 'Space';
 
 export default class InputHandler {
   private keys: string[] = [];
+  private chatJump = false;
 
   constructor() {
     window.addEventListener('keydown', (e) => {
@@ -26,9 +29,25 @@ export default class InputHandler {
         this.keys.splice(keyIdx, 1);
       }
     });
+
+    ComfyJS.onChat = (user, message, flags, self, extra) => {
+      if (this.chatJump) {
+        return;
+      }
+
+      if (message.toLowerCase() === 'jump') {
+        this.chatJump = true;
+
+        setTimeout(() => {
+          this.chatJump = false;
+        }, 100);
+      }
+    };
+
+    ComfyJS.Init('bsg_marathon', '', ['esamarathon', 'duncte123']);
   }
 
   get isJump() {
-    return this.keys.includes(INPUT_JUMP);
+    return this.chatJump || this.keys.includes(INPUT_JUMP);
   }
 }
