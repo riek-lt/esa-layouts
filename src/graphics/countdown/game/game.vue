@@ -109,7 +109,7 @@ img {
 .scorePart {
   padding-left: 10px;
   justify-content: space-between;
-  max-width: 50%;
+  max-width: 25%;
 
   p {
     font-size: 2em;

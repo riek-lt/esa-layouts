@@ -40,14 +40,12 @@ export default class EndlessRunnerGame {
   }
 
   initialize(): void {
-    this.ctx.font = '40px Verdana';
-
     this.background = new Background(0, this.canvas.width, this.canvas.height);
     this.player = RunnerPlayer.create(this.playerOptions, this.groundY);
     this.spawner = Spawner.create(this.spawnerOptions, this.canvas.width, this.groundY);
     this.speed = 0;
     this.score = 0;
-    this.gameOver = false;
+    this.gameOver = false
   }
 
   start(): void {
@@ -61,7 +59,8 @@ export default class EndlessRunnerGame {
       // If the game is ended,
       // restart the game.
       if (this.gameOver) {
-        this.initialize();
+        // this.initialize();
+        // Do nothing.
       } else {
         // otherwise, execute the
         // player's jump behaviour.
@@ -104,6 +103,12 @@ export default class EndlessRunnerGame {
       // Check for collisions.
       this.gameOver = this.player.overlapsWithOthers(this.spawner.activeObstacles);
 
+      if (this.gameOver) {
+        setTimeout(() => {
+          this.initialize();
+        }, 5 * 1000);
+      }
+
       // Increase score.
       // eslint-disable-next-line no-plusplus
       this.score++;
@@ -128,8 +133,26 @@ export default class EndlessRunnerGame {
   }
 
   drawGameOver(): void {
+    this.ctx.font = '40px sans-serif';
     this.ctx.beginPath();
-    this.ctx.fillText('GAME OVER', (this.canvas.width / 2) - 100, this.canvas.height / 2);
+    this.ctx.fillText(
+      'Type "jump" to jump',
+      (this.canvas.width / 2) - 160,
+      (this.canvas.height / 2) - 50,
+    );
+    this.ctx.closePath();
+
+    this.ctx.beginPath();
+    this.ctx.fillText('GAME OVER', (this.canvas.width / 2) - 110, this.canvas.height / 2);
+    this.ctx.closePath();
+
+    this.ctx.font = '30px sans-serif';
+    this.ctx.beginPath();
+    this.ctx.fillText(
+      'Game restarts in 5 seconds',
+      (this.canvas.width / 2) - 160,
+      (this.canvas.height / 2) + 50,
+    );
     this.ctx.closePath();
   }
 
@@ -147,7 +170,7 @@ export default class EndlessRunnerGame {
 
   updateHighScore(newHigh: number): void {
     this.highScore = Math.max(this.highScore, newHigh);
-    localStorage.setItem('highScore', this.highScore.toString());
+    // localStorage.setItem('highScore', this.highScore.toString());
   }
 
   drawGround(): void {

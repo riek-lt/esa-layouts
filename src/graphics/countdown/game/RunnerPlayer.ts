@@ -55,8 +55,8 @@ export default class RunnerPlayer {
   }
 
   overlapsWithOthers(others: Collider[] | IObstacle[]) {
-    // return this.collider.overlapsWithOthers(others);
-    return false;
+    return this.collider.overlapsWithOthers(others);
+    // return false;
   }
 
   static create(options: PlayerOptions, groundY: number): RunnerPlayer {
