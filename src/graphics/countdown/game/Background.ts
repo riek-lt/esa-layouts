@@ -11,11 +11,11 @@ export default class Background {
 
   draw(ctx: CanvasRenderingContext2D) {
     // Draw background color.
-    ctx.beginPath();
-    ctx.fillStyle = 'rgb(0, 0, 0)';
-    ctx.rect(0, 0, this.w, this.h);
-    ctx.fill();
-    ctx.closePath();
+    // ctx.beginPath();
+    // ctx.fillStyle = 'rgb(0, 0, 0)';
+    // ctx.rect(0, 0, this.w, this.h);
+    // ctx.fill();
+    // ctx.closePath();
 
     // Set inverse colors for other objects.
     ctx.fillStyle = 'rgb(255, 255, 255)';

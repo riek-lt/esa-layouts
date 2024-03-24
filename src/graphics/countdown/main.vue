@@ -64,17 +64,17 @@ export default class extends Vue {
 
 .game-container {
   position: absolute;
-  left: 50px;
-  top: 720px;
+  left: 27px;
+  top: 600px;
 }
 
 .musicContainer {
   position: absolute;
   width: 672px;
   height: 100px;
-  left: 1110px;
-  top: 950px;
+  left: 57px;
+  top: 148px;
   font-size: 20px;
-  //background: rgba(255, 255, 255, 0.5);
+  //background: rgba(0, 0, 0, 0.5);
 }
 </style>

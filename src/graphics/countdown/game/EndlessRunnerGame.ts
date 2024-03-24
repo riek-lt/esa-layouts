@@ -9,8 +9,8 @@ export default class EndlessRunnerGame {
   private readonly groundY: number;
 
   private speed = 0;
-  private score = 0;
-  private highScore = parseInt(localStorage.getItem('highScore') || '0', 10);
+  public score = 0;
+  public highScore = parseInt(localStorage.getItem('highScore') || '0', 10);
   private player: RunnerPlayer | null = null;
   private spawner: Spawner | null = null;
   private gameOver = false;
@@ -40,6 +40,8 @@ export default class EndlessRunnerGame {
   }
 
   initialize(): void {
+    this.ctx.font = '40px Verdana';
+
     this.background = new Background(0, this.canvas.width, this.canvas.height);
     this.player = RunnerPlayer.create(this.playerOptions, this.groundY);
     this.spawner = Spawner.create(this.spawnerOptions, this.canvas.width, this.groundY);
@@ -81,7 +83,7 @@ export default class EndlessRunnerGame {
     // Draw game objects
     this.background.draw(this.ctx);
     this.drawGround();
-    this.drawScore();
+    // this.drawScore();
     this.player?.draw(this.ctx, this.gameOver);
     this.spawner?.draw(this.ctx);
 
@@ -107,9 +109,9 @@ export default class EndlessRunnerGame {
       this.score++;
     }
 
-    if (this.highScore > 0) {
-      this.drawHighScore();
-    }
+    // if (this.highScore > 0) {
+    //   this.drawHighScore();
+    // }
   }
 
   increaseDifficulty() {
@@ -127,7 +129,7 @@ export default class EndlessRunnerGame {
 
   drawGameOver(): void {
     this.ctx.beginPath();
-    this.ctx.fillText('GAME OVER', this.canvas.width / 2, this.canvas.height / 2);
+    this.ctx.fillText('GAME OVER', (this.canvas.width / 2) - 100, this.canvas.height / 2);
     this.ctx.closePath();
   }
 

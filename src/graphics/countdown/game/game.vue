@@ -1,14 +1,23 @@
 <template>
   <div>
-    <canvas ref="canvas" width="1000" height="300" />
-    <img id="turtle1" src="./img/turtle1.png">
-    <img id="turtle2" src="./img/turtle2.png">
-    <img id="turtle3" src="./img/turtle3.png">
-    <img id="turtle4" src="./img/turtle4.png">
-    <img id="turtle5" src="./img/turtle5.png">
-    <img id="turtle6" src="./img/turtle6.png">
-    <img id="turtle-jump" src="./img/turtle-jump.png">
-    <img id="turtle-death" src="./img/turtle-death.png">
+    <div >
+      <div class="FlexColum scorePart">
+        <p>Score: {{ game?.score }}</p>
+        <p v-if="game?.highScore">Hi Score: {{ game?.highScore }}</p>
+      </div>
+      <canvas ref="canvas" width="1865" height="300" />
+    </div>
+
+    <div>
+      <img id="turtle1" src="./img/turtle1.png">
+      <img id="turtle2" src="./img/turtle2.png">
+      <img id="turtle3" src="./img/turtle3.png">
+      <img id="turtle4" src="./img/turtle4.png">
+      <img id="turtle5" src="./img/turtle5.png">
+      <img id="turtle6" src="./img/turtle6.png">
+      <img id="turtle-jump" src="./img/turtle-jump.png">
+      <img id="turtle-death" src="./img/turtle-death.png">
+    </div>
   </div>
 </template>
 
@@ -22,6 +31,8 @@ import Tree from '@esa-layouts/countdown/game/obstacles/Tree';
 @Component
 export default class extends Vue {
   @Ref('canvas') canvas!: HTMLCanvasElement;
+
+  game: EndlessRunnerGame | null = null;
 
   async created() {
     // we need to wait a tick to make sure that we have the canvas
@@ -54,10 +65,13 @@ export default class extends Vue {
       minLength: 200,
       maxlength: 350,
       speed: 5,
-      maxActive: 2,
+      maxActive: 5,
       obstacles: [
+        // You always want equal or more obstacles than that can be active
         Tree.create(-130, 0, 8, 32, 15),
         Tree.create(-130, 0, 8, 32, 15),
+        Tree.create(-130, 0, 8, 32, 15),
+        Rock.create(-170, 0, 28, 25, 5),
         Rock.create(-170, 0, 28, 25, 5),
         Rock.create(-170, 0, 28, 25, 5),
       ],
@@ -72,7 +86,7 @@ export default class extends Vue {
     const frameRate = 30;
     const groundOffset = 20;
 
-    const endlessRunnerGame = new EndlessRunnerGame(
+    this.game = new EndlessRunnerGame(
       this.canvas,
       frameRate,
       groundOffset,
@@ -82,7 +96,7 @@ export default class extends Vue {
     );
 
     // Create an instance of the game.
-    endlessRunnerGame.start();
+    this.game.start();
   }
 }
 </script>
@@ -92,9 +106,19 @@ img {
   display: none;
 }
 
+.scorePart {
+  padding-left: 10px;
+  justify-content: space-between;
+  max-width: 50%;
+
+  p {
+    font-size: 2em;
+  }
+}
+
 canvas {
   box-sizing: border-box;
-  background: orangered;
-  border: 5px solid purple;
+  //background: orangered;
+  //border: 5px solid purple;
 }
 </style>
