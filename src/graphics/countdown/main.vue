@@ -9,7 +9,7 @@
         height: '100%',
       }"
     >
-      <countdown :style="{ 'margin-top': '50px' }" />
+      <countdown class="textOrangeShadow" :style="{ 'margin-top': '50px' }" />
 
       <div class="game-container">
         <game/>
@@ -58,6 +58,7 @@ export default class extends Vue {
 
     div div:last-child {
       margin-top: 0 !important;
+      letter-spacing: .5rem;
     }
   }
 }

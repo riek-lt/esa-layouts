@@ -45,7 +45,7 @@ export default class EndlessRunnerGame {
     this.spawner = Spawner.create(this.spawnerOptions, this.canvas.width, this.groundY);
     this.speed = 0;
     this.score = 0;
-    this.gameOver = false
+    this.gameOver = false;
   }
 
   start(): void {
@@ -137,20 +137,20 @@ export default class EndlessRunnerGame {
     this.ctx.beginPath();
     this.ctx.fillText(
       'Type "jump" to jump',
-      (this.canvas.width / 2) - 160,
+      (this.canvas.width / 2) - 260,
       (this.canvas.height / 2) - 50,
     );
     this.ctx.closePath();
 
     this.ctx.beginPath();
-    this.ctx.fillText('GAME OVER', (this.canvas.width / 2) - 110, this.canvas.height / 2);
+    this.ctx.fillText('GAME OVER', (this.canvas.width / 2) - 190, this.canvas.height / 2);
     this.ctx.closePath();
 
     this.ctx.font = '30px sans-serif';
     this.ctx.beginPath();
     this.ctx.fillText(
       'Game restarts in 5 seconds',
-      (this.canvas.width / 2) - 160,
+      (this.canvas.width / 2) - 290,
       (this.canvas.height / 2) + 50,
     );
     this.ctx.closePath();

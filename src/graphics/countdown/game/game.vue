@@ -3,7 +3,7 @@
     <div >
       <div class="FlexColum scorePart">
         <p>Score: {{ game?.score }}</p>
-        <p v-if="game?.highScore">Hi Score: {{ game?.highScore }}</p>
+        <p v-if="game?.highScore">HI Score: {{ game?.highScore }}</p>
       </div>
       <canvas ref="canvas" width="1865" height="300" />
     </div>
@@ -109,10 +109,11 @@ img {
 .scorePart {
   padding-left: 10px;
   justify-content: space-between;
-  max-width: 25%;
+  max-width: 100%;
+  //background: red;
 
   p {
-    font-size: 2em;
+    font-size: 1.5em;
   }
 }
 
