@@ -28,7 +28,7 @@ export interface SpawnerOptions {
   maxlength: number;
   speed: number;
   maxActive: number;
-  obstacles: IObstacle[]; // TODO obstacle type
+  obstacles: IObstacle[];
 }
 
 export interface DifficultyOptions {

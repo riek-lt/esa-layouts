@@ -28,7 +28,6 @@ import { Component, Ref, Vue } from 'vue-property-decorator';
 import { DifficultyOptions, PlayerOptions, SpawnerOptions } from '@esa-layouts/countdown/game/types/options';
 import EndlessRunnerGame from '@esa-layouts/countdown/game/EndlessRunnerGame';
 import Rock from '@esa-layouts/countdown/game/obstacles/Rock';
-import Tree from '@esa-layouts/countdown/game/obstacles/Tree';
 import Cactus from '@esa-layouts/countdown/game/obstacles/Cactus';
 
 @Component
