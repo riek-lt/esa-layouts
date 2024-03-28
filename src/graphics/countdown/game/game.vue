@@ -17,6 +17,8 @@
       <img id="turtle6" src="./img/turtle6.png">
       <img id="turtle-jump" src="./img/turtle-jump.png">
       <img id="turtle-death" src="./img/turtle-death.png">
+      <img id="sprite-cactus" src="./img/sprite-cactus.png">
+      <img id="sprite-big-cactus" src="./img/sprite-three-cactus.png">
     </div>
   </div>
 </template>
@@ -27,6 +29,7 @@ import { DifficultyOptions, PlayerOptions, SpawnerOptions } from '@esa-layouts/c
 import EndlessRunnerGame from '@esa-layouts/countdown/game/EndlessRunnerGame';
 import Rock from '@esa-layouts/countdown/game/obstacles/Rock';
 import Tree from '@esa-layouts/countdown/game/obstacles/Tree';
+import Cactus from '@esa-layouts/countdown/game/obstacles/Cactus';
 
 @Component
 export default class extends Vue {
@@ -67,13 +70,19 @@ export default class extends Vue {
       speed: 5,
       maxActive: 5,
       obstacles: [
+        Cactus.create(-130, 0, 30, 66, '#sprite-cactus'),
+        Cactus.create(-130, 0, 30, 66, '#sprite-cactus'),
+        Cactus.create(-130, 0, 30, 66, '#sprite-cactus'),
+        Cactus.create(-130, 0, 30, 66, '#sprite-cactus'),
+        Cactus.create(-130, 0, 98, 66, '#sprite-big-cactus'),
+        Cactus.create(-130, 0, 98, 66, '#sprite-big-cactus'),
+        Cactus.create(-130, 0, 98, 66, '#sprite-big-cactus'),
         // You always want equal or more obstacles than that can be active
-        Tree.create(-130, 0, 8, 32, 15),
-        Tree.create(-130, 0, 8, 32, 15),
-        Tree.create(-130, 0, 8, 32, 15),
-        Rock.create(-170, 0, 28, 25, 5),
-        Rock.create(-170, 0, 28, 25, 5),
-        Rock.create(-170, 0, 28, 25, 5),
+        // Tree.create(-130, 0, 8, 32, 15),
+        // Tree.create(-130, 0, 8, 32, 15),
+        // Tree.create(-130, 0, 8, 32, 15),
+        Rock.create(-130, 0, 28, 25, 5),
+        Rock.create(-130, 0, 28, 25, 5),
       ],
     };
 
