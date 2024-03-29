@@ -34,13 +34,16 @@
     "@esamarathon/mq-events": "^1.0.1",
     "animate.css": "^4.1.1",
     "clone": "^2.1.2",
+    "comfy.js": "^1.1.16",
     "discord.js": "^13.17.1",
     "lodash": "^4.17.21",
     "module-alias": "^2.2.3",
     "moment": "^2.30.1",
     "needle": "^3.3.1",
-    "sharp": "^0.33.2",
     "pusher-js": "^7.1.1-beta",
+    "sharp": "^0.33.2",
+    "socket.io": "^4.7.4",
+    "socket.io-adapter": "^2.5.4",
     "socket.io-client": "^4.7.2",
     "speedcontrol-util": "github:speedcontrol/speedcontrol-util.git#build",
     "streamdeck-util": "^0.4.0",
@@ -270,7 +273,7 @@
         "title": "RabbitMQ Test",
         "width": 3,
         "file": "rabbitmq-test.html",
-        "workspace": "Z - BSG Advanced",
+        "workspace": "Z9 - Debug",
         "headerColor": "#c49215"
       },
       {
@@ -279,6 +282,14 @@
         "width": 4,
         "file": "checklist.html",
         "headerColor": "#33cbcb"
+      },
+      {
+        "name": "additional-donations-control",
+        "title": "Additional Donations Control",
+        "width": 3,
+        "file": "additional-donations-control.html",
+        "workspace": "Z2 - ESA Advanced",
+        "headerColor": "#c49215"
       }
     ],
     "graphics": [
