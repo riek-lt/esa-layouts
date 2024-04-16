@@ -71,7 +71,7 @@
         height: '176px',
       }"
     >
-      <flashing-lights-warning class="Flex" style="align-self: flex-end" />
+      <flashing-lights-warning class="Flex" style="align-self: flex-start" />
       <media-box-box
         line-right
         line-left
