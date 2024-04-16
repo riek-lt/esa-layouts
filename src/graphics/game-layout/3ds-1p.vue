@@ -76,7 +76,7 @@
         line-right
         line-left
         :style="{
-          width: '100%',
+          width: '641px',
           height: '100%',
         }"
       />

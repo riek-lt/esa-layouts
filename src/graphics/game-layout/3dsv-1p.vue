@@ -100,7 +100,7 @@
       <media-box-box
         line-right
         :style="{
-          width: '100%',
+          width: '641px',
           height: '100%',
         }"
       />
