@@ -70,7 +70,7 @@
           class="RunInfoExtra"
           :style="{
           height: '100%',
-          width: '100%',
+          width: '99%',
           'font-size': '2em', // Also gets set in the script, here as backup.
           'text-align': textAlignCss,
           'font-weight': 300,
