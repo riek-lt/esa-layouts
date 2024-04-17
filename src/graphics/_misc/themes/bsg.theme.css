@@ -22,7 +22,7 @@
 }
 
 .TimerParent {
-  background: url('./bsg/timer_grid.png');
+  background: url('./bsg/timer_grid.png') repeat;
 }
 
 #Intermission{

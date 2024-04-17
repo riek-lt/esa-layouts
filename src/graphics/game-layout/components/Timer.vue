@@ -4,7 +4,8 @@
     :style="{
       'box-sizing': 'border-box',
       'justify-content': 'center',
-      'border-bottom':'5px solid var(--bsg-color)',
+      'border-bottom': borderBottom ? '5px solid var(--bsg-color)' : 'unset',
+      // 'height': '100%',
     }"
   >
     <div class="TimerContainer Flex"
@@ -28,6 +29,7 @@
         'font-weight': 300,
         'font-size': '65pt',
         // 'font-size': fontSize,
+        // 'align-items': 'center',
         'align-content': 'center',
         'justify-content': 'center',
       }"
@@ -64,6 +66,7 @@ export default class extends Vue {
   @Prop({ type: String, default: '65pt' }) fontSize!: string;
   @Prop({ type: Boolean, default: false }) lineLeft!: string;
   @Prop({ type: Boolean, default: false }) lineRight!: string;
+  @Prop({ type: Boolean, default: true }) borderBottom!: string;
   @State('timer') originalTimer!: Timer;
   @State('delayedTimer') timer!: DelayedTimer;
   timeStr = '00:00:00';

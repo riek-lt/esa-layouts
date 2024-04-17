@@ -7,6 +7,7 @@
       <media-box
         class="MBNoPadding"
         :font-size="20"
+        :vertical="vertical"
         :style="{
           left: '0px',
           top: '0px',
@@ -28,6 +29,7 @@ import MediaBox from '@shared/graphics/mediabox';
   },
 })
 export default class extends Vue {
+  @Prop({ type: Boolean, default: false }) vertical!: string;
   @Prop({ type: Boolean, default: false }) lineLeft!: string;
   @Prop({ type: Boolean, default: false }) lineRight!: string;
 }
