@@ -24,6 +24,7 @@
         'align-items': 'center',
         'font-weight': 300,
         'font-size': '18pt',
+        'text-transform': 'uppercase',
         'font-family': 'pixelmix',
       }"
     >
@@ -120,7 +121,7 @@ export default class extends Vue {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
   .Pronouns {
     position: relative;
     height: 19px;

@@ -46,9 +46,13 @@
         height: '176px',
       }"
     >
-      <timer
+      <media-box-box
         line-left
         line-right
+        :style="{
+          width: '731px',
+          height: '100%',
+        }"
       />
     </div>
 
@@ -76,15 +80,12 @@
       }"
     >
       <flashing-lights-warning/>
-      <media-box-box
+      <timer
+        line-left
         line-right
-        :style="{
-          width: '469px',
-          height: '100%',
-        }"
       />
-      <commentators-reader line-top show-reader/>
-      <commentators-reader line-top/>
+      <commentators-reader show-reader/>
+      <commentators-reader/>
     </div>
   </div>
 </template>
