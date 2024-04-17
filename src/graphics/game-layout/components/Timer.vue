@@ -4,7 +4,7 @@
     :style="{
       'box-sizing': 'border-box',
       'justify-content': 'center',
-      'border-bottom': borderBottom ? '5px solid var(--bsg-color)' : 'unset',
+      [borderLocation]: '5px solid var(--bsg-color)',
       // 'height': '100%',
     }"
   >
@@ -66,7 +66,7 @@ export default class extends Vue {
   @Prop({ type: String, default: '65pt' }) fontSize!: string;
   @Prop({ type: Boolean, default: false }) lineLeft!: string;
   @Prop({ type: Boolean, default: false }) lineRight!: string;
-  @Prop({ type: Boolean, default: true }) borderBottom!: string;
+  @Prop({ type: Boolean, default: false }) lineTop!: string;
   @State('timer') originalTimer!: Timer;
   @State('delayedTimer') timer!: DelayedTimer;
   timeStr = '00:00:00';
@@ -92,6 +92,10 @@ export default class extends Vue {
     // Backup timer (see above).
     clearTimeout(this.backupTimerTO);
     this.backupTimerTO = window.setTimeout(() => this.backupTimer(), 1000);
+  }
+
+  get borderLocation(): string {
+    return this.lineTop ? 'border-top' : 'border-bottom';
   }
 
   @Watch('timer', { immediate: true })
