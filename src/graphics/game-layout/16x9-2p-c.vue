@@ -8,18 +8,31 @@
       :style="{
       left: '0px',
       top: '77px',
-      width: '958px',
+      width: '715px',
       height: '536px',
       }"
     />
+
+    <!-- Something for the tracker -->
+    <game-capture
+      id="GameCapture3"
+      :slot-no="2"
+      :style="{
+      left: '715px',
+      top: '77px',
+      width: '491px',
+      height: '536px',
+      }"
+    />
+
     <game-capture
       id="GameCapture2"
       :slot-no="1"
       finish-time-pos="bottomright"
       :style="{
-      left: '963px',
+      left: '1206px',
       top: '77px',
-      width: '958px',
+      width: '715px',
       height: '536px',
       }"
     />

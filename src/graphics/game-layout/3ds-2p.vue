@@ -61,12 +61,13 @@
       class="Fixed FlexColumn"
       :style="{
         left: '0px',
-        top: '69px',
+        top: '20px',
         width: '671px',
-        height: '44px'
+        height: '94px'
       }"
     >
       <commentators-reader line-top show-reader/>
+      <commentators-reader line-top/>
     </div>
 
     <!-- Player 1 -->
@@ -92,7 +93,6 @@
         height: '44px'
       }"
     >
-      <commentators-reader line-top/>
     </div>
 
     <!-- Player 2 -->
