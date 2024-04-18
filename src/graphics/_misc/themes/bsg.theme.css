@@ -8,6 +8,15 @@
   --dash-left-width: 194px;
 }
 
+/* TODO: scss */
+.TimerFH.TimerParent {
+  height: 100%;
+}
+
+.TimerFH.TimerParent .TimerContainer div {
+  align-items: center;
+}
+
 .MBNoPadding .Slide {
   padding: 0px !important;
   padding-bottom: 10px !important;

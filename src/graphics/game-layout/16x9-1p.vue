@@ -46,8 +46,10 @@
         }"
     >
       <timer
+        class="TimerFH"
         line-right
         line-left
+        :line-bottom="false"
       />
     </div>
 

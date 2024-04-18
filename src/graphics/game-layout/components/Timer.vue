@@ -4,7 +4,8 @@
     :style="{
       'box-sizing': 'border-box',
       'justify-content': 'center',
-      [borderLocation]: '5px solid var(--bsg-color)',
+      [borderLocation]: lineBottom ? '5px solid var(--bsg-color)' : 'unset',
+      // 'border-bottom': lineBottom ? '5px solid var(--bsg-color)' : 'unset',
       // 'height': '100%',
     }"
   >
@@ -66,7 +67,9 @@ export default class extends Vue {
   @Prop({ type: String, default: '65pt' }) fontSize!: string;
   @Prop({ type: Boolean, default: false }) lineLeft!: string;
   @Prop({ type: Boolean, default: false }) lineRight!: string;
+  // TODO: better border properties for v2
   @Prop({ type: Boolean, default: false }) lineTop!: string;
+  @Prop({ type: Boolean, default: true }) lineBottom!: string;
   @State('timer') originalTimer!: Timer;
   @State('delayedTimer') timer!: DelayedTimer;
   timeStr = '00:00:00';
