@@ -4,8 +4,9 @@
     :style="{
       'box-sizing': 'border-box',
       'justify-content': 'center',
-      [borderLocation]: lineBottom ? '5px solid var(--bsg-color)' : 'unset',
-      // 'border-bottom': lineBottom ? '5px solid var(--bsg-color)' : 'unset',
+      'border-top': borderTop ? '5px solid var(--bsg-color)' : 'unset',
+      // [borderLocation]: lineBottom ? '5px solid var(--bsg-color)' : 'unset',
+      'border-bottom': lineBottom ? '5px solid var(--bsg-color)' : 'unset',
       // 'height': '100%',
     }"
   >
@@ -68,7 +69,7 @@ export default class extends Vue {
   @Prop({ type: Boolean, default: false }) lineLeft!: string;
   @Prop({ type: Boolean, default: false }) lineRight!: string;
   // TODO: better border properties for v2
-  @Prop({ type: Boolean, default: false }) lineTop!: string;
+  @Prop({ type: Boolean, default: false }) borderTop!: string;
   @Prop({ type: Boolean, default: true }) lineBottom!: string;
   @State('timer') originalTimer!: Timer;
   @State('delayedTimer') timer!: DelayedTimer;
@@ -98,7 +99,7 @@ export default class extends Vue {
   }
 
   get borderLocation(): string {
-    return this.lineTop ? 'border-top' : 'border-bottom';
+    return this.borderTop ? 'border-top' : 'border-bottom';
   }
 
   @Watch('timer', { immediate: true })
