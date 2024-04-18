@@ -115,3 +115,11 @@ export default class extends Vue {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+span {
+  display: inline-flex;
+  font-variant-numeric: tabular-nums;
+  font-stretch: condensed;
+}
+</style>
