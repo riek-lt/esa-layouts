@@ -111,7 +111,6 @@
           height: '322px',
         }"
     >
-      <flashing-lights-warning/>
       <media-box-box
         line-right
         :style="{

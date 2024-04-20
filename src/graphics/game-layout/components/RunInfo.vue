@@ -90,12 +90,12 @@
           }">
             <span v-if="runData.category" class="categoryEst" :style="{
                       color: 'var(--bsg-color)',
-                      'font-size': '21pt',
+                      'font-size': '18pt',
                       'white-space': 'normal',
                 }">{{ runData.category }}</span>
               <span v-if="runData.estimate" class="categoryEst" :style="{
                 color: 'var(--bsg-color)',
-                      'font-size': '21pt',
+                      'font-size': '18pt',
                       'white-space': 'normal',
                 }">{{ runData.estimate }}</span>
             </div>
@@ -134,7 +134,7 @@ export default class extends Vue {
       if (!this.noWrap) {
         [this.fittyGame] = fitty('.RunGame', {
           minSize: 1,
-          maxSize: parseInt(elem.style.fontSize, 10) * 1.5,
+          maxSize: parseInt(elem.style.fontSize, 10) * 1.2,
         });
         [this.fittyInfoExtra] = fitty('.RunInfoExtra', {
           minSize: 1,

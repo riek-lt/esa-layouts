@@ -11,7 +11,6 @@
       }"
     >
       <run-info />
-      <flashing-lights-warning class="Flex" style="align-self: flex-end" />
     </div>
 
     <!-- Host/comms -->
@@ -97,10 +96,11 @@
         height: '176px',
       }"
     >
+      <flashing-lights-warning class="Flex" style="align-self: flex-end" />
       <media-box-box
         line-right
         :style="{
-          width: '641px',
+          width: '574px',
           height: '100%',
         }"
       />
