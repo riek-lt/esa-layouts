@@ -2,10 +2,11 @@
   --bsg-color: #cf773b;
   --slide-color: #914e21;
   --text-color: white;
+  --main-bg-color: #404040;
   --bg-start: #303030;
   --bg-end: #212121;
 
-  --dash-left-width: 194px;
+  /*--dash-left-width: 194px;*/
 }
 
 /* TODO: scss */

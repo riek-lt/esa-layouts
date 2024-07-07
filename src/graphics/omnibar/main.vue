@@ -15,6 +15,7 @@
         </div>
       </transition>
       <div class="box">
+        <div class="arrow"/>
         <clock class="clock"/>
 <!--        <img src="./omniing/bsgstick.png"  id="logobsg">-->
       </div>
@@ -87,6 +88,10 @@ export default class extends Vue {
 <style lang="scss">
 @import "~animate.css";
 
+* {
+  --dash-left-width: 150px;
+}
+
 html, body {
   padding: 0;
   margin: 0;
@@ -100,7 +105,8 @@ html, body {
   width: 1920px;
   height: 82px;
 
-  background: linear-gradient(180deg, var(--bg-start) 0%, var(--bg-end) 100%);
+  //background: var(--main-bg-color);
+  background-image: url('./omniing/background.png');
 
   #left {
     position: absolute;
@@ -111,14 +117,26 @@ html, body {
       height: 82px;
       //width: 256px;
       width: var(--dash-left-width);
+      //width: 150px;
       //width: 194px;
-      background: var(--bsg-color);
-      border-radius: 0px 0px 34px 0px / 0px 0px 100px 0px;
+      background: var(--slide-color);
+      //border-radius: 0px 0px 34px 0px / 0px 0px 100px 0px;
 
       /*img {
         width: 50px;
         height: 50px;
       }*/
+
+      .arrow {
+        position: absolute;
+        width: 0;
+        height: 0;
+        left: calc(var(--dash-left-width) - 1px);
+        border-top: 42px solid transparent;
+        border-bottom: 42px solid transparent;
+
+        border-left: 41px solid var(--slide-color);
+      }
     }
 
     #logobsg {
@@ -130,6 +148,7 @@ html, body {
     }
 
     #dash {
+      display: none;
       position: absolute;
       // TODO: local file
       background: url("./omniing/left_dash.png");
@@ -201,7 +220,7 @@ html, body {
       right: 0;
       height: 82px;
       width: 177px;
-      background: var(--bsg-color);
+      background: var(--slide-color);
       // border-radius: 0px 0px 0px 34px / 0px 0px 0px 100px;
       border-radius: 0px 0px 0px 34px / 0px 0px 0px 85px;
 

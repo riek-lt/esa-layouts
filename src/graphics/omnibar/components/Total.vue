@@ -203,7 +203,7 @@ export default class extends Vue {
     padding-top: 14px;
     display: inline-block;
     text-align: center;
-    background: var(--slide-color);
+    background: var(--bsg-color);
     position: relative;
   }
 
