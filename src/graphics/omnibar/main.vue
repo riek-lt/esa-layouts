@@ -102,7 +102,7 @@ html, body {
 }
 
 .arrow_base {
-  position: absolute;
+  position: relative;
   top: 0px;
   --color: var(--bsg-color);
   --size: 82px;
@@ -138,6 +138,7 @@ html, body {
     }
 
     .after_left_box {
+      position: absolute;
       --color: var(--dark-arrow-default);
       left: calc(var(--dash-left-width) - 60px);
     }
@@ -162,13 +163,13 @@ html, body {
       }
 
       #dash {
-        position: absolute;
+        position: relative;
         background: var(--bsg-color);
         clip-path: polygon(90% 0%, 100% 50%, 90% 100%, 0% 100%, 10% 50%, 0% 0%);
         //left: calc(var(--dash-left-width) - 14px);
+        top: -164px;
         width: 300px;
         height: 82px;
-        top: 0;
         font-family: 'Goodlight';
 
         p {
@@ -189,6 +190,7 @@ html, body {
       .dash_seg_1 {
         --color: var(--dark-arrow-default);
         left: 240px;
+        top: -82px;
       }
 
       .dash_seg_2 {
@@ -316,6 +318,6 @@ html, body {
 }
 
 .omnibar-dash-enter, .omnibar-dash-leave-to {
-  left: 0px;
+  left: -20px;
 }
 </style>
