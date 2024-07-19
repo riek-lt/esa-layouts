@@ -7,17 +7,20 @@
     </div>
     <div id="left">
       <transition name="omnibar-dash">
-        <div id="dash" v-if="dashInfo" :key="JSON.stringify(dashInfo)">
-          <p :style="{
+        <div class="dashContainer" v-if="dashInfo" :key="JSON.stringify(dashInfo)">
+          <div class="arrow_base dash_seg_2" />
+          <div class="arrow_base dash_seg_1" />
+          <div id="dash" >
+            <p :style="{
             'font-size': `${dashInfo.fontSize}px`,
             'top': `${dashInfo.top}px`,
           }">{{ dashInfo.text }}</p>
+          </div>
         </div>
       </transition>
+      <div class="arrow_base after_left_box" />
       <div class="box">
-        <div class="arrow"/>
         <clock class="clock"/>
-<!--        <img src="./omniing/bsgstick.png"  id="logobsg">-->
       </div>
     </div>
         <div id="right">
@@ -89,12 +92,26 @@ export default class extends Vue {
 @import "~animate.css";
 
 * {
-  --dash-left-width: 150px;
+  --dash-left-width: 160px;
+  --dark-arrow-default: #232323;
 }
 
 html, body {
   padding: 0;
   margin: 0;
+}
+
+.arrow_base {
+  position: absolute;
+  top: 0px;
+  --color: var(--bsg-color);
+  --size: 82px;
+
+  display: block;
+  width: var(--size);
+  height: 82px;
+  background: var(--color);
+  clip-path: polygon(63% 0, 100% 50%, 63% 100%, 0% 100%, 0 51%, 0% 0%);
 }
 
 #omnibar {
@@ -115,28 +132,14 @@ html, body {
       position: absolute;
       left: 0;
       height: 82px;
-      //width: 256px;
       width: var(--dash-left-width);
-      //width: 150px;
-      //width: 194px;
       background: var(--slide-color);
-      //border-radius: 0px 0px 34px 0px / 0px 0px 100px 0px;
+      clip-path: polygon(80% 0, 100% 50%, 80% 100%, 0% 100%, 0 51%, 0% 0%);
+    }
 
-      /*img {
-        width: 50px;
-        height: 50px;
-      }*/
-
-      .arrow {
-        position: absolute;
-        width: 0;
-        height: 0;
-        left: calc(var(--dash-left-width) - 1px);
-        border-top: 42px solid transparent;
-        border-bottom: 42px solid transparent;
-
-        border-left: 41px solid var(--slide-color);
-      }
+    .after_left_box {
+      --color: var(--dark-arrow-default);
+      left: calc(var(--dash-left-width) - 60px);
     }
 
     #logobsg {
@@ -147,37 +150,50 @@ html, body {
       top: -62px;
     }
 
-    #dash {
-      display: none;
+    .dashContainer {
       position: absolute;
-      // TODO: local file
-      background: url("./omniing/left_dash.png");
-      //left: 244px;
       left: calc(var(--dash-left-width) - 14px);
-      width: 321px;
+      animation-duration: 500ms;
       height: 82px;
       top: 0;
-      animation-duration: 500ms;
-      font-family: 'Goodlight';
 
       &.hide {
         display: none;
       }
 
-      p {
-        color: white;
+      #dash {
         position: absolute;
-        left: 34px;
-        max-width: 200px;
-        word-break: break-word;
-        top: 22px;
-        font-size: 1.9vw;
-        //font-size: 37px;
-        // top: calc((82px - 118px) / 2);
-        text-transform: uppercase;
-        vertical-align: middle;
-        text-align: center;
-        margin: 0;
+        background: var(--bsg-color);
+        clip-path: polygon(90% 0%, 100% 50%, 90% 100%, 0% 100%, 10% 50%, 0% 0%);
+        //left: calc(var(--dash-left-width) - 14px);
+        width: 300px;
+        height: 82px;
+        top: 0;
+        font-family: 'Goodlight';
+
+        p {
+          color: white;
+          position: absolute;
+          left: 34px;
+          max-width: 200px;
+          word-break: break-word;
+          top: 22px;
+          font-size: 1.9vw;
+          text-transform: uppercase;
+          vertical-align: middle;
+          text-align: center;
+          margin: 0;
+        }
+      }
+
+      .dash_seg_1 {
+        --color: var(--dark-arrow-default);
+        left: 240px;
+      }
+
+      .dash_seg_2 {
+        --color: var(--bsg-color);
+        left: 260px;
       }
     }
   }
