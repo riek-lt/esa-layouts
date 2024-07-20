@@ -201,6 +201,7 @@ export default class extends Vue {
 
   /* Each character in the total is in a span; setting width so the numbers appear monospaced. */
   #Total > span {
+    color: white;
     padding-top: 14px;
     display: inline-block;
     text-align: center;

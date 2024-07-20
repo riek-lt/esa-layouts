@@ -10,10 +10,10 @@
       'align-items': 'flex-start',
     }"
   >
-    <div :style="{ 'font-size': '20px' }">
+    <div :style="{ 'font-size': '25px' }">
       {{ when }}
     </div>
-    <div :style="{ 'font-size': '26px' }">
+    <div :style="{ 'font-size': '40px' }">
       <span v-if="getRunTotalPlayers(run) > 0">
         {{ formPlayerNamesStr(run) }}
         play<span v-if="getRunTotalPlayers(run) === 1">s</span> {{ run.game }}

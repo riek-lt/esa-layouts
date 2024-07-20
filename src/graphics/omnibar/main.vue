@@ -42,7 +42,7 @@
           </div>
           <div class="arrow_base right after_right_box" />
           <div class="box">
-            <img src="./omniing/mind_logo.png" alt="">
+            <img src="./omniing/mind_logo_tag.png" alt="">
           </div>
       </div>
     </div>
@@ -255,8 +255,7 @@ html, body {
       img {
         position: relative;
         height: 82px;
-        //left: 79px;
-        left: 58px;
+        left: 20px;
       }
     }
 
