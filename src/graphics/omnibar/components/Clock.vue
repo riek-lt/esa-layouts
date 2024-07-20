@@ -6,8 +6,8 @@
       height: '100%',
     }"
   >
-    <span style="font-size: 30px;">{{ time }}</span>
-    <span style="font-size: 14px;">{{ date }}</span>
+    <span style="font-size: 40px;">{{ time }}</span>
+    <span style="font-size: 20px;">{{ date }}</span>
   </div>
 </template>
 
@@ -46,6 +46,7 @@ export default class extends Vue {
   flex-direction: column;
   justify-content: center;
   align-content: space-around;
-  font-family: 'Goodlight'
+  /*align-items: center;*/
+  font-family: 'Bahnschrift'
 }
 </style>

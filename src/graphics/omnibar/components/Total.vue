@@ -34,13 +34,13 @@
         >
         <span
           :style="{
-                'font-size': '28px',
-                color: '#7FFF00',
-                'font-weight': 600,
-                'background-color': 'rgba(0,0,0,0.6)',
-                padding: '4px 8px',
-                'border-radius': '10px',
-              }"
+            'font-size': '28px',
+            color: '#7FFF00',
+            'font-weight': 600,
+            'background-color': 'rgba(0,0,0,0.6)',
+            padding: '4px 8px',
+            'border-radius': '10px',
+          }"
         >
               {{ alertList[0] ? alertList[0].amount : '€0' }}
             </span>
@@ -196,6 +196,7 @@ export default class extends Vue {
     font-weight: 500;
     text-align: left;
     float: right;
+    height: 82px;
   }
 
   /* Each character in the total is in a span; setting width so the numbers appear monospaced. */
@@ -205,11 +206,7 @@ export default class extends Vue {
     text-align: center;
     background: var(--bsg-color);
     position: relative;
-  }
-
-  #Total span:first-of-type {
-    /*padding-left: 10px;*/
-    background: unset !important;
+    font-size: 50px;
   }
 
   /*#Total span:first-of-type:before {

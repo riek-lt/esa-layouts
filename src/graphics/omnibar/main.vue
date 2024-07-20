@@ -24,17 +24,22 @@
       </div>
     </div>
         <div id="right">
-          <div class="dash">
-            <total :style="{
-              // 'padding-left': '100px',
-              // 'padding-top': '8px',
-              'margin-right': '3px',
-              'text-align': 'right',
-              'font-family': 'Goodlight',
-              }"
-              @totalUpdate="updateInfoWidth"
-            />
+          <div class="dashContainer">
+            <div class="arrow_base right dash_seg_2" />
+            <div class="arrow_base right dash_seg_1" />
+            <div class="dash">
+              <total :style="{
+                // 'padding-left': '100px',
+                // 'padding-top': '8px',
+                'margin-right': '3px',
+                'text-align': 'right',
+                'font-family': 'Bahnschrift',
+                }"
+                @totalUpdate="updateInfoWidth"
+              />
+            </div>
           </div>
+          <div class="arrow_base right after_right_box" />
           <div class="box">
             <img src="./omniing/mind_logo.png" alt="">
           </div>
@@ -112,6 +117,10 @@ html, body {
   height: 82px;
   background: var(--color);
   clip-path: polygon(63% 0, 100% 50%, 63% 100%, 0% 100%, 0 51%, 0% 0%);
+
+  &.right {
+    clip-path: polygon(40% 0%, 100% 0%, 100% 100%, 40% 100%, 0% 50%);
+  }
 }
 
 #omnibar {
@@ -124,6 +133,7 @@ html, body {
 
   //background: var(--main-bg-color);
   background-image: url('./omniing/background.png');
+  //background: yellow;
 
   #left {
     position: absolute;
@@ -236,11 +246,11 @@ html, body {
     .box {
       position: absolute;
       right: 0;
+      top: 0;
       height: 82px;
       width: 177px;
       background: var(--slide-color);
-      // border-radius: 0px 0px 0px 34px / 0px 0px 0px 100px;
-      border-radius: 0px 0px 0px 34px / 0px 0px 0px 85px;
+      clip-path: polygon(20% 0%, 100% 0%, 100% 100%, 20% 100%, 0% 50%);
 
       img {
         position: relative;
@@ -250,41 +260,36 @@ html, body {
       }
     }
 
-    .dash {
+    // TODO: make this be able to grow and shrink
+    .after_right_box {
       position: absolute;
-      //background: #914e21;
-      //right: 222px;
-      right: 192px;
-      // width: 404px;
-      min-width: 10px;
+      --color: var(--dark-arrow-default);
+      right: 120px;
+    }
+
+    .dash_seg_1 {
+      --color: var(--dark-arrow-default);
+      right: 310px;
+      top: -82px;
+    }
+
+    .dash_seg_2 {
+      --color: var(--bsg-color);
+      right: 335px;
+    }
+
+    .dash {
+      padding-left: 40px;
+      padding-right: 5px;
+
+      position: absolute;
+      right: 160px;
+      min-width: 180px;
       height: 82px;
       top: 0;
       animation-duration: 500ms;
-
-      &:before {
-        content: '';
-        position: absolute;
-        background: url('./omniing/right_dash_front.png') center center;
-        background-size: cover;
-        height: 82px;
-        width: 104px;
-        //left: -104px;
-        left: -75px;
-        top: 0px;
-      }
-
-      &:after {
-        content: '';
-        position: absolute;
-        z-index: 0;
-        background: url('./omniing/right_dash_back.png') center center;
-        background-size: cover;
-        height: 82px;
-        width: 44px;
-        //right: -44px;
-        right: -41px;
-        top: 0px;
-      }
+      background: var(--bsg-color);
+      clip-path: polygon(100% 0%, 85% 50%, 100% 100%, 25% 100%, 10% 50%, 25% 0%);
 
       &.hide {
         display: none;
