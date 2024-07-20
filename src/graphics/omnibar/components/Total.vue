@@ -209,18 +209,6 @@ export default class extends Vue {
     font-size: 50px;
   }
 
-  /*#Total span:first-of-type:before {
-    content: '';
-    position: absolute;
-    background: url('../omniing/right_dash_front.png');
-    background-position: center center;
-    background-size: cover;
-    height: 82px;
-    width: 104px;
-    left: -104px;
-    top: 0px;
-  }*/
-
   #Total > .Comma {
     display: inline-block;
     width: 0.22em;

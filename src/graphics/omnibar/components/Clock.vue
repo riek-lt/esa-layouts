@@ -6,8 +6,8 @@
       height: '100%',
     }"
   >
-    <span style="font-size: 40px;">{{ time }}</span>
-    <span style="font-size: 20px;">{{ date }}</span>
+    <span>{{ time }}</span>
+    <span>{{ date }}</span>
   </div>
 </template>
 
@@ -37,16 +37,23 @@ export default class extends Vue {
 }
 </script>
 
-<!-- TODO: move this to correct style sheet -->
-<style scoped>
+<style scoped lang="scss">
 .Clock {
-  padding-top: 5px;
-  padding-left: 10px;
+  position: relative;
+  left: -15px;
+  text-align: center;
+  padding-top: 2px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-content: space-around;
-  /*align-items: center;*/
-  font-family: 'Bahnschrift'
+  font-family: 'Bahnschrift';
+
+  span:first-child {
+    font-size: 40px;
+  }
+
+  span:nth-child(2) {
+    font-size: 20px;
+  }
 }
 </style>

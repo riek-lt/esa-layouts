@@ -12,6 +12,7 @@
           <div class="arrow_base dash_seg_1" />
           <div id="dash" >
             <p :style="{
+            'left': '40px',
             'font-size': `${dashInfo.fontSize}px`,
             'top': `${dashInfo.top}px`,
           }">{{ dashInfo.text }}</p>
@@ -131,7 +132,6 @@ html, body {
   width: 1920px;
   height: 82px;
 
-  //background: var(--main-bg-color);
   background-image: url('./omniing/background.png');
   //background: yellow;
 
@@ -180,7 +180,7 @@ html, body {
         top: -164px;
         width: 300px;
         height: 82px;
-        font-family: 'Goodlight';
+        font-family: 'Bahnschrift';
 
         p {
           color: white;
@@ -189,7 +189,7 @@ html, body {
           max-width: 200px;
           word-break: break-word;
           top: 22px;
-          font-size: 1.9vw;
+          font-size: 34px;
           text-transform: uppercase;
           vertical-align: middle;
           text-align: center;
