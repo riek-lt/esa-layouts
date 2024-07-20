@@ -31,7 +31,7 @@ async function updatePrizes(): Promise<void> {
   try {
     const resp = await needle(
       'get',
-      `https://${config.address}/search/?event=${eventInfo[0].id}&type=prize&feed=current`,
+      `https://${config.address}/tracker/search/?event=${eventInfo[0].id}&type=prize&feed=current`,
       {
         cookies: getCookies(),
       },

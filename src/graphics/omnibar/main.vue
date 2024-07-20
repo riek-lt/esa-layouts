@@ -26,8 +26,6 @@
     </div>
         <div id="right">
           <div class="dashContainer">
-            <div class="arrow_base right dash_seg_2" />
-            <div class="arrow_base right dash_seg_1" />
             <div class="dash">
               <total :style="{
                 // 'padding-left': '100px',
@@ -96,6 +94,7 @@ export default class extends Vue {
 
 <style lang="scss">
 @import "~animate.css";
+@import "dash-helpers";
 
 * {
   --dash-left-width: 160px;
@@ -105,23 +104,6 @@ export default class extends Vue {
 html, body {
   padding: 0;
   margin: 0;
-}
-
-.arrow_base {
-  position: relative;
-  top: 0px;
-  --color: var(--bsg-color);
-  --size: 82px;
-
-  display: block;
-  width: var(--size);
-  height: 82px;
-  background: var(--color);
-  clip-path: polygon(63% 0, 100% 50%, 63% 100%, 0% 100%, 0 51%, 0% 0%);
-
-  &.right {
-    clip-path: polygon(40% 0%, 100% 0%, 100% 100%, 40% 100%, 0% 50%);
-  }
 }
 
 #omnibar {
@@ -259,36 +241,13 @@ html, body {
       }
     }
 
-    // TODO: make this be able to grow and shrink
-    .after_right_box {
-      position: absolute;
-      --color: var(--dark-arrow-default);
-      right: 120px;
-    }
-
-    .dash_seg_1 {
-      --color: var(--dark-arrow-default);
-      right: 310px;
-      top: -82px;
-    }
-
-    .dash_seg_2 {
-      --color: var(--bsg-color);
-      right: 335px;
-    }
-
     .dash {
-      padding-left: 40px;
-      padding-right: 5px;
-
       position: absolute;
-      right: 160px;
-      min-width: 180px;
+      right: 170px;
+      //min-width: 50px;
       height: 82px;
       top: 0;
       animation-duration: 500ms;
-      background: var(--bsg-color);
-      clip-path: polygon(100% 0%, 85% 50%, 100% 100%, 25% 100%, 10% 50%, 25% 0%);
 
       &.hide {
         display: none;
@@ -301,6 +260,13 @@ html, body {
         // left: 114px;
         font-size: 39px;
       }
+    }
+
+    // TODO: make this be able to grow and shrink
+    .after_right_box {
+      position: absolute;
+      --color: var(--dark-arrow-default);
+      right: 120px;
     }
   }
 }

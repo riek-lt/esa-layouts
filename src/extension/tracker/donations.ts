@@ -34,7 +34,7 @@ async function updateToReadDonations(): Promise<void> {
   try {
     const resp = await needle(
       'get',
-      `https://${config.address}/search/?event=${eventInfo[eventConfig.thisEvent - 1].id}`
+      `https://${config.address}/tracker/search/?event=${eventInfo[eventConfig.thisEvent - 1].id}`
         + '&type=donation&feed=toread',
       {
         cookies: getCookies(),
@@ -71,7 +71,7 @@ export async function markDonationAsRead(donationID: number): Promise<void> {
   try {
     const resp = await needle(
       'get',
-      `https://${config.address}/edit/?type=donation&id=${donationID}`
+      `https://${config.address}/tracker/edit/?type=donation&id=${donationID}`
         + '&readstate=READ&commentstate=APPROVED',
       {
         cookies: getCookies(),

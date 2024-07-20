@@ -31,7 +31,7 @@ export function getCookies(): NeedleResponse['cookies'] {
 async function getEventIDFromShort(short: string): Promise<number> {
   const resp = await needle(
     'get',
-    `https://${config.address}/search/?short=${short}&type=event`,
+    `https://${config.address}/tracker/search/?short=${short}&type=event`,
     cookies,
   );
   if (!resp.body.length) {
@@ -47,7 +47,7 @@ async function updateDonationTotalFromAPI(init = false): Promise<void> {
   try {
     let total = 0;
     for (const event of eventInfo) {
-      const resp = await needle('get', `https://${config.address}/event/${event.id}?json`);
+      const resp = await needle('get', `https://${config.address}/tracker/event/${event.short}?json`);
       if (resp.statusCode === 200) {
         const eventTotal = resp.body.agg.amount ? parseFloat(resp.body.agg.amount) : 0;
         event.total = eventTotal;

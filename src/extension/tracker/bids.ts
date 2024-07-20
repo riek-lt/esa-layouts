@@ -95,7 +95,7 @@ async function updateBids(): Promise<void> {
   try {
     const resp = await needle(
       'get',
-      `https://${config.address}/search/?event=${eventInfo[eventConfig.thisEvent - 1].id}`
+      `https://${config.address}/tracker/search/?event=${eventInfo[eventConfig.thisEvent - 1].id}`
         + '&type=allbids&state=OPENED',
       {
         cookies: getCookies(),

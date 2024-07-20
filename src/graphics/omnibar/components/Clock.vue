@@ -39,6 +39,7 @@ export default class extends Vue {
 
 <style scoped lang="scss">
 .Clock {
+  font-variant-numeric: tabular-nums;
   position: relative;
   left: -15px;
   text-align: center;
