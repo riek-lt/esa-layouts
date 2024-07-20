@@ -305,19 +305,52 @@ html, body {
   padding-top: 8px;
 }
 
-.omnibar-dash-leave-active {
+@mixin calcAnimation($startDelay) {
   animation: slideOutLeft;
-  animation-duration: 500ms;
+  animation-duration: calc(500ms - $startDelay);
   animation-timing-function: ease-in-out;
+
+  animation-delay: $startDelay !important;
+}
+
+.omnibar-dash-leave-active {
+  @include calcAnimation(0ms);
+
+  .dash_seg_2 {
+    @include calcAnimation(0ms);
+  }
+
+  .dash_seg_1 {
+    @include calcAnimation(100ms);
+  }
+
+  #dash {
+    @include calcAnimation(200ms);
+  }
 }
 
 .omnibar-dash-enter-active {
   animation: slideInLeft;
   animation-duration: 500ms;
   animation-timing-function: ease-in-out;
+
+  #dash {
+    animation-delay: 0ms;
+  }
+
+  .dash_seg_1 {
+    animation-delay: 200ms;
+  }
+
+  .dash_seg_2 {
+    animation-delay: 400ms;
+  }
 }
 
 .omnibar-dash-enter, .omnibar-dash-leave-to {
   left: -20px;
+  .dash_seg_1, .dash_seg_2, #dash {
+    left: -20px;
+  }
 }
 </style>
