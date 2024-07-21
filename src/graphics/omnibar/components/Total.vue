@@ -202,7 +202,6 @@ export default class extends Vue {
 
 #Total {
   font-variant-numeric: tabular-nums;
-  /*padding: 0 13px 0 0;*/
   font-size: 40px;
   font-weight: 500;
   text-align: left;
@@ -215,7 +214,8 @@ export default class extends Vue {
   background: var(--bsg-color);
 
   --arrow-setting: 50px;
-  clip-path: polygon(100% 0%, 85% 50%, 100% 100%, var(--arrow-setting) 100%, 10% 50%, var(--arrow-setting) 0%);
+  clip-path: polygon(100% 0%, 85% 50%, 100% 100%,
+    var(--arrow-setting) 100%, 10% 50%, var(--arrow-setting) 0%);
 }
 
 .dash_seg_1 {
