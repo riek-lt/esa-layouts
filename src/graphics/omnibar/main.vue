@@ -28,8 +28,6 @@
           <div class="dashContainer">
             <div class="dash">
               <total :style="{
-                // 'padding-left': '100px',
-                // 'padding-top': '8px',
                 'margin-right': '3px',
                 'text-align': 'right',
                 'font-family': 'Bahnschrift',
