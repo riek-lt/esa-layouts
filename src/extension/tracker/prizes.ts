@@ -3,8 +3,10 @@ import needle from 'needle';
 import { eventInfo, getCookies } from '.';
 import { get as nodecg } from '../util/nodecg';
 import { prizes } from '../util/replicants';
+import utils from './utils';
 
-const config = nodecg().bundleConfig.tracker;
+const { trackerUrl } = utils;
+
 const { useTestData } = nodecg().bundleConfig;
 const refreshTime = 60 * 1000; // Get prizes every 60s.
 
@@ -31,7 +33,7 @@ async function updatePrizes(): Promise<void> {
   try {
     const resp = await needle(
       'get',
-      `https://${config.address}/tracker/search/?event=${eventInfo[0].id}&type=prize&feed=current`,
+      trackerUrl(`/search/?event=${eventInfo[0].id}&type=prize&feed=current`),
       {
         cookies: getCookies(),
       },

@@ -8,6 +8,9 @@ import type { DeepWritable } from 'ts-essentials';
 import { get as nodecg } from '../util/nodecg';
 import { mq } from '../util/rabbitmq';
 import { donationTotal } from '../util/replicants';
+import utils from './utils';
+
+const { trackerUrl } = utils;
 
 export const eventInfo: Tracker.EventInfo[] = [];
 const eventConfig = nodecg().bundleConfig.event;
@@ -31,7 +34,7 @@ export function getCookies(): NeedleResponse['cookies'] {
 async function getEventIDFromShort(short: string): Promise<number> {
   const resp = await needle(
     'get',
-    `https://${config.address}/tracker/search/?short=${short}&type=event`,
+    trackerUrl(`/search/?short=${short}&type=event`),
     cookies,
   );
   if (!resp.body.length) {
@@ -47,7 +50,7 @@ async function updateDonationTotalFromAPI(init = false): Promise<void> {
   try {
     let total = 0;
     for (const event of eventInfo) {
-      const resp = await needle('get', `https://${config.address}/tracker/event/${event.short}?json`);
+      const resp = await needle('get', trackerUrl(`/event/${event.short}?json`));
       if (resp.statusCode === 200) {
         const eventTotal = resp.body.agg.amount ? parseFloat(resp.body.agg.amount) : 0;
         event.total = eventTotal;
