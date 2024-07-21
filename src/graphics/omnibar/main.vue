@@ -262,7 +262,6 @@ html, body {
       }
     }
 
-    // TODO: make this be able to grow and shrink
     .after_right_box {
       position: absolute;
       --color: var(--dark-arrow-default);

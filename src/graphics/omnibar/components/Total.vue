@@ -100,9 +100,7 @@ export default class extends Vue {
     nodecg.sendMessage('donationAlertsLogging', `playNextAlert called (start: ${start})`);
     clearTimeout(this.donationTotalTimeout); // Clearing here for safety
     this.playingAlerts = true;
-    if (!start) await new Promise((res) => {
-      setTimeout(res, 500);
-    });
+    if (!start) await new Promise((res) => { setTimeout(res, 500); });
     // Only show alerts for positive values and if the alert should be "shown".
     const { amount, total, showAlert } = this.alertList[0];
     nodecg.sendMessage(
