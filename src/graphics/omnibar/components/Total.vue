@@ -1,5 +1,7 @@
 <template>
   <div class="Flex">
+    <div class="arrow_base right dash_seg_2" />
+    <div class="arrow_base right dash_seg_1" />
     <div
       id="Total"
       class="Flex"
@@ -34,13 +36,13 @@
         >
         <span
           :style="{
-                'font-size': '28px',
-                color: '#7FFF00',
-                'font-weight': 600,
-                'background-color': 'rgba(0,0,0,0.6)',
-                padding: '4px 8px',
-                'border-radius': '10px',
-              }"
+            'font-size': '28px',
+            color: '#7FFF00',
+            'font-weight': 600,
+            'background-color': 'rgba(0,0,0,0.6)',
+            padding: '4px 8px',
+            'border-radius': '10px',
+          }"
         >
               {{ alertList[0] ? alertList[0].amount : '€0' }}
             </span>
@@ -108,7 +110,9 @@ export default class extends Vue {
     if (amount && amount > 0 && showAlert) {
       nodecg.sendMessage('omnibarPlaySound', { amount });
       // await this.sfx.play();
-      await new Promise((res) => { setTimeout(res, 500); });
+      await new Promise((res) => {
+        setTimeout(res, 500);
+      });
       this.showAlert = true;
       this.alertText = formatUSD(amount);
     }
@@ -118,7 +122,9 @@ export default class extends Vue {
       total: totalToAnimateTo,
       duration: 5,
     });
-    await new Promise((res) => { setTimeout(res, 6000); });
+    await new Promise((res) => {
+      setTimeout(res, 6000);
+    });
     this.alertList.shift();
     this.showAlert = false;
     if (this.alertList.length) this.playNextAlert();
@@ -128,7 +134,7 @@ export default class extends Vue {
       nodecg.sendMessage(
         'donationAlertsLogging',
         'totals do not match at end of queue, pushing another total alert '
-          + `(was ${this.total}, should be ${this.rawTotal})`,
+        + `(was ${this.total}, should be ${this.rawTotal})`,
       );
       clearTimeout(this.donationTotalTimeout); // Clearing here for safety
       this.alertList.push({
@@ -189,57 +195,67 @@ export default class extends Vue {
 }
 </script>
 
-<style scoped>
-  #Total {
-    /*padding: 0 13px 0 0;*/
-    font-size: 40px;
-    font-weight: 500;
-    text-align: left;
-    float: right;
-  }
+<style scoped lang="scss">
+@import "../dash-helpers";
 
-  /* Each character in the total is in a span; setting width so the numbers appear monospaced. */
-  #Total > span {
-    padding-top: 14px;
-    display: inline-block;
-    text-align: center;
-    background: var(--slide-color);
-    position: relative;
-  }
+#Total {
+  font-variant-numeric: tabular-nums;
+  font-size: 40px;
+  font-weight: 500;
+  text-align: left;
+  float: right;
+  height: 82px;
 
-  #Total span:first-of-type {
-    /*padding-left: 10px;*/
-    background: unset !important;
-  }
+  padding-left: 40px;
+  padding-right: 40px;
 
-  /*#Total span:first-of-type:before {
-    content: '';
-    position: absolute;
-    background: url('../omniing/right_dash_front.png');
-    background-position: center center;
-    background-size: cover;
-    height: 82px;
-    width: 104px;
-    left: -104px;
-    top: 0px;
-  }*/
+  background: var(--bsg-color);
 
-  #Total > .Comma {
-    display: inline-block;
-    width: 0.22em;
-    text-align: center;
-  }
+  --arrow-setting: 50px;
+  clip-path: polygon(100% 0%, 85% 50%, 100% 100%,
+    var(--arrow-setting) 100%, 10% 50%, var(--arrow-setting) 0%);
+}
 
-  .coin-thing {
-    z-index: 10000000;
-  }
+.dash_seg_1 {
+  --color: var(--dark-arrow-default);
+  right: -78px;
+}
 
-  /* TODO: implement animatecss with this */
-  .fade-enter-active, .fade-leave-active {
-    transition: opacity 0.5s ease;
-  }
-  .fade-enter, .fade-leave-to
-  /* .component-fade-leave-active below version 2.1.8 */ {
-    opacity: 0;
-  }
+.dash_seg_2 {
+  --color: var(--bsg-color);
+  right: -142px;
+}
+
+/* Each character in the total is in a span; setting width so the numbers appear monospaced. */
+#Total > span {
+  font-variant-numeric: tabular-nums;
+  color: white;
+  padding-top: 14px;
+  display: inline-block;
+  text-align: center;
+  background: var(--bsg-color);
+  position: relative;
+  font-size: 50px;
+}
+
+#Total > .Comma {
+  display: inline-block;
+  width: 0.22em;
+  text-align: center;
+}
+
+.coin-thing {
+  z-index: 10000000;
+}
+
+/* TODO: implement animatecss with this */
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.fade-enter, .fade-leave-to
+  /* .component-fade-leave-active below version 2.1.8 */
+{
+  opacity: 0;
+}
 </style>

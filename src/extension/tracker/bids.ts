@@ -3,9 +3,11 @@ import needle from 'needle';
 import { eventInfo, getCookies } from '.';
 import { get as nodecg } from '../util/nodecg';
 import { bids } from '../util/replicants';
+import utils from './utils';
+
+const { trackerUrl } = utils;
 
 const eventConfig = nodecg().bundleConfig.event;
-const config = nodecg().bundleConfig.tracker;
 const { useTestData } = nodecg().bundleConfig;
 const refreshTime = 30 * 1000; // Get bids every 30s.
 
@@ -95,8 +97,8 @@ async function updateBids(): Promise<void> {
   try {
     const resp = await needle(
       'get',
-      `https://${config.address}/search/?event=${eventInfo[eventConfig.thisEvent - 1].id}`
-        + '&type=allbids&state=OPENED',
+      trackerUrl(`/search/?event=${eventInfo[eventConfig.thisEvent - 1].id}`
+        + '&type=allbids&state=OPENED'),
       {
         cookies: getCookies(),
       },

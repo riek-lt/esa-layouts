@@ -109,11 +109,11 @@ async function showNext(): Promise<void> {
       nodecg().log.debug('[Omnibar] Pin available, will show:', pin.type);
       const dashConfig = pin.type === 'Bid' ? {
         text: (item as Bids[0]).war ? 'Upcoming Bid War' : 'Upcoming Goal',
-        fontSize: 25,
+        fontSize: 34,
         top: 6,
       } : {
         text: 'Upcoming Milestone',
-        fontSize: 25,
+        fontSize: 34,
         top: 6,
       };
 
@@ -184,8 +184,8 @@ async function showNext(): Promise<void> {
           run,
           dash: {
             text: 'Up next',
-            top: 20,
-            fontSize: 37,
+            top: 13,
+            fontSize: 50,
           },
         },
       };
@@ -201,7 +201,7 @@ async function showNext(): Promise<void> {
           milestone,
           dash: {
             text: 'Upcoming Milestone',
-            fontSize: 25,
+            fontSize: 34,
             top: 6,
           },
         },
@@ -215,7 +215,7 @@ async function showNext(): Promise<void> {
           bid,
           dash: {
             text: bid.war ? 'Upcoming Bid War' : 'Upcoming Goal',
-            fontSize: 25,
+            fontSize: 34,
             top: 6,
           },
         },

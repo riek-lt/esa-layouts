@@ -2,11 +2,12 @@
   <div
     class="Clock"
     :style="{
-      width: '90px',
-      'font-size': '35px',
+      width: '100%',
+      height: '100%',
     }"
   >
-    {{ time }}
+    <span>{{ time }}</span>
+    <span>{{ date }}</span>
   </div>
 </template>
 
@@ -20,9 +21,13 @@ dayjs.extend(timezone);
 @Component
 export default class extends Vue {
   time = '00:00';
+  date = '00/00/0000';
 
   setTime(): void {
-    this.time = dayjs().tz('Europe/Amsterdam').format('HH:mm');
+    const timer = dayjs().tz('Europe/Amsterdam');
+
+    this.time = timer.format('HH:mm').trim();
+    this.date = timer.format('DD/MM/YYYY').trim();
   }
 
   created(): void {
@@ -32,14 +37,24 @@ export default class extends Vue {
 }
 </script>
 
-<!-- TODO: move this to correct style sheet -->
-<style scoped>
+<style scoped lang="scss">
 .Clock {
-  flex-shrink: 3;
-  font-size: 35px;
-  /*width: 90px;*/
-  padding-left: 30px;
-  padding-top: 19px;
-  font-family: 'Goodlight'
+  font-variant-numeric: tabular-nums;
+  position: relative;
+  left: -15px;
+  text-align: center;
+  padding-top: 2px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-family: 'Bahnschrift';
+
+  span:first-child {
+    font-size: 40px;
+  }
+
+  span:nth-child(2) {
+    font-size: 20px;
+  }
 }
 </style>

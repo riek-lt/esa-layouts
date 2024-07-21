@@ -3,9 +3,11 @@ import needle from 'needle';
 import { get as nodecg } from '../util/nodecg';
 import { donationsToRead } from '../util/replicants';
 import { eventInfo, getCookies } from './index';
+import utils from './utils';
+
+const { trackerUrl } = utils;
 
 const eventConfig = nodecg().bundleConfig.event;
-const config = nodecg().bundleConfig.tracker;
 const { useTestData } = nodecg().bundleConfig;
 const refreshTime = 10 * 1000; // Get donations every 10s.
 let updateTimeout: NodeJS.Timeout;
@@ -34,8 +36,8 @@ async function updateToReadDonations(): Promise<void> {
   try {
     const resp = await needle(
       'get',
-      `https://${config.address}/search/?event=${eventInfo[eventConfig.thisEvent - 1].id}`
-        + '&type=donation&feed=toread',
+      trackerUrl(`/search/?event=${eventInfo[eventConfig.thisEvent - 1].id}`
+        + '&type=donation&feed=toread'),
       {
         cookies: getCookies(),
       },
@@ -71,8 +73,8 @@ export async function markDonationAsRead(donationID: number): Promise<void> {
   try {
     const resp = await needle(
       'get',
-      `https://${config.address}/edit/?type=donation&id=${donationID}`
-        + '&readstate=READ&commentstate=APPROVED',
+      trackerUrl(`/edit/?type=donation&id=${donationID}`
+        + '&readstate=READ&commentstate=APPROVED'),
       {
         cookies: getCookies(),
       },

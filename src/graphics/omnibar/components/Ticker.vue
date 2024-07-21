@@ -106,9 +106,9 @@ export default class extends Vue {
     min-width: 0;
     flex: 1;
     padding-top: 2px;
-    margin-left: 12px;
+    margin-left: 0px;
     align-items: center;
-    font-family: 'Goodlight';
+    font-family: 'Bahnschrift', sans-serif;
   }
 
   .ticker-leave-active {

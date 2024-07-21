@@ -7,22 +7,12 @@
       'white-space': 'nowrap',
     }"
   >
-<!--    <div
-      :style="{
-        'font-size': '30px',
-        'text-align': 'right',
-        'margin-left': '15px',
-        'line-height': '100%',
-      }"
-    >
-      Upcoming<br>Milestone
-    </div>-->
     <div
       :style="{
         position: 'relative',
         'flex-grow': 1,
         margin: '10px',
-        height: '60px',
+        height: '65px',
         'background-color': 'rgba(0, 0, 0, 0.3)',
       }"
     >

@@ -7,32 +7,38 @@
     </div>
     <div id="left">
       <transition name="omnibar-dash">
-        <div id="dash" v-if="dashInfo" :key="JSON.stringify(dashInfo)">
-          <p :style="{
+        <div class="dashContainer" v-if="dashInfo" :key="JSON.stringify(dashInfo)">
+          <div class="arrow_base dash_seg_2" />
+          <div class="arrow_base dash_seg_1" />
+          <div id="dash" >
+            <p :style="{
+            'left': '40px',
             'font-size': `${dashInfo.fontSize}px`,
             'top': `${dashInfo.top}px`,
           }">{{ dashInfo.text }}</p>
+          </div>
         </div>
       </transition>
+      <div class="arrow_base after_left_box" />
       <div class="box">
         <clock class="clock"/>
-<!--        <img src="./omniing/bsgstick.png"  id="logobsg">-->
       </div>
     </div>
         <div id="right">
-          <div class="dash">
-            <total :style="{
-              // 'padding-left': '100px',
-              // 'padding-top': '8px',
-              'margin-right': '3px',
-              'text-align': 'right',
-              'font-family': 'Goodlight',
-              }"
-              @totalUpdate="updateInfoWidth"
-            />
+          <div class="dashContainer">
+            <div class="dash">
+              <total :style="{
+                'margin-right': '3px',
+                'text-align': 'right',
+                'font-family': 'Bahnschrift',
+                }"
+                @totalUpdate="updateInfoWidth"
+              />
+            </div>
           </div>
+          <div class="arrow_base right after_right_box" />
           <div class="box">
-            <img src="./omniing/mind_logo.png" alt="">
+            <img src="./omniing/mind_logo_tag.png" alt="">
           </div>
       </div>
     </div>
@@ -86,6 +92,12 @@ export default class extends Vue {
 
 <style lang="scss">
 @import "~animate.css";
+@import "dash-helpers";
+
+* {
+  --dash-left-width: 160px;
+  --dark-arrow-default: #232323;
+}
 
 html, body {
   padding: 0;
@@ -100,7 +112,8 @@ html, body {
   width: 1920px;
   height: 82px;
 
-  background: linear-gradient(180deg, var(--bg-start) 0%, var(--bg-end) 100%);
+  background-image: url('./omniing/background.png');
+  //background: yellow;
 
   #left {
     position: absolute;
@@ -109,16 +122,15 @@ html, body {
       position: absolute;
       left: 0;
       height: 82px;
-      //width: 256px;
       width: var(--dash-left-width);
-      //width: 194px;
-      background: var(--bsg-color);
-      border-radius: 0px 0px 34px 0px / 0px 0px 100px 0px;
+      background: var(--slide-color);
+      clip-path: polygon(80% 0, 100% 50%, 80% 100%, 0% 100%, 0 51%, 0% 0%);
+    }
 
-      /*img {
-        width: 50px;
-        height: 50px;
-      }*/
+    .after_left_box {
+      position: absolute;
+      --color: var(--dark-arrow-default);
+      left: calc(var(--dash-left-width) - 60px);
     }
 
     #logobsg {
@@ -129,36 +141,51 @@ html, body {
       top: -62px;
     }
 
-    #dash {
+    .dashContainer {
       position: absolute;
-      // TODO: local file
-      background: url("./omniing/left_dash.png");
-      //left: 244px;
       left: calc(var(--dash-left-width) - 14px);
-      width: 321px;
+      animation-duration: 500ms;
       height: 82px;
       top: 0;
-      animation-duration: 500ms;
-      font-family: 'Goodlight';
 
       &.hide {
         display: none;
       }
 
-      p {
-        color: white;
-        position: absolute;
-        left: 34px;
-        max-width: 200px;
-        word-break: break-word;
-        top: 22px;
-        font-size: 1.9vw;
-        //font-size: 37px;
-        // top: calc((82px - 118px) / 2);
-        text-transform: uppercase;
-        vertical-align: middle;
-        text-align: center;
-        margin: 0;
+      #dash {
+        position: relative;
+        background: var(--bsg-color);
+        clip-path: polygon(90% 0%, 100% 50%, 90% 100%, 0% 100%, 10% 50%, 0% 0%);
+        //left: calc(var(--dash-left-width) - 14px);
+        top: -164px;
+        width: 300px;
+        height: 82px;
+        font-family: 'Bahnschrift';
+
+        p {
+          color: white;
+          position: absolute;
+          left: 34px;
+          max-width: 200px;
+          word-break: break-word;
+          top: 22px;
+          font-size: 34px;
+          text-transform: uppercase;
+          vertical-align: middle;
+          text-align: center;
+          margin: 0;
+        }
+      }
+
+      .dash_seg_1 {
+        --color: var(--dark-arrow-default);
+        left: 240px;
+        top: -82px;
+      }
+
+      .dash_seg_2 {
+        --color: var(--bsg-color);
+        left: 260px;
       }
     }
   }
@@ -199,55 +226,26 @@ html, body {
     .box {
       position: absolute;
       right: 0;
+      top: 0;
       height: 82px;
       width: 177px;
-      background: var(--bsg-color);
-      // border-radius: 0px 0px 0px 34px / 0px 0px 0px 100px;
-      border-radius: 0px 0px 0px 34px / 0px 0px 0px 85px;
+      background: var(--slide-color);
+      clip-path: polygon(20% 0%, 100% 0%, 100% 100%, 20% 100%, 0% 50%);
 
       img {
         position: relative;
         height: 82px;
-        //left: 79px;
-        left: 58px;
+        left: 20px;
       }
     }
 
     .dash {
       position: absolute;
-      //background: #914e21;
-      //right: 222px;
-      right: 192px;
-      // width: 404px;
-      min-width: 10px;
+      right: 170px;
+      //min-width: 50px;
       height: 82px;
       top: 0;
       animation-duration: 500ms;
-
-      &:before {
-        content: '';
-        position: absolute;
-        background: url('./omniing/right_dash_front.png') center center;
-        background-size: cover;
-        height: 82px;
-        width: 104px;
-        //left: -104px;
-        left: -75px;
-        top: 0px;
-      }
-
-      &:after {
-        content: '';
-        position: absolute;
-        z-index: 0;
-        background: url('./omniing/right_dash_back.png') center center;
-        background-size: cover;
-        height: 82px;
-        width: 44px;
-        //right: -44px;
-        right: -41px;
-        top: 0px;
-      }
 
       &.hide {
         display: none;
@@ -261,6 +259,12 @@ html, body {
         font-size: 39px;
       }
     }
+
+    .after_right_box {
+      position: absolute;
+      --color: var(--dark-arrow-default);
+      right: 120px;
+    }
   }
 }
 
@@ -268,19 +272,52 @@ html, body {
   padding-top: 8px;
 }
 
-.omnibar-dash-leave-active {
+@mixin calcAnimation($startDelay) {
   animation: slideOutLeft;
-  animation-duration: 500ms;
+  animation-duration: calc(500ms - $startDelay);
   animation-timing-function: ease-in-out;
+
+  animation-delay: $startDelay !important;
+}
+
+.omnibar-dash-leave-active {
+  @include calcAnimation(0ms);
+
+  .dash_seg_2 {
+    @include calcAnimation(0ms);
+  }
+
+  .dash_seg_1 {
+    @include calcAnimation(100ms);
+  }
+
+  #dash {
+    @include calcAnimation(200ms);
+  }
 }
 
 .omnibar-dash-enter-active {
   animation: slideInLeft;
   animation-duration: 500ms;
   animation-timing-function: ease-in-out;
+
+  #dash {
+    animation-delay: 0ms;
+  }
+
+  .dash_seg_1 {
+    animation-delay: 200ms;
+  }
+
+  .dash_seg_2 {
+    animation-delay: 400ms;
+  }
 }
 
 .omnibar-dash-enter, .omnibar-dash-leave-to {
-  left: 0px;
+  left: -20px;
+  .dash_seg_1, .dash_seg_2, #dash {
+    left: -20px;
+  }
 }
 </style>
