@@ -23,7 +23,7 @@
         'justify-content': 'center',
         'align-items': 'center',
         'font-weight': 300,
-        'font-size': '18pt',
+        'font-size': '15pt',
         'text-transform': 'uppercase',
         'font-family': 'pixelmix',
       }"

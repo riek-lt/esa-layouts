@@ -21,7 +21,7 @@
       // padding: '5px 20px',
       'line-height': lineHeight || 'unset',
       'white-space': 'normal',
-      'padding-top': '12px',
+      'padding-top': '8px',
     }"
     >
       <div
@@ -191,6 +191,10 @@ export default class extends Vue {
   text-shadow: 5px 5px 0px var(--bsg-color), 5px 7px 3px rgba(0, 0, 0, 0.5);
   text-transform: uppercase;
   white-space: unset !important;
+}
+
+.system {
+  text-transform: uppercase;
 }
 
 .systemEst {
