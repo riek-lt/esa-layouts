@@ -17,9 +17,9 @@
             'top': `${dashInfo.top}px`,
           }">{{ dashInfo.text }}</p>
           </div>
+          <div class="arrow_base before_dash" />
         </div>
       </transition>
-      <div class="arrow_base after_left_box" />
       <div class="box">
         <clock class="clock"/>
       </div>
@@ -142,6 +142,7 @@ html, body {
     }
 
     .dashContainer {
+      width: 350px;
       position: absolute;
       left: calc(var(--dash-left-width) - 14px);
       animation-duration: 500ms;
@@ -150,6 +151,12 @@ html, body {
 
       &.hide {
         display: none;
+      }
+
+      .before_dash {
+        --color: var(--dark-arrow-default);
+        left: -45px;
+        top: -246px;
       }
 
       #dash {
@@ -209,7 +216,7 @@ html, body {
 
     &.no-dash {
       //left: 269px;
-      left: 194px;
+      left: 190px;
       width: 1285px;
 
       /* HACK: normal text is different */
@@ -274,26 +281,31 @@ html, body {
 
 @mixin calcAnimation($startDelay) {
   animation: slideOutLeft;
-  animation-duration: calc(500ms - $startDelay);
+  animation-duration: calc(500ms - #{$startDelay});
   animation-timing-function: ease-in-out;
+  //animation-timing-function: cubic-bezier(0.950, 0.005, 0.580, 1.000);
 
-  animation-delay: $startDelay !important;
+  animation-delay: #{$startDelay} !important;
 }
 
 .omnibar-dash-leave-active {
   @include calcAnimation(0ms);
 
-  .dash_seg_2 {
-    @include calcAnimation(0ms);
-  }
-
-  .dash_seg_1 {
-    @include calcAnimation(100ms);
-  }
-
-  #dash {
-    @include calcAnimation(200ms);
-  }
+  //.dash_seg_2 {
+  //  @include calcAnimation(0ms);
+  //}
+  //
+  //.dash_seg_1 {
+  //  @include calcAnimation(100ms);
+  //}
+  //
+  //#dash {
+  //  @include calcAnimation(200ms);
+  //}
+  //
+  //.before_dash {
+  //  @include calcAnimation(400ms);
+  //}
 }
 
 .omnibar-dash-enter-active {
@@ -301,8 +313,12 @@ html, body {
   animation-duration: 500ms;
   animation-timing-function: ease-in-out;
 
+  .before_dash {
+    animation-delay: 100ms;
+  }
+
   #dash {
-    animation-delay: 0ms;
+    animation-delay: 150ms;
   }
 
   .dash_seg_1 {
@@ -315,8 +331,8 @@ html, body {
 }
 
 .omnibar-dash-enter, .omnibar-dash-leave-to {
-  left: -20px;
-  .dash_seg_1, .dash_seg_2, #dash {
+  left: -100px;
+  .dash_seg_1, .dash_seg_2, #dash, .before_dash {
     left: -20px;
   }
 }

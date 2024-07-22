@@ -13,7 +13,7 @@
     <div :style="{ 'font-size': '25px' }">
       {{ when }}
     </div>
-    <div :style="{ 'font-size': '40px' }">
+    <div :style="{ 'font-size': '35px' }">
       <span v-if="getRunTotalPlayers(run) > 0">
         {{ formPlayerNamesStr(run) }}
         play<span v-if="getRunTotalPlayers(run) === 1">s</span> {{ run.game }}
