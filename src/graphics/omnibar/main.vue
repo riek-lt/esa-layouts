@@ -12,7 +12,7 @@
           <div class="arrow_base dash_seg_1" />
           <div id="dash" >
             <p :style="{
-            'left': '40px',
+            'left': dashInfo.left ? `${dashInfo.left}px` : '40px',
             'font-size': `${dashInfo.fontSize}px`,
             'top': `${dashInfo.top}px`,
           }">{{ dashInfo.text }}</p>

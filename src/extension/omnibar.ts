@@ -110,11 +110,11 @@ async function showNext(): Promise<void> {
       const dashConfig = pin.type === 'Bid' ? {
         text: (item as Bids[0]).war ? 'Upcoming Bid War' : 'Upcoming Goal',
         fontSize: 34,
-        top: 6,
+        top: 3,
       } : {
         text: 'Upcoming Milestone',
         fontSize: 34,
-        top: 6,
+        top: 3,
       };
 
       omnibar.value.current = {
@@ -184,7 +184,8 @@ async function showNext(): Promise<void> {
           run,
           dash: {
             text: 'Up next',
-            top: 13,
+            top: 14,
+            left: 52,
             fontSize: 50,
           },
         },
@@ -202,7 +203,7 @@ async function showNext(): Promise<void> {
           dash: {
             text: 'Upcoming Milestone',
             fontSize: 34,
-            top: 6,
+            top: 3,
           },
         },
       };
@@ -216,7 +217,7 @@ async function showNext(): Promise<void> {
           dash: {
             text: bid.war ? 'Upcoming Bid War' : 'Upcoming Goal',
             fontSize: 34,
-            top: 6,
+            top: 3,
           },
         },
       };

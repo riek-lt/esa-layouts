@@ -35,6 +35,7 @@ export interface RunData {
 			pronouns?: string;
 			social: {
 				twitch?: string;
+				youtube?: string;
 			};
 			customData: {
 				[k: string]: string;

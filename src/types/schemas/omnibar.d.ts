@@ -51,4 +51,5 @@ export interface DashProps {
 	text: string;
 	fontSize: number;
 	top: number;
+	left?: number;
 }

@@ -8,6 +8,7 @@
     }"
   >
     <div
+      class="Flex"
       :style="{
         position: 'relative',
         'flex-grow': 1,
@@ -20,6 +21,7 @@
         class="Bar"
         :style="{
           position: 'absolute',
+          'z-index': 0,
           width: `${progressTweened}%`,
           height: '100%',
           'background-color': '#6DD47E',
@@ -30,14 +32,17 @@
           display: 'flex',
           'justify-content': 'space-between',
           'align-items': 'center',
-          position: 'absolute',
+          'align-content': 'center',
+          // position: 'absolute',
+          'z-index': 1,
           width: '100%',
           height: '100%',
           padding: '0 10px',
           'box-sizing': 'border-box',
         }"
       >
-        <div :style="{ width: '20%' }">
+        <!-- Why is the font size set to 0px here? REMOVING IT PUSHES THE TEXT OFF CENTER -->
+        <div :style="{ width: '20%', 'font-size': '0px', }">
           <span class="BarText" :style="{ 'font-size': '25px' }">
             <span v-if="isMet" :style="{ 'color': '#e8d53a', 'font-weight': 700 }">MET!</span>
             <span v-else>
@@ -53,6 +58,7 @@
           :style="{
             width: '20%',
             'text-align': 'right',
+            'font-size': '0px',
           }"
         >
           <span
