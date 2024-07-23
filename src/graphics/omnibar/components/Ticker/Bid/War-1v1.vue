@@ -60,6 +60,7 @@
           padding: '0 10px',
           'box-sizing': 'border-box',
           'z-index': 1,
+          'font-size': '0px',
         }"
       >
         <div>

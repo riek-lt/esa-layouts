@@ -3,7 +3,7 @@
     <v-btn
       class="mt-1"
       @click="sendUncheckAll">
-      Uncheck all
+      Reset
     </v-btn>
     <h2 class="mt-2">Checklist</h2>
 <!--    <div class="multiselect with-transition" :class="{-->

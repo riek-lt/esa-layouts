@@ -290,6 +290,14 @@ async function setup(): Promise<void> {
     require('./bids').setup();
     require('./prizes').setup();
     require('./donations').setup();
+
+    // Update the donation total to a random number while testing
+    if (useTestData) {
+      setInterval(() => {
+        donationTotal.value += Math.random() * 1000;
+        nodecg().sendMessage('donationTotalUpdated', { total: donationTotal.value });
+      }, 10 * 1000);
+    }
     /* eslint-enable */
   } catch (err) {
     nodecg().log.warn('[Tracker] Error setting up');

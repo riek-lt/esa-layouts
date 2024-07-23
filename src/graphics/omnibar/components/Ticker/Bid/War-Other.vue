@@ -7,16 +7,6 @@
       'align-items': 'center',
     }"
   >
-<!--    <div
-      :style="{
-        'font-size': '20px',
-        'text-align': 'right',
-        'margin-left': '15px',
-        'line-height': '150%',
-      }"
-    >
-      Upcoming<br>Bid War
-    </div>-->
     <div
       :style="{
         'flex-grow': 1,
@@ -34,7 +24,6 @@
           'flex-direction': 'column',
           'font-size': '20px',
           'text-align': 'center',
-          'background-color': 'rgba(0, 0, 0, 0.3)',
           padding: '0 10px',
           'white-space': 'nowrap',
           'line-height': '150%',
@@ -59,8 +48,6 @@
           overflow: 'hidden',
           display: 'flex',
           'align-items': 'center',
-          'background-color': 'rgba(0, 0, 0, 0.3)',
-          'font-size': '20px',
         }"
       >
         <div

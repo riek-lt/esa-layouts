@@ -18,7 +18,7 @@
     <div :style="{
       position: 'absolute',
       top: '10px',
-      left: '20px',
+      left: '180px',
       'z-index': 99999999999,
     }">
       <div
@@ -26,6 +26,7 @@
         :style="{
               'z-index': 1,
               opacity: showAlert ? 1 : 0,
+              // opacity: 1,
               transition: 'opacity 0.5s',
           }"
         class="Flex coin-thing"
@@ -61,7 +62,6 @@ import { round } from 'lodash';
 
 @Component
 export default class extends Vue {
-  // @Ref('SFX') sfx!: HTMLAudioElement;
   theme = nodecg.bundleConfig.event.theme;
   total = 0;
   playingAlerts = false;
@@ -109,7 +109,6 @@ export default class extends Vue {
     );
     if (amount && amount > 0 && showAlert) {
       nodecg.sendMessage('omnibarPlaySound', { amount });
-      // await this.sfx.play();
       await new Promise((res) => {
         setTimeout(res, 500);
       });
@@ -152,25 +151,20 @@ export default class extends Vue {
   async created(): Promise<void> {
     this.total = this.rawTotal;
     nodecg.listenFor('donationTotalUpdated', (data: { total: number }) => {
-      // If after 10s this hasn't been cleared by a new donation, update the total with it.
-      this.donationTotalTimeout = window.setTimeout(() => {
-        nodecg.sendMessage('donationAlertsLogging', 'donationTotalTimeout triggered');
-        // Double check if the total really needs updating.
-        // Also, only queue if alerts are not already
-        // (the play system will check the final total at the end anyway).
-        const completeTotal = round(data.total + this.additionalDonationsAmount, 2);
-        if (!this.playingAlerts && completeTotal !== this.total) {
-          nodecg.sendMessage(
-            'donationAlertsLogging',
-            'donationTotalTimeout decided we should push a new total as an alert',
-          );
-          this.alertList.push({
-            total: completeTotal,
-            showAlert: false,
-          });
-          if (!this.playingAlerts) this.playNextAlert(true);
-        }
-      }, 10 * 1000);
+      const completeTotal = round(data.total + this.additionalDonationsAmount, 2);
+      if (!this.playingAlerts && completeTotal !== this.total) {
+        nodecg.sendMessage(
+          'donationAlertsLogging',
+          'donationTotalTimeout decided we should push a new total as an alert',
+        );
+        this.alertList.push({
+          total: completeTotal,
+          // @ts-expect-error this works so shrug
+          amount: (completeTotal - this.total).toFixed(2),
+          showAlert: true,
+        });
+        if (!this.playingAlerts) this.playNextAlert(true);
+      }
     });
     nodecg.listenFor('newDonation', (data: { amount: number }) => {
       clearTimeout(this.donationTotalTimeout);
@@ -202,17 +196,16 @@ export default class extends Vue {
   font-variant-numeric: tabular-nums;
   font-size: 40px;
   font-weight: 500;
-  text-align: left;
-  float: right;
-  height: 82px;
+  text-align: center;
+  //height: 82px;
 
-  padding-left: 40px;
-  padding-right: 40px;
+  padding-left: 45px;
+  padding-right: 45px;
 
   background: var(--bsg-color);
 
   --arrow-setting: 50px;
-  clip-path: polygon(100% 0%, 85% 50%, 100% 100%,
+  clip-path: polygon(100% 0%, 80% 50%, 100% 100%,
     var(--arrow-setting) 100%, 10% 50%, var(--arrow-setting) 0%);
 }
 
@@ -228,14 +221,14 @@ export default class extends Vue {
 
 /* Each character in the total is in a span; setting width so the numbers appear monospaced. */
 #Total > span {
-  font-variant-numeric: tabular-nums;
+  width: 0.50em;
   color: white;
-  padding-top: 14px;
+  padding-top: 18px;
   display: inline-block;
   text-align: center;
   background: var(--bsg-color);
+  //background: cornflowerblue;
   position: relative;
-  font-size: 50px;
 }
 
 #Total > .Comma {

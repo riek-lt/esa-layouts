@@ -7,16 +7,6 @@
       'align-items': 'center',
     }"
   >
-<!--    <div
-      :style="{
-        'font-size': '20px',
-        'text-align': 'right',
-        'margin-left': '15px',
-        'line-height': '150%',
-      }"
-    >
-      Upcoming<br>Goal
-    </div>-->
     <div
       :style="{
         position: 'relative',
@@ -47,7 +37,7 @@
           'box-sizing': 'border-box',
         }"
       >
-        <div :style="{ width: '30%' }">
+        <div :style="{ width: '30%', 'font-size': '0px', }">
           <span class="BarText" :style="{ 'font-size': '20px' }">
             <span
               v-if="bid.goal <= bid.total"
@@ -74,6 +64,7 @@
           :style="{
             width: '30%',
             'text-align': 'right',
+            'font-size': '0px',
           }"
         >
           <span class="BarText" :style="{ 'font-size': '25px' }">

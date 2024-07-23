@@ -65,12 +65,14 @@ export default class extends Vue {
 
   updateInfoWidth(newTotal: number): void {
     if (newTotal < 1000) {
-      this.infoWidth = '1045px';
+      // this.infoWidth = '1045px';
+      this.infoWidth = '1070px';
       return;
     }
 
     if (newTotal < 10000) {
-      this.infoWidth = '1015px';
+      // this.infoWidth = '1015px';
+      this.infoWidth = '1040px';
       return;
     }
 
@@ -248,7 +250,7 @@ html, body {
 
     .dash {
       position: absolute;
-      right: 170px;
+      right: 160px;
       //min-width: 50px;
       height: 82px;
       top: 0;
@@ -270,7 +272,7 @@ html, body {
     .after_right_box {
       position: absolute;
       --color: var(--dark-arrow-default);
-      right: 120px;
+      right: 115px;
     }
   }
 }
