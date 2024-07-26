@@ -48,7 +48,7 @@ export default class extends Vue {
 
   async testShortPress(buttonId: number): Promise<void> {
     await fetch(
-      `/esa-layouts/button/${buttonId}`,
+      `/${nodecg.bundleName}/button/${buttonId}`,
       {
         method: 'POST',
         headers: {
@@ -63,7 +63,7 @@ export default class extends Vue {
 
   async testLongPress(buttonId: number): Promise<void> {
     await fetch(
-      `/esa-layouts/button/${buttonId}`,
+      `/${nodecg.bundleName}/button/${buttonId}`,
       {
         method: 'POST',
         headers: {
