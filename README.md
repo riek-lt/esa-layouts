@@ -17,7 +17,7 @@ Next, clone the `build` branch of this repository into the NodeCG `bundles` fold
 > cd bundles
 > git clone https://github.com/bsgmarathon/esa-layouts.git --branch build
 > cd esa-layouts
-> npm install --production
+> pnpm install --production
 > ```
 
 You will probably also want a default configuration you can fill in, which can be created using:
@@ -28,7 +28,7 @@ Then, to get the most recent changes for [nodecg-speedcontrol](https://github.co
 > cd ..
 > git clone https://github.com/speedcontrol/nodecg-speedcontrol.git --branch build
 > cd nodecg-speedcontrol
-> npm install --production
+> pnpm install --production
 > ```
 
 In addition, to have the `videos` assets automatically audio normalised, you must have `python` (v3), `ffmpeg`, and [`ffmpeg-normalize`](https://github.com/slhck/ffmpeg-normalize) available in your system's `PATH`. If you don't have all of these, the check will fail and videos will just not be touched. For Windows, `python` (v3) should be automatically installed when you install Node.js built tools, if you chose to do that.
@@ -43,15 +43,13 @@ This bundle also heavily relies on information from a RabbitMQ server, and an in
 
 ### Stream Deck Plugin
 
+Deprecated in favor of companion plugin.
+
 Included with this bundle is a plugin for the Elgato Stream Deck software that can be used by various crew members during events. Once you have the Stream Deck software installed, you can install the plugin by running the file `com.esamarathon.streamdeck.streamDeckPlugin` in the `streamdeck-plugin/Release` directory. Currently, you need to set the actions up yourself in the software, so it can easily be customised on the fly.
 
 ### FlagCarrier Configuration
 
-You will need to install the [speedcontrol-flagcarrier](https://github.com/speedcontrol/speedcontrol-flagcarrier) bundle to use this part, along with using one of the FlagCarrier applications to set them.
-
-**Hosts (the ones on camera):**
-- group_id: `hosts`
-- positions: `left,midleft,middle,midright,right`
+While this bundle still contains something called FlagCarrier, it has been repurposed for something else internally
 
 ### Text-To-Speech Donations
 
@@ -61,33 +59,9 @@ This can be enabled via the config, controlled via Stream Deck buttons available
 
 This bundle can interface with [foobar2000](https://www.foobar2000.org/) using the [beefweb](https://github.com/hyperblast/beefweb) plugin. Set up foobar2000 however you want it to play music (we use a long playlist on shuffle, and set a fade in/out on pause), make sure the correct username/password are set in the configuration file, and this bundle with automatically play music when needed. It will only play if the scene name ends in `[M]`, for example, `Intermission [M]`.
 
+Alternatively, you can use [DeaDBeeF](https://deadbeef.sourceforge.io/) with the same beefweb plugin if you are using linux.
+
 ## Other Information
-
-### Events Used For
-
-Here's a list of events this bundle has been used at so far, most recent first.
-
-* UKSG Autumn 2021
-* ESA Summer 2021
-* UKSG Summer 2021
-* UKSG Spring 2021
-* ESA Winter 2021
-* UKSG Winter 2021
-* UKSG Autumn 2020
-* ESA Summer 2020
-* UKSG Summer 2020
-* ESA Corona Relief
-* ESA Together
-* UKSG Spring 2020
-* ESA Winter 2020
-* UKSG Winter 2020
-* ESA @ Malmö Vinterspelen 2019
-* ESA @ DreamHack Winter 2019
-* UKSG Autumn 2019
-* ESA Summer 2019 (including some streams on [SpeedGaming](https://www.twitch.tv/speedgaming) during the event).
-* UKSG Summer 2019
-* All BSG's from BSG @Home 2020 onwards (Aug 2020)
-* All Hekathon events from 2021 onwards
 
 ### Credits
 
@@ -96,11 +70,12 @@ Here's a list of events this bundle has been used at so far, most recent first.
 * https://calculateaspectratio.com/ for helping me (duncte) wiht some math
 
 ## Development
-To get this bundle set-up for development run the following commands
+To get this bundle set-up for development run the following commands.
+***Make sure to install speedcontrol!***
 > ```
 > cd bundles
 > git clone https://github.com/bsgmarathon/esa-layouts.git
 > cd esa-layouts
 > git submodule update --init --recursive
-> npm install --production
+> pnpm install
 > ```
