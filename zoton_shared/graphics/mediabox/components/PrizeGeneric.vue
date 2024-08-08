@@ -13,7 +13,8 @@
     <img
       :src="prize.image"
       :style="{
-        height: vertical ? '50%' : '65%',
+        height: vertical ? '80%' : '100%',
+        'object-fit': 'contain',
         'max-height': '350px',
         'margin-left': vertical ? 0 : '20px',
         'margin-bottom': vertical ? '10px' : 0,

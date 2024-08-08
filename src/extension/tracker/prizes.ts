@@ -21,7 +21,7 @@ function processRawPrizes(rawPrizes: Tracker.Prize[]): Tracker.FormattedPrize[] 
       name: prize.fields.name,
       provided: prize.fields.provider || undefined,
       minimumBid: parseFloat(prize.fields.minimumbid),
-      image: prize.fields.image || undefined,
+      image: prize.fields.altimage || prize.fields.image || undefined,
       startTime: startTime ? Date.parse(startTime) : undefined,
       endTime: endTime ? Date.parse(endTime) : undefined,
     };

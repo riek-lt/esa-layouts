@@ -14,6 +14,7 @@
       :src="prize.image"
       :style="{
         height: vertical ? '50%' : '65%',
+        'object-fit': 'cover',
         'max-height': '350px',
         'margin-left': vertical ? 0 : '20px',
         'margin-bottom': vertical ? '10px' : 0,

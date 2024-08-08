@@ -66,6 +66,7 @@ export namespace Tracker {
       provider: string; // Can be empty
       minimumbid: string;
       image: string; // Can be empty
+      altimage: string; // Can be empty
       startrun: number | null;
       endrun: number | null;
       startrun__starttime?: string;

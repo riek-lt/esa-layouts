@@ -78,6 +78,7 @@
     >
       <flashing-lights-warning/>
       <media-box-box
+        vertical
         line-right
         :style="{
           width: '469px',
