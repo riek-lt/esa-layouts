@@ -12,7 +12,8 @@ const refreshTime = 60 * 1000; // Get prizes every 60s.
 
 // Processes the response from the API above.
 function processRawPrizes(rawPrizes: Tracker.Prize[]): Tracker.FormattedPrize[] {
-  return rawPrizes.filter((prize) => prize.fields.state === 'ACCEPTED').map((prize) => {
+  // Somehow the the state is gone LMAO
+  return rawPrizes/* .filter((prize) => prize.fields.state === 'ACCEPTED') */.map((prize) => {
     const startTime = prize.fields.startrun__starttime || prize.fields.starttime;
     const endTime = prize.fields.endrun__endtime || prize.fields.endtime;
     return {
@@ -60,7 +61,8 @@ async function updatePrizes(): Promise<void> {
 // eslint-disable-next-line import/prefer-default-export
 export function setup(): void {
   if (!useTestData) {
-    updatePrizes();
+    updatePrizes()
+      .catch((e) => nodecg().log.error('Failed to update prizes:', e));
   } else {
     // Test Data
     prizes.value = [
@@ -69,7 +71,8 @@ export function setup(): void {
         name: 'Test Prize Name (Old)',
         provided: 'Anonymous',
         minimumBid: Math.floor(Math.random() * 50),
-        image: 'https://homepages.cae.wisc.edu/~ece533/images/airplane.png',
+        // eslint-disable-next-line max-len
+        image: 'https://web.archive.org/web/20100620045843/https://homepages.cae.wisc.edu/~ece533/images/airplane.png',
         startTime: Date.now() - 43200000, // Now - 12 hours
         endTime: Date.now() - 21600000, // Now + 6 hours
       },
@@ -78,7 +81,8 @@ export function setup(): void {
         name: 'Test Prize Name (Active)',
         provided: 'Anonymous',
         minimumBid: Math.floor(Math.random() * 50),
-        image: 'https://homepages.cae.wisc.edu/~ece533/images/cat.png',
+        // eslint-disable-next-line max-len
+        image: 'https://web.archive.org/web/20100620045843/https://homepages.cae.wisc.edu/~ece533/images/cat.png',
         startTime: Date.now(),
         endTime: Date.now() + 21600000, // Now + 6 hours
       },
@@ -87,7 +91,8 @@ export function setup(): void {
         name: 'Test Prize Name (Future)',
         provided: 'Anonymous',
         minimumBid: Math.floor(Math.random() * 50),
-        image: 'https://homepages.cae.wisc.edu/~ece533/images/tulips.png',
+        // eslint-disable-next-line max-len
+        image: 'https://web.archive.org/web/20100620045843/https://homepages.cae.wisc.edu/~ece533/images/tulips.png',
         startTime: Date.now() + 21600000, // Now + 6 hours
         endTime: Date.now() + 43200000, // Now + 12 hours
       },
