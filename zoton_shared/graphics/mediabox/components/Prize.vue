@@ -4,7 +4,7 @@
     v-show="prize"
     :class="vertical ? 'FlexColumn' : 'Flex'"
     :style="{
-      'font-size': '0.8em', // move to prop?
+      'font-size': '1em', // move to prop?
       padding: '10px',
       'box-sizing': 'border-box',
       'text-align': 'center',
@@ -13,7 +13,7 @@
     <img
       :src="prize.image"
       :style="{
-        height: vertical ? '50%' : '65%',
+        height: vertical ? '80%' : '100%',
         'object-fit': 'contain',
         'max-height': '350px',
         'margin-left': vertical ? 0 : '20px',

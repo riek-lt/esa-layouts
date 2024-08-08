@@ -84,7 +84,7 @@ export function formatSrcomPronouns(pronouns?: string): string | undefined {
  */
 export function formatUSD(amount: number, noCents = false): string {
   if (amount >= 100 || noCents) {
-    return `$${Math.floor(amount).toLocaleString('en-US', { maximumFractionDigits: 0 })}`;
+    return `€${Math.floor(amount).toLocaleString('en-US', { maximumFractionDigits: 0 })}`;
   }
-  return `$${amount.toFixed(2)}`;
+  return `€${amount.toFixed(2)}`;
 }

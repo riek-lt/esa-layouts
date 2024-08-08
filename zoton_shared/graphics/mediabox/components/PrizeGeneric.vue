@@ -4,7 +4,7 @@
     v-show="prize"
     :class="vertical ? 'FlexColumn' : 'Flex'"
     :style="{
-      'font-size': '0.8em', // move to prop?
+      'font-size': '1em', // move to prop?
       padding: '10px',
       'box-sizing': 'border-box',
       'text-align': 'center',
@@ -21,7 +21,7 @@
       }"
     >
     <div :style="{ 'margin-left': vertical ? 0 : '20px' }">
-      <!--<div
+      <div
         :style="{
           'font-size': '0.7em',
           color: 'white', // move to theme!
@@ -31,7 +31,7 @@
       </div>
       <div :style="{ 'font-size': '1em' }">
         {{ prize.name }}?
-      </div>-->
+      </div>
       <div
         :style="{
           'font-size': '1em',
