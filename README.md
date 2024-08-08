@@ -17,7 +17,7 @@ Next, clone the `build` branch of this repository into the NodeCG `bundles` fold
 > cd bundles
 > git clone https://github.com/bsgmarathon/esa-layouts.git --branch build
 > cd esa-layouts
-> pnpm install --production
+> pnpm install --frozen-lockfile
 > ```
 
 You will probably also want a default configuration you can fill in, which can be created using:
@@ -28,7 +28,7 @@ Then, to get the most recent changes for [nodecg-speedcontrol](https://github.co
 > cd ..
 > git clone https://github.com/speedcontrol/nodecg-speedcontrol.git --branch build
 > cd nodecg-speedcontrol
-> pnpm install --production
+> pnpm install --frozen-lockfile
 > ```
 
 In addition, to have the `videos` assets automatically audio normalised, you must have `python` (v3), `ffmpeg`, and [`ffmpeg-normalize`](https://github.com/slhck/ffmpeg-normalize) available in your system's `PATH`. If you don't have all of these, the check will fail and videos will just not be touched. For Windows, `python` (v3) should be automatically installed when you install Node.js built tools, if you chose to do that.
