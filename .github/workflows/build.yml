@@ -57,37 +57,38 @@ jobs:
       run: |
         git merge --no-commit ${{ inputs.base_branch || 'master' }}
 
-    # Do the 2nd part of the merge. This will ignore the branch's "shared" submodule stuff.
-    # This can "error" if the merge commit is empty but we want to continue regardless.
-    # Will only run if the checkout step was successful.
-    - name: Merge base into build (2)
-      if: ${{ steps.checkout.outcome == 'success' }}
-      continue-on-error: true
-      run: |
-        rm -rf shared~${{ inputs.base_branch || 'master' }}
-        git rm --ignore-unmatch --cached -r shared~${{ inputs.base_branch || 'master' }}
-        git reset HEAD shared
-        git commit -m "Merge branch '${{ inputs.base_branch || 'master' }}' into ${{ inputs.build_branch || 'build' }}"
-
-    # Returns the submodule back so we can get the latest files to build from that.
-    # Will only run if the checkout step was successful.
-    - name: Re-add esa-layouts-shared submodule
-      if: ${{ steps.checkout.outcome == 'success' }}
-      run: |
-        rm -rf shared
-        git rm --ignore-unmatch --cached -r shared
-        git checkout ${{ inputs.base_branch || 'master' }} shared
-        git commit -m "Re-add submodule" -a --allow-empty
-
-    # Converts the esa-layouts-shared submodule into a normal directory of files.
-    # This is done as we want to freeze the build at a point in time and this works well.
-    - name: Convert esa-layouts-shared submodule to regular directory
-      run: |
-        git submodule update --init
-        git rm --cached shared
-        git config -f .git/config --remove-section submodule.shared
-        rm -rf shared/.git
-        git add shared
+# TODO: remove if everything works fine
+#    # Do the 2nd part of the merge. This will ignore the branch's "shared" submodule stuff.
+#    # This can "error" if the merge commit is empty but we want to continue regardless.
+#    # Will only run if the checkout step was successful.
+#    - name: Merge base into build (2)
+#      if: ${{ steps.checkout.outcome == 'success' }}
+#      continue-on-error: true
+#      run: |
+#        rm -rf shared~${{ inputs.base_branch || 'master' }}
+#        git rm --ignore-unmatch --cached -r shared~${{ inputs.base_branch || 'master' }}
+#        git reset HEAD shared
+#        git commit -m "Merge branch '${{ inputs.base_branch || 'master' }}' into ${{ inputs.build_branch || 'build' }}"
+#
+#    # Returns the submodule back so we can get the latest files to build from that.
+#    # Will only run if the checkout step was successful.
+#    - name: Re-add esa-layouts-shared submodule
+#      if: ${{ steps.checkout.outcome == 'success' }}
+#      run: |
+#        rm -rf shared
+#        git rm --ignore-unmatch --cached -r shared
+#        git checkout ${{ inputs.base_branch || 'master' }} shared
+#        git commit -m "Re-add submodule" -a --allow-empty
+#
+#    # Converts the esa-layouts-shared submodule into a normal directory of files.
+#    # This is done as we want to freeze the build at a point in time and this works well.
+#    - name: Convert esa-layouts-shared submodule to regular directory
+#      run: |
+#        git submodule update --init
+#        git rm --cached shared
+#        git config -f .git/config --remove-section submodule.shared
+#        rm -rf shared/.git
+#        git add shared
 
     # Setup some Node stuff
     - name: Node.js setup
@@ -131,7 +132,7 @@ jobs:
     - name: Commit built files (1)
       run: |
         git add -f dashboard graphics extension
-        git add -f ':(glob)./shared/extension/*/dist/**'
+        git add -f ':(glob)./zoton_shared/extension/*/dist/**'
         git commit -m "Built files" -a --allow-empty
 
     # Squash the previous 2 commits down for convenience and create the final build commit.

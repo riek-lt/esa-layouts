@@ -19,15 +19,15 @@ module.exports = {
 
     // esa-layouts-shared
     {
-      root: './shared/dashboard',
+      root: './zoton_shared/dashboard',
       package: '../../package.json',
     },
     {
-      root: './shared/graphics',
+      root: './zoton_shared/graphics',
       package: '../../package.json',
     },
     {
-      root: './shared/browser_shared',
+      root: './zoton_shared/browser_shared',
       package: '../../package.json',
     },
 

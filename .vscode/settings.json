@@ -1,6 +1,6 @@
 {
   "eslint.workingDirectories": [
-    "shared",
+    "zoton_shared",
     "streamdeck-plugin",
     "companion-plugin\\companion-module-esa"
   ],
