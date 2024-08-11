@@ -192,7 +192,7 @@ if (eventConfig.thisEvent === 1) {
 
 // Used to log messages from the browser.
 nodecg().listenFor('donationAlertsLogging', (msg) => {
-  nodecg().log.debug('[Tracker] %s', msg);
+  nodecg().log.info('[Tracker] %s', msg);
 });
 
 let isFirstLogin = true;
