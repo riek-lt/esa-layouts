@@ -175,7 +175,7 @@ if (eventConfig.thisEvent === 1) {
 */
 // Used to log messages from the browser.
 (0, nodecg_1.get)().listenFor('donationAlertsLogging', (msg) => {
-    (0, nodecg_1.get)().log.debug('[Tracker] %s', msg);
+    (0, nodecg_1.get)().log.info('[Tracker] %s', msg);
 });
 let isFirstLogin = true;
 async function loginToTracker() {
