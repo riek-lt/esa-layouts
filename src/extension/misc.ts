@@ -9,11 +9,10 @@ import { get as nodecg } from './util/nodecg';
 import obs from './util/obs';
 import { mq } from './util/rabbitmq';
 import {
-  additionalDonations, bigbuttonPlayerMap,
-  commentators,
+  additionalDonations,
+  bigbuttonPlayerMap,
   commentatorsNew,
   lowerThird,
-  donationReader,
   donationReaderNew,
   donationTotal,
   horaroImportStatus,
@@ -76,7 +75,6 @@ sc.runDataActiveRun.on('change', (newVal, oldVal) => {
     // imported from an external schedule. This stops manually added runs (like bonus runs)
     // having things erased.
     if (sc.runDataActiveRun.value && newVal && newVal.scheduled) {
-      if (config.event.shorts !== 'swcf') commentators.value.length = 0;
       // If not online and flagcarrier is enabled,
       // we also clear the teams and big button player map.
       if (!config.event.online && config.flagcarrier.enabled) {
@@ -249,33 +247,10 @@ async function searchName(val: string, currentVal: CommentatorsNew): Promise<voi
   }
 }
 
-async function searchNameOld(val: string, currentVal: string[]): Promise<void> {
-  if (config.server.enabled) {
-    const res = await searchPronounsOnEsByStr(val);
-
-    if (res && !currentVal.includes(res.name)) {
-      currentVal.push(res.name);
-    }
-  } else if (config.useOengusInsteadOfSrdc) {
-    const res = await searchOengusPronouns(val);
-
-    if (res && !currentVal.includes(res.name)) {
-      currentVal.push(res.name);
-    }
-  } else {
-    const res = await searchSrcomPronouns(val);
-
-    if (res && !currentVal.includes(res.name)) {
-      currentVal.push(res.name);
-    }
-  }
-}
-
 // Processes adding commentators from the dashboard panel.
 nodecg().listenFor('commentatorAdd', async (val: string | null | undefined, ack) => {
   if (val) {
     await searchName(val, commentatorsNew.value);
-    await searchNameOld(val, commentators.value);
   }
 
   if (ack && !ack.handled) {
@@ -295,7 +270,6 @@ nodecg().listenFor('lower-third:add-name', (val: string | null | undefined, ack)
 
 nodecg().listenFor('commentatorRemove', (val: number, ack) => {
   commentatorsNew.value.splice(val, 1);
-  commentators.value.splice(val, 1);
   if (ack && !ack.handled) {
     ack(null);
   }
@@ -306,15 +280,10 @@ nodecg().listenFor('readerModify', async (val: string | null | undefined, ack) =
   // TODO: pronouns from ESA server.
   if (!val) {
     donationReaderNew.value = null;
-    donationReader.value = null;
   } else if (config.useOengusInsteadOfSrdc) {
     donationReaderNew.value = await searchOengusPronouns(val);
   } else {
     donationReaderNew.value = await searchSrcomPronouns(val);
-  }
-
-  if (donationReaderNew.value) {
-    donationReader.value = objToSimpleDisplay(donationReaderNew.value);
   }
 
   if (ack && !ack.handled) {

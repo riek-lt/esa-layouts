@@ -10,8 +10,6 @@ export * from './bigbuttonPlayerMap';
 // @ts-ignore
 export * from './capturePositions';
 // @ts-ignore
-export * from './commentators';
-// @ts-ignore
 export * from './commentatorsNew';
 // @ts-ignore
 export * from './countdown';
@@ -21,8 +19,6 @@ export * from './currentRunDelay';
 export * from './delayedTimer';
 // @ts-ignore
 export * from './donationAlerts';
-// @ts-ignore
-export * from './donationReader';
 // @ts-ignore
 export * from './donationReaderNew';
 // @ts-ignore
@@ -61,8 +57,6 @@ export * from './rtmpFeed';
 export * from './serverTimestamp';
 // @ts-ignore
 export * from './streamDeckData';
-// @ts-ignore
-export * from './taskmasterTimestamps';
 // @ts-ignore
 export * from './ttsVoices';
 // @ts-ignore

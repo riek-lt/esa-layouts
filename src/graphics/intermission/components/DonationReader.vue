@@ -39,36 +39,20 @@
 </template>
 
 <script lang="ts">
-import { Commentators, DonationReader } from '@esa-layouts/types/schemas';
+import { DonationReaderNew } from '@esa-layouts/types/schemas';
 import { Component, Vue } from 'vue-property-decorator';
 import { State } from 'vuex-class';
 
 @Component
 export default class extends Vue {
-  @State readonly commentators!: Commentators;
-  @State donationReader!: DonationReader;
-  theme = nodecg.bundleConfig.event.theme;
-
-  // For SWCF
-  get comms(): { name: string, pronouns?: string }[] {
-    return this.commentators.map((c) => ({
-      name: c.replace(/\((.*?)\)/g, '').trim(),
-      pronouns: (c.match(/\((.*?)\)/g) || [])[0]?.replace(/[()]/g, ''),
-    }));
-  }
+  @State('donationReaderNew') donationReader!: DonationReaderNew;
 
   get name(): string | undefined {
-    if (!this.donationReader) {
-      return undefined;
-    }
-    return this.donationReader.replace(/\((.*?)\)/g, '').trim();
+    return this.donationReader?.name;
   }
 
   get pronouns(): string | undefined {
-    if (!this.donationReader) {
-      return undefined;
-    }
-    return (this.donationReader.match(/\((.*?)\)/g) || [])[0]?.replace(/[()]/g, '');
+    return this.donationReader?.pronouns;
   }
 }
 </script>

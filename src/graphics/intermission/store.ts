@@ -1,7 +1,6 @@
 import type {
   Bids,
-  Commentators,
-  DonationReader,
+  DonationReaderNew,
   DonationTotal,
   MediaBox,
   MusicData,
@@ -23,12 +22,11 @@ Vue.use(Vuex);
 const reps: {
   upcomingRunID: NodeCGTypes.ClientReplicant<UpcomingRunID>;
   musicData: NodeCGTypes.ClientReplicant<MusicData>;
-  donationReader: NodeCGTypes.ClientReplicant<DonationReader>;
+  donationReaderNew: NodeCGTypes.ClientReplicant<DonationReaderNew>;
   mediaBoxImages: NodeCGTypes.ClientReplicant<NodeCGTypes.AssetFile[]>;
   mediaBox: NodeCGTypes.ClientReplicant<MediaBox>;
   bids: NodeCGTypes.ClientReplicant<Bids>;
   prizes: NodeCGTypes.ClientReplicant<Prizes>;
-  commentators: NodeCGTypes.ClientReplicant<Commentators>;
   intermissionSlides: NodeCGTypes.ClientReplicant<NodeCGTypes.AssetFile[]>;
   runDataArray: NodeCGTypes.ClientReplicant<RunDataArray>;
   twitchCommercialTimer: NodeCGTypes.ClientReplicant<TwitchCommercialTimer>;
@@ -37,12 +35,11 @@ const reps: {
 } = {
   upcomingRunID: nodecg.Replicant('upcomingRunID'),
   musicData: nodecg.Replicant('musicData'),
-  donationReader: nodecg.Replicant('donationReader'),
+  donationReaderNew: nodecg.Replicant('donationReaderNew'),
   mediaBoxImages: nodecg.Replicant('assets:media-box-images'),
   mediaBox: nodecg.Replicant('mediaBox'),
   bids: nodecg.Replicant('bids'),
   prizes: nodecg.Replicant('prizes'),
-  commentators: nodecg.Replicant('commentators'),
   assetsIntermissionSlides: nodecg.Replicant('assets:intermission-slides'),
   runDataArray: sc.runDataArray,
   twitchCommercialTimer: sc.twitchCommercialTimer,

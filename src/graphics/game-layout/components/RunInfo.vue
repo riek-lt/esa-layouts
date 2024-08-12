@@ -124,10 +124,6 @@ export default class extends Vue {
   fittyGame: FittyInstance | undefined;
   fittyInfoExtra: FittyInstance | undefined;
 
-  get hek(): boolean {
-    return this.runData?.customData.info === 'HEK';
-  }
-
   fit(): void {
     const elem = this.$refs.RunInfo as HTMLElement;
     if (elem) {

@@ -1,4 +1,30 @@
-import type { AdditionalDonations, Bids, BigbuttonPlayerMap, LowerThird, Commentators, CommentatorsNew, Countdown, CurrentRunDelay, DonationAlerts, DonationReader, DonationReaderNew, DonationTotal, DonationTotalMilestones, DonationsToRead, GameLayouts, IntermissionSlides, MusicData, ObsData, Omnibar, OtherStreamData, Prizes, ReaderIntroduction, ServerTimestamp, StreamDeckData, TtsVoices, UpcomingRunID, VideoPlayer } from '@esa-layouts/types/schemas';
+import type {
+  AdditionalDonations,
+  Bids,
+  BigbuttonPlayerMap,
+  CommentatorsNew,
+  Countdown,
+  CurrentRunDelay,
+  DonationAlerts,
+  DonationReaderNew,
+  DonationsToRead,
+  DonationTotal,
+  DonationTotalMilestones,
+  GameLayouts,
+  IntermissionSlides,
+  LowerThird,
+  MusicData,
+  ObsData,
+  Omnibar,
+  OtherStreamData,
+  Prizes,
+  ReaderIntroduction,
+  ServerTimestamp,
+  StreamDeckData,
+  TtsVoices,
+  UpcomingRunID,
+  VideoPlayer,
+} from '@esa-layouts/types/schemas';
 import type NodeCGTypes from '@nodecg/types';
 import clone from 'clone';
 import { SpeedcontrolUtilBrowser } from 'speedcontrol-util';
@@ -7,7 +33,7 @@ import { RunDataActiveRunSurrounding } from 'speedcontrol-util/types/schemas';
 import Vue from 'vue';
 import type { Store } from 'vuex';
 import { namespace } from 'vuex-class';
-import { Module, Mutation, VuexModule, getModule } from 'vuex-module-decorators';
+import { getModule, Module, Mutation, VuexModule } from 'vuex-module-decorators';
 
 const sc = new SpeedcontrolUtilBrowser(nodecg);
 
@@ -19,12 +45,10 @@ export const reps: {
   assetsReaderIntroductionImages: NodeCGTypes.ClientReplicant<NodeCGTypes.AssetFile[]>;
   bids: NodeCGTypes.ClientReplicant<Bids>;
   bigbuttonPlayerMap: NodeCGTypes.ClientReplicant<BigbuttonPlayerMap>;
-  commentators: NodeCGTypes.ClientReplicant<Commentators>;
   commentatorsNew: NodeCGTypes.ClientReplicant<CommentatorsNew>;
   countdown: NodeCGTypes.ClientReplicant<Countdown>;
   currentRunDelay: NodeCGTypes.ClientReplicant<CurrentRunDelay>;
   donationAlerts: NodeCGTypes.ClientReplicant<DonationAlerts>;
-  donationReader: NodeCGTypes.ClientReplicant<DonationReader>;
   donationReaderNew: NodeCGTypes.ClientReplicant<DonationReaderNew>;
   donationsToRead: NodeCGTypes.ClientReplicant<DonationsToRead>;
   donationTotal: NodeCGTypes.ClientReplicant<DonationTotal>;
@@ -55,12 +79,10 @@ export const reps: {
   assetsReaderIntroductionImages: nodecg.Replicant('assets:reader-introduction-images'),
   bids: nodecg.Replicant('bids'),
   bigbuttonPlayerMap: nodecg.Replicant('bigbuttonPlayerMap'),
-  commentators: nodecg.Replicant('commentators'),
   commentatorsNew: nodecg.Replicant('commentatorsNew'),
   countdown: nodecg.Replicant('countdown'),
   currentRunDelay: nodecg.Replicant('currentRunDelay'),
   donationAlerts: nodecg.Replicant('donationAlerts'),
-  donationReader: nodecg.Replicant('donationReader'),
   donationReaderNew: nodecg.Replicant('donationReaderNew'),
   donationsToRead: nodecg.Replicant('donationsToRead'),
   donationTotal: nodecg.Replicant('donationTotal'),
@@ -93,12 +115,10 @@ export interface ReplicantTypes {
   assetsReaderIntroductionImages: NodeCGTypes.AssetFile[];
   bids: Bids;
   bigbuttonPlayerMap: BigbuttonPlayerMap;
-  commentators: Commentators;
   commentatorsNew: CommentatorsNew;
   countdown: Countdown;
   currentRunDelay: CurrentRunDelay;
   donationAlerts: DonationAlerts;
-  donationReader: DonationReader;
   donationReaderNew: DonationReaderNew;
   donationsToRead: DonationsToRead;
   donationTotal: DonationTotal;
