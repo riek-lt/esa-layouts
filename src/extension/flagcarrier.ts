@@ -9,6 +9,8 @@ function setup(): void {
     const action = req.body.action as string;
     const buttonId = parseInt(req.params.id, 10);
 
+    nodecg().log.debug(`Got button press, id: ${buttonId}, action: ${action}`);
+
     if (buttonId < 1 || buttonId > 10) {
       return res.status(400).send('Invalid button id.');
     }
