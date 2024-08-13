@@ -124,6 +124,7 @@
     >
       <flashing-lights-warning/>
       <media-box-box
+        vertical
         line-right
         line-left
         :style="{

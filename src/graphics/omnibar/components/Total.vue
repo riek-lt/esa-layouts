@@ -45,7 +45,7 @@
             'border-radius': '10px',
           }"
         >
-              {{ alertList[0] ? alertList[0].amount : '€0' }}
+              {{ alertList[0] ? alertList[0].amount?.toFixed(2) : '€0' }}
             </span>
       </div>
     </div>
@@ -159,8 +159,7 @@ export default class extends Vue {
         );
         this.alertList.push({
           total: completeTotal,
-          // @ts-expect-error this works so shrug
-          amount: (completeTotal - this.total).toFixed(2),
+          amount: completeTotal - this.total,
           showAlert: true,
         });
         if (!this.playingAlerts) this.playNextAlert(true);

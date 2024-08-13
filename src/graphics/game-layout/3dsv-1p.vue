@@ -80,10 +80,10 @@
         left: '0px',
         top: '732px',
         width: '574px',
-        height: '101px',
+        height: '106px',
       }"
     >
-      <timer line-right/>
+      <timer line-right line-bottom/>
     </div>
 
     <!-- Media Box -->
@@ -91,9 +91,9 @@
       class="Fixed FlexColumn"
       :style="{
         left: '0px',
-        top: '825px',
+        top: '838px',
         width: '574px',
-        height: '176px',
+        height: '160px',
       }"
     >
       <flashing-lights-warning class="Flex" style="align-self: flex-end" />
