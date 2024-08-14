@@ -14,12 +14,6 @@ const rabbitmq_1 = require("./util/rabbitmq");
 const replicants_1 = require("./util/replicants");
 const speedcontrol_1 = require("./util/speedcontrol");
 const config = (0, nodecg_1.get)().bundleConfig;
-// Temporary storage used for mini credits subscriptions/cheers/alerts while they are playing.
-let tempMiniCreditsStorage = {
-    runSubs: [],
-    runCheers: [],
-    runDonations: [],
-};
 // Filter helper used below.
 function filterUpcomingRuns(run) {
     return !run.scheduledS || run.scheduledS >= (Date.now() / 1000);
@@ -270,11 +264,6 @@ replicants_1.omnibar.on('change', (newVal, oldVal) => {
 });
 // Listens for messages from the graphic to change to the next message.
 (0, nodecg_1.get)().listenFor('omnibarShowNext', (data, ack) => {
-    var _a;
-    // If omnibar was just showing mini credits and ended successfully, erase temp storage.
-    if (((_a = replicants_1.omnibar.value.current) === null || _a === void 0 ? void 0 : _a.type) === 'MiniCredits') {
-        tempMiniCreditsStorage = { runSubs: [], runCheers: [], runDonations: [] };
-    }
     showNext();
     if (ack && !(ack === null || ack === void 0 ? void 0 : ack.handled))
         ack();
