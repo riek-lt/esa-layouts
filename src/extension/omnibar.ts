@@ -1,4 +1,4 @@
-import { Bids, DonationTotalMilestones, Omnibar, Prizes } from '@esa-layouts/types/schemas';
+import { Bids, DonationTotalMilestones, Prizes } from '@esa-layouts/types/schemas';
 import clone from 'clone';
 import { orderBy } from 'lodash';
 import { join } from 'path';
@@ -8,17 +8,10 @@ import { v4 as uuid } from 'uuid';
 import { get as nodecg } from './util/nodecg';
 import obs from './util/obs';
 import { mq } from './util/rabbitmq';
-import { assetsDonationAlertAssets, bids, commentatorsNew, donationAlerts, donationReaderNew, donationTotalMilestones, omnibar, prizes } from './util/replicants';
+import { assetsDonationAlertAssets, bids, donationAlerts, donationTotalMilestones, omnibar, prizes } from './util/replicants';
 import { sc } from './util/speedcontrol';
 
 const config = nodecg().bundleConfig;
-
-// Temporary storage used for mini credits subscriptions/cheers/alerts while they are playing.
-let tempMiniCreditsStorage: Omnibar['miniCredits'] = {
-  runSubs: [],
-  runCheers: [],
-  runDonations: [],
-};
 
 // Filter helper used below.
 function filterUpcomingRuns(run: RunData): boolean {
@@ -264,10 +257,6 @@ omnibar.on('change', (newVal, oldVal) => {
 
 // Listens for messages from the graphic to change to the next message.
 nodecg().listenFor('omnibarShowNext', (data, ack) => {
-  // If omnibar was just showing mini credits and ended successfully, erase temp storage.
-  if (omnibar.value.current?.type === 'MiniCredits') {
-    tempMiniCreditsStorage = { runSubs: [], runCheers: [], runDonations: [] };
-  }
   showNext();
   if (ack && !ack?.handled) ack();
 });
