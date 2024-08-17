@@ -46,7 +46,7 @@
         'max-width': '100%',
       }">
           <template v-if="runData && runData.game">
-            {{ runData.game }}
+            {{ gameNameUpper }}
           </template>
         </div>
       </div>
@@ -124,8 +124,8 @@ export default class extends Vue {
   fittyGame: FittyInstance | undefined;
   fittyInfoExtra: FittyInstance | undefined;
 
-  get hek(): boolean {
-    return this.runData?.customData.info === 'HEK';
+  get gameNameUpper(): string {
+    return this.runData?.game?.toUpperCase() ?? 'N/A';
   }
 
   fit(): void {
@@ -189,7 +189,6 @@ export default class extends Vue {
   position: relative;
   text-align: center !important;
   text-shadow: 5px 5px 0px var(--bsg-color), 5px 7px 3px rgba(0, 0, 0, 0.5);
-  text-transform: uppercase;
   white-space: unset !important;
 }
 
