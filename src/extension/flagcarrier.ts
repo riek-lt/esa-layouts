@@ -9,7 +9,7 @@ import { lookupUserByID, lookupUsersByStr } from './server';
 import { logError } from './util/helpers';
 import { get as nodecg } from './util/nodecg';
 import { mq } from './util/rabbitmq';
-import { bigbuttonPlayerMap, donationReader } from './util/replicants';
+import { bigbuttonPlayerMap } from './util/replicants';
 import { sc } from './util/speedcontrol';
 
 const router = nodecg().Router();
@@ -259,7 +259,6 @@ function setup(): void {
     // Unfortunately currently flagcarrier's "clear" command is for an entire group,
     // but because we only serve donation reader here, we're OK.
     if (action.endsWith('clear')) {
-      donationReader.value = null;
       nodecg().log.info('[FlagCarrier] Donation reader was cleared (DeviceID: %s)', device);
       // If not also a login command, will respond with this message.
       if (action !== 'login_clear') {

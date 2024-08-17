@@ -1,4 +1,15 @@
-import type { Bids, Commentators, CommentatorsNew, CurrentRunDelay, DelayedTimer, DonationReader, DonationReaderNew, GameLayouts, MediaBox, NameCycle, NotableDonations, Prizes, TaskmasterTimestamps } from '@esa-layouts/types/schemas'; // eslint-disable-line object-curly-newline, max-len
+import type {
+  Bids,
+  CommentatorsNew,
+  CurrentRunDelay,
+  DelayedTimer,
+  DonationReaderNew,
+  GameLayouts,
+  MediaBox,
+  NameCycle,
+  NotableDonations,
+  Prizes,
+} from '@esa-layouts/types/schemas'; // eslint-disable-line object-curly-newline, max-len
 import type NodeCGTypes from '@nodecg/types';
 import clone from 'clone';
 import { SpeedcontrolUtilBrowser } from 'speedcontrol-util';
@@ -13,11 +24,9 @@ Vue.use(Vuex);
 // Replicants and their types
 const reps: {
   bids: NodeCGTypes.ClientReplicant<Bids>;
-  commentators: NodeCGTypes.ClientReplicant<Commentators>;
   commentatorsNew: NodeCGTypes.ClientReplicant<CommentatorsNew>;
   currentRunDelay: NodeCGTypes.ClientReplicant<CurrentRunDelay>;
   delayedTimer: NodeCGTypes.ClientReplicant<DelayedTimer>;
-  donationReader: NodeCGTypes.ClientReplicant<DonationReader>;
   donationReaderNew: NodeCGTypes.ClientReplicant<DonationReaderNew>;
   gameLayouts: NodeCGTypes.ClientReplicant<GameLayouts>;
   mediaBox: NodeCGTypes.ClientReplicant<MediaBox>;
@@ -26,17 +35,14 @@ const reps: {
   notableDonations: NodeCGTypes.ClientReplicant<NotableDonations>;
   prizes: NodeCGTypes.ClientReplicant<Prizes>;
   runDataActiveRun: NodeCGTypes.ClientReplicant<RunDataActiveRun>;
-  taskmasterTimestamps: NodeCGTypes.ClientReplicant<TaskmasterTimestamps>;
   timer: NodeCGTypes.ClientReplicant<Timer>;
   x32GameAudio: NodeCGTypes.ClientReplicant<ChannelDataReplicant[]>;
   [k: string]: NodeCGTypes.ClientReplicant<unknown>;
 } = {
   bids: nodecg.Replicant('bids'),
-  commentators: nodecg.Replicant('commentators'),
   commentatorsNew: nodecg.Replicant('commentatorsNew'),
   currentRunDelay: nodecg.Replicant('currentRunDelay'),
   delayedTimer: nodecg.Replicant('delayedTimer'),
-  donationReader: nodecg.Replicant('donationReader'),
   donationReaderNew: nodecg.Replicant('donationReaderNew'),
   gameLayouts: nodecg.Replicant('gameLayouts'),
   mediaBox: nodecg.Replicant('mediaBox'),
@@ -45,7 +51,6 @@ const reps: {
   notableDonations: nodecg.Replicant('notableDonations'),
   prizes: nodecg.Replicant('prizes'),
   runDataActiveRun: sc.runDataActiveRun,
-  taskmasterTimestamps: nodecg.Replicant('taskmasterTimestamps'),
   timer: sc.timer,
   x32GameAudio: nodecg.Replicant('x32-game-channel-status'),
 };

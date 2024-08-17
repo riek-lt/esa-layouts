@@ -4,11 +4,10 @@ import {
   AdditionalDonations, Bids,
   BigbuttonPlayerMap,
   CapturePositions,
-  Commentators,
   CommentatorsNew, Countdown,
   CurrentRunDelay,
   DelayedTimer,
-  DonationAlerts, DonationReader,
+  DonationAlerts,
   DonationReaderNew, DonationsToRead,
   DonationTotal,
   DonationTotalMilestones,
@@ -25,7 +24,7 @@ import {
   ReaderIntroduction,
   ServerTimestamp,
   StreamDeckData,
-  TaskmasterTimestamps, TtsVoices,
+  TtsVoices,
   UpcomingRunID,
   VideoPlayer,
 } from '@esa-layouts/types/schemas';
@@ -46,13 +45,11 @@ export const assetsVideos = nodecg().Replicant<NodeCGTypes.AssetFile[]>('assets:
 export const bids = nodecg().Replicant<Bids>('bids', { persistent: false }) as unknown as NodeCGTypes.ServerReplicantWithSchemaDefault<Bids>;
 export const bigbuttonPlayerMap = nodecg().Replicant<BigbuttonPlayerMap>('bigbuttonPlayerMap') as unknown as NodeCGTypes.ServerReplicantWithSchemaDefault<BigbuttonPlayerMap>;
 export const capturePositions = nodecg().Replicant<CapturePositions>('capturePositions') as unknown as NodeCGTypes.ServerReplicantWithSchemaDefault<CapturePositions>;
-export const commentators = nodecg().Replicant<Commentators>('commentators') as unknown as NodeCGTypes.ServerReplicantWithSchemaDefault<Commentators>;
 export const commentatorsNew = nodecg().Replicant<CommentatorsNew>('commentatorsNew') as unknown as NodeCGTypes.ServerReplicantWithSchemaDefault<CommentatorsNew>;
 export const countdown = nodecg().Replicant<Countdown>('countdown') as unknown as NodeCGTypes.ServerReplicantWithSchemaDefault<Countdown>;
 export const currentRunDelay = nodecg().Replicant<CurrentRunDelay>('currentRunDelay') as unknown as NodeCGTypes.ServerReplicantWithSchemaDefault<CurrentRunDelay>;
 export const delayedTimer = nodecg().Replicant<DelayedTimer>('delayedTimer') as unknown as NodeCGTypes.ServerReplicantWithSchemaDefault<DelayedTimer>;
 export const donationAlerts = nodecg().Replicant<DonationAlerts>('donationAlerts') as unknown as NodeCGTypes.ServerReplicantWithSchemaDefault<DonationAlerts>;
-export const donationReader = nodecg().Replicant<DonationReader>('donationReader') as unknown as NodeCGTypes.ServerReplicantWithSchemaDefault<DonationReader>;
 export const donationReaderNew = nodecg().Replicant<DonationReaderNew>('donationReaderNew') as unknown as NodeCGTypes.ServerReplicantWithSchemaDefault<DonationReaderNew>;
 export const donationsToRead = nodecg().Replicant<DonationsToRead>('donationsToRead', { persistent: false }) as unknown as NodeCGTypes.ServerReplicantWithSchemaDefault<DonationsToRead>;
 export const donationTotal = nodecg().Replicant<DonationTotal>('donationTotal') as unknown as NodeCGTypes.ServerReplicantWithSchemaDefault<DonationTotal>;
@@ -72,7 +69,6 @@ export const prizes = nodecg().Replicant<Prizes>('prizes', { persistent: false }
 export const readerIntroduction = nodecg().Replicant<ReaderIntroduction>('readerIntroduction') as unknown as NodeCGTypes.ServerReplicantWithSchemaDefault<ReaderIntroduction>;
 export const serverTimestamp = nodecg().Replicant<ServerTimestamp>('serverTimestamp') as unknown as NodeCGTypes.ServerReplicantWithSchemaDefault<ServerTimestamp>;
 export const streamDeckData = nodecg().Replicant<StreamDeckData>('streamDeckData') as unknown as NodeCGTypes.ServerReplicantWithSchemaDefault<StreamDeckData>;
-export const taskmasterTimestamps = nodecg().Replicant<TaskmasterTimestamps>('taskmasterTimestamps') as unknown as NodeCGTypes.ServerReplicantWithSchemaDefault<TaskmasterTimestamps>;
 export const ttsVoices = nodecg().Replicant<TtsVoices>('ttsVoices') as unknown as NodeCGTypes.ServerReplicantWithSchemaDefault<TtsVoices>;
 export const twitchAPIData = nodecg().Replicant<TwitchAPIData>('twitchAPIData', 'nodecg-speedcontrol') as unknown as NodeCGTypes.ServerReplicantWithSchemaDefault<TwitchAPIData>;
 export const twitchChannelInfo = nodecg().Replicant<TwitchChannelInfo>('twitchChannelInfo', 'nodecg-speedcontrol') as unknown as NodeCGTypes.ServerReplicantWithSchemaDefault<TwitchChannelInfo>;

@@ -71,7 +71,8 @@
         height: '308px',
       }"
     >
-      <comm-and-reader />
+      <commentators-reader />
+      <commentators-reader show-reader />
 
       <!-- Run Game Info/Timer -->
       <div
@@ -156,9 +157,11 @@ import CommAndReader from './components/CommAndReader.vue';
 import RunInfo from './components/RunInfo.vue';
 import Timer from './components/Timer.vue';
 import DonationBar from './components/DonationBar.vue';
+import CommentatorsReader from '@esa-layouts/game-layout/components/CommentatorsReader.vue';
 
 @Component({
   components: {
+    CommentatorsReader,
     GameCapture,
     Player,
     CommAndReader,
