@@ -9,8 +9,6 @@ function getTrackerBaseUrl(): string {
   return `${proto}${addr}`;
 }
 
-// Remove when more exports are present.
-// eslint-disable-next-line import/prefer-default-export
 export function trackerUrl(path: string): string {
   const addr = getTrackerBaseUrl();
 
