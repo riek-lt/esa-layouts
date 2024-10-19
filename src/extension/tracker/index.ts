@@ -223,8 +223,15 @@ async function loginToTracker(): Promise<void> {
       },
     );
 
+    nodecg().log.debug('[Tracker] Login response:', {
+      status: resp2.statusCode,
+      body: resp2.body,
+      headers: resp2.headers,
+      cookies: resp2.cookies,
+    });
+
     // If we're not being redirected or there's no session token, the login failed.
-    if (resp2.statusCode !== 302 || (resp2.cookies && !resp2.cookies.tracker_session)) {
+    if (resp2.statusCode !== 302 || (resp2.cookies && !resp2.cookies.sessionid)) {
       throw new Error('Log in was unsuccessful, is your username/password correct?');
     }
 
