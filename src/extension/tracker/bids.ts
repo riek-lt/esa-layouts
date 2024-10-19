@@ -3,9 +3,7 @@ import needle from 'needle';
 import { eventInfo, getCookies } from '.';
 import { get as nodecg } from '../util/nodecg';
 import { bids } from '../util/replicants';
-import utils from './utils';
-
-const { trackerUrl } = utils;
+import { trackerUrl } from './utils';
 
 const eventConfig = nodecg().bundleConfig.event;
 const { useTestData } = nodecg().bundleConfig;

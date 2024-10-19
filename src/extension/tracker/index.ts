@@ -8,9 +8,7 @@ import type { DeepWritable } from 'ts-essentials';
 import { get as nodecg } from '../util/nodecg';
 import { mq } from '../util/rabbitmq';
 import { donationTotal } from '../util/replicants';
-import utils from './utils';
-
-const { trackerUrl } = utils;
+import { trackerUrl, trackerAdminUrl } from './utils';
 
 export const eventInfo: Tracker.EventInfo[] = [];
 const eventConfig = nodecg().bundleConfig.event;
@@ -200,7 +198,7 @@ async function loginToTracker(): Promise<void> {
   if (isFirstLogin) nodecg().log.info('[Tracker] Logging in');
   else nodecg().log.info('[Tracker] Refreshing session');
 
-  const loginURL = `https://${config.address}/admin/login/`;
+  const loginURL = trackerAdminUrl('/login/');
   try {
     // Access login page to get CSRF token.
     const resp1 = await needle('get', loginURL);
