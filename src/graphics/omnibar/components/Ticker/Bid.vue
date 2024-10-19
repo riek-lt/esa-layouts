@@ -8,10 +8,10 @@
       <war1v1
         v-if="bid.options.length === 2 && !bid.allowUserOptions"
         :bid-id="bidId"
-         :seconds="seconds"
+        :seconds="seconds"
         @end="end"
       />
-      <war-other v-else :bid-original="bid" :seconds="seconds" @end="end" />
+      <war-other v-else :bid-id="bidId" :seconds="seconds" @end="end" />
     </template>
   </div>
 </template>
