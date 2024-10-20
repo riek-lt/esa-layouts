@@ -27,8 +27,7 @@
     "start": "node ../..",
     "watch": "run-p watch:*",
     "watch:browser": "webpack -w",
-    "watch:extension": "tsc -b tsconfig.extension.json -w",
-    "postinstall": "cd zoton_shared && node postinstall.js"
+    "watch:extension": "tsc -b tsconfig.extension.json -w"
   },
   "dependencies": {
     "@esamarathon/mq-events": "^1.0.1",
@@ -376,7 +375,7 @@
     ],
     "mount": [
       {
-        "directory": "zoton_shared/flags",
+        "directory": "layout_assets/flags",
         "endpoint": "flags"
       },
       {

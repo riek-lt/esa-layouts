@@ -45,9 +45,6 @@
       "@esa-layouts/types/*": [
         "src/types/*"
       ],
-      "@shared/*": [
-        "zoton_shared/*"
-      ]
     },                                                   /* Specify a set of entries that re-map imports to additional lookup locations. */
     // "rootDirs": [],                                   /* Allow multiple folders to be treated as one when resolving modules. */
     // "typeRoots": [],                                  /* Specify multiple folders that act like `./node_modules/@types`. */
@@ -130,6 +127,7 @@
     "src/types/**/*.d.ts",
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "zoton_shared"
   ]
 }
