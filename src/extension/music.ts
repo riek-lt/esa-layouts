@@ -1,6 +1,5 @@
 import type NodeCGTypes from '@nodecg/types';
-import type { HeadersInit, Response } from 'node-fetch';
-import fetch from 'node-fetch';
+import needle, { NeedleHttpVerbs, NeedleResponse } from 'needle';
 import path from 'path';
 import { Readable } from 'stream';
 import { Foobar2000, Music as MusicTypes } from '@esa-layouts/types';
@@ -52,14 +51,13 @@ class Music {
    * @param method Required HTTP method.
    * @param endpoint The endpoint to request.
    */
-  private async request(method: string, endpoint: string): Promise<Response> {
+  private async request(method: NeedleHttpVerbs, endpoint: string): Promise<NeedleResponse> {
     this.nodecg.log.debug(`[Music] API ${method.toUpperCase()} request processing on ${endpoint}`);
-    const resp = await fetch(`http://${this.config.address}/api${endpoint}`, {
-      method,
+    const resp = await needle(method, `http://${this.config.address}/api${endpoint}`, {
       headers: this.headers,
     });
-    if (![200, 204].includes(resp.status)) {
-      const text = await resp.text();
+    if (![200, 204].includes(resp.statusCode ?? 0)) {
+      const text = await resp.body as string;
       this.nodecg.log
         .debug(`[Music] API ${method.toUpperCase()} request error on ${endpoint}:`, text);
       throw new Error(text);

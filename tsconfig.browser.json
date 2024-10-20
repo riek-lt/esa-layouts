@@ -127,7 +127,6 @@
     "src/types/**/*.d.ts",
   ],
   "exclude": [
-    "node_modules",
-    "zoton_shared"
+    "node_modules"
   ]
 }
