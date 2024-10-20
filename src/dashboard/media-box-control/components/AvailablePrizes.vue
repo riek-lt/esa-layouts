@@ -68,7 +68,7 @@ import { Vue, Component } from 'vue-property-decorator';
 import { State } from 'vuex-class';
 import Draggable from 'vuedraggable';
 import { Tracker, MediaBox } from '@esa-layouts/types';
-import { Prizes } from '@shared/types/schemas';
+import { Prizes } from '@esa-layouts/types/schemas';
 import { clone, isPrizeApplicable } from './shared';
 import MediaCard from './MediaCard.vue';
 import ApplicableIcon from './ApplicableIcon.vue';

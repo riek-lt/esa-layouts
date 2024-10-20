@@ -24,7 +24,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import { Countdown as CountdownType } from '@shared/types/schemas';
+import { Countdown as CountdownType } from '@esa-layouts/types/schemas';
 import MusicTrack from '@esa-layouts/graphics/intermission/components/MusicTrack.vue';
 import { State } from 'vuex-class';
 import Countdown from './components/Countdown.vue';
