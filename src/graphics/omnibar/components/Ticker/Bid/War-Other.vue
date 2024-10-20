@@ -61,7 +61,12 @@
             {{ option.name }}
             </span>: {{ formatUSD(option.total) }}
         </div>
-        <div v-if="bid.allowUserOptions" class="Option" :ref="`Option${options.length + 1}`">
+        <div
+          v-if="bid.allowUserOptions"
+          style="margin-right: 10px;"
+          class="Option"
+          :ref="`Option${options.length + 1}`"
+        >
           <template v-if="!options.length">No options submitted yet, be the first!</template>
           <template v-else>...or submit your own!</template>
         </div>
