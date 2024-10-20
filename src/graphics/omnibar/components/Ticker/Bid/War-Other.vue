@@ -11,9 +11,7 @@
       :style="{
         'flex-grow': 1,
         display: 'flex',
-        // margin: '10px',
         height: '70px',
-        'background-color': 'rgba(0, 0, 0, 0.3)',
         overflow: 'hidden',
       }"
     >
@@ -162,23 +160,26 @@ export default class extends Vue {
 
     await wait(4000);
     const loopLength = this.bid.allowUserOptions ? this.options.length + 1 : this.options.length;
+    const endPos = this.optionsBar.scrollWidth - this.optionsBar.clientWidth;
 
     // Check how many times we need to scroll along to fit everything in.
     let scrollCount = 0;
     for (let i = 1; i < loopLength; i += 1) {
       const rep = this.getRef(`Option${i + 1}`);
-      const endPos = this.optionsBar.scrollWidth - this.optionsBar.clientWidth;
       if (endPos > rep.offsetLeft) scrollCount += 1;
     }
 
     // Add animations to timeline to scroll correctly.
     for (let i = 1; i < loopLength; i += 1) {
       const rep = this.getRef(`Option${i + 1}`);
-      const endPos = this.optionsBar.scrollWidth - this.optionsBar.clientWidth;
+      const insertionPosition = i > 1
+        ? `+=${Math.max((this.seconds - 8) / (scrollCount + 1), 2)}`
+        : undefined;
+
       this.timeline.to(this.optionsBar, {
         scrollLeft: Math.min(rep.offsetLeft, endPos),
         duration: 2,
-      }, i > 1 ? `+=${Math.max((this.seconds - 8) / (scrollCount + 1), 2)}` : undefined);
+      }, insertionPosition);
       if (endPos <= rep.offsetLeft) break;
     }
 
@@ -222,7 +223,7 @@ export default class extends Vue {
       this.bidHasUpdated = true;
 
       if (!this.timeline?.isActive()) {
-        this.resetForBidUpdate();
+        this.resetForBidUpdate().catch(console.log);
       }
     }
   }
@@ -239,7 +240,17 @@ export default class extends Vue {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+  .WarOther {
+    --mask: linear-gradient(to right,
+    rgba(0,0,0, 1) 0,   rgba(0,0,0, 1) 40%,
+    rgba(0,0,0, 1) 98%, rgba(0,0,0, 0) 100%
+    ) 100% 50% / 100% 100% repeat-y;
+
+    -webkit-mask: var(--mask);
+    mask: var(--mask);
+  }
+
   .Option {
     display: flex;
     align-items: center;
