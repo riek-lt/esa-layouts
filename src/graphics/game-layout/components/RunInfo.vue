@@ -12,11 +12,7 @@
       <div
         class="Flex RunGameParent"
         ref="RunInfo"
-        :style="{
-          'text-align': textAlignCss,
-          'justify-content': textAlign,
-          'align-items': textAlign,
-        }"
+        :style="cssPositionProps"
       >
         <div
           v-show="runData && runData.game"
@@ -28,10 +24,7 @@
 
       <div
         class="Flex runInfoExtraContainer"
-        :style="{
-          'text-align': textAlignCss,
-          'justify-content': textAlign,
-        }"
+        :style="cssPositionProps"
       >
         <div
           v-show="runData && (runData.category || runData.system || runData.estimate)"
@@ -40,9 +33,7 @@
           'FlexRow': infoIsRow,
         }"
           class="RunInfoExtra"
-          :style="{
-            'text-align': textAlignCss,
-          }"
+          :style="cssPositionProps"
         >
           <template v-if="runData">
             <div class="catEstBlock" :style="{
@@ -135,6 +126,13 @@ export default class extends Vue {
     return this.textAlign === 'center' ? 'center' : 'left';
   }
 
+  get cssPositionProps() {
+    return {
+      '--prop-text-align': this.textAlignCss,
+      '--prop-justify-content': this.textAlign,
+    };
+  }
+
   @Watch('runData', { deep: true })
   async onRunDataChange(newVal: RunDataActiveRun, oldVal?: RunDataActiveRun): Promise<void> {
     // Re-fit the elements if run data becomes definded (as elements do no exist before this).
@@ -176,6 +174,9 @@ export default class extends Vue {
   height: auto;
   white-space: unset !important;
   font-size: 50pt;
+  text-align: var(--prop-text-align);
+  justify-content: var(--prop-justify-content);
+  align-items: var(--prop-justify-content);
 }
 
 .RunGame {
@@ -196,6 +197,8 @@ export default class extends Vue {
   font-size: 20pt;
   align-items: baseline;
   //background-color: orange;
+  text-align: var(--prop-text-align);
+  justify-content: var(--prop-justify-content);
 }
 
 .system {
@@ -226,6 +229,7 @@ export default class extends Vue {
   width: 99%;
   font-weight: 300;
   font-family: Goodlight;
+  text-align: var(--prop-text-align);
 
   //span {
   //  display: inline-block !important;
