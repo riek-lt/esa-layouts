@@ -51,7 +51,7 @@ function getPrize() {
 }
 // Gets a random (but weighted) active milestone.
 let lastBidId = -1;
-function getBid() {
+function getClonedBid() {
     var _a;
     // Just return nothing if there are no bids to show.
     if (!replicants_1.bids.value.length)
@@ -121,6 +121,7 @@ async function showNext() {
                 id: (0, uuid_1.v4)(),
                 props: {
                     seconds: -1,
+                    bidId: pin.type === 'Bid' ? item.id : undefined,
                     bid: pin.type === 'Bid' ? item : undefined,
                     milestone: pin.type === 'Milestone' ? item : undefined,
                     dash: dashConfig,
@@ -214,12 +215,12 @@ async function showNext() {
                     } }) });
         }
         else if (next.type === 'Bid') {
-            const bid = getBid();
+            const bid = getClonedBid();
             if (!bid) {
                 showNext();
                 return;
             }
-            replicants_1.omnibar.value.current = Object.assign(Object.assign({}, next), { props: Object.assign(Object.assign({}, next.props), { bid, dash: {
+            replicants_1.omnibar.value.current = Object.assign(Object.assign({}, next), { props: Object.assign(Object.assign({}, next.props), { bid, bidId: bid.id, dash: {
                         text: bid.war ? 'Upcoming Bid War' : 'Upcoming Goal',
                         fontSize: 34,
                         top: 3,

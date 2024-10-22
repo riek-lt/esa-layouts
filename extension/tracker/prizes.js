@@ -8,8 +8,7 @@ const needle_1 = __importDefault(require("needle"));
 const _1 = require(".");
 const nodecg_1 = require("../util/nodecg");
 const replicants_1 = require("../util/replicants");
-const utils_1 = __importDefault(require("./utils"));
-const { trackerUrl } = utils_1.default;
+const utils_1 = require("./utils");
 const { useTestData } = (0, nodecg_1.get)().bundleConfig;
 const refreshTime = 60 * 1000; // Get prizes every 60s.
 // Processes the response from the API above.
@@ -34,7 +33,7 @@ function processRawPrizes(rawPrizes) {
 async function updatePrizes() {
     var _a;
     try {
-        const resp = await (0, needle_1.default)('get', trackerUrl(`/search/?event=${_1.eventInfo[0].id}&type=prize&feed=current`), {
+        const resp = await (0, needle_1.default)('get', (0, utils_1.trackerUrl)(`/search/?event=${_1.eventInfo[0].id}&type=prize&feed=current`), {
             cookies: (0, _1.getCookies)(),
         });
         if (!resp.statusCode || resp.statusCode >= 300 || resp.statusCode < 200) {

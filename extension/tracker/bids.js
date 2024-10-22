@@ -8,8 +8,7 @@ const needle_1 = __importDefault(require("needle"));
 const _1 = require(".");
 const nodecg_1 = require("../util/nodecg");
 const replicants_1 = require("../util/replicants");
-const utils_1 = __importDefault(require("./utils"));
-const { trackerUrl } = utils_1.default;
+const utils_1 = require("./utils");
 const eventConfig = (0, nodecg_1.get)().bundleConfig.event;
 const { useTestData } = (0, nodecg_1.get)().bundleConfig;
 const refreshTime = 30 * 1000; // Get bids every 30s.
@@ -60,11 +59,19 @@ function processRawBids(rawBids) {
         // Sort bid war options from largest to smallest.
         if (bid.options && bid.options.length) {
             bid.options = bid.options.sort((a, b) => {
-                if (a.total > b.total) {
-                    return -1;
-                }
-                if (a.total < b.total) {
+                // TODO: revert if we want this
+                // if (a.total > b.total) {
+                //   return -1;
+                // }
+                // if (a.total < b.total) {
+                //   return 1;
+                // }
+                // return 0;
+                if (a.id > b.id) {
                     return 1;
+                }
+                if (a.id < b.id) {
+                    return -1;
                 }
                 return 0;
             });
@@ -89,7 +96,7 @@ function processRawBids(rawBids) {
 async function updateBids() {
     var _a;
     try {
-        const resp = await (0, needle_1.default)('get', trackerUrl(`/search/?event=${_1.eventInfo[eventConfig.thisEvent - 1].id}`
+        const resp = await (0, needle_1.default)('get', (0, utils_1.trackerUrl)(`/search/?event=${_1.eventInfo[eventConfig.thisEvent - 1].id}`
             + '&type=allbids&state=OPENED'), {
             cookies: (0, _1.getCookies)(),
         });
@@ -103,6 +110,7 @@ async function updateBids() {
         if (!Array.isArray(currentBids)) {
             throw new Error('currentBids result was non-array type');
         }
+        (0, nodecg_1.get)().log.debug('[Tracker] Updated bids:', JSON.stringify(currentBids));
         replicants_1.bids.value = currentBids;
     }
     catch (err) {

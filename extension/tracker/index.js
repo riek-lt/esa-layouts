@@ -10,8 +10,7 @@ const needle_1 = __importDefault(require("needle"));
 const nodecg_1 = require("../util/nodecg");
 const rabbitmq_1 = require("../util/rabbitmq");
 const replicants_1 = require("../util/replicants");
-const utils_1 = __importDefault(require("./utils"));
-const { trackerUrl } = utils_1.default;
+const utils_1 = require("./utils");
 exports.eventInfo = [];
 const eventConfig = (0, nodecg_1.get)().bundleConfig.event;
 const config = (0, nodecg_1.get)().bundleConfig.tracker;
@@ -31,7 +30,7 @@ exports.getCookies = getCookies;
  * @param short Short event name in the tracker.
  */
 async function getEventIDFromShort(short) {
-    const resp = await (0, needle_1.default)('get', trackerUrl(`/search/?short=${short}&type=event`), cookies);
+    const resp = await (0, needle_1.default)('get', (0, utils_1.trackerUrl)(`/search/?short=${short}&type=event`), cookies);
     if (!resp.body.length) {
         throw new Error(`Event "${short}" does not exist on the tracker`);
     }
@@ -44,7 +43,7 @@ async function updateDonationTotalFromAPI(init = false) {
     try {
         let total = 0;
         for (const event of exports.eventInfo) {
-            const resp = await (0, needle_1.default)('get', trackerUrl(`/event/${event.short}?json`));
+            const resp = await (0, needle_1.default)('get', (0, utils_1.trackerUrl)(`/event/${event.short}?json`));
             if (resp.statusCode === 200) {
                 const eventTotal = resp.body.agg.amount ? parseFloat(resp.body.agg.amount) : 0;
                 event.total = eventTotal;
@@ -183,7 +182,7 @@ async function loginToTracker() {
         (0, nodecg_1.get)().log.info('[Tracker] Logging in');
     else
         (0, nodecg_1.get)().log.info('[Tracker] Refreshing session');
-    const loginURL = `https://${config.address}/admin/login/`;
+    const loginURL = (0, utils_1.trackerAdminUrl)('/login/');
     try {
         // Access login page to get CSRF token.
         const resp1 = await (0, needle_1.default)('get', loginURL);
@@ -201,8 +200,14 @@ async function loginToTracker() {
                 referer: loginURL,
             },
         });
+        (0, nodecg_1.get)().log.debug('[Tracker] Login response:', {
+            status: resp2.statusCode,
+            body: resp2.body,
+            headers: resp2.headers,
+            cookies: resp2.cookies,
+        });
         // If we're not being redirected or there's no session token, the login failed.
-        if (resp2.statusCode !== 302 || (resp2.cookies && !resp2.cookies.tracker_session)) {
+        if (resp2.statusCode !== 302 || (resp2.cookies && !resp2.cookies.sessionid)) {
             throw new Error('Log in was unsuccessful, is your username/password correct?');
         }
         // Store cookie for later use.
@@ -266,7 +271,11 @@ async function setup() {
         // Update the donation total to a random number while testing
         if (useTestData) {
             setInterval(() => {
-                replicants_1.donationTotal.value += Math.random() * 1000;
+                let newDonoAmount = replicants_1.donationTotal.value + (Math.random() * 1000);
+                if (newDonoAmount > 70000) {
+                    newDonoAmount = 0;
+                }
+                replicants_1.donationTotal.value = newDonoAmount;
                 (0, nodecg_1.get)().sendMessage('donationTotalUpdated', { total: replicants_1.donationTotal.value });
             }, 10 * 1000);
         }
