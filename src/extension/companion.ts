@@ -1,7 +1,7 @@
 import { player } from './intermission-player';
 import companion, { ActionHandler } from './util/companion';
 import { get as nodecg } from './util/nodecg';
-import { assetsVideos, obsData, streamDeckData } from './util/replicants';
+import { assetsVideos, obsData, streamDeckData, companionFastCropEnabled, selectedCropItem } from './util/replicants';
 import { sc } from './util/speedcontrol';
 import actionVideoPlay from './companion/actionVideoPlay';
 import actionIntermissionSceneChange from './companion/actionIntermissionSceneChange';
@@ -25,6 +25,8 @@ twitchCommercialsDisabled.on('change', (value) => (
 obsData.on('change', (value) => (
   companion.send({ name: 'obsData', value: { ...value, gameLayoutScreenshot: undefined } })));
 assetsVideos.on('change', (value) => companion.send({ name: 'videos', value }));
+companionFastCropEnabled.on('change', (value) => companion.send({ name: 'fastCropOn', value }));
+selectedCropItem.on('change', (value) => companion.send({ name: 'selectedCropItem', value }));
 
 // Sending things on connection.
 companion.evt.on('open', (socket) => {
@@ -36,6 +38,8 @@ companion.evt.on('open', (socket) => {
   companion.send({ name: 'obsData', value: { ...obsData.value, gameLayoutScreenshot: undefined } });
   companion.send({ name: 'cfgScenes', value: nodecg().bundleConfig.obs.names.scenes });
   companion.send({ name: 'videos', value: assetsVideos.value });
+  companion.send({ name: 'fastCropOn', value: companionFastCropEnabled.value });
+  companion.send({ name: 'selectedCropItem', value: selectedCropItem.value });
 });
 
 const actionMap: { [key: string]: ActionHandler } = {
@@ -48,6 +52,19 @@ const actionMap: { [key: string]: ActionHandler } = {
   // Yes, this is still allowed :)
   // anything that takes up more than a single line of code should have its own file.
   video_stop: () => player.endPlaylistEarly(),
+  // TODO: move to files with more protective logic
+  fast_crop_toggle: () => {
+    companionFastCropEnabled.value = !companionFastCropEnabled.value;
+  },
+  select_crop_item: (n, value) => {
+    const numval = value as number;
+
+    if (selectedCropItem.value === numval) {
+      selectedCropItem.value = -1;
+    } else {
+      selectedCropItem.value = numval;
+    }
+  },
 };
 
 // Listening for any actions triggered from Companion.
