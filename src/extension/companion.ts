@@ -1,3 +1,4 @@
+import actionStreamDeckModifyCrop from '@esa-layouts/companion/actionStreamDeckModifyCrop';
 import { player } from './intermission-player';
 import companion, { ActionHandler } from './util/companion';
 import { get as nodecg } from './util/nodecg';
@@ -65,6 +66,7 @@ const actionMap: { [key: string]: ActionHandler } = {
       selectedCropItem.value = numval;
     }
   },
+  modify_crop: actionStreamDeckModifyCrop,
 };
 
 // Listening for any actions triggered from Companion.
