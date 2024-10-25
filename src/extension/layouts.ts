@@ -685,12 +685,20 @@ async function changeCrop(
   }
 }
 
-// eslint-disable-next-line import/prefer-default-export
-export async function changeCropFromFromStreamDeck(side: number, value: number): Promise<void> {
+export async function changeCropFromFromStreamDeck(
+  side: number | undefined,
+  value: number | undefined,
+): Promise<void> {
   const captureIndex = companionSelectedCropItem.value;
   const mode = allSources[selected.sourceIndex[captureIndex]]?.type;
 
   await changeCrop(value, captureIndex, mode, side);
+}
+
+export async function resetAllCropFromStreamDeck(): Promise<void> {
+  for (let i = 0; i < allCaptures.length; i += 1) {
+    await changeCrop(undefined, i, 'game');
+  }
 }
 
 let resetOneGameCropConfirm = false;

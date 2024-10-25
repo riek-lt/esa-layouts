@@ -13,7 +13,8 @@ function initActions(instance: ModuleInstance, videos?: { name: string, sum: str
       name: 'Blank',
       description: 'Intentionally blank; can be used to show connection status.',
       options: [],
-      callback: () => {},
+      callback: () => {
+      },
     },
     // Timer Toggle
     // TODO: Add team support.
@@ -159,6 +160,22 @@ function initActions(instance: ModuleInstance, videos?: { name: string, sum: str
         instance.wsSend({ name: 'select_crop_item', value: action.options.item_index });
       },
     },
+    reset_crop_selected: {
+      name: 'Reset Crop Selected',
+      description: 'Reset the crop for the selected game source.',
+      options: [],
+      callback: () => {
+        instance.wsSend({ name: 'reset_crop_selected' });
+      },
+    },
+    reset_crop_all: {
+      name: 'Reset Crop All',
+      description: 'Reset the crop for all game sources.',
+      options: [],
+      callback: () => {
+        instance.wsSend({ name: 'reset_crop_all' });
+      },
+    },
     modify_crop: {
       name: 'Modify crop',
       description: 'Use the dials to change the crop!',
@@ -174,7 +191,7 @@ function initActions(instance: ModuleInstance, videos?: { name: string, sum: str
             },
             {
               id: 1,
-              label: 'Left',
+              label: 'Right',
             },
             {
               id: 2,
@@ -182,7 +199,7 @@ function initActions(instance: ModuleInstance, videos?: { name: string, sum: str
             },
             {
               id: 3,
-              label: 'Right',
+              label: 'Left',
             },
           ],
           default: 0,
@@ -204,8 +221,14 @@ function initActions(instance: ModuleInstance, videos?: { name: string, sum: str
           default: -1,
         },
       ],
-      callback: () => {
-        instance.log('info', 'Modify crop action called');
+      callback: (action) => {
+        instance.wsSend({
+          name: 'modify_crop',
+          value: {
+            side: action.options.side,
+            inc_dec: action.options.inc_dec,
+          },
+        });
       },
     },
   });

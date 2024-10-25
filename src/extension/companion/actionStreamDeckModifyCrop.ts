@@ -1,8 +1,14 @@
 import { changeCropFromFromStreamDeck } from '@esa-layouts/layouts';
-import { companionFastCropEnabled } from '../util/replicants';
+import { companionFastCropEnabled, selectedCropItem as companionSelectedCropItem } from '../util/replicants';
 
-export default async function actionStreamDeckModifyCrop(name: string, value: unknown)
-  : Promise<void> {
+export default async function actionStreamDeckModifyCrop(
+  name: string,
+  value: unknown,
+): Promise<void> {
+  if (companionSelectedCropItem.value < 0) {
+    return;
+  }
+
   const settings = value as {
     side: number;
     inc_dec: number;

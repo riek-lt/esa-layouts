@@ -165,6 +165,14 @@ class ModuleInstance extends InstanceBase<Config> {
         this.setVariableValues({
           fastCropOn: msg.value as boolean,
         });
+      } else if (msg.name === 'waitingForSingleCropConfirm') {
+        this.setVariableValues({
+          waitingForSingleCropConfirm: msg.value as boolean,
+        });
+      } else if (msg.name === 'waitingForAllCropConfirm') {
+        this.setVariableValues({
+          waitingForAllCropConfirm: msg.value as boolean,
+        });
       } else if (msg.name === 'selectedCropItem') {
         this.setVariableValues({
           selectedCropItem: msg.value as number,
