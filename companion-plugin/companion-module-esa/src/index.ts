@@ -70,114 +70,131 @@ class ModuleInstance extends InstanceBase<Config> {
       this.log('debug', `Message: "${data.toString()}", isBinary: ${isBinary}`);
 
       const msg: { name: string, value: unknown } = JSON.parse(data.toString());
-      if (msg.name === 'timer') {
-        // TODO: Reference type from another location?
-        const timer = msg.value as {
-          time: string;
-          state: 'stopped' | 'running' | 'paused' | 'finished';
-          // Other unimportant (at the moment) types omitted.
-        };
-        // TODO: Setup debounce to not hammer the function.
-        this.setVariableValues({
-          timer_time: timer.time,
-          timer_state: timer.state,
-        });
-      } else if (msg.name === 'timerChangesDisabled') {
-        // TODO: Reference type from another location?
-        const value = msg.value as boolean;
-        this.setVariableValues({
-          timer_changes_disabled: value,
-        });
-      } else if (msg.name === 'streamDeckData') {
-        // TODO: Reference type from another location?
-        const value = msg.value as {
-          playerHUDTriggerType?: string;
-        };
-        this.setVariableValues({
-          player_hud_trigger_type: value.playerHUDTriggerType,
-        });
-      } else if (msg.name === 'twitchCommercialTimer') {
-        // TODO: Reference type from another location?
-        const value = msg.value as {
-          secondsRemaining: number;
-          originalDuration: number;
-          timestamp: number;
-        };
-        this.setVariableValues({
-          twitch_commercial_timer_seconds_remaining: value.secondsRemaining,
-        });
-      } else if (msg.name === 'twitchCommercialsDisabled') {
-        // TODO: Reference type from another location?
-        const value = msg.value as boolean;
-        this.setVariableValues({
-          twitch_commercials_disabled: value,
-        });
-      } else if (msg.name === 'obsData') {
-        // TODO: Reference type from another location?
-        const value = msg.value as {
-          connected: boolean;
-          scene?: string;
-          sceneList: string[];
-          transitioning: boolean;
-          streaming: boolean;
-          disableTransitioning: boolean;
-          transitionTimestamp: number;
-        };
-        this.setVariableValues({
-          obs_connected: value.connected,
-          obs_transitioning: value.transitioning,
-          obs_transitioning_disabled: value.disableTransitioning,
-          obs_scene: value.scene,
-          obs_scene_list: JSON.stringify(value.sceneList), // Weird to store, change?
-        });
-        // Trigger this feedback check in case we changed scenes here.
-        this.checkFeedbacks('obsSceneFeedback');
-      } else if (msg.name === 'cfgScenes') {
-        // TODO: Reference type from another location?
-        const value = msg.value as {
-          commercials: string;
-          gameLayout: string;
-          readerIntroduction: string;
-          intermission: string;
-          intermissionPlayer: string;
-          countdown: string;
-        };
-        // Stores this for use later (maybe could be done better?)
-        setObsSceneKeys(value);
-        // Updates the multidropdown with the configuration scene names.
-        this.setFeedbackDefinitions({
-          obsSceneFeedback: obsSceneFeedback(),
-        });
-        // Trigger this feedback check, needed on connection, not sure if needed
-        // for anything else, but safe to have.
-        this.checkFeedbacks('obsSceneFeedback');
-      } else if (msg.name === 'videos') {
-        // TODO: Reference type from another location?
-        const videos = msg.value as {
-          name: string;
-          sum: string;
-          // Other unimportant (at the moment) types omitted.
-        }[];
-        // Updates the dropdown with the video information by re-initialising all actions.
-        // TODO: Is there a better way?
-        initActions(this, videos);
-      } else if (msg.name === 'fastCropOn') {
-        this.setVariableValues({
-          fastCropOn: msg.value as boolean,
-        });
-      } else if (msg.name === 'waitingForSingleCropConfirm') {
-        this.setVariableValues({
-          waitingForSingleCropConfirm: msg.value as boolean,
-        });
-      } else if (msg.name === 'waitingForAllCropConfirm') {
-        this.setVariableValues({
-          waitingForAllCropConfirm: msg.value as boolean,
-        });
-      } else if (msg.name === 'selectedCropItem') {
-        this.setVariableValues({
-          selectedCropItem: msg.value as number,
-        });
+
+      /* eslint-disable no-case-declarations */
+      switch (msg.name) {
+        case 'timer':
+          // TODO: Reference type from another location?
+          const timer = msg.value as {
+            time: string;
+            state: 'stopped' | 'running' | 'paused' | 'finished';
+            // Other unimportant (at the moment) types omitted.
+          };
+
+          // TODO: Setup debounce to not hammer the function.
+          this.setVariableValues({
+            timer_time: timer.time,
+            timer_state: timer.state,
+          });
+          break;
+        case 'timerChangesDisabled':
+          // TODO: Reference type from another location?
+          this.setVariableValues({
+            timer_changes_disabled: msg.value as boolean,
+          });
+          break;
+        case 'streamDeckData':
+          // TODO: Reference type from another location?
+          const sdData = msg.value as {
+            playerHUDTriggerType?: string;
+          };
+          this.setVariableValues({
+            player_hud_trigger_type: sdData.playerHUDTriggerType,
+          });
+          break;
+        case 'twitchCommercialTimer':
+          // TODO: Reference type from another location?
+          const commercialTimer = msg.value as {
+            secondsRemaining: number;
+            originalDuration: number;
+            timestamp: number;
+          };
+          this.setVariableValues({
+            twitch_commercial_timer_seconds_remaining: commercialTimer.secondsRemaining,
+          });
+          break;
+        case 'twitchCommercialsDisabled':
+          // TODO: Reference type from another location?
+          this.setVariableValues({
+            twitch_commercials_disabled: msg.value as boolean,
+          });
+          break;
+        case 'obsData':
+          // TODO: Reference type from another location?
+          const obsData = msg.value as {
+            connected: boolean;
+            scene?: string;
+            sceneList: string[];
+            transitioning: boolean;
+            streaming: boolean;
+            disableTransitioning: boolean;
+            transitionTimestamp: number;
+          };
+          this.setVariableValues({
+            obs_connected: obsData.connected,
+            obs_transitioning: obsData.transitioning,
+            obs_transitioning_disabled: obsData.disableTransitioning,
+            obs_scene: obsData.scene,
+            obs_scene_list: JSON.stringify(obsData.sceneList), // Weird to store, change?
+          });
+          // Trigger this feedback check in case we changed scenes here.
+          this.checkFeedbacks('obsSceneFeedback');
+          break;
+        case 'cfgScenes':
+          // TODO: Reference type from another location?
+          const sceneKeys = msg.value as {
+            commercials: string;
+            gameLayout: string;
+            readerIntroduction: string;
+            intermission: string;
+            intermissionPlayer: string;
+            countdown: string;
+          };
+          // Stores this for use later (maybe could be done better?)
+          setObsSceneKeys(sceneKeys);
+          // Updates the multidropdown with the configuration scene names.
+          this.setFeedbackDefinitions({
+            obsSceneFeedback: obsSceneFeedback(),
+          });
+          // Trigger this feedback check, needed on connection, not sure if needed
+          // for anything else, but safe to have.
+          this.checkFeedbacks('obsSceneFeedback');
+          break;
+        case 'videos':
+          // TODO: Reference type from another location?
+          const videos = msg.value as {
+            name: string;
+            sum: string;
+            // Other unimportant (at the moment) types omitted.
+          }[];
+          // Updates the dropdown with the video information by re-initialising all actions.
+          // TODO: Is there a better way?
+          initActions(this, videos);
+          break;
+        case 'fastCropOn':
+          this.setVariableValues({
+            fastCropOn: msg.value as boolean,
+          });
+          break;
+        case 'waitingForSingleCropConfirm':
+          this.setVariableValues({
+            waitingForSingleCropConfirm: msg.value as boolean,
+          });
+          break;
+        case 'waitingForAllCropConfirm':
+          this.setVariableValues({
+            waitingForAllCropConfirm: msg.value as boolean,
+          });
+          break;
+        case 'selectedCropItem':
+          this.setVariableValues({
+            selectedCropItem: msg.value as number,
+          });
+          break;
+        default:
+          break;
       }
+      /* eslint-enable no-case-declarations */
     });
   }
 
