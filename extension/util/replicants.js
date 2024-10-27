@@ -1,7 +1,7 @@
 "use strict";
 /* eslint-disable max-len */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.videoPlayer = exports.upcomingRunID = exports.twitchChannelInfo = exports.twitchAPIData = exports.ttsVoices = exports.taskmasterTimestamps = exports.streamDeckData = exports.serverTimestamp = exports.readerIntroduction = exports.prizes = exports.otherStreamData = exports.omnibar = exports.oengusImportStatus = exports.obsData = exports.notableDonations = exports.nameCycle = exports.musicData = exports.lowerThird = exports.intermissionSlides = exports.horaroImportStatus = exports.gameLayouts = exports.donationTotalMilestones = exports.donationTotal = exports.donationsToRead = exports.donationReaderNew = exports.donationReader = exports.donationAlerts = exports.delayedTimer = exports.currentRunDelay = exports.countdown = exports.commentatorsNew = exports.commentators = exports.capturePositions = exports.bigbuttonPlayerMap = exports.bids = exports.assetsVideos = exports.assetsReaderIntroductionImages = exports.assetsMediaBoxImages = exports.assetsIntermissionSlides = exports.assetsDonationAlertAssets = exports.additionalDonations = void 0;
+exports.selectedCropItem = exports.companionWaitingAllCropConfirm = exports.companionWaitingSingleCropConfirm = exports.companionFastCropEnabled = exports.videoPlayer = exports.upcomingRunID = exports.twitchChannelInfo = exports.twitchAPIData = exports.ttsVoices = exports.taskmasterTimestamps = exports.streamDeckData = exports.serverTimestamp = exports.readerIntroduction = exports.prizes = exports.otherStreamData = exports.omnibar = exports.oengusImportStatus = exports.obsData = exports.notableDonations = exports.nameCycle = exports.musicData = exports.lowerThird = exports.intermissionSlides = exports.horaroImportStatus = exports.gameLayouts = exports.donationTotalMilestones = exports.donationTotal = exports.donationsToRead = exports.donationReaderNew = exports.donationReader = exports.donationAlerts = exports.delayedTimer = exports.currentRunDelay = exports.countdown = exports.commentatorsNew = exports.commentators = exports.capturePositions = exports.bigbuttonPlayerMap = exports.bids = exports.assetsVideos = exports.assetsReaderIntroductionImages = exports.assetsMediaBoxImages = exports.assetsIntermissionSlides = exports.assetsDonationAlertAssets = exports.additionalDonations = void 0;
 const nodecg_1 = require("./nodecg");
 /**
  * This is where you can declare all your replicant to import easily into other files,
@@ -48,3 +48,8 @@ exports.twitchAPIData = (0, nodecg_1.get)().Replicant('twitchAPIData', 'nodecg-s
 exports.twitchChannelInfo = (0, nodecg_1.get)().Replicant('twitchChannelInfo', 'nodecg-speedcontrol');
 exports.upcomingRunID = (0, nodecg_1.get)().Replicant('upcomingRunID');
 exports.videoPlayer = (0, nodecg_1.get)().Replicant('videoPlayer');
+// Custom stuff for companion
+exports.companionFastCropEnabled = (0, nodecg_1.get)().Replicant('companionFastCropEnabled', { persistent: false, defaultValue: true });
+exports.companionWaitingSingleCropConfirm = (0, nodecg_1.get)().Replicant('companionWaitingSingleCropConfirm', { persistent: false, defaultValue: false });
+exports.companionWaitingAllCropConfirm = (0, nodecg_1.get)().Replicant('companionWaitingAllCropConfirm', { persistent: false, defaultValue: false });
+exports.selectedCropItem = (0, nodecg_1.get)().Replicant('companionSelectedCropItem', { persistent: false, defaultValue: -1 });

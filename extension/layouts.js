@@ -3,6 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.resetAllCropFromStreamDeck = exports.changeCropFromFromStreamDeck = void 0;
 const countdown_1 = __importDefault(require("@shared/extension/countdown"));
 const clone_1 = __importDefault(require("clone"));
 const helpers_1 = require("./util/helpers");
@@ -534,15 +535,16 @@ function calculateCameraCrop(aCurrent, bCurrent, value) {
  * @param value Amount to crop from the selected slide.
  * @param cap Override the capture that is cropped.
  * @param mode Specify the mode this function will run with.
+ * @param gameCropSide The side to crop
  */
-async function changeCrop(value, cap, mode) {
+async function changeCrop(value, cap, mode, gameCropSide = selected.gameCrop) {
     var _a;
     const capI = cap !== null && cap !== void 0 ? cap : selected.captureIndex;
     if (typeof capI === 'undefined' || capI < 0)
         return;
     if (mode === 'game') {
-        if (value && selected.gameCrop >= 0) {
-            switch (selected.gameCrop) {
+        if (value && gameCropSide >= 0) {
+            switch (gameCropSide) {
                 case 0:
                     gameCropValues[capI].top = calculateGameCrop(gameCropValues[capI].top, value);
                     break;
@@ -606,6 +608,19 @@ async function changeCrop(value, cap, mode) {
         }
     }
 }
+async function changeCropFromFromStreamDeck(side, value) {
+    var _a;
+    const captureIndex = replicants_1.selectedCropItem.value;
+    const mode = (_a = allSources[selected.sourceIndex[captureIndex]]) === null || _a === void 0 ? void 0 : _a.type;
+    await changeCrop(value, captureIndex, mode, side);
+}
+exports.changeCropFromFromStreamDeck = changeCropFromFromStreamDeck;
+async function resetAllCropFromStreamDeck() {
+    for (let i = 0; i < allCaptures.length; i += 1) {
+        await changeCrop(undefined, i, 'game');
+    }
+}
+exports.resetAllCropFromStreamDeck = resetAllCropFromStreamDeck;
 let resetOneGameCropConfirm = false;
 let resetOneGameCropTO;
 let resetAllGameCropConfirm = false;
