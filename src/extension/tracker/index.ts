@@ -231,7 +231,7 @@ async function loginToTracker(): Promise<void> {
     });
 
     // If we're not being redirected or there's no session token, the login failed.
-    if (resp2.statusCode !== 302 || (resp2.cookies && !resp2.cookies.sessionid)) {
+    if (resp2.statusCode !== 302 || (resp2.cookies && !resp2.cookies.tracker_session)) {
       throw new Error('Log in was unsuccessful, is your username/password correct?');
     }
 
