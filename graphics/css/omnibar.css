@@ -10,12 +10,12 @@
 }
 
 
-.BarText[data-v-20f599aa] {
+.BarText[data-v-1a60c94f] {
   background-color: rgba(0, 0, 0, 0.4);
   padding: 7px 10px;
   border-radius: 15px;
 }
-.BarTextFull[data-v-20f599aa] {
+.BarTextFull[data-v-1a60c94f] {
   background-color: rgba(0, 0, 0, 0.4);
   padding: 0 10px;
   display: flex;
@@ -26,13 +26,13 @@
 }
 
 
-.BarText[data-v-8c0f9bbe] {
+.BarText[data-v-264c89b6] {
   background-color: rgba(0, 0, 0, 0.4);
   padding: 7px 10px;
   border-radius: 15px;
 }
 
-.WarOther[data-v-6f9f0a0c]{--mask: linear-gradient(to right, rgba(0,0,0, 1) 0, rgba(0,0,0, 1) 40%, rgba(0,0,0, 1) 98%, rgba(0,0,0, 0) 100% ) 100% 50% / 100% 100% repeat-y;-webkit-mask:var(--mask);mask:var(--mask)}.Option[data-v-6f9f0a0c]{display:flex;align-items:center;height:100%;padding:0 12px;font-size:25px}
+.WarOther[data-v-9f980b7c]{--mask: linear-gradient(to right, rgba(0,0,0, 1) 0, rgba(0,0,0, 1) 40%, rgba(0,0,0, 1) 98%, rgba(0,0,0, 0) 100% ) 100% 50% / 100% 100% repeat-y;-webkit-mask:var(--mask);mask:var(--mask)}.Option[data-v-9f980b7c]{display:flex;align-items:center;height:100%;padding:0 12px;font-size:25px}
 
 .BarText[data-v-9135af88] {
   background-color: rgba(0, 0, 0, 0.4);

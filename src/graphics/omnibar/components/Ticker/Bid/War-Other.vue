@@ -82,8 +82,8 @@ import { Vue, Component, Prop, Ref, Watch } from 'vue-property-decorator';
 import gsap from 'gsap';
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 import { orderBy } from 'lodash';
-import clone from 'clone';
 import { replicantNS } from '@esa-layouts/browser_shared/replicant_store';
+import { getBid } from '@esa-layouts/omnibar/utils/bidwars';
 
 gsap.registerPlugin(ScrollToPlugin);
 
@@ -122,7 +122,7 @@ export default class extends Vue {
 
   async created(): Promise<void> {
     // Copied in case the prop changes and ruins the animations.
-    this.bid = this.getBid();
+    this.bid = getBid(this.allBids, this.bidId);
     this.optionCache = this.getOptions();
   }
 
@@ -211,7 +211,7 @@ export default class extends Vue {
   async resetForBidUpdate() {
     this.killTimeline();
 
-    this.bid = this.getBid();
+    this.bid = getBid(this.allBids, this.bidId);
     this.optionCache = this.getOptions();
 
     // Do we need this wait? IDK
@@ -223,7 +223,7 @@ export default class extends Vue {
 
   @Watch('allBids', { deep: true })
   onBidRepChange(newVal: Bids): void {
-    const ourBId = this.getBid(newVal);
+    const ourBId = getBid(newVal, this.bidId);
     if (!areObjectsEqual(this.bid, ourBId)) {
       this.bidHasUpdated = true;
 
@@ -231,16 +231,6 @@ export default class extends Vue {
         this.resetForBidUpdate().catch(console.log);
       }
     }
-  }
-
-  getBid(bids: Bids = this.allBids): Bids[0] {
-    const check = bids.find((x) => x.id === this.bidId);
-
-    if (!check) {
-      throw new Error(`Bid with id ${this.bidId} not found.`);
-    }
-
-    return clone(check);
   }
 }
 </script>

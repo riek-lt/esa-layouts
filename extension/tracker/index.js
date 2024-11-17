@@ -223,8 +223,8 @@ async function loginToTracker() {
         setTimeout(loginToTracker, 90 * 60 * 1000);
     }
     catch (err) {
-        (0, nodecg_1.get)().log.warn('[Tracker] Error authenticating');
-        (0, nodecg_1.get)().log.debug('[Tracker] Error authenticating:', err);
+        // nodecg().log.warn('[Tracker] Error authenticating');
+        (0, nodecg_1.get)().log.error('[Tracker] Error authenticating:', err);
         if (!isFirstLogin) {
             setTimeout(loginToTracker, 60 * 1000);
         }

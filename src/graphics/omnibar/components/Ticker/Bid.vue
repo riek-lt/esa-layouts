@@ -1,7 +1,7 @@
 <template>
   <div :style="{ height: '100%', overflow: 'hidden' }">
     <!-- Goal -->
-    <goal v-if="bid && !bid.war" :bid="bid" :seconds="seconds" @end="end" />
+    <goal v-if="bid && !bid.war" :bid-id="bidId" :seconds="seconds" @end="end" />
     <!-- Wars -->
     <template v-else-if="bid">
       <!-- If we have exactly 2 options, it's a 1v1 bid war. -->
