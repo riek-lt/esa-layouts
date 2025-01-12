@@ -1,6 +1,7 @@
 import { DonationsToRead } from '@esa-layouts/types/schemas';
 import { RunDataActiveRun } from 'speedcontrol-util/types';
 import needle from 'needle';
+import { debounce, type DebouncedFunc } from 'lodash';
 import { get as nodecg } from './util/nodecg';
 import { donationTotal, donationsToRead } from './util/replicants';
 import { sc } from './util/speedcontrol';
@@ -20,11 +21,11 @@ type ScreenData = {
 function generateLargeDisplayData(data: ScreenData) {
   const currentRunners = data.currentRun?.teams
     .flatMap((t) => t.players).map((runner) => runner.name) ?? [];
-  const currentS = currentRunners.length > 0 ? 's' : '';
+  const currentS = currentRunners.length > 1 ? 's' : '';
 
   const nextRunners = data.nextRun?.teams
     .flatMap((t) => t.players).map((runner) => runner.name) ?? [];
-  const nextS = nextRunners.length > 0 ? 's' : '';
+  const nextS = nextRunners.length > 1 ? 's' : '';
 
   const largestUnread = data.donationsToRead
     .reduce((prev, current) => ((prev > current.amount) ? prev : current.amount), 0)
@@ -60,34 +61,49 @@ const displayDataMap = {
   small_donation_total: generateSmallDonationTotalDisplay,
 };
 
+async function realUpdateDisplay(mac: string, data: any): Promise<void> {
+  nodecg().log.info('[EPaper]: Updating display for', mac);
+
+  try {
+    const resp = await needle(
+      'post',
+      `${config.epaper.access_point_ip}/jsonupload`,
+      {
+        mac,
+        json: JSON.stringify(data),
+      },
+      {
+        multipart: false,
+      },
+    );
+
+    nodecg().log.debug('[EPaper]: Display update successful', resp.body);
+  } catch (e: unknown) {
+    nodecg().log.error('[EPaper]: Display update failed', e);
+  }
+}
+
+const debounceMap: { [key: string]: DebouncedFunc<(mac: string, data: any) => Promise<void>> } = {};
+
 // TODO: 1 minute cooldown for updates, lodash debounce?
 //  Map it by mac address to keep a cache of debounces?
 async function updateDisplayInformation(mac: string, data: any): Promise<void> {
   // Fail silently
   if (!config.epaper.enabled) return;
 
-  try {
-    await needle(
-      'post',
-      `${config.epaper.access_point_ip}/jsonupload`,
-      {
-        mac,
-        json: data,
-      },
-    );
-  } catch (e: unknown) {
-    nodecg().log.error('[EPaper]: Display update failed', e);
+  if (!(mac in debounceMap)) {
+    debounceMap[mac] = debounce((a, b) => realUpdateDisplay(a, b), 60 * 1000);
   }
+
+  await debounceMap[mac](mac, data);
 }
 
 function buildScreenData(): ScreenData {
-  const { current, next } = sc.runDataActiveRunSurrounding.value;
-
   return {
-    currentRun: current ? sc.runDataArray.value.find((it) => it.id === current) : undefined,
+    currentRun: sc.getCurrentRun(),
     donationTotal: donationTotal.value,
     donationsToRead: donationsToRead.value,
-    nextRun: next ? sc.runDataArray.value.find((it) => it.id === next) : undefined,
+    nextRun: sc.getNextRuns(1)[0] || null,
   };
 }
 
@@ -116,13 +132,22 @@ function updateLargeDisplays() {
 // Only listen to updates if we are enabled
 if (config.epaper.enabled) {
   donationTotal.on('change', () => {
+    nodecg().log.debug('[EPaper]: Donation total updated');
     sendDonationUpdateToAllDisplays();
   });
+  /*
   donationsToRead.on('change', () => {
+    nodecg().log.debug('[EPaper]: Donations to read updated');
     updateLargeDisplays();
   });
+  */
 
   sc.runDataActiveRunSurrounding.on('change', () => {
+    nodecg().log.debug('[EPaper]: runDataActiveRunSurrounding updated');
+  });
+
+  sc.runDataActiveRun.on('change', () => {
+    nodecg().log.debug('[EPaper]: Run data updated');
     updateLargeDisplays();
   });
 }
