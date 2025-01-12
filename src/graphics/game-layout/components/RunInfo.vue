@@ -11,6 +11,7 @@
     >
       <div
         class="Flex RunGameParent"
+        id="gameNameParent"
         ref="RunInfo"
         :style="cssPositionProps"
       >
@@ -99,12 +100,12 @@ export default class extends Vue {
       return;
     }
 
-    [this.fittyGame] = fitty('.RunGameParent', {
+    [this.fittyGame] = fitty('#gameNameParent', {
       minSize: 1,
-      maxSize: 30,
+      maxSize: 23.5,
     });
     [this.fittyInfoExtra] = fitty('.RunInfoExtra', {
-      minSize: 1,
+      minSize: 10,
       maxSize: 30,
     });
   }
@@ -170,13 +171,15 @@ export default class extends Vue {
   width: 100%;
   position: relative;
   display: block;
-  overflow: hidden;
+  //overflow: hidden;
   height: auto;
+  max-height: 85%;
   white-space: unset !important;
   font-size: 50pt;
   text-align: var(--prop-text-align);
   justify-content: var(--prop-justify-content);
   align-items: var(--prop-justify-content);
+  //background: rebeccapurple;
 }
 
 .RunGame {
@@ -207,6 +210,8 @@ export default class extends Vue {
 
 .systemEst {
   //align-self: flex-start;
+  // Is this cheating and wrong? Probably, don't care tho
+  margin-top: -6px;
   text-shadow: 1px 2px 3px rgba(0, 0, 0, 0.5);
   display: inline-flex;
   font-family: Corbel-Bold;

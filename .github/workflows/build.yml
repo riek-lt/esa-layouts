@@ -137,12 +137,12 @@ jobs:
     # Squash the previous 2 commits down for convenience and create the final build commit.
     # Will only run if the checkout step was successful.
     # This can "fail" if there are no newly changed/built files, but we should continue anyway.
-    - name: Commit built files (2)
-      continue-on-error: true
-      if: ${{ steps.checkout.outcome == 'success' }}
-      run: |
-        git reset --soft HEAD~1
-        git commit -m "Built files" -a
+#    - name: Commit built files (2)
+#      continue-on-error: true
+#      if: ${{ steps.checkout.outcome == 'success' }}
+#      run: |
+#        git reset --soft HEAD~2
+#        git commit -m "Built files" -a
 
     # Pushes the built files to a specific branch
     - name: Push built files to build branch

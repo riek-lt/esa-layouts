@@ -82,13 +82,29 @@ import { Bids } from '@esa-layouts/types/schemas';
 import { Vue, Component, Prop, Watch } from 'vue-property-decorator';
 import gsap from 'gsap';
 import { formatUSD, wait } from '@esa-layouts/graphics/_misc/helpers';
+import { replicantNS } from '@esa-layouts/browser_shared/replicant_store';
+import { getBid } from '@esa-layouts/omnibar/utils/bidwars';
 
 @Component
 export default class extends Vue {
   @Prop({ type: Number, required: true }) readonly seconds!: number;
-  @Prop({ type: Object, required: true }) readonly bid!: Bids[0];
+  @Prop({ type: Number, required: true }) readonly bidId!: number;
+  // @Prop({ type: Object, required: true }) readonly bid!: Bids[0];
+  bid: Bids[0] = {
+    id: -1,
+    goal: 69,
+    game: '',
+    name: '',
+    options: [],
+    war: true,
+    allowUserOptions: false,
+    total: 0,
+  };
   formatUSD = formatUSD;
   tweened = { progress: 0, total: 0 };
+  @replicantNS.State(
+    (s) => s.reps.bids,
+  ) readonly allBids!: Bids;
 
   get amountLeft(): string {
     return formatUSD(Math.max((this.bid.goal ?? 0) - this.tweened.total, 0));
@@ -102,12 +118,15 @@ export default class extends Vue {
     });
   }
 
-  @Watch('bid')
-  onBidChange(): void {
+  // We watch all the bids so we can watch for changes. Props in pinned stuff do not change.
+  @Watch('allBids', { deep: true, immediate: true })
+  onBidRepChange(newVal: Bids): void {
+    this.bid = getBid(newVal, this.bidId);
     this.tweenValues();
   }
 
   async created(): Promise<void> {
+    this.bid = getBid(this.allBids, this.bidId);
     this.tweenValues();
     if (this.seconds >= 0) {
       await wait(this.seconds * 1000); // Wait the specified length.

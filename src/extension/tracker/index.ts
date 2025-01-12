@@ -231,7 +231,7 @@ async function loginToTracker(): Promise<void> {
     });
 
     // If we're not being redirected or there's no session token, the login failed.
-    if (resp2.statusCode !== 302 || (resp2.cookies && !resp2.cookies.sessionid)) {
+    if (resp2.statusCode !== 302 || (resp2.cookies && !resp2.cookies.tracker_session)) {
       throw new Error('Log in was unsuccessful, is your username/password correct?');
     }
 
@@ -248,8 +248,8 @@ async function loginToTracker(): Promise<void> {
     // Tracker logins expire every 2 hours (apparently?). Re-login every 90 minutes.
     setTimeout(loginToTracker, 90 * 60 * 1000);
   } catch (err) {
-    nodecg().log.warn('[Tracker] Error authenticating');
-    nodecg().log.debug('[Tracker] Error authenticating:', err);
+    // nodecg().log.warn('[Tracker] Error authenticating');
+    nodecg().log.error('[Tracker] Error authenticating:', err);
     if (!isFirstLogin) {
       setTimeout(loginToTracker, 60 * 1000);
     } else {

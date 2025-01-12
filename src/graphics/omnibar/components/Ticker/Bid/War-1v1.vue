@@ -102,7 +102,7 @@ import { Bids } from '@esa-layouts/types/schemas';
 import { Vue, Component, Prop, Watch } from 'vue-property-decorator';
 import gsap from 'gsap';
 import { replicantNS } from '@esa-layouts/browser_shared/replicant_store';
-import clone from 'clone';
+import { getBid } from '@esa-layouts/omnibar/utils/bidwars';
 
 @Component
 export default class extends Vue {
@@ -149,27 +149,17 @@ export default class extends Vue {
   // We watch all the bids so we can watch for changes. Props in pinned stuff do not change.
   @Watch('allBids', { deep: true, immediate: true })
   onBidRepChange(newVal: Bids): void {
-    this.bid = this.getBid(newVal);
+    this.bid = getBid(newVal, this.bidId);
     this.tweenValues();
   }
 
   async created(): Promise<void> {
-    this.bid = this.getBid(this.allBids);
+    this.bid = getBid(this.allBids, this.bidId);
     this.tweenValues();
     if (this.seconds >= 0) {
       await wait(this.seconds * 1000); // Wait the specified length.
       this.$emit('end');
     }
-  }
-
-  getBid(bids: Bids): Bids[0] {
-    const check = bids.find((x) => x.id === this.bidId);
-
-    if (!check) {
-      throw new Error(`Bid with id ${this.bidId} not found.`);
-    }
-
-    return clone(check);
   }
 }
 </script>

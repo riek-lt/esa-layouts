@@ -92,7 +92,7 @@ export namespace Tracker {
     pk: number;
     model: string;
     fields: {
-      donor__public: string;
+      visible_donor_name: string;
       amount: string;
       comment: string; // Can be empty
       commentstate: string;

@@ -92,7 +92,7 @@
         height: '176px',
       }"
     >
-      <run-info line-right text-align="left"/>
+      <run-info line-right info-is-row text-align="left"/>
     </div>
   </div>
 </template>
