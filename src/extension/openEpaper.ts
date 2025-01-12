@@ -40,7 +40,7 @@ function generateLargeDisplayData(data: ScreenData) {
     { text: [5, 200, 'Next Run', 'fonts/bahnschrift30', 1] },
     { text: [5, 240, `Game: ${data.nextRun?.game}`, 'fonts/bahnschrift20', 1] },
     { text: [5, 260, `Runner${nextS}: ${nextRunners.join(', ')}`, 'fonts/bahnschrift20', 1] },
-    { text: [5, 280, 'Estimate: 00:00:00', 'fonts/bahnschrift20', 1] },
+    { text: [5, 280, `Estimate: ${data.nextRun?.estimate}`, 'fonts/bahnschrift20', 1] },
 
     { text: [5, 400, 'Donation info', 'fonts/bahnschrift30', 1] },
     { text: [5, 440, `Current total: ${data.donationTotal}`, 'fonts/bahnschrift20', 1] },
