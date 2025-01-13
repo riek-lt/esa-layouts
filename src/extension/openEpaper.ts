@@ -1,7 +1,7 @@
 import { DonationsToRead } from '@esa-layouts/types/schemas';
 import { RunDataActiveRun } from 'speedcontrol-util/types';
 import needle from 'needle';
-import { debounce, type DebouncedFunc } from 'lodash';
+import { throttle, type DebouncedFunc } from 'lodash';
 import { get as nodecg } from './util/nodecg';
 import { donationTotal, donationsToRead } from './util/replicants';
 import { sc } from './util/speedcontrol';
@@ -92,7 +92,13 @@ async function updateDisplayInformation(mac: string, data: any): Promise<void> {
   if (!config.epaper.enabled) return;
 
   if (!(mac in debounceMap)) {
-    debounceMap[mac] = debounce((a, b) => realUpdateDisplay(a, b), 60 * 1000);
+    debounceMap[mac] = throttle(
+      (a, b) => realUpdateDisplay(a, b),
+      60 * 1000,
+      {
+        trailing: false,
+      },
+    );
   }
 
   await debounceMap[mac](mac, data);
