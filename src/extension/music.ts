@@ -118,8 +118,13 @@ class Music {
       );
       this.musicData.value.connected = true;
       this.nodecg.log.info('[Music] Connection successful');
-      if (!resp.body) throw new Error('body was null');
+
+      if (!resp.body) {
+        throw new Error('body was null');
+      }
+
       const readable = Readable.from(resp.body);
+
       readable.on('data', (chunk: Buffer) => {
         let msg: Foobar2000.UpdateMsg | undefined;
         try {
@@ -129,38 +134,49 @@ class Music {
           this.nodecg.log.warn('[Music] Error parsing message on connection');
           this.nodecg.log.debug('[Music] Error parsing message on connection:', err);
         }
-        if (!msg) {
+
+        if (!msg || !msg.player) {
           return;
         }
-        if (msg.player) {
-          if (this.positionInterval) clearInterval(this.positionInterval);
-          this.musicData.value.playing = msg.player.playbackState === 'playing';
-          if (msg.player.playbackState !== 'stopped') {
-            if (msg.player.activeItem.duration > 0) {
-              this.musicData.value.track = {
-                artist: msg.player.activeItem.columns[0] || undefined,
-                title: msg.player.activeItem.columns[1] || undefined,
-                position: msg.player.activeItem.position,
-                duration: msg.player.activeItem.duration,
-              };
-              if (msg.player.playbackState === 'playing') {
-                this.positionInitial = msg.player.activeItem.position;
-                this.positionTimestamp = Date.now();
-                this.positionInterval = setInterval(() => this.updatePosition(), 1000);
-              }
-            }
-          } else {
-            delete this.musicData.value.track;
+
+        if (this.positionInterval) {
+          clearInterval(this.positionInterval);
+        }
+
+        const isPlaying = msg.player.playbackState === 'playing';
+
+        this.musicData.value.playing = isPlaying;
+
+        if (msg.player.playbackState === 'stopped') {
+          delete this.musicData.value.track;
+          return;
+        }
+
+        if (msg.player.activeItem.duration > 0) {
+          this.musicData.value.track = {
+            artist: msg.player.activeItem.columns[0] || undefined,
+            title: msg.player.activeItem.columns[1] || undefined,
+            position: msg.player.activeItem.position,
+            duration: msg.player.activeItem.duration,
+          };
+
+          if (isPlaying) {
+            this.positionInitial = msg.player.activeItem.position;
+            this.positionTimestamp = Date.now();
+            this.positionInterval = setInterval(() => this.updatePosition(), 1000);
           }
         }
       });
+
       readable.on('close', () => {
         this.nodecg.log.warn('[Music] Connection closed');
       });
+
       readable.on('error', (err) => {
         this.nodecg.log.warn('[Music] Connection error');
         this.nodecg.log.debug('[Music] Connection error:', err);
       });
+
       readable.on('end', () => {
         this.musicData.value.connected = false;
         this.nodecg.log.warn('[Music] Connection ended, retrying in 5 seconds');
