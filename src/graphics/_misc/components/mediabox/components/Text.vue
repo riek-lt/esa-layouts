@@ -12,11 +12,13 @@
 </template>
 
 <script lang="ts">
-// import DOMPurify from 'dompurify';
-// import { marked } from 'marked';
+import DOMPurify from 'dompurify';
+import markdownit from 'markdown-it';
 import { Component, Ref, Vue, Watch } from 'vue-property-decorator';
 import { replicantNS } from '@esa-layouts/browser_shared/replicant_store';
 import { MediaBox as MediaBoxRep } from '@esa-layouts/types/schemas';
+
+const md = markdownit('commonmark');
 
 @Component
 export default class extends Vue {
@@ -28,9 +30,9 @@ export default class extends Vue {
 
   get text(): string {
     const str = this.mediaBox.rotation.find((a) => a.id === this.mediaBox.current?.id)?.text ?? '';
-    // const md = marked.parse(str) as string;
-    // return DOMPurify.sanitize(md);
-    return str;
+    const parsed = md.render(str);
+
+    return DOMPurify.sanitize(parsed);
   }
 
   async fitText() {
