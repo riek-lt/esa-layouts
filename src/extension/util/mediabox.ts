@@ -180,6 +180,7 @@ class MediaBox {
       if (pause) { // Pause current media element.
         this.mediaBox.value.paused = clone(this.mediaBox.value.current);
       }
+
       this.mediaBox.value.current = {
         type: this.mediaBox.value.alertQueue[0].type,
         id: uuid(),
@@ -188,33 +189,41 @@ class MediaBox {
         timestamp: Date.now(),
         timeElapsed: 0,
       };
-    } else if (this.mediaBox.value.rotationApplicable.length) {
+
+      return;
+    }
+
+    if (this.mediaBox.value.rotationApplicable.length) {
       // Resume paused media element if applicable.
       if (this.mediaBox.value.paused) {
         const toResume = clone(this.mediaBox.value.paused);
         toResume.timestamp = Date.now();
         this.mediaBox.value.current = toResume;
         this.mediaBox.value.paused = null;
-      } else { // Find next media element from rotation to use.
-        const index = this.getNextIndex() < this.mediaBox.value.rotationApplicable.length
-          ? this.getNextIndex() : 0;
-        const media = this.mediaBox.value.rotationApplicable[index];
-        const mUUID = media.type === 'prize_generic'
-          ? (this.getRandomPrize()?.id.toString() || '-1') : media.mediaUUID;
-        this.mediaBox.value.current = {
-          type: media.type,
-          id: media.id,
-          mediaUUID: mUUID,
-          index,
-          timestamp: Date.now(),
-          timeElapsed: 0,
-        };
+
+        return;
       }
-    } else {
-      this.nodecg.log.debug('[Media Box] No media in rotation to cycle to, will wait');
-      this.mediaBox.value.current = null;
-      this.mediaBox.value.paused = null;
+
+      const index = this.getNextIndex() < this.mediaBox.value.rotationApplicable.length
+        ? this.getNextIndex() : 0;
+      const media = this.mediaBox.value.rotationApplicable[index];
+      const mUUID = media.type === 'prize_generic'
+        ? (this.getRandomPrize()?.id.toString() || '-1') : media.mediaUUID;
+      this.mediaBox.value.current = {
+        type: media.type,
+        id: media.id,
+        mediaUUID: mUUID,
+        index,
+        timestamp: Date.now(),
+        timeElapsed: 0,
+      };
+
+      return;
     }
+
+    this.nodecg.log.debug('[Media Box] No media in rotation to cycle to, will wait');
+    this.mediaBox.value.current = null;
+    this.mediaBox.value.paused = null;
   }
 
   /**
@@ -231,28 +240,31 @@ class MediaBox {
         scenes?.commercials ? this.obs.findScene(scenes.commercials) : undefined,
         scenes?.intermission ? this.obs.findScene(scenes.intermission) : undefined,
       ].filter(Boolean);
+
       if (!m.showOnIntermission && intermissionScenes.includes(this.obs.currentScene)) {
         return false;
       }
+
       // Only rotate to image if the asset actually exists.
       if (m.type === 'image') {
         return !!this.assetsMediaBoxImages.value.find((i) => i.sum === m.mediaUUID);
       }
+
       // Only show the generic prize element if there are applicable prizes to fill it with.
       if (m.type === 'prize_generic') {
         return !!this.prizes.value.filter((p) => this.isPrizeApplicable(p)).length;
       }
+
       // Only show prize if applicable right now.
       if (m.type === 'prize') {
         return this.isPrizeApplicable(this.prizes.value
           .find((p) => p.id.toString() === m.mediaUUID));
       }
+
       // Always show text.
-      if (m.type === 'text') {
-        return true;
-      }
-      return false;
+      return m.type === 'text';
     });
+
     if (this.mediaBox.value.rotationApplicable.length !== rotationApplicableLengthOld) {
       this.nodecg.log.debug('[Media Box] Applicable rotation length changed');
     }
@@ -264,41 +276,48 @@ class MediaBox {
           + `${this.mediaBox.value.alertQueue.length ? 'Alert' : 'Media'} available, will cycle`);
         this.cycle();
       }
-    } else { // If we have a current piece of media, need to check if it still should be shown.
-      const addedTime = Date.now() - this.mediaBox.value.current.timestamp;
-      const timeElapsed = this.mediaBox.value.current.timeElapsed + addedTime;
-      const index = this.mediaBox.value.rotationApplicable
-        .findIndex((i) => i.id === this.mediaBox.value.current?.id);
 
-      // Cycle if it is time to remove the current media.
-      if ((index < 0 && !this.isAlertType(this.mediaBox.value.current.type))
-        || this.getLength(this.mediaBox.value.current) <= timeElapsed) {
-        // If this is an alert, we also need to remove that one from the queue.
-        if (this.isAlertType(this.mediaBox.value.current.type)) {
-          const alertIndex = this.mediaBox.value.alertQueue
-            .findIndex((a) => a.id === this.mediaBox.value.current?.mediaUUID);
-          if (alertIndex >= 0) {
-            this.mediaBox.value.alertQueue.splice(alertIndex, 1);
-          }
-        } else {
-          this.mediaBox.value.lastIndex = this.mediaBox.value.current.index;
+      return;
+    }
+
+    // If we have a current piece of media, need to check if it still should be shown.
+    const addedTime = Date.now() - this.mediaBox.value.current.timestamp;
+    const timeElapsed = this.mediaBox.value.current.timeElapsed + addedTime;
+    const index = this.mediaBox.value.rotationApplicable
+      .findIndex((i) => i.id === this.mediaBox.value.current?.id);
+
+    // Cycle if it is time to remove the current media.
+    if ((index < 0 && !this.isAlertType(this.mediaBox.value.current.type))
+      || this.getLength(this.mediaBox.value.current) <= timeElapsed) {
+      // If this is an alert, we also need to remove that one from the queue.
+      if (this.isAlertType(this.mediaBox.value.current.type)) {
+        const alertIndex = this.mediaBox.value.alertQueue
+          .findIndex((a) => a.id === this.mediaBox.value.current?.mediaUUID);
+
+        if (alertIndex >= 0) {
+          this.mediaBox.value.alertQueue.splice(alertIndex, 1);
         }
-        this.nodecg.log.debug('[Media Box] Current media time finished, will cycle');
-        this.cycle();
       } else {
-        if (!this.isAlertType(this.mediaBox.value.current.type)) {
-          this.mediaBox.value.current.index = index;
-        }
-        this.mediaBox.value.current.timestamp = Date.now();
-        this.mediaBox.value.current.timeElapsed = timeElapsed;
-
-        // If there are any alerts to show, we should do that now.
-        if (!this.isAlertType(this.mediaBox.value.current.type)
-          && this.mediaBox.value.alertQueue.length) {
-          this.nodecg.log.debug('[Media Box] Alert available, will cycle');
-          this.cycle(true);
-        }
+        this.mediaBox.value.lastIndex = this.mediaBox.value.current.index;
       }
+
+      this.nodecg.log.debug('[Media Box] Current media time finished, will cycle');
+      this.cycle();
+
+      return;
+    }
+
+    if (!this.isAlertType(this.mediaBox.value.current.type)) {
+      this.mediaBox.value.current.index = index;
+    }
+
+    this.mediaBox.value.current.timestamp = Date.now();
+    this.mediaBox.value.current.timeElapsed = timeElapsed;
+
+    // If there are any alerts to show, we should do that now.
+    if (!this.isAlertType(this.mediaBox.value.current.type) && this.mediaBox.value.alertQueue.length) {
+      this.nodecg.log.debug('[Media Box] Alert available, will cycle');
+      this.cycle(true);
     }
   }
 }
