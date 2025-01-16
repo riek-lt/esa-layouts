@@ -21,7 +21,6 @@
         :messages="`${bidsFiltered.length} bid${bidsFiltered.length === 1 ? '' : 's'} found.`"
       />
       <div :style="{ height: '350px', 'overflow-y': 'scroll' }">
-        <p>{{ soloedBidID || 'No solo' }}</p>
         <bid
           v-for="(bid, i) in bidsFiltered"
           :key="bid.id"
@@ -35,7 +34,7 @@
 
 <script lang="ts">
 import { replicantNS } from '@esa-layouts/browser_shared/replicant_store';
-import { Bids, Omnibar, SoloedBidID } from '@esa-layouts/types/schemas';
+import { Bids, Omnibar } from '@esa-layouts/types/schemas';
 import { sortBy } from 'lodash';
 import { Vue, Component } from 'vue-property-decorator';
 import Bid from './components/Bid.vue';
@@ -48,7 +47,6 @@ import Bid from './components/Bid.vue';
 export default class extends Vue {
   @replicantNS.State((s) => s.reps.bids) readonly bids!: Bids;
   @replicantNS.State((s) => s.reps.omnibar.pin) readonly currentPin!: Omnibar['pin'];
-  @replicantNS.State((s) => s.reps.soloedBidID) readonly soloedBidID!: SoloedBidID;
   sortOpt = 1;
   searchTerm: string | null = null;
 
