@@ -6,13 +6,4 @@
  * and run json-schema-to-typescript to regenerate this file.
  */
 
-export type Prizes = Prizes1;
-export type Prizes1 = {
-	id: number;
-	name: string;
-	provided?: string;
-	minimumBid: number;
-	image?: string;
-	startTime?: number;
-	endTime?: number;
-}[];
+export type SoloedBidID = number | null;

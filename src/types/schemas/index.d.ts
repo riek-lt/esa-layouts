@@ -60,6 +60,8 @@ export * from './rtmpFeed';
 // @ts-ignore
 export * from './serverTimestamp';
 // @ts-ignore
+export * from './soloedBidID';
+// @ts-ignore
 export * from './streamDeckData';
 // @ts-ignore
 export * from './taskmasterTimestamps';
