@@ -37,6 +37,8 @@ import Vue from 'vue';
 import type { Store } from 'vuex';
 import { namespace } from 'vuex-class';
 import { Module, Mutation, VuexModule, getModule } from 'vuex-module-decorators';
+import { soloedBidID } from '@esa-layouts/extension/util/replicants';
+import { SoloedBidID } from '@esa-layouts/types/schemas/soloedBidID';
 
 const sc = new SpeedcontrolUtilBrowser(nodecg);
 
@@ -111,6 +113,7 @@ export const reps: {
   runDataActiveRunSurrounding: sc.runDataActiveRunSurrounding,
   runDataArray: sc.runDataArray,
   serverTimestamp: nodecg.Replicant('serverTimestamp'),
+  soloedBidID: nodecg.Replicant('soloedBidID'),
   streamDeckData: nodecg.Replicant('streamDeckData'),
   timer: sc.timer,
   ttsVoices: nodecg.Replicant('ttsVoices'),
@@ -151,6 +154,7 @@ export interface ReplicantTypes {
   runDataActiveRunSurrounding: RunDataActiveRunSurrounding;
   runDataArray: RunDataArray;
   serverTimestamp: ServerTimestamp;
+  soloedBidID: SoloedBidID;
   streamDeckData: StreamDeckData;
   timer: Timer;
   ttsVoices: TtsVoices;

@@ -1,7 +1,7 @@
 "use strict";
 /* eslint-disable max-len */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.selectedCropItem = exports.companionWaitingAllCropConfirm = exports.companionWaitingSingleCropConfirm = exports.companionFastCropEnabled = exports.videoPlayer = exports.upcomingRunID = exports.twitchChannelInfo = exports.twitchAPIData = exports.ttsVoices = exports.taskmasterTimestamps = exports.streamDeckData = exports.serverTimestamp = exports.readerIntroduction = exports.prizes = exports.otherStreamData = exports.omnibar = exports.oengusImportStatus = exports.obsData = exports.notableDonations = exports.nameCycle = exports.musicData = exports.lowerThird = exports.intermissionSlides = exports.horaroImportStatus = exports.gameLayouts = exports.donationTotalMilestones = exports.donationTotal = exports.donationsToRead = exports.donationReaderNew = exports.donationReader = exports.donationAlerts = exports.delayedTimer = exports.currentRunDelay = exports.countdown = exports.commentatorsNew = exports.commentators = exports.capturePositions = exports.bigbuttonPlayerMap = exports.bids = exports.assetsVideos = exports.assetsReaderIntroductionImages = exports.assetsMediaBoxImages = exports.assetsIntermissionSlides = exports.assetsDonationAlertAssets = exports.additionalDonations = void 0;
+exports.selectedCropItem = exports.companionWaitingAllCropConfirm = exports.companionWaitingSingleCropConfirm = exports.companionFastCropEnabled = exports.videoPlayer = exports.upcomingRunID = exports.twitchChannelInfo = exports.twitchAPIData = exports.ttsVoices = exports.taskmasterTimestamps = exports.streamDeckData = exports.soloedBidID = exports.serverTimestamp = exports.readerIntroduction = exports.prizes = exports.otherStreamData = exports.omnibar = exports.oengusImportStatus = exports.obsData = exports.notableDonations = exports.nameCycle = exports.musicData = exports.lowerThird = exports.intermissionSlides = exports.horaroImportStatus = exports.gameLayouts = exports.donationTotalMilestones = exports.donationTotal = exports.donationsToRead = exports.donationReaderNew = exports.donationReader = exports.donationAlerts = exports.delayedTimer = exports.currentRunDelay = exports.countdown = exports.commentatorsNew = exports.commentators = exports.capturePositions = exports.bigbuttonPlayerMap = exports.bids = exports.assetsVideos = exports.assetsReaderIntroductionImages = exports.assetsMediaBoxImages = exports.assetsIntermissionSlides = exports.assetsDonationAlertAssets = exports.additionalDonations = void 0;
 const nodecg_1 = require("./nodecg");
 /**
  * This is where you can declare all your replicant to import easily into other files,
@@ -41,6 +41,7 @@ exports.otherStreamData = (0, nodecg_1.get)().Replicant('otherStreamData');
 exports.prizes = (0, nodecg_1.get)().Replicant('prizes', { persistent: false });
 exports.readerIntroduction = (0, nodecg_1.get)().Replicant('readerIntroduction');
 exports.serverTimestamp = (0, nodecg_1.get)().Replicant('serverTimestamp');
+exports.soloedBidID = (0, nodecg_1.get)().Replicant('soloedBidID');
 exports.streamDeckData = (0, nodecg_1.get)().Replicant('streamDeckData');
 exports.taskmasterTimestamps = (0, nodecg_1.get)().Replicant('taskmasterTimestamps');
 exports.ttsVoices = (0, nodecg_1.get)().Replicant('ttsVoices');

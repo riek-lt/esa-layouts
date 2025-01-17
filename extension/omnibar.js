@@ -56,6 +56,16 @@ function getClonedBid() {
     // Just return nothing if there are no bids to show.
     if (!replicants_1.bids.value.length)
         return undefined;
+    // if we have a solo, show that one
+    if (replicants_1.soloedBidID.value) {
+        const soloedBid = (0, clone_1.default)(replicants_1.bids.value).find((b) => b.id === replicants_1.soloedBidID.value);
+        // Make sure the bid id actually exists.
+        if (soloedBid) {
+            return soloedBid;
+        }
+        // remove the solo if the bid was deleted
+        replicants_1.soloedBidID.value = null;
+    }
     let filtered = (0, clone_1.default)(replicants_1.bids.value).filter((b) => b.id !== lastBidId);
     if (!filtered.length)
         filtered = (0, clone_1.default)(replicants_1.bids.value);

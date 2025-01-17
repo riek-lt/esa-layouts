@@ -32,7 +32,7 @@ function processRawBids(rawBids) {
                 name: bid.fields.name,
                 total: parseFloat(bid.fields.total),
                 game: bid.fields.speedrun__name,
-                category: bid.fields.speedrun__category,
+                category: bid.fields.speedrun__category || '',
                 endTime: bid.fields.speedrun__endtime
                     ? Date.parse(bid.fields.speedrun__endtime) : undefined,
                 war: !bid.fields.istarget,
