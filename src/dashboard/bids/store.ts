@@ -1,5 +1,5 @@
 import { replicantModule, ReplicantModule, ReplicantTypes } from '@esa-layouts/browser_shared/replicant_store';
-import { Omnibar } from '@esa-layouts/types/schemas';
+import { Omnibar, SoloedBidID } from '@esa-layouts/types/schemas';
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
 import { getModule, Module, Mutation, VuexModule } from 'vuex-module-decorators';
@@ -18,6 +18,22 @@ class OurModule extends VuexModule {
     replicantModule.setReplicant<Omnibar>({
       name: 'omnibar',
       val: { ...replicantModule.repsTyped.omnibar, pin: pinned ? { type: 'Bid', id } : null },
+    });
+  }
+
+  @Mutation
+  setSolo(id: number): void {
+    replicantModule.setReplicant<SoloedBidID>({
+      name: 'soloedBidID',
+      val: id,
+    });
+  }
+
+  @Mutation
+  clearSolo(): void {
+    replicantModule.setReplicant<SoloedBidID>({
+      name: 'soloedBidID',
+      val: null,
     });
   }
 }
