@@ -6,9 +6,7 @@
  * and run json-schema-to-typescript to regenerate this file.
  */
 
-export type Countdown = Countdown1;
-
-export interface Countdown1 {
+export interface Countdown {
 	remaining: number;
 	originalDuration: number;
 	timestamp: number;
