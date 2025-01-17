@@ -1,6 +1,6 @@
 import { Configschema } from '@esa-layouts/types/schemas';
 import { wait } from '@esa-layouts/util/helpers';
-import type { Tracker } from '@shared/types';
+import type { Tracker } from '@esa-layouts/types';
 import { round } from 'lodash';
 import type { NeedleResponse } from 'needle';
 import needle from 'needle';
@@ -8,9 +8,7 @@ import type { DeepWritable } from 'ts-essentials';
 import { get as nodecg } from '../util/nodecg';
 import { mq } from '../util/rabbitmq';
 import { donationTotal } from '../util/replicants';
-import utils from './utils';
-
-const { trackerUrl } = utils;
+import { trackerUrl, trackerAdminUrl } from './utils';
 
 export const eventInfo: Tracker.EventInfo[] = [];
 const eventConfig = nodecg().bundleConfig.event;
@@ -200,7 +198,7 @@ async function loginToTracker(): Promise<void> {
   if (isFirstLogin) nodecg().log.info('[Tracker] Logging in');
   else nodecg().log.info('[Tracker] Refreshing session');
 
-  const loginURL = `https://${config.address}/admin/login/`;
+  const loginURL = trackerAdminUrl('/login/');
   try {
     // Access login page to get CSRF token.
     const resp1 = await needle('get', loginURL);
@@ -225,6 +223,13 @@ async function loginToTracker(): Promise<void> {
       },
     );
 
+    nodecg().log.debug('[Tracker] Login response:', {
+      status: resp2.statusCode,
+      body: resp2.body,
+      headers: resp2.headers,
+      cookies: resp2.cookies,
+    });
+
     // If we're not being redirected or there's no session token, the login failed.
     if (resp2.statusCode !== 302 || (resp2.cookies && !resp2.cookies.tracker_session)) {
       throw new Error('Log in was unsuccessful, is your username/password correct?');
@@ -243,8 +248,8 @@ async function loginToTracker(): Promise<void> {
     // Tracker logins expire every 2 hours (apparently?). Re-login every 90 minutes.
     setTimeout(loginToTracker, 90 * 60 * 1000);
   } catch (err) {
-    nodecg().log.warn('[Tracker] Error authenticating');
-    nodecg().log.debug('[Tracker] Error authenticating:', err);
+    // nodecg().log.warn('[Tracker] Error authenticating');
+    nodecg().log.error('[Tracker] Error authenticating:', err);
     if (!isFirstLogin) {
       setTimeout(loginToTracker, 60 * 1000);
     } else {
@@ -294,7 +299,13 @@ async function setup(): Promise<void> {
     // Update the donation total to a random number while testing
     if (useTestData) {
       setInterval(() => {
-        donationTotal.value += Math.random() * 1000;
+        let newDonoAmount = donationTotal.value + (Math.random() * 1000);
+
+        if (newDonoAmount > 70_000) {
+          newDonoAmount = 0;
+        }
+
+        donationTotal.value = newDonoAmount;
         nodecg().sendMessage('donationTotalUpdated', { total: donationTotal.value });
       }, 10 * 1000);
     }

@@ -1,4 +1,4 @@
-import { Bids, DonationTotalMilestones, Omnibar, Prizes } from '@esa-layouts/types/schemas';
+import { Bids, DonationTotalMilestones, Prizes } from '@esa-layouts/types/schemas';
 import clone from 'clone';
 import { orderBy } from 'lodash';
 import { join } from 'path';
@@ -8,17 +8,18 @@ import { v4 as uuid } from 'uuid';
 import { get as nodecg } from './util/nodecg';
 import obs from './util/obs';
 import { mq } from './util/rabbitmq';
-import { assetsDonationAlertAssets, bids, commentatorsNew, donationAlerts, donationReaderNew, donationTotalMilestones, omnibar, prizes } from './util/replicants';
+import {
+  assetsDonationAlertAssets,
+  bids,
+  donationAlerts,
+  donationTotalMilestones,
+  omnibar,
+  prizes,
+  soloedBidID,
+} from './util/replicants';
 import { sc } from './util/speedcontrol';
 
 const config = nodecg().bundleConfig;
-
-// Temporary storage used for mini credits subscriptions/cheers/alerts while they are playing.
-let tempMiniCreditsStorage: Omnibar['miniCredits'] = {
-  runSubs: [],
-  runCheers: [],
-  runDonations: [],
-};
 
 // Filter helper used below.
 function filterUpcomingRuns(run: RunData): boolean {
@@ -27,6 +28,7 @@ function filterUpcomingRuns(run: RunData): boolean {
 
 // Gets next upcoming run from the cache (after refilling it if needed).
 let upcomingRunsCache: RunData[] = [];
+
 function getUpcomingRun(): RunData | undefined {
   // Filter out any already passed runs (according to schedule) from cache.
   upcomingRunsCache = upcomingRunsCache.filter(filterUpcomingRuns);
@@ -45,6 +47,7 @@ function filterPrizes(prize: Prizes[0]): boolean {
 
 // Gets next currently active prize from the cache (after refilling it if needed).
 let prizesCache: Prizes = [];
+
 function getPrize(): Prizes[0] | undefined {
   // Filter out any currently inactive prizes from cache.
   prizesCache = prizesCache.filter(filterPrizes);
@@ -57,9 +60,24 @@ function getPrize(): Prizes[0] | undefined {
 
 // Gets a random (but weighted) active milestone.
 let lastBidId = -1;
-function getBid(): Bids[0] | undefined {
+
+function getClonedBid(): Bids[0] | undefined {
   // Just return nothing if there are no bids to show.
   if (!bids.value.length) return undefined;
+
+  // if we have a solo, show that one
+  if (soloedBidID.value) {
+    const soloedBid = clone(bids.value).find((b) => b.id === soloedBidID.value);
+
+    // Make sure the bid id actually exists.
+    if (soloedBid) {
+      return soloedBid;
+    }
+
+    // remove the solo if the bid was deleted
+    soloedBidID.value = null;
+  }
+
   let filtered = clone(bids.value).filter((b) => b.id !== lastBidId);
   if (!filtered.length) filtered = clone(bids.value);
   const choices = filtered.reduce<{ bid: Bids[0], cumulativeWeight: number }[]>((prev, bid) => {
@@ -81,6 +99,7 @@ function getBid(): Bids[0] | undefined {
 
 // Gets a random active milestone.
 let lastMilestoneId = '';
+
 function getMilestone(): DonationTotalMilestones[0] | undefined {
   const active = clone(donationTotalMilestones.value).filter((m) => m.enabled && m.amount);
   // Just return nothing if there are no active milestones to show.
@@ -94,16 +113,20 @@ function getMilestone(): DonationTotalMilestones[0] | undefined {
 }
 
 let loopsWithoutResult = 0;
+
 async function showNext(): Promise<void> {
   // If there is a pin to start showing.
   const { pin } = omnibar.value;
+
   if (pin) {
     let item: DonationTotalMilestones[0] | Bids[0] | undefined;
+
     if (pin.type === 'Milestone') {
       item = donationTotalMilestones.value.find((m) => m.id === pin.id);
     } else if (pin.type === 'Bid') {
       item = bids.value.find((b) => b.id === pin.id);
     }
+
     if (item) {
       item = clone(item);
       nodecg().log.debug('[Omnibar] Pin available, will show:', pin.type);
@@ -122,6 +145,7 @@ async function showNext(): Promise<void> {
         id: uuid(),
         props: {
           seconds: -1,
+          bidId: pin.type === 'Bid' ? item.id : undefined,
           bid: pin.type === 'Bid' ? item : undefined,
           milestone: pin.type === 'Milestone' ? item : undefined,
           dash: dashConfig,
@@ -132,7 +156,7 @@ async function showNext(): Promise<void> {
       omnibar.value.pin = null;
       // showNext(); This is done in the "omnibar" replicant change listener
     }
-  // If there is alerts in the queue to show.
+    // If there is alerts in the queue to show.
   } else if (omnibar.value.alertQueue.length) {
     const alert = omnibar.value.alertQueue.shift();
     if (alert) {
@@ -178,9 +202,15 @@ async function showNext(): Promise<void> {
     loopsWithoutResult += 1;
     if (next.type === 'UpcomingRun') {
       const run = getUpcomingRun();
-      if (!run) { showNext(); return; }
-      omnibar.value.current = { ...next,
-        props: { ...next.props,
+      if (!run) {
+        showNext();
+        return;
+      }
+
+      omnibar.value.current = {
+        ...next,
+        props: {
+          ...next.props,
           run,
           dash: {
             text: 'Up next',
@@ -192,13 +222,23 @@ async function showNext(): Promise<void> {
       };
     } else if (next.type === 'Prize') {
       const prize = getPrize();
-      if (!prize) { showNext(); return; }
+      if (!prize) {
+        showNext();
+        return;
+      }
+
       omnibar.value.current = { ...next, props: { ...next.props, prize } };
     } else if (next.type === 'Milestone') {
       const milestone = getMilestone();
-      if (!milestone) { showNext(); return; }
-      omnibar.value.current = { ...next,
-        props: { ...next.props,
+      if (!milestone) {
+        showNext();
+        return;
+      }
+
+      omnibar.value.current = {
+        ...next,
+        props: {
+          ...next.props,
           milestone,
           dash: {
             text: 'Upcoming Milestone',
@@ -208,12 +248,19 @@ async function showNext(): Promise<void> {
         },
       };
     } else if (next.type === 'Bid') {
-      const bid = getBid();
-      if (!bid) { showNext(); return; }
-      omnibar.value.current = { ...next,
+      const bid = getClonedBid();
+
+      if (!bid) {
+        showNext();
+        return;
+      }
+
+      omnibar.value.current = {
+        ...next,
         props: {
           ...next.props,
           bid,
+          bidId: bid.id,
           dash: {
             text: bid.war ? 'Upcoming Bid War' : 'Upcoming Goal',
             fontSize: 34,
@@ -250,8 +297,8 @@ omnibar.on('change', (newVal, oldVal) => {
   // If nothing is currently being shown, and the rotation is filled from being empty,
   // or we get alerts in the queue, trigger the cycle to start up again.
   if (!newVal.current && oldVal
-  && ((newVal.rotation.length && !oldVal.rotation.length)
-  || (newVal.alertQueue.length && !oldVal.alertQueue.length))) {
+    && ((newVal.rotation.length && !oldVal.rotation.length)
+      || (newVal.alertQueue.length && !oldVal.alertQueue.length))) {
     showNext();
   }
 
@@ -264,10 +311,6 @@ omnibar.on('change', (newVal, oldVal) => {
 
 // Listens for messages from the graphic to change to the next message.
 nodecg().listenFor('omnibarShowNext', (data, ack) => {
-  // If omnibar was just showing mini credits and ended successfully, erase temp storage.
-  if (omnibar.value.current?.type === 'MiniCredits') {
-    tempMiniCreditsStorage = { runSubs: [], runCheers: [], runDonations: [] };
-  }
   showNext();
   if (ack && !ack?.handled) ack();
 });
@@ -309,7 +352,7 @@ nodecg().listenFor('omnibarPlaySound', async (data: { amount?: number } | undefi
             sourceName: config.obs.names.sources.donationSound,
           });
           nodecg().log.debug('[Omnibar] omnibarPlaySound media restarted');
-        // If different, explicitily set it. This also starts the playback.
+          // If different, explicitily set it. This also starts the playback.
         } else {
           await obs.conn.send('SetSourceSettings', {
             sourceName: config.obs.names.sources.donationSound,

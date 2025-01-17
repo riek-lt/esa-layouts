@@ -1,4 +1,33 @@
-import type { AdditionalDonations, Bids, BigbuttonPlayerMap, LowerThird, Commentators, CommentatorsNew, Countdown, CurrentRunDelay, DonationAlerts, DonationReader, DonationReaderNew, DonationTotal, DonationTotalMilestones, DonationsToRead, GameLayouts, IntermissionSlides, MusicData, ObsData, Omnibar, OtherStreamData, Prizes, ReaderIntroduction, ServerTimestamp, StreamDeckData, TtsVoices, UpcomingRunID, VideoPlayer } from '@esa-layouts/types/schemas';
+import type {
+  AdditionalDonations,
+  Bids,
+  BigbuttonPlayerMap,
+  LowerThird,
+  Commentators,
+  CommentatorsNew,
+  Countdown,
+  CurrentRunDelay,
+  DonationAlerts,
+  DonationReader,
+  DonationReaderNew,
+  DonationTotal,
+  DonationTotalMilestones,
+  DonationsToRead,
+  GameLayouts,
+  IntermissionSlides,
+  MusicData,
+  ObsData,
+  Omnibar,
+  OtherStreamData,
+  Prizes,
+  ReaderIntroduction,
+  ServerTimestamp,
+  StreamDeckData,
+  TtsVoices,
+  UpcomingRunID,
+  VideoPlayer,
+  MediaBox,
+} from '@esa-layouts/types/schemas';
 import type NodeCGTypes from '@nodecg/types';
 import clone from 'clone';
 import { SpeedcontrolUtilBrowser } from 'speedcontrol-util';
@@ -8,6 +37,8 @@ import Vue from 'vue';
 import type { Store } from 'vuex';
 import { namespace } from 'vuex-class';
 import { Module, Mutation, VuexModule, getModule } from 'vuex-module-decorators';
+import { soloedBidID } from '@esa-layouts/extension/util/replicants';
+import { SoloedBidID } from '@esa-layouts/types/schemas/soloedBidID';
 
 const sc = new SpeedcontrolUtilBrowser(nodecg);
 
@@ -16,6 +47,7 @@ export const reps: {
   additionalDonations: NodeCGTypes.ClientReplicant<AdditionalDonations>;
   assetsDonationAlertAssets: NodeCGTypes.ClientReplicant<NodeCGTypes.AssetFile[]>;
   assetsIntermissionSlides: NodeCGTypes.ClientReplicant<NodeCGTypes.AssetFile[]>;
+  assetsMediaBoxImages: NodeCGTypes.ClientReplicant<NodeCGTypes.AssetFile[]>;
   assetsReaderIntroductionImages: NodeCGTypes.ClientReplicant<NodeCGTypes.AssetFile[]>;
   bids: NodeCGTypes.ClientReplicant<Bids>;
   bigbuttonPlayerMap: NodeCGTypes.ClientReplicant<BigbuttonPlayerMap>;
@@ -32,6 +64,7 @@ export const reps: {
   gameLayouts: NodeCGTypes.ClientReplicant<GameLayouts>;
   intermissionSlides: NodeCGTypes.ClientReplicant<IntermissionSlides>;
   lowerThird: NodeCGTypes.ClientReplicant<LowerThird>;
+  mediaBox: NodeCGTypes.ClientReplicant<MediaBox>;
   musicData: NodeCGTypes.ClientReplicant<MusicData>;
   obsData: NodeCGTypes.ClientReplicant<ObsData>;
   omnibar: NodeCGTypes.ClientReplicant<Omnibar>;
@@ -52,6 +85,7 @@ export const reps: {
   additionalDonations: nodecg.Replicant('additionalDonations'),
   assetsDonationAlertAssets: nodecg.Replicant('assets:donation-alert-assets'),
   assetsIntermissionSlides: nodecg.Replicant('assets:intermission-slides'),
+  assetsMediaBoxImages: nodecg.Replicant('assets:media-box-images'),
   assetsReaderIntroductionImages: nodecg.Replicant('assets:reader-introduction-images'),
   bids: nodecg.Replicant('bids'),
   bigbuttonPlayerMap: nodecg.Replicant('bigbuttonPlayerMap'),
@@ -68,6 +102,7 @@ export const reps: {
   gameLayouts: nodecg.Replicant('gameLayouts'),
   intermissionSlides: nodecg.Replicant('intermissionSlides'),
   lowerThird: nodecg.Replicant('lowerThird'),
+  mediaBox: nodecg.Replicant('mediaBox'),
   musicData: nodecg.Replicant('musicData'),
   obsData: nodecg.Replicant('obsData'),
   omnibar: nodecg.Replicant('omnibar'),
@@ -78,6 +113,7 @@ export const reps: {
   runDataActiveRunSurrounding: sc.runDataActiveRunSurrounding,
   runDataArray: sc.runDataArray,
   serverTimestamp: nodecg.Replicant('serverTimestamp'),
+  soloedBidID: nodecg.Replicant('soloedBidID'),
   streamDeckData: nodecg.Replicant('streamDeckData'),
   timer: sc.timer,
   ttsVoices: nodecg.Replicant('ttsVoices'),
@@ -90,6 +126,7 @@ export interface ReplicantTypes {
   additionalDonations: AdditionalDonations;
   assetsDonationAlertAssets: NodeCGTypes.AssetFile[];
   assetsIntermissionSlides: NodeCGTypes.AssetFile[];
+  assetsMediaBoxImages: NodeCGTypes.AssetFile[];
   assetsReaderIntroductionImages: NodeCGTypes.AssetFile[];
   bids: Bids;
   bigbuttonPlayerMap: BigbuttonPlayerMap;
@@ -106,6 +143,7 @@ export interface ReplicantTypes {
   gameLayouts: GameLayouts;
   intermissionSlides: IntermissionSlides;
   lowerThird: LowerThird;
+  mediaBox: MediaBox;
   musicData: MusicData;
   obsData: ObsData;
   omnibar: Omnibar;
@@ -116,6 +154,7 @@ export interface ReplicantTypes {
   runDataActiveRunSurrounding: RunDataActiveRunSurrounding;
   runDataArray: RunDataArray;
   serverTimestamp: ServerTimestamp;
+  soloedBidID: SoloedBidID;
   streamDeckData: StreamDeckData;
   timer: Timer;
   ttsVoices: TtsVoices;

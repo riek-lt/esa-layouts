@@ -1,11 +1,9 @@
-import type { Tracker } from '@shared/types';
+import type { Tracker } from '@esa-layouts/types';
 import needle from 'needle';
 import { get as nodecg } from '../util/nodecg';
 import { donationsToRead } from '../util/replicants';
 import { eventInfo, getCookies } from './index';
-import utils from './utils';
-
-const { trackerUrl } = utils;
+import { trackerUrl } from './utils';
 
 const eventConfig = nodecg().bundleConfig.event;
 const { useTestData } = nodecg().bundleConfig;
@@ -15,7 +13,7 @@ let updateTimeout: NodeJS.Timeout;
 function processToReadDonations(donations: Tracker.Donation[]): Tracker.FormattedDonation[] {
   return donations.map((donation) => ({
     id: donation.pk,
-    name: donation.fields.donor__public,
+    name: donation.fields.visible_donor_name,
     amount: parseFloat(donation.fields.amount),
     comment: (donation.fields.commentstate === 'APPROVED') ? donation.fields.comment : undefined,
     timestamp: Date.parse(donation.fields.timereceived),
