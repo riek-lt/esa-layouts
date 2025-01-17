@@ -4,8 +4,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.resetAllCropFromStreamDeck = exports.changeCropFromFromStreamDeck = void 0;
-const countdown_1 = __importDefault(require("@shared/extension/countdown"));
 const clone_1 = __importDefault(require("clone"));
+const countdown_1 = __importDefault(require("./countdown"));
 const helpers_1 = require("./util/helpers");
 const nodecg_1 = require("./util/nodecg");
 const obs_1 = __importDefault(require("./util/obs"));

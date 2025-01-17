@@ -3,7 +3,6 @@
 // This must go first so we can use module aliases!
 /* eslint-disable import/first */
 require('module-alias').addAlias('@esa-layouts', require('path').join(__dirname, '.'));
-require('module-alias').addAlias('@shared', require('path').join(__dirname, '../zoton_shared'));
 const nodecg_1 = require("./util/nodecg");
 module.exports = (nodecg) => {
     (0, nodecg_1.set)(nodecg);

@@ -27,8 +27,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.searchOengusPronouns = exports.searchSrcomPronouns = void 0;
-const audio_normaliser_1 = __importDefault(require("@shared/extension/audio-normaliser"));
 const needle_1 = __importDefault(require("needle"));
+const audio_normaliser_1 = __importDefault(require("./audio-normaliser"));
 const server_1 = require("./server");
 const helpers_1 = require("./util/helpers");
 const mqLogging = __importStar(require("./util/mq-logging"));

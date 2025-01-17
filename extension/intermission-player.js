@@ -27,7 +27,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.startPlaylist = exports.player = void 0;
-const video_player_1 = __importDefault(require("@shared/extension/video-player"));
+const video_player_1 = __importDefault(require("./util/video-player"));
 const uuid_1 = require("uuid");
 const helpers_1 = require("./util/helpers");
 const mqLogging = __importStar(require("./util/mq-logging"));
