@@ -5,11 +5,14 @@ import {
   BigbuttonPlayerMap,
   CapturePositions,
   Commentators,
-  CommentatorsNew, Countdown,
+  CommentatorsNew,
+  Countdown,
   CurrentRunDelay,
   DelayedTimer,
-  DonationAlerts, DonationReader,
-  DonationReaderNew, DonationsToRead,
+  DonationAlerts,
+  DonationReader,
+  DonationReaderNew,
+  DonationsToRead,
   DonationTotal,
   DonationTotalMilestones,
   GameLayouts,
@@ -25,13 +28,15 @@ import {
   ReaderIntroduction,
   ServerTimestamp,
   StreamDeckData,
-  TaskmasterTimestamps, TtsVoices,
+  TaskmasterTimestamps,
+  TtsVoices,
   UpcomingRunID,
   VideoPlayer,
 } from '@esa-layouts/types/schemas';
 import type NodeCGTypes from '@nodecg/types';
 import { HoraroImportStatus, OengusImportStatus, TwitchAPIData, TwitchChannelInfo } from 'speedcontrol-util/types/schemas';
 import { get as nodecg } from './nodecg';
+import { SoloedBidID } from '@esa-layouts/types/schemas/soloedBidID';
 
 /**
  * This is where you can declare all your replicant to import easily into other files,
@@ -71,6 +76,7 @@ export const otherStreamData = nodecg().Replicant<OtherStreamData>('otherStreamD
 export const prizes = nodecg().Replicant<Prizes>('prizes', { persistent: false }) as unknown as NodeCGTypes.ServerReplicantWithSchemaDefault<Prizes>;
 export const readerIntroduction = nodecg().Replicant<ReaderIntroduction>('readerIntroduction') as unknown as NodeCGTypes.ServerReplicantWithSchemaDefault<ReaderIntroduction>;
 export const serverTimestamp = nodecg().Replicant<ServerTimestamp>('serverTimestamp') as unknown as NodeCGTypes.ServerReplicantWithSchemaDefault<ServerTimestamp>;
+export const soloedBidID = nodecg().Replicant<SoloedBidID>('soloedBidID') as unknown as NodeCGTypes.ServerReplicantWithSchemaDefault<SoloedBidID>;
 export const streamDeckData = nodecg().Replicant<StreamDeckData>('streamDeckData') as unknown as NodeCGTypes.ServerReplicantWithSchemaDefault<StreamDeckData>;
 export const taskmasterTimestamps = nodecg().Replicant<TaskmasterTimestamps>('taskmasterTimestamps') as unknown as NodeCGTypes.ServerReplicantWithSchemaDefault<TaskmasterTimestamps>;
 export const ttsVoices = nodecg().Replicant<TtsVoices>('ttsVoices') as unknown as NodeCGTypes.ServerReplicantWithSchemaDefault<TtsVoices>;
