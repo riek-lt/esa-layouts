@@ -44,10 +44,10 @@
   //
   // ctx.fillRect(0, 0, canvas.width, canvas.height / 2);
 
-  ctx.mlFillTextBsg(runInfo.game, 0, -15, canvas.width, canvas.height / 2, 'bottom', 'center', 30);
+  // ctx.mlFillTextBsg(runInfo.game, 0, -15, canvas.width, canvas.height / 2, 'bottom', 'center', 30);
 
   /**
-   *
+   * TODO: this function is broken, try to fix it
    * @param {CanvasRenderingContext2D} context - canvas context
    * @param {string} text
    * @param {number} x
@@ -73,15 +73,13 @@
       const str = words.slice(0,idx).join(' ');
       const w = context.measureText(str).width;
 
-      console.log(w);
-
-      if ( w > fitWidth ) {
+      if ( w >= fitWidth ) {
         console.log('bigger');
         if (idx === 1) {
           idx=2;
         }
 
-        drawMainText(context, words.slice(0,idx-1).join(' '), x, y + (lineHeight*currentLine), undefined)
+        drawMainText(context, words.slice(0,idx-1).join(' '), x, y + (lineHeight*currentLine), fitWidth)
         // context.fillText( words.slice(0,idx-1).join(' '), x, y + (lineHeight*currentLine) );
         currentLine++;
         words = words.splice(idx-1);
@@ -91,13 +89,16 @@
       }
     }
 
-    if  (idx > 3) {
+    if  (idx > 0) {
       // context.fillText( words.join(' '), x, y + (lineHeight*currentLine) );
-      drawMainText(context, words.join(' '), x, y + (lineHeight*currentLine), undefined)
+      drawMainText(context, words.join(' '), x, y + (lineHeight*currentLine), fitWidth)
     }
   }
-
-  // printAtWordWrap(ctx, runInfo.game, 10, 40, 50, canvas.width - 50)
+  ctx.fillStyle = 'white';
+  ctx.font = '23px Goodlight'
+  ctx.textAlign = 'left'
+  ctx.textBaseline = 'bottom';
+  printAtWordWrap(ctx, runInfo.game, 10, 40, 40, canvas.width)
 </script>
 </body>
 </html>

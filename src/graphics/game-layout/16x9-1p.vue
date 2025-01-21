@@ -63,7 +63,7 @@
         height: '176px',
       }"
     >
-      <run-info text-align="left" info-is-row />
+      <run-info-canvas width="710" height="176" text-align="left" info-is-row />
     </div>
 
     <!-- Media Box / Reader / Comms -->
@@ -101,9 +101,11 @@ import Timer from './components/Timer.vue';
 import DonationBar from './components/DonationBar.vue';
 import FlashingLightsWarning from './components/FlashingLightsWarning.vue';
 import MediaBoxBox from './components/MediaBoxBox.vue';
+import RunInfoCanvas from '@esa-layouts/game-layout/components/RunInfoCanvas.vue';
 
 @Component({
   components: {
+    RunInfoCanvas,
     GameCapture,
     Player,
     CommentatorsReader,
