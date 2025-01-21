@@ -33,7 +33,7 @@
           height: '281px',
         }"
   >
-    <run-info line-right />
+    <run-info-canvas :width="575" :height="281" line-right />
     <flashing-lights-warning class="Flex" style="align-self: flex-end" />
   </div>
 
@@ -86,9 +86,11 @@ import DonationBar from './components/DonationBar.vue';
 import CommentatorsReader from './components/CommentatorsReader.vue';
 import FlashingLightsWarning from './components/FlashingLightsWarning.vue';
 import Timer from './components/Timer.vue';
+import RunInfoCanvas from '@esa-layouts/game-layout/components/RunInfoCanvas.vue';
 
 @Component({
   components: {
+    RunInfoCanvas,
     GameCapture,
     Player,
     CommentatorsReader,

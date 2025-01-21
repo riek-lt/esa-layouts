@@ -43,8 +43,11 @@
   // ctx.shadowBlur = 20;
   //
   // ctx.fillRect(0, 0, canvas.width, canvas.height / 2);
-
-  // ctx.mlFillTextBsg(runInfo.game, 0, -15, canvas.width, canvas.height / 2, 'bottom', 'center', 30);
+  ctx.fillStyle = 'white';
+  ctx.font = '20px Goodlight'
+  ctx.textAlign = 'left'
+  ctx.textBaseline = 'bottom';
+  ctx.mlFillTextBsg(runInfo.game, 0, -15, canvas.width, canvas.height / 2, 'bottom', 'center', 30);
 
   /**
    * TODO: this function is broken, try to fix it
@@ -94,11 +97,8 @@
       drawMainText(context, words.join(' '), x, y + (lineHeight*currentLine), fitWidth)
     }
   }
-  ctx.fillStyle = 'white';
-  ctx.font = '23px Goodlight'
-  ctx.textAlign = 'left'
-  ctx.textBaseline = 'bottom';
-  printAtWordWrap(ctx, runInfo.game, 10, 40, 40, canvas.width)
+
+  // printAtWordWrap(ctx, runInfo.game, 10, 40, 40, canvas.width - 20)
 </script>
 </body>
 </html>

@@ -50,16 +50,18 @@ export default class extends Vue {
     ctx.fillStyle = 'white';
     ctx.font = '23px Goodlight';
     ctx.textAlign = 'left';
-    ctx.textBaseline = 'bottom';
+    ctx.textBaseline = 'ideographic';
     ctx.textAlign = this.textAlign;
   }
 
+  // TODO: have a look at the mltext.js library
+  //  It might be better
   drawMainText(ctx: CanvasRenderingContext2D, text: string, x: number, y: number, maxWidth: number | undefined) {
     // Draw the background shadow first
     ctx.shadowBlur = 3;
     ctx.shadowColor = 'black';
-    ctx.shadowOffsetX = 2;
-    ctx.shadowOffsetY = 2;
+    ctx.shadowOffsetX = 0;
+    ctx.shadowOffsetY = 3;
 
     this.setupMainFont(ctx);
     // y = font size in px
@@ -68,8 +70,8 @@ export default class extends Vue {
     // Then draw the orange shadow
     ctx.shadowBlur = 0;
     ctx.shadowColor = '#cf773b';
-    ctx.shadowOffsetX = 2;
-    ctx.shadowOffsetY = 2;
+    ctx.shadowOffsetX = 0;
+    ctx.shadowOffsetY = 3;
     // y = font size in px
     ctx.fillText(text, x, y, maxWidth);
   }
@@ -102,7 +104,8 @@ export default class extends Vue {
           idx = 2;
         }
 
-        this.drawMainText(context, words.slice(0, idx - 1).join(' '), x, y + (lineHeight * currentLine), lineWidth);
+        const strToDraw = words.slice(0, idx - 1).join(' ').trim();
+        this.drawMainText(context, strToDraw, x, y + (lineHeight * currentLine), lineWidth);
         // context.fillText( words.slice(0,idx-1).join(' '), x, y + (lineHeight*currentLine) );
         currentLine += 1;
         words = words.splice(idx - 1);
@@ -114,8 +117,36 @@ export default class extends Vue {
 
     if (idx > 0) {
       // context.fillText( words.join(' '), x, y + (lineHeight*currentLine) );
-      this.drawMainText(context, words.join(' '), x, y + (lineHeight * currentLine), fitWidth);
+      this.drawMainText(context, words.join(' '), x, y + (lineHeight * currentLine), lineWidth);
     }
+  }
+
+  drawConsole(system: string): void {
+    // reset shadow
+    this.context.shadowBlur = 0;
+    this.context.shadowOffsetX = 0;
+    this.context.shadowOffsetY = 0;
+
+    this.context.fillStyle = 'white';
+    this.context.font = '15pt Corbel-Bold';
+    this.context.textAlign = this.textAlign;
+    this.context.textBaseline = 'bottom';
+
+    this.context.fillText(system, 5, (this.canvas.height / 2) + 33, this.canvas.width - 10);
+  }
+
+  drawCategoryEstimate(category: string, estimate: string): void {
+    // reset shadow
+    this.context.shadowBlur = 0;
+    this.context.shadowOffsetX = 0;
+    this.context.shadowOffsetY = 0;
+
+    this.context.fillStyle = '#cf773b';
+    this.context.font = '15pt Goodlight';
+    this.context.textAlign = this.textAlign;
+    this.context.textBaseline = 'bottom';
+
+    this.context.fillText(`${category} | ${estimate}`, 5, this.canvas.height - 10, this.canvas.width - 10);
   }
 
   fit(): void {
@@ -125,12 +156,26 @@ export default class extends Vue {
     const gameName = this.runData?.game;
 
     if (gameName) {
-      this.printAtWordWrap(this.context, gameName, 10, 40, 40, this.canvas.width);
+      this.printAtWordWrap(this.context, gameName, 5, 40, 40, this.canvas.width - 10);
+    }
+
+    const system = this.runData?.system;
+
+    if (system) {
+      this.drawConsole(system.toUpperCase());
+    }
+
+    const category = this.runData?.category;
+    const estimate = this.runData?.estimate;
+
+    if (category && estimate) {
+      this.drawCategoryEstimate(category.toUpperCase(), estimate.toUpperCase());
     }
   }
 
   async mounted(): Promise<void> {
     this.context = this.canvas.getContext('2d')!;
+    this.setupMainFont(this.context);
     await Vue.nextTick();
     this.fit();
   }
@@ -168,6 +213,7 @@ export default class extends Vue {
   height: 100%;
   width: 100%;
   justify-content: center;
+  // Ensure the font is loaded
   font-weight: 300;
   font-family: Goodlight;
 }
@@ -175,110 +221,7 @@ export default class extends Vue {
 .runDataContainer {
   box-sizing: border-box;
   //padding: 5px 20px;
-  padding: 8px;
+  //padding: 8px;
   justify-content: flex-start;
-}
-
-.RunGameParent {
-  flex: 0 1 auto;
-  /* The above is shorthand for:
-   flex-grow: 0,
-   flex-shrink: 1,
-   flex-basis: auto
-  */
-  width: 100%;
-  position: relative;
-  display: block;
-  //overflow: hidden;
-  height: auto;
-  max-height: 85%;
-  white-space: unset !important;
-  font-size: 50pt;
-  text-align: var(--prop-text-align);
-  justify-content: var(--prop-justify-content);
-  align-items: var(--prop-justify-content);
-  //background: rebeccapurple;
-}
-
-.RunGame {
-  display: inline-flex;
-  font-family: Goodlight;
-  font-weight: 600;
-  margin-top: 10px;
-  position: relative;
-  text-shadow: 0.1em 0.05em 0px var(--bsg-color), 0.1em 0.15em 3px rgba(0, 0, 0, 0.5);
-  //font-size: 3em;
-}
-
-.runInfoExtraContainer {
-  flex: 1 1 auto;
-  width: 100%;
-  //height: 100%;
-  height: auto;
-  font-size: 20pt;
-  align-items: baseline;
-  //background-color: orange;
-  text-align: var(--prop-text-align);
-  justify-content: var(--prop-justify-content);
-}
-
-.system {
-  text-transform: uppercase;
-}
-
-.systemEst {
-  //align-self: flex-start;
-  // Is this cheating and wrong? Probably, don't care tho
-  margin-top: -6px;
-  text-shadow: 1px 2px 3px rgba(0, 0, 0, 0.5);
-  display: inline-flex;
-  font-family: Corbel-Bold;
-}
-
-.catEstBlock {
-  display: inline-flex;
-  text-shadow: 1px 2px 3px rgba(0, 0, 0, 0.5);
-  //align-self: flex-start;
-  //margin-bottom: 15px;
-}
-
-.RunInfoExtra {
-  display: flex !important;
-  justify-content: space-between;
-  align-content: flex-start;
-  margin-top: 5px;
-  font-size: 1em;
-  height: 100%;
-  width: 99%;
-  font-weight: 300;
-  font-family: Goodlight;
-  text-align: var(--prop-text-align);
-
-  //span {
-  //  display: inline-block !important;
-  //}
-
-  &> .catEstBlock > span:not(:last-child)::after {
-    content: ' | ';
-    color: var(--text-color);
-    display: inline-block;
-    margin-left: 15px;
-    margin-right: 15px;
-  }
-
-  &> .systemEst > span:not(:last-child)::after {
-    content: ' | ';
-    color: var(--bsg-color);
-    display: inline-block;
-    margin-left: 15px;
-    margin-right: 15px;
-  }
-}
-
-.categoryEst {
-  text-transform: uppercase;
-  color: var(--bsg-color);
-  font-size: 1rem;
-  white-space: normal;
 }
 </style>

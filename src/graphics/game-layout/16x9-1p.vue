@@ -63,7 +63,7 @@
         height: '176px',
       }"
     >
-      <run-info-canvas width="710" height="176" text-align="left" info-is-row />
+      <run-info-canvas :width="710" :height="176" text-align="left" info-is-row />
     </div>
 
     <!-- Media Box / Reader / Comms -->

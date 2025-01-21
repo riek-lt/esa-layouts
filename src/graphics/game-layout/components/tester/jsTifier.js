@@ -172,6 +172,8 @@ function mlFunction(text, x, y, w, h, hAlign, vAlign, lineheight, fn) {
   };
 
   CanvasRenderingContext2D.prototype.mlFillTextBsg = function (text, x, y, w, h, vAlign, hAlign, lineheight) {
+    this.strokeStyle = 'cornflowerblue';
+    this.strokeRect(x, y, w, h);
     this.font = '23px Goodlight';
     return this.mlFunction(text, x, y, w, h, hAlign, vAlign, lineheight, "fillBsgText");
   };
