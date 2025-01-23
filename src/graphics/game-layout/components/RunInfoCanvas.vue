@@ -19,7 +19,6 @@ import { Vue, Component, Prop, Watch, Ref } from 'vue-property-decorator'; // es
 import { State } from 'vuex-class';
 import { RunDataActiveRun } from 'speedcontrol-util/types';
 
-/* eslint-disable no-param-reassign */
 @Component
 export default class extends Vue {
   @State('runDataActiveRun') runData!: RunDataActiveRun;
@@ -46,34 +45,34 @@ export default class extends Vue {
     return this.height - 14;
   }
 
-  setupMainFont(ctx: CanvasRenderingContext2D) {
-    ctx.fillStyle = 'white';
-    ctx.font = '23px Goodlight';
-    ctx.textAlign = 'left';
-    ctx.textBaseline = 'ideographic';
-    ctx.textAlign = this.textAlign;
+  setupMainFont() {
+    this.context.fillStyle = 'white';
+    this.context.font = '23px Goodlight';
+    this.context.textAlign = 'left';
+    this.context.textBaseline = 'ideographic';
+    this.context.textAlign = this.textAlign;
   }
 
   // TODO: have a look at the mltext.js library
   //  It might be better
-  drawMainText(ctx: CanvasRenderingContext2D, text: string, x: number, y: number, maxWidth: number | undefined) {
+  drawMainText(text: string, x: number, y: number, maxWidth: number | undefined) {
     // Draw the background shadow first
-    ctx.shadowBlur = 3;
-    ctx.shadowColor = 'black';
-    ctx.shadowOffsetX = 0;
-    ctx.shadowOffsetY = 3;
+    this.context.shadowBlur = 3;
+    this.context.shadowColor = 'black';
+    this.context.shadowOffsetX = 0;
+    this.context.shadowOffsetY = 3;
 
-    this.setupMainFont(ctx);
+    this.setupMainFont();
     // y = font size in px
-    ctx.fillText(text, x, y, maxWidth);
+    this.context.fillText(text, x, y, maxWidth);
 
     // Then draw the orange shadow
-    ctx.shadowBlur = 0;
-    ctx.shadowColor = '#cf773b';
-    ctx.shadowOffsetX = 0;
-    ctx.shadowOffsetY = 3;
+    this.context.shadowBlur = 0;
+    this.context.shadowColor = '#cf773b';
+    this.context.shadowOffsetX = 0;
+    this.context.shadowOffsetY = 3;
     // y = font size in px
-    ctx.fillText(text, x, y, maxWidth);
+    this.context.fillText(text, x, y, maxWidth);
   }
 
   printAtWordWrap(
@@ -88,7 +87,7 @@ export default class extends Vue {
 
     if (lineWidth <= 0) {
       // context.fillText( text, x, y );
-      this.drawMainText(context, text, x, y, undefined);
+      this.drawMainText(text, x, y, undefined);
       return;
     }
     let words = text.split(' ');
@@ -105,7 +104,7 @@ export default class extends Vue {
         }
 
         const strToDraw = words.slice(0, idx - 1).join(' ').trim();
-        this.drawMainText(context, strToDraw, x, y + (lineHeight * currentLine), lineWidth);
+        this.drawMainText(strToDraw, x, y + (lineHeight * currentLine), lineWidth);
         // context.fillText( words.slice(0,idx-1).join(' '), x, y + (lineHeight*currentLine) );
         currentLine += 1;
         words = words.splice(idx - 1);
@@ -117,7 +116,7 @@ export default class extends Vue {
 
     if (idx > 0) {
       // context.fillText( words.join(' '), x, y + (lineHeight*currentLine) );
-      this.drawMainText(context, words.join(' '), x, y + (lineHeight * currentLine), lineWidth);
+      this.drawMainText(words.join(' '), x, y + (lineHeight * currentLine), lineWidth);
     }
   }
 
@@ -175,7 +174,7 @@ export default class extends Vue {
 
   async mounted(): Promise<void> {
     this.context = this.canvas.getContext('2d')!;
-    this.setupMainFont(this.context);
+    this.setupMainFont();
     await Vue.nextTick();
     this.fit();
   }
