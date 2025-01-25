@@ -19,6 +19,21 @@ import { Vue, Component, Prop, Watch, Ref } from 'vue-property-decorator'; // es
 import { State } from 'vuex-class';
 import { RunDataActiveRun } from 'speedcontrol-util/types';
 
+import './tester/jsTifierExtensionFunctions';
+import './tester/jsTifier';
+
+type VAlign = 'top' | 'center' | 'bottom';
+type HAlign = 'left' | 'center' | 'right' | 'justify';
+
+interface JSTifierContextExtension {
+  /* eslint-disable max-len */
+  mlFillTextBsg: (text: string, x: number, y: number, w: number, h: number, vAlign: VAlign, hAlign: HAlign, lineHeight: number) => void;
+  mlFillText: (text: string, x: number, y: number, w: number, h: number, vAlign: VAlign, hAlign: HAlign, lineHeight: number) => void;
+  /* enable-disable max-len */
+}
+
+type CustomCanvasContext = CanvasRenderingContext2D & JSTifierContextExtension;
+
 @Component
 export default class extends Vue {
   @State('runDataActiveRun') runData!: RunDataActiveRun;
@@ -26,11 +41,11 @@ export default class extends Vue {
   @Prop(Boolean) readonly infoIsRow!: boolean;
   @Prop({ type: Number }) readonly width!: number;
   @Prop({ type: Number }) readonly height!: number;
-  @Prop({ type: String, default: 'center' }) readonly textAlign!: CanvasTextAlign;
+  @Prop({ type: String, default: 'center' }) readonly textAlign!: HAlign;
   @Prop({ type: Boolean, default: false }) lineLeft!: string;
   @Prop({ type: Boolean, default: false }) lineRight!: string;
   @Ref('runInfo') canvas!: HTMLCanvasElement;
-  context!: CanvasRenderingContext2D;
+  context!: CustomCanvasContext;
   lineHeight: string | null = null;
 
   get gameNameUpper(): string {
@@ -50,7 +65,7 @@ export default class extends Vue {
     this.context.font = '23px Goodlight';
     this.context.textAlign = 'left';
     this.context.textBaseline = 'ideographic';
-    this.context.textAlign = this.textAlign;
+    // this.context.textAlign = this.textAlign;
   }
 
   // TODO: have a look at the mltext.js library
@@ -128,10 +143,17 @@ export default class extends Vue {
 
     this.context.fillStyle = 'white';
     this.context.font = '15pt Corbel-Bold';
-    this.context.textAlign = this.textAlign;
-    this.context.textBaseline = 'bottom';
 
-    this.context.fillText(system, 5, (this.canvas.height / 2) + 33, this.canvas.width - 10);
+    this.context.mlFillText(
+      system,
+      0,
+      (this.canvas.height / 2),
+      this.canvas.width,
+      50,
+      'top',
+      this.textAlign,
+      35,
+    );
   }
 
   drawCategoryEstimate(category: string, estimate: string): void {
@@ -142,10 +164,21 @@ export default class extends Vue {
 
     this.context.fillStyle = '#cf773b';
     this.context.font = '15pt Goodlight';
-    this.context.textAlign = this.textAlign;
-    this.context.textBaseline = 'bottom';
 
-    this.context.fillText(`${category} | ${estimate}`, 5, this.canvas.height - 10, this.canvas.width - 10);
+    const textItem = `${category} | ${estimate}`;
+
+    this.context.mlFillText(
+      textItem,
+      0,
+      this.canvas.height - 45,
+      this.canvas.width,
+      45,
+      'top',
+      this.textAlign,
+      35,
+    );
+
+    // this.context.fillText(textItem, 0, this.canvas.height - 10, this.canvas.width - 10);
   }
 
   fit(): void {
@@ -155,7 +188,16 @@ export default class extends Vue {
     const gameName = this.runData?.game;
 
     if (gameName) {
-      this.printAtWordWrap(this.context, gameName, 5, 40, 40, this.canvas.width - 10);
+      this.context.mlFillTextBsg(
+        gameName.trim(),
+        0,
+        5,
+        this.canvas.width,
+        this.canvas.height / 2,
+        'top',
+        this.textAlign,
+        35,
+      );
     }
 
     const system = this.runData?.system;
@@ -173,7 +215,7 @@ export default class extends Vue {
   }
 
   async mounted(): Promise<void> {
-    this.context = this.canvas.getContext('2d')!;
+    this.context = this.canvas.getContext('2d') as CustomCanvasContext;
     this.setupMainFont();
     await Vue.nextTick();
     this.fit();

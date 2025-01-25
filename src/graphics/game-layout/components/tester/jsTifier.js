@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 // Go to the end of the file to see the example
 
 /// START OF THE mltext.js LIBRARY
@@ -168,13 +170,15 @@ function mlFunction(text, x, y, w, h, hAlign, vAlign, lineheight, fn) {
   CanvasRenderingContext2D.prototype.mlFunction = mlFunction;
 
   CanvasRenderingContext2D.prototype.mlFillText = function (text, x, y, w, h, vAlign, hAlign, lineheight) {
+    // this.strokeStyle = 'orange';
+    // this.strokeRect(x, y, w, h);
     return this.mlFunction(text, x, y, w, h, hAlign, vAlign, lineheight, "fillText");
   };
 
   CanvasRenderingContext2D.prototype.mlFillTextBsg = function (text, x, y, w, h, vAlign, hAlign, lineheight) {
-    this.strokeStyle = 'cornflowerblue';
-    this.strokeRect(x, y, w, h);
-    this.font = '23px Goodlight';
+    // this.strokeStyle = 'cornflowerblue';
+    // this.strokeRect(x, y, w, h);
+    setupMainFont(this);
     return this.mlFunction(text, x, y, w, h, hAlign, vAlign, lineheight, "fillBsgText");
   };
 
