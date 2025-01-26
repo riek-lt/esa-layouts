@@ -48,10 +48,6 @@ export default class extends Vue {
   context!: CustomCanvasContext;
   lineHeight: string | null = null;
 
-  get gameNameUpper(): string {
-    return this.runData?.game?.toUpperCase() ?? 'N/A';
-  }
-
   get canvasWidth(): number {
     return this.width - 14;
   }
@@ -65,74 +61,6 @@ export default class extends Vue {
     this.context.font = '23px Goodlight';
     this.context.textAlign = 'left';
     this.context.textBaseline = 'ideographic';
-    // this.context.textAlign = this.textAlign;
-  }
-
-  // TODO: have a look at the mltext.js library
-  //  It might be better
-  drawMainText(text: string, x: number, y: number, maxWidth: number | undefined) {
-    // Draw the background shadow first
-    this.context.shadowBlur = 3;
-    this.context.shadowColor = 'black';
-    this.context.shadowOffsetX = 0;
-    this.context.shadowOffsetY = 3;
-
-    this.setupMainFont();
-    // y = font size in px
-    this.context.fillText(text, x, y, maxWidth);
-
-    // Then draw the orange shadow
-    this.context.shadowBlur = 0;
-    this.context.shadowColor = '#cf773b';
-    this.context.shadowOffsetX = 0;
-    this.context.shadowOffsetY = 3;
-    // y = font size in px
-    this.context.fillText(text, x, y, maxWidth);
-  }
-
-  printAtWordWrap(
-    context: CanvasRenderingContext2D,
-    text: string,
-    x: number,
-    y: number,
-    lineHeight: number,
-    fitWidth: number | undefined,
-  ) {
-    const lineWidth = fitWidth || 0;
-
-    if (lineWidth <= 0) {
-      // context.fillText( text, x, y );
-      this.drawMainText(text, x, y, undefined);
-      return;
-    }
-    let words = text.split(' ');
-    let currentLine = 0;
-    let idx = 1;
-
-    while (words.length > 0 && idx <= words.length) {
-      const str = words.slice(0, idx).join(' ');
-      const w = context.measureText(str).width;
-
-      if (w >= lineWidth) {
-        if (idx === 1) {
-          idx = 2;
-        }
-
-        const strToDraw = words.slice(0, idx - 1).join(' ').trim();
-        this.drawMainText(strToDraw, x, y + (lineHeight * currentLine), lineWidth);
-        // context.fillText( words.slice(0,idx-1).join(' '), x, y + (lineHeight*currentLine) );
-        currentLine += 1;
-        words = words.splice(idx - 1);
-        idx = 1;
-      } else {
-        idx += 1;
-      }
-    }
-
-    if (idx > 0) {
-      // context.fillText( words.join(' '), x, y + (lineHeight*currentLine) );
-      this.drawMainText(words.join(' '), x, y + (lineHeight * currentLine), lineWidth);
-    }
   }
 
   drawConsole(system: string): void {
@@ -177,8 +105,6 @@ export default class extends Vue {
       this.textAlign,
       35,
     );
-
-    // this.context.fillText(textItem, 0, this.canvas.height - 10, this.canvas.width - 10);
   }
 
   fit(): void {
@@ -189,7 +115,7 @@ export default class extends Vue {
 
     if (gameName) {
       this.context.mlFillTextBsg(
-        gameName.trim(),
+        gameName.trim().toUpperCase(),
         0,
         5,
         this.canvas.width,
@@ -223,17 +149,6 @@ export default class extends Vue {
 
   destroyed(): void {
     //
-  }
-
-  get textAlignCss(): string {
-    return this.textAlign === 'center' ? 'center' : 'left';
-  }
-
-  get cssPositionProps() {
-    return {
-      '--prop-text-align': this.textAlignCss,
-      '--prop-justify-content': this.textAlign,
-    };
   }
 
   @Watch('runData', { deep: true })

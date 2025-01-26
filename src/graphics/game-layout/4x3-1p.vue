@@ -7,21 +7,23 @@
         left: '591px',
         top: '0px',
         width: '1329px',
-        height: '988px'
+        height: '989px'
       }"
     />
 
     <!-- Camera Captures -->
     <div
       id="CameraCapture1"
-      class="Capture Relative"
+      class="Capture Relative Flex"
       :style="{
         left: '0px',
         top: '344px',
         width: '568px',
         height: '332px'
       }"
-    />
+    >
+      <flashing-lights-warning class="Flex" style="align-self: flex-end" />
+    </div>
 
   <!-- Run Game Info -->
   <div
@@ -34,7 +36,6 @@
         }"
   >
     <run-info-canvas :width="575" :height="281" line-right />
-    <flashing-lights-warning class="Flex" style="align-self: flex-end" />
   </div>
 
     <!-- Player -->
@@ -81,12 +82,11 @@ import { Vue, Component } from 'vue-property-decorator';
 import MediaBoxBox from './components/MediaBoxBox.vue';
 import GameCapture from './components/GameCapture.vue';
 import Player from './components/Player.vue';
-import RunInfo from './components/RunInfo.vue';
 import DonationBar from './components/DonationBar.vue';
 import CommentatorsReader from './components/CommentatorsReader.vue';
 import FlashingLightsWarning from './components/FlashingLightsWarning.vue';
 import Timer from './components/Timer.vue';
-import RunInfoCanvas from '@esa-layouts/game-layout/components/RunInfoCanvas.vue';
+import RunInfoCanvas from './components/RunInfoCanvas.vue';
 
 @Component({
   components: {
@@ -94,7 +94,6 @@ import RunInfoCanvas from '@esa-layouts/game-layout/components/RunInfoCanvas.vue
     GameCapture,
     Player,
     CommentatorsReader,
-    RunInfo,
     Timer,
     MediaBox,
     MediaBoxBox,

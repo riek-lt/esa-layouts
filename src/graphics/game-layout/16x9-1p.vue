@@ -96,12 +96,11 @@ import { Vue, Component } from 'vue-property-decorator';
 import GameCapture from './components/GameCapture.vue';
 import Player from './components/Player.vue';
 import CommentatorsReader from './components/CommentatorsReader.vue';
-import RunInfo from './components/RunInfo.vue';
 import Timer from './components/Timer.vue';
 import DonationBar from './components/DonationBar.vue';
 import FlashingLightsWarning from './components/FlashingLightsWarning.vue';
 import MediaBoxBox from './components/MediaBoxBox.vue';
-import RunInfoCanvas from '@esa-layouts/game-layout/components/RunInfoCanvas.vue';
+import RunInfoCanvas from './components/RunInfoCanvas.vue';
 
 @Component({
   components: {
@@ -109,7 +108,6 @@ import RunInfoCanvas from '@esa-layouts/game-layout/components/RunInfoCanvas.vue
     GameCapture,
     Player,
     CommentatorsReader,
-    RunInfo,
     Timer,
     MediaBoxBox,
     DonationBar,
