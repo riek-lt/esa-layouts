@@ -6,7 +6,6 @@
       :style="{
       'border-right': lineRight ? '5px solid var(--slide-color)' : '5px solid rgba(0,0,0,0)',
       'border-left': lineLeft ? '5px solid var(--slide-color)' : '5px solid rgba(0,0,0,0)',
-      'line-height': lineHeight || 'unset',
     }"
     >
       <canvas :width="canvasWidth" :height="canvasHeight" ref="runInfo"/>
@@ -39,8 +38,6 @@ type CustomCanvasContext = CanvasRenderingContext2D & JSTifierContextExtension;
 @Component
 export default class extends Vue {
   @State('runDataActiveRun') runData!: RunDataActiveRun;
-  @Prop(Boolean) readonly noWrap!: boolean;
-  @Prop(Boolean) readonly infoIsRow!: boolean;
   @Prop({ type: Number }) readonly width!: number;
   @Prop({ type: Number }) readonly height!: number;
   @Prop({ type: String, default: 'center' }) readonly textAlign!: HAlign;
@@ -48,7 +45,6 @@ export default class extends Vue {
   @Prop({ type: Boolean, default: false }) lineRight!: string;
   @Ref('runInfo') canvas!: HTMLCanvasElement;
   context!: CustomCanvasContext;
-  lineHeight: string | null = null;
 
   get canvasWidth(): number {
     return this.width - 14;
@@ -154,12 +150,7 @@ export default class extends Vue {
   }
 
   @Watch('runData', { deep: true })
-  async onRunDataChange(newVal: RunDataActiveRun, oldVal?: RunDataActiveRun): Promise<void> {
-    // Re-fit the elements if run data becomes definded (as elements do no exist before this).
-    if ((newVal && !oldVal) || this.noWrap) {
-      this.lineHeight = null;
-    }
-
+  async onRunDataChange(): Promise<void> {
     await Vue.nextTick();
     this.fit();
   }
