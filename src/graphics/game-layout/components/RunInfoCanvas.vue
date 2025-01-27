@@ -34,6 +34,8 @@ interface JSTifierContextExtension {
 
 type CustomCanvasContext = CanvasRenderingContext2D & JSTifierContextExtension;
 
+// TODO: https://stackoverflow.com/questions/4712242/wait-for-fonts-to-load-before-rendering-web-page
+// useHead to insert the pre-load for the fonts.
 @Component
 export default class extends Vue {
   @State('runDataActiveRun') runData!: RunDataActiveRun;
